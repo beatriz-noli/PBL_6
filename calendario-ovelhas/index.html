@@ -37,7 +37,7 @@
 body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:24px 24px;}
-.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 48px;display:grid;gap:18px}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 48px;display:grid;gap:18px}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
 h1{font-size:clamp(26px,4.2vw,40px);font-weight:800}
 h2{font-size:22px;font-weight:700}
@@ -48,6 +48,10 @@ button{cursor:pointer}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 .muted{color:var(--ink-soft)}
 .eyebrow{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--ink-soft)}
+
+/* ---------- fórmulas ao fundo ---------- */
+.formulas{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;color:var(--ink);opacity:.075;font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-style:italic}
+.formulas span{position:absolute;white-space:nowrap}
 
 /* ---------- topo ---------- */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -84,6 +88,8 @@ button{cursor:pointer}
 /* ---------- shabat ---------- */
 .shabat{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:22px;background:linear-gradient(90deg,var(--gold-soft),var(--jew-soft));border:1.5px solid var(--line);box-shadow:var(--shadow);flex-wrap:wrap}
 .shabat svg{flex:none}
+.shabat .scene-mini{width:min(240px,100%);border-radius:16px;overflow:hidden;margin-left:auto}
+.shabat .scene-mini svg{display:block;width:100%;height:auto}
 .shabat h2{font-size:clamp(24px,3.4vw,32px);color:var(--ink)}
 .shabat p{margin:2px 0 0;color:var(--ink-soft);font-weight:600}
 .flame{transform-origin:50% 90%;animation:flick 1.6s ease-in-out infinite}
@@ -160,7 +166,6 @@ button.item:hover{border-color:var(--line)}
 .mini-sheep{width:34px;height:34px;flex:none}
 .empty{display:grid;justify-items:center;text-align:center;gap:6px;padding:10px 6px;color:var(--ink-soft);font-weight:600;font-size:14px}
 .empty svg{width:120px;height:auto}
-.shabat-card{background:linear-gradient(160deg,var(--gold-soft),var(--card) 70%)}
 .times{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .time-box{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:8px 10px}
 .time-box b{font-family:var(--f-mono);font-size:20px;font-weight:500;display:block}
@@ -170,6 +175,8 @@ button.item:hover{border-color:var(--line)}
 .overlay{position:fixed;inset:0;background:rgba(30,24,60,.42);display:grid;place-items:center;z-index:50;padding:16px;padding-top:max(16px,env(safe-area-inset-top,0px));padding-bottom:max(16px,env(safe-area-inset-bottom,0px));backdrop-filter:blur(2px)}
 .modal{width:min(560px,100%);max-height:100%;overflow:auto;background:var(--card);border-radius:24px;border:1.5px solid var(--line);box-shadow:0 30px 60px -20px rgba(0,0,0,.5);padding:20px;display:grid;gap:14px;animation:rise .2s ease-out}
 @keyframes rise{from{transform:translateY(14px);opacity:0}}
+.modal-art{border-radius:16px;overflow:hidden}
+.modal-art svg{display:block;width:100%;height:auto}
 .modal-head{display:flex;align-items:center;gap:12px}
 .modal-head svg{width:56px;height:56px;flex:none}
 .field{display:grid;gap:5px}
@@ -195,7 +202,7 @@ textarea.inp{min-height:64px;resize:vertical}
 /* ---------- compras ---------- */
 .shop{display:grid;gap:18px}
 .shop-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
 .cat{border:1.5px solid var(--line);background:var(--card);border-radius:20px;overflow:hidden;padding:0;text-align:left;box-shadow:var(--shadow);display:grid;transition:transform .15s}
 .cat:hover{transform:translateY(-3px)}
 .cat[aria-pressed="true"]{outline:3px solid var(--juntos);outline-offset:2px}
@@ -221,6 +228,34 @@ textarea.inp{min-height:64px;resize:vertical}
 .sitem .x{border:0;background:transparent;color:var(--ink-soft);width:28px;height:28px;border-radius:8px;flex:none}
 .sitem .x:hover{background:var(--ela-soft);color:var(--ela)}
 .sitem svg.ws{width:26px;height:24px;flex:none}
+
+/* ---------- wishlist ---------- */
+.wish{display:grid;gap:18px}
+.wish-top{overflow:hidden;position:relative}
+.wish-top svg{display:block;width:100%;height:auto}
+.wish-top .ttl{position:absolute;left:clamp(14px,3vw,28px);bottom:clamp(10px,2.4vw,22px);display:grid;gap:2px;max-width:46%}
+.wish-top .ttl h2{font-size:clamp(20px,3.4vw,34px);color:#2E2A4A}
+.wish-top .ttl span{color:#6E6890;font-weight:700;font-size:13px}
+.wish-body{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;align-items:start}
+.wish-form{padding:16px;display:grid;gap:10px}
+.wish-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;min-width:0}
+.wcard{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:8px;box-shadow:var(--shadow);align-content:start;min-width:0}
+.wcard h3{overflow-wrap:anywhere}
+.wcard .price{font-family:var(--f-mono);font-size:14px;color:var(--ink-soft)}
+.wcard p{margin:0;font-size:13.5px;color:var(--ink-soft);overflow-wrap:anywhere}
+.wcard .acts{display:flex;gap:6px;flex-wrap:wrap}
+.wcard a.btn{text-decoration:none;color:var(--ink)}
+.wcard.got{opacity:.7}
+.wcard.got h3{text-decoration:line-through}
+.hearts{display:flex;gap:2px;color:var(--ela)}
+.hearts svg{width:16px;height:16px}
+.hearts .off{opacity:.25}
+.prio-pick{display:flex;gap:6px}
+.prio-pick button{border:2px solid var(--line);background:var(--card-2);border-radius:12px;padding:5px 9px;display:flex;gap:1px;color:var(--ela)}
+.prio-pick button svg{width:15px;height:15px}
+.prio-pick button[aria-checked="true"]{border-color:var(--ela);background:var(--ela-soft)}
+.secret{background:var(--ele-soft);color:var(--ele);font-size:12px;font-weight:800;border-radius:999px;padding:3px 9px;justify-self:start}
+@media (max-width:980px){.wish-body{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- rebanho ---------- */
 .flock{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
@@ -248,19 +283,22 @@ textarea.inp{min-height:64px;resize:vertical}
   .add-row{grid-template-columns:minmax(0,1fr) 70px}
   .add-row .mine,.add-row .btn{grid-column:span 1}
   .tab{padding:7px 11px}
+  .tabs{border-radius:20px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
+<div class="formulas" id="formulas" aria-hidden="true"></div>
 <div class="wrap" id="app">
   <header class="top">
     <div class="brand">
-      <svg width="52" height="52" viewBox="-70 -70 140 140" aria-hidden="true" id="brandSheep"></svg>
+      <svg width="56" height="52" viewBox="-70 -58 140 126" aria-hidden="true" id="brandSheep"></svg>
       <div><h1>Lã-boratório das Ovelhas</h1><small id="subtitle">Calendário do rebanho de duas cientistas</small></div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Seções">
       <button class="tab" role="tab" id="tab-cal" aria-selected="true" data-view="cal"></button>
       <button class="tab" role="tab" id="tab-shop" aria-selected="false" data-view="shop"></button>
+      <button class="tab" role="tab" id="tab-wish" aria-selected="false" data-view="wish"></button>
       <button class="tab" role="tab" id="tab-flock" aria-selected="false" data-view="flock"></button>
     </nav>
   </header>
@@ -288,7 +326,6 @@ textarea.inp{min-height:64px;resize:vertical}
     </div>
     <aside class="side">
       <div class="panel" id="dayPanel"></div>
-      <div class="panel shabat-card" id="shabatCard"></div>
       <div class="panel" id="upcoming"></div>
     </aside>
   </section>
@@ -300,6 +337,14 @@ textarea.inp{min-height:64px;resize:vertical}
     </div>
     <div class="panel cat-detail" id="catDetail"></div>
     <div class="cats" id="cats"></div>
+  </section>
+
+  <section id="view-wish" class="wish" hidden>
+    <div class="panel wish-top" id="wishTop"></div>
+    <div class="wish-body">
+      <form class="panel wish-form" id="wishForm"></form>
+      <div class="wish-list" id="wishList"></div>
+    </div>
   </section>
 
   <section id="view-flock" class="flock" hidden></section>
@@ -395,24 +440,6 @@ function holidaysFor(d){
   return list;
 }
 
-/* Pôr do sol em São Paulo (algoritmo do almanaque NOAA, simplificado) */
-const SP = {lat:-23.5505, lng:-46.6333, tz:-3};
-function sunset(d){
-  const rad = Math.PI/180, N = Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()) - Date.UTC(d.getFullYear(),0,0))/864e5);
-  const lngH = SP.lng/15, t = N + (18-lngH)/24, M = 0.9856*t - 3.289;
-  let L = (M + 1.916*Math.sin(M*rad) + 0.020*Math.sin(2*M*rad) + 282.634) % 360; if (L<0) L+=360;
-  let RA = Math.atan(0.91764*Math.tan(L*rad))/rad; RA = (RA+360)%360;
-  RA = (RA + Math.floor(L/90)*90 - Math.floor(RA/90)*90)/15;
-  const sinDec = 0.39782*Math.sin(L*rad), cosDec = Math.cos(Math.asin(sinDec));
-  const cosH = (Math.cos(90.833*rad) - sinDec*Math.sin(SP.lat*rad))/(cosDec*Math.cos(SP.lat*rad));
-  const H = Math.acos(cosH)/rad/15, T = H + RA - 0.06571*t - 6.622;
-  let UT = (T - lngH) % 24; if (UT<0) UT+=24;
-  let local = (UT + SP.tz + 24) % 24; return local*60; // minutos desde 0h
-}
-const hm = m => `${pad(Math.floor(m/60))}:${pad(Math.round(m%60)%60)}`;
-const candleTime = d => hm(sunset(d) - 18);
-const havdalaTime = d => hm(sunset(d) + 42);
-
 /* =========================================================
    Ícones
    ========================================================= */
@@ -420,6 +447,7 @@ const I = {
   cal:'<path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/>',
   cart:'<path d="M3 4h2l2.5 11h10L20 7H6.2M9 20a1 1 0 1 0 0-.1M17 20a1 1 0 1 0 0-.1"/>',
   flock:'<path d="M7 13a3 3 0 1 1 1.5-5.6A3 3 0 0 1 14 8a3 3 0 1 1 1 5.8V16H8v-2.2A3 3 0 0 1 7 13zM9 16v3M13 16v3"/>',
+  gift:'<path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7C10 3 6 3 6 5.5S12 7 12 7zm0 0c2-4 6-4 6-1.5S12 7 12 7z"/>',
   left:'<path d="M15 5l-7 7 7 7"/>', right:'<path d="M9 5l7 7-7 7"/>',
   aula:'<path d="M3 5h6a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H3zM21 5h-6a3 3 0 0 0-3 3v11a2 2 0 0 1 2-2h7z"/>',
   prova:'<path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3"/>',
@@ -454,48 +482,66 @@ const colorOf = (who,type) => (state.settings.palettes?.[who]?.[type]) || DEFAUL
 /* =========================================================
    Desenhos: as ovelhas
    ========================================================= */
-const C = {wool:'#FFFFFF', line:'#E2DAF0', face:'#F8E4D6', ear:'#EEC5AF', hoof:'#5A5168', blush:'#FF9DB9', ink:'#2E2A4A'};
+const C = {wool:'#FFFDF7', ol:'#6B5444', curl:'#EADFCF', face:'#F7E3CF', ear:'#F0D0B5', earIn:'#F7B4B8', leg:'#EBD3BA', legBack:'#DDC2A6', blush:'#FFA3B1', ink:'#4A3A30', line:'#6B5444', hoof:'#6B5444'};
 function puffs(list, fill, stroke, sw=2.5){
   return `<g fill="${fill}" stroke="${stroke}" stroke-width="${sw}">${list.map(([a,b,r])=>`<circle cx="${a}" cy="${b}" r="${r}"/>`).join('')}</g>`+
-         `<g fill="${fill}">${list.map(([a,b,r])=>`<circle cx="${a}" cy="${b}" r="${r-sw}"/>`).join('')}</g>`;
+         `<g fill="${fill}">${list.map(([a,b,r])=>`<circle cx="${a}" cy="${b}" r="${r-sw/2-.4}"/>`).join('')}</g>`;
 }
 function eye(cx,cy,iris,mood,side){
-  if (mood==='sleep' || (mood==='wink' && side>0)) return `<path d="M${cx-6} ${cy} Q${cx} ${cy+5} ${cx+6} ${cy}" stroke="${C.ink}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
-  if (mood==='happy-closed') return `<path d="M${cx-6} ${cy+2} Q${cx} ${cy-5} ${cx+6} ${cy+2}" stroke="${C.ink}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
-  return `<circle cx="${cx}" cy="${cy}" r="6.6" fill="${iris}"/><circle cx="${cx}" cy="${cy+.4}" r="3.7" fill="#1E1A2B"/><circle cx="${cx-2}" cy="${cy-2.2}" r="2" fill="#fff"/><circle cx="${cx+2.2}" cy="${cy+2}" r=".9" fill="#fff"/>`;
+  const st = `stroke="${C.ink}" stroke-width="2.3" fill="none" stroke-linecap="round"`;
+  if (mood==='sleep' || (mood==='wink' && side>0)) return `<path d="M${cx-4} ${cy} Q${cx} ${cy+3.5} ${cx+4} ${cy}" ${st}/>`;
+  if (mood==='happy-closed') return `<path d="M${cx-4} ${cy+1.5} Q${cx} ${cy-3.5} ${cx+4} ${cy+1.5}" ${st}/>`;
+  return `<ellipse cx="${cx}" cy="${cy}" rx="3.9" ry="4.8" fill="${iris}"/><ellipse cx="${cx}" cy="${cy+.5}" rx="2.1" ry="2.7" fill="#2A211C"/><circle cx="${cx-1.3}" cy="${cy-1.8}" r="1.3" fill="#fff"/>`;
 }
-/** who: 'ela' (menor, lacinho rosa, olhos verdes) | 'ele' (óculos redondos, olhos castanhos) */
+/** Ovelha de lado, estilo kawaii (olhando para a esquerda; flip olha para a direita).
+ *  who: 'ela' (ovelha bebê, lacinho rosa, olhos verdes) | 'ele' (maior, olhos castanhos) */
 function sheep({x=0,y=0,s=1,who='ela',mood='happy',wet=false,acc=[],flip=false,body=true,cls='bob'}={}){
-  const ela = who==='ela', iris = ela ? '#36A867' : '#7A5236';
-  const wool = wet ? '#EEF7FF' : C.wool, line = wet ? '#BFDCF2' : C.line;
+  const ela = who==='ela', iris = ela ? '#3FAE6E' : '#6B4429';
+  const wool = wet ? '#EEF7FF' : C.wool, OL = C.ol;
   let g = '';
   if (body){
-    g += `<rect x="-27" y="34" width="13" height="26" rx="6.5" fill="${C.hoof}"/><rect x="14" y="34" width="13" height="26" rx="6.5" fill="${C.hoof}"/>`;
-    g += puffs([[0,16,38],[-31,6,19],[31,6,19],[-38,26,17],[38,26,17],[-22,42,17],[22,42,17],[0,46,17],[-17,-8,17],[17,-8,17]], wool, line);
-    if (acc.includes('stetho')) g += `<path d="M-20 -2 C-22 22 -8 30 0 30 C8 30 22 22 20 -2" fill="none" stroke="#FF7AAE" stroke-width="3.2" stroke-linecap="round"/><circle cx="0" cy="31" r="5.5" fill="#C9CCDA" stroke="#FF7AAE" stroke-width="2.5"/>`;
-    if (acc.includes('bowtie')) g += `<path d="M0 4 L-13 -3 L-13 11 Z M0 4 L13 -3 L13 11 Z" fill="#4C8BD9" stroke="#2F67B0" stroke-width="1.5" stroke-linejoin="round"/><circle cx="0" cy="4" r="3.5" fill="#2F67B0"/>`;
-    if (acc.includes('coat')) g += `<path d="M-24 0 L-6 24 L-6 52 M24 0 L6 24 L6 52" stroke="#D6D9E6" stroke-width="3" fill="none"/><rect x="11" y="28" width="9" height="11" rx="2" fill="none" stroke="#D6D9E6" stroke-width="2"/><path d="M14 27 v-4" stroke="#4C8BD9" stroke-width="2.4"/>`;
+    const leg = (lx,c) => `<rect x="${lx}" y="28" width="9.5" height="30" rx="4.5" fill="${c}" stroke="${OL}" stroke-width="2.2"/><path d="M${lx+1.1} 51 h7.3 v3.5 a3.6 3.6 0 0 1 -3.6 3.6 a3.6 3.6 0 0 1 -3.7 -3.6z" fill="${OL}"/>`;
+    g += leg(6,C.legBack) + leg(40,C.legBack) + leg(-12,C.leg) + leg(24,C.leg);
+    g += puffs([[57,4,7.5]], wool, OL, 2.6);
+    g += puffs([[10,12,28],[-14,4,14],[-12,24,14],[4,-10,14],[22,-10,14],[40,-4,14],[50,12,13],[42,28,14],[22,32,14],[2,32,14],[-20,14,10]], wool, OL, 2.6);
+    g += `<g stroke="${C.curl}" stroke-width="2" fill="none" stroke-linecap="round"><path d="M14 4 q4 -4 8 0"/><path d="M30 16 q4 -4 8 0"/><path d="M6 22 q4 -4 8 0"/></g>`;
+    if (acc.includes('coat')) g += `<path d="M-18 -8 Q10 -20 40 -14 Q60 -2 54 26 Q50 40 30 42 L-10 42 Q-26 36 -26 18 Q-26 2 -18 -8Z" fill="#F3F6FC" stroke="#9FAEC6" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M-16 -6 L-4 16 L-22 12Z" fill="#FFFFFF" stroke="#9FAEC6" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M-4 16 Q-6 30 -6 42" stroke="#9FAEC6" stroke-width="2" fill="none"/><circle cx="-1" cy="24" r="2" fill="#9FAEC6"/><circle cx="-1" cy="34" r="2" fill="#9FAEC6"/>
+      <rect x="20" y="16" width="16" height="13" rx="2.5" fill="#F3F6FC" stroke="#9FAEC6" stroke-width="2"/><path d="M24.5 17 v-7" stroke="#FF7AAE" stroke-width="2.6" stroke-linecap="round"/><path d="M30 17 v-5.5" stroke="#4C8BD9" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="38" y="4" width="13" height="9" rx="2.5" fill="#FFB5CB"/><path d="M41 8.5 h7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>`;
+    if (acc.includes('bowtie')) g += `<g transform="translate(-12 14) rotate(-10)"><path d="M0 0 L-11 -7 L-11 7 Z M0 0 L11 -7 L11 7 Z" fill="#4C8BD9" stroke="#2F67B0" stroke-width="1.6" stroke-linejoin="round"/><circle r="3.3" fill="#2F67B0"/></g>`;
+    if (acc.includes('match')) g += `<path d="M-8 26 Q-30 30 -46 18" stroke="${OL}" stroke-width="13" stroke-linecap="round" fill="none"/><path d="M-8 26 Q-30 30 -46 18" stroke="${wool}" stroke-width="8.6" stroke-linecap="round" fill="none"/><circle cx="-48" cy="16" r="5" fill="${OL}"/><line x1="-50" y1="14" x2="-84" y2="-12" stroke="#E8B36B" stroke-width="3" stroke-linecap="round"/><circle cx="-85" cy="-13" r="3" fill="#C2410C"/><path class="flame" d="M-86 -27 C-80 -20 -80 -15 -86 -13 C-92 -15 -92 -20 -86 -27Z" fill="#FFB020"/>`;
   }
-  g += `<ellipse cx="-31" cy="-24" rx="13" ry="6.5" transform="rotate(-24 -31 -24)" fill="${C.ear}"/><ellipse cx="31" cy="-24" rx="13" ry="6.5" transform="rotate(24 31 -24)" fill="${C.ear}"/>`;
-  g += `<ellipse cx="0" cy="-22" rx="25" ry="23.5" fill="${C.face}"/>`;
-  g += puffs([[-13,-43,9.5],[0,-48,10.5],[13,-43,9.5]], wool, line, 2.2);
-  g += eye(-10,-23,iris,mood,-1) + eye(10,-23,iris,mood,1);
-  if (ela) g += `<path d="M-18 -31 q2 -2 5 -1.5 M18 -31 q-2 -2 -5 -1.5" stroke="${C.ink}" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".55"/>`;
-  g += `<ellipse cx="-17" cy="-12" rx="5.5" ry="3.2" fill="${C.blush}" opacity=".75"/><ellipse cx="17" cy="-12" rx="5.5" ry="3.2" fill="${C.blush}" opacity=".75"/>`;
-  g += mood==='o' ? `<ellipse cx="0" cy="-8" rx="3" ry="3.6" fill="${C.ink}"/>` : `<path d="M-5.5 -10 Q0 -4.5 5.5 -10" stroke="${C.ink}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
-  if (!ela && !acc.includes('noglasses')) g += `<g fill="rgba(255,255,255,.18)" stroke="#3A3550" stroke-width="2.2"><circle cx="-10" cy="-23" r="9.5"/><circle cx="10" cy="-23" r="9.5"/></g><path d="M-0.5 -24 h1 M-19.5 -25 L-25 -27 M19.5 -25 L25 -27" stroke="#3A3550" stroke-width="2.2" stroke-linecap="round"/>`;
-  if (ela) g += `<g transform="translate(-15 -48) rotate(-18)"><path d="M0 0 C-5 -11 -20 -11 -19 1 C-18 11 -6 7 0 0Z M0 0 C5 -11 20 -11 19 1 C18 11 6 7 0 0Z" fill="#FF7AAE" stroke="#E0528A" stroke-width="2" stroke-linejoin="round"/><path d="M-3 2 L-8 13 M3 2 L8 13" stroke="#E0528A" stroke-width="3" stroke-linecap="round"/><circle r="4.6" fill="#FF5C9A" stroke="#E0528A" stroke-width="1.6"/></g>`;
-  if (acc.includes('kippah')) g += `<path d="M10 -50 a14 7 0 0 1 26 6 z" fill="#3A66CF" stroke="#2A4FA8" stroke-width="1.5" transform="rotate(10 20 -48)"/>`;
-  if (acc.includes('bandaid')) g += `<g transform="translate(14 -36) rotate(35)"><rect x="-9" y="-3.5" width="18" height="7" rx="3.5" fill="#F7C99A"/><rect x="-3" y="-3.5" width="6" height="7" fill="#EDB27D"/></g>`;
-  if (acc.includes('thermo')) g += `<g transform="translate(6 -9) rotate(-20)"><rect x="0" y="-2" width="22" height="4" rx="2" fill="#E9EDF6" stroke="#9AA3B8" stroke-width="1"/><circle cx="22" cy="0" r="3" fill="#FF5C7A"/></g>`;
-  if (acc.includes('headphones')) g += `<path d="M-27 -22 A27 30 0 0 1 27 -22" fill="none" stroke="#7B6CD9" stroke-width="4"/><rect x="-33" y="-28" width="9" height="15" rx="4" fill="#7B6CD9"/><rect x="24" y="-28" width="9" height="15" rx="4" fill="#7B6CD9"/>`;
-  if (wet) g += `<g fill="#7CC4F2"><path d="M-36 -40 q4 7 0 9 q-4 -2 0 -9z"/><path d="M40 -8 q4 7 0 9 q-4 -2 0 -9z"/><path d="M-46 12 q3.5 6 0 8 q-3.5 -2 0 -8z"/></g>`;
-  if (acc.includes('foam')) g += puffs([[-6,-56,7],[6,-60,8],[16,-54,6],[-16,-55,5]],'#FFFFFF','#CDE6F7',1.6);
+  // cabeça (olha para a esquerda)
+  let h = '';
+  h += `<ellipse cx="-6" cy="-10" rx="12" ry="6.5" transform="rotate(28 -6 -10)" fill="${C.ear}" stroke="${OL}" stroke-width="2.4"/><ellipse cx="-6" cy="-10" rx="6.5" ry="3" transform="rotate(28 -6 -10)" fill="${C.earIn}"/>`;
+  h += `<ellipse cx="-51" cy="-8" rx="12" ry="6.5" transform="rotate(-28 -51 -8)" fill="${C.ear}" stroke="${OL}" stroke-width="2.4"/><ellipse cx="-51" cy="-8" rx="6.5" ry="3" transform="rotate(-28 -51 -8)" fill="${C.earIn}"/>`;
+  h += `<ellipse cx="-28" cy="-5" rx="22" ry="20" fill="${C.face}" stroke="${OL}" stroke-width="2.6"/>`;
+  h += puffs([[-45,-17,8],[-39,-27,9.5],[-27,-31,10],[-15,-27,9.5],[-9,-17,8]], wool, OL, 2.6);
+  h += `<rect x="-46" y="-19" width="36" height="7" fill="${wool}"/>`;
+  h += eye(-36,-1,iris,mood,-1) + eye(-20,-1,iris,mood,1);
+  h += `<ellipse cx="-42" cy="7" rx="4.6" ry="2.8" fill="${C.blush}" opacity=".8"/><ellipse cx="-14" cy="7" rx="4.6" ry="2.8" fill="${C.blush}" opacity=".8"/>`;
+  h += mood==='o' ? `<ellipse cx="-28" cy="8" rx="2.4" ry="3" fill="${C.ink}"/>` : `<path d="M-31.5 6.5 Q-28 10 -24.5 6.5" stroke="${C.ink}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  if (ela) h += `<g transform="translate(-44 -30) rotate(-20)"><path d="M0 0 C-5 -10 -18 -10 -17 1 C-16 10 -5 6 0 0Z M0 0 C5 -10 18 -10 17 1 C16 10 5 6 0 0Z" fill="#FF7AAE" stroke="#D9437E" stroke-width="2" stroke-linejoin="round"/><path d="M-3 2 L-7 12 M3 2 L7 12" stroke="#D9437E" stroke-width="3" stroke-linecap="round"/><circle r="4.4" fill="#FF5C9A" stroke="#D9437E" stroke-width="1.6"/></g>`;
+  if (acc.includes('kippah')) h += `<path d="M-38 -36 Q-27 -46 -16 -36 Z" fill="#3A66CF" stroke="#2A4FA8" stroke-width="1.8" stroke-linejoin="round"/><path d="M-32 -39 h10" stroke="#9FC0FF" stroke-width="1.4" stroke-linecap="round"/>`;
+  if (acc.includes('bandaid')) h += `<g transform="translate(-14 -24) rotate(35)"><rect x="-9" y="-3.5" width="18" height="7" rx="3.5" fill="#F7C99A"/><rect x="-3" y="-3.5" width="6" height="7" fill="#EDB27D"/></g>`;
+  if (acc.includes('thermo')) h += `<g transform="translate(-30 8) rotate(160)"><rect x="0" y="-2" width="22" height="4" rx="2" fill="#E9EDF6" stroke="#9AA3B8" stroke-width="1"/><circle cx="22" cy="0" r="3" fill="#FF5C7A"/></g>`;
+  if (acc.includes('headphones')) h += `<path d="M-50 -6 A23 26 0 0 1 -6 -6" fill="none" stroke="#7B6CD9" stroke-width="4"/><rect x="-55" y="-11" width="9" height="15" rx="4" fill="#7B6CD9"/><rect x="-10" y="-11" width="9" height="15" rx="4" fill="#7B6CD9"/>`;
+  if (acc.includes('foam')) h += puffs([[-34,-40,7],[-22,-43,8],[-12,-38,6],[-44,-36,5]],'#FFFFFF','#BFDCF2',1.8);
+  if (wet) h += `<g fill="#7CC4F2"><path d="M-58 -26 q4 7 0 9 q-4 -2 0 -9z"/><path d="M4 -30 q4 7 0 9 q-4 -2 0 -9z"/><path d="M-62 10 q3.5 6 0 8 q-3.5 -2 0 -8z"/></g>`;
+  g += body ? h : `<g transform="translate(28 4)">${h}</g>`;
   const t = `translate(${x} ${y}) scale(${flip?-s:s} ${s})`;
   return `<g transform="${t}"><g class="${cls}" style="transform-box:fill-box;transform-origin:50% 100%">${g}</g></g>`;
 }
-const miniSheep = (who, extra='') => `<svg class="mini-sheep" viewBox="-60 -70 120 135" aria-hidden="true" ${extra}>${who==='juntos'
-  ? sheep({x:16,y:4,s:.72,who:'ele',cls:''})+sheep({x:-18,y:12,s:.62,who:'ela',cls:''}) : sheep({who,s:who==='ela'?.9:1,cls:''})}</svg>`;
+// quando o compromisso é de trabalho, a ovelha bebê aparece de jaleco
+const WORKING = ['lab','trabalho'];
+const miniSheep = (who, type=null) => { const acc = WORKING.includes(type) ? ['coat'] : [];
+  return `<svg class="mini-sheep" viewBox="-66 -56 132 122" aria-hidden="true">${who==='juntos'
+  ? sheep({x:16,y:0,s:.66,who:'ele',cls:''})+sheep({x:-22,y:12,s:.56,who:'ela',acc,flip:true,cls:''}) : sheep({who,s:who==='ela'?.9:1,acc:who==='ela'?acc:[],flip:who==='ela',cls:''})}</svg>`; };
+const trefoil = (x,y,s=1) => { const sec = a => { const r=Math.PI/180, a1=(a-30)*r, a2=(a+30)*r, P=(R,t)=>`${(R*Math.cos(t)).toFixed(2)} ${(R*Math.sin(t)).toFixed(2)}`;
+  return `<path d="M${P(3.6,a1)} L${P(10,a1)} A10 10 0 0 1 ${P(10,a2)} L${P(3.6,a2)} A3.6 3.6 0 0 0 ${P(3.6,a1)}Z" fill="#2E2A4A"/>`; };
+  return `<g transform="translate(${x} ${y}) scale(${s})"><circle r="13" fill="#FFD43B" stroke="#2E2A4A" stroke-width="1.5"/>${[-90,30,150].map(sec).join('')}<circle r="2.4" fill="#2E2A4A"/></g>`; };
 const heart = (x,y,s=1,c='#FF6F91') => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 6 C-10 -2 -8 -10 -3 -10 C-1 -10 0 -8 0 -7 C0 -8 1 -10 3 -10 C8 -10 10 -2 0 6Z" fill="${c}"/>`;
 const sparkle = (x,y,s=1,c='#FFD36E') => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 -8 Q1 -1 8 0 Q1 1 0 8 Q-1 1 -8 0 Q-1 -1 0 -8Z" fill="${c}"/>`;
 const bubble = (x,y,r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="rgba(255,255,255,.55)" stroke="#9FD3F5" stroke-width="1.4"/><circle cx="${x-r*.35}" cy="${y-r*.35}" r="${r*.22}" fill="#fff"/>`;
@@ -506,15 +552,24 @@ function heroScene(){
   return `<svg class="scene" viewBox="0 0 960 300" role="img" aria-label="Ovelha de laço rosa num laboratório de engenharia biomédica e ovelha de óculos com computador e física">
   <defs><pattern id="stars" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="8" cy="10" r="1.2" fill="#fff" opacity=".5"/><circle cx="40" cy="34" r="1" fill="#fff" opacity=".35"/></pattern></defs>
   <rect width="960" height="300" fill="url(#stars)" opacity=".6"/>
+  <g font-family="Cambria Math, STIX Two Math, Georgia, serif" font-style="italic" font-size="15">
+    <text x="20" y="24" fill="#E0528A" opacity=".8">C·dP/dt + P/R = Q(t)</text>
+    <text x="318" y="64" fill="#8E6CD8" opacity=".75">Q = πr⁴ΔP / 8μL</text>
+    <text x="126" y="128" fill="#36A867" opacity=".8" font-size="13">A = εlc</text>
+    <text x="430" y="40" fill="#8E6CD8" opacity=".7" font-size="14">Σ 1/n² = π²/6</text>
+    <text x="548" y="26" fill="#3F82D6" opacity=".8">e<tspan dy="-6" font-size="10">iπ</tspan><tspan dy="6"> + 1 = 0</tspan></text>
+    <text x="70" y="240" fill="#8E6CD8" opacity=".6" font-size="12">E = (RT/zF)·ln(Cₒ/Cᵢ)</text>
+    <text x="690" y="244" fill="#3F82D6" opacity=".65" font-size="12">∇×B = μ₀J + μ₀ε₀ ∂E/∂t</text>
+  </g>
   <!-- ECG -->
   <path d="M20 58 H90 l10 -22 l12 44 l10 -36 l8 14 H190" fill="none" stroke="#FF7AAE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="blink"/>
   ${heart(212,58,1.6,'#FF7AAE')}
   <!-- DNA -->
-  <g class="float" transform="translate(268 30)">
+  <g transform="translate(268 30)"><g class="float">
     ${Array.from({length:9},(_,i)=>{const y=i*13,x1=Math.sin(i*.75)*16;return `<line x1="${x1}" y1="${y}" x2="${-x1}" y2="${y}" stroke="${i%2?'#7FD1AE':'#F48FB1'}" stroke-width="3" stroke-linecap="round"/>`}).join('')}
     <path d="${Array.from({length:9},(_,i)=>`${i?'L':'M'}${Math.sin(i*.75)*16} ${i*13}`).join(' ')}" fill="none" stroke="#E0528A" stroke-width="3"/>
     <path d="${Array.from({length:9},(_,i)=>`${i?'L':'M'}${-Math.sin(i*.75)*16} ${i*13}`).join(' ')}" fill="none" stroke="#36A867" stroke-width="3"/>
-  </g>
+  </g></g>
   <!-- bancada dela -->
   <rect x="20" y="196" width="300" height="12" rx="6" fill="#E8D6F5"/>
   <rect x="34" y="208" width="10" height="60" fill="#D9C4EC"/><rect x="296" y="208" width="10" height="60" fill="#D9C4EC"/>
@@ -548,10 +603,10 @@ function heroScene(){
       <text x="18" y="90" fill="#9FD0FF">if (bééé) return amor;</text>
       <text x="18" y="116" fill="#FFD36E" font-size="13">01100010 01100101</text>
     </g>
-    <g transform="translate(236 40)" class="float"><circle r="5" fill="#FFD36E"/>
+    <g transform="translate(236 40)"><g class="float"><circle r="5" fill="#FFD36E"/>
       <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2"/>
       <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2" transform="rotate(60)"/>
-      <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2" transform="rotate(-60)"/></g>
+      <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2" transform="rotate(-60)"/></g></g>
   </g>
   <rect x="640" y="200" width="300" height="12" rx="6" fill="#CFE0F5"/>
   <rect x="654" y="212" width="10" height="56" fill="#BCD2EE"/><rect x="916" y="212" width="10" height="56" fill="#BCD2EE"/>
@@ -564,9 +619,9 @@ function heroScene(){
   </g>
   <g transform="translate(700 170)"><rect width="30" height="30" rx="4" fill="#5FC0C6"/><path d="M6 8 h18 M6 15 h12 M6 22 h16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="40" cy="22" r="8" fill="#FFD36E"/><path d="M40 14 v-6" stroke="#8E9AB8" stroke-width="2"/></g>
   <!-- as ovelhas -->
-  <g class="sheep-hit" data-who="ele" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEle)}">${sheep({x:545,y:188,s:1.18,who:'ele',acc:['bowtie']})}</g>
-  <g class="sheep-hit" data-who="ela" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEla)}">${sheep({x:420,y:203,s:.92,who:'ela',acc:['stetho']})}</g>
-  <g class="float">${heart(482,96,1.8)}${heart(505,72,1.1,'#FFB5CB')}</g>
+  <g class="sheep-hit" data-who="ele" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEle)}">${sheep({x:568,y:190,s:1.18,who:'ele',acc:['bowtie']})}</g>
+  <g class="sheep-hit" data-who="ela" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEla)}">${sheep({x:404,y:206,s:.92,who:'ela',acc:['coat'],flip:true})}</g>
+  <g class="float">${heart(486,110,1.8)}${heart(508,86,1.1,'#FFB5CB')}</g>
   ${sparkle(360,110,1.2)}${sparkle(612,92,1,'#9FD0FF')}
   </svg>
   <div class="labels">
@@ -594,9 +649,11 @@ const SCENES = {
       <path d="M124 156 L120 164 h96" fill="none" stroke="#7C8BA3" stroke-width="3.5"/>
       <circle cx="132" cy="172" r="7" fill="#5A5168"/><circle cx="204" cy="172" r="7" fill="#5A5168"/>
       <rect x="196" y="88" width="10" height="34" rx="5" fill="#E8B36B" transform="rotate(20 201 105)"/>
-      <circle cx="132" cy="108" r="9" fill="#FF6F6F"/><path d="M132 99 q3 -5 6 -4" stroke="#36A867" stroke-width="2.5" fill="none"/></g>
+      <circle cx="132" cy="108" r="9" fill="#FF6F6F"/><path d="M132 99 q3 -5 6 -4" stroke="#36A867" stroke-width="2.5" fill="none"/>
+      <circle cx="148" cy="110" r="10" fill="#9ED85E"/><path d="M142 108 q6 -6 12 0" stroke="#6FB33A" stroke-width="2" fill="none"/>
+      <g transform="translate(214 94) rotate(25)"><path d="M0 0 l5 22 l5 -22z" fill="#FF8A3D"/><path d="M5 0 l-4 -8 M5 0 l4 -8" stroke="#36A867" stroke-width="2.5" stroke-linecap="round"/></g>
+      <ellipse cx="186" cy="110" rx="12" ry="7" fill="#E3A35B"/><path d="M180 108 l3 4 M186 107 l3 4" stroke="#FFE3BD" stroke-width="1.8" stroke-linecap="round"/></g>
     ${sheep({x:272,y:118,s:.6,who:'ele',flip:true})}
-    <path d="M252 104 L242 96" stroke="${C.face}" stroke-width="6" stroke-linecap="round"/>
   `,'Ovelhas no mercado: a pequena sentada no carrinho e a outra empurrando'),
 
   banho: () => SCN('#E2F3FF', `
@@ -605,8 +662,8 @@ const SCENES = {
     <g><path d="M24 12 h22 v8" stroke="#A9B6CC" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M34 20 h24 l-4 10 h-16z" fill="#A9B6CC"/>
       ${[38,44,50,56].map((x,i)=>`<path d="M${x-2} ${40+i*6} q2 5 0 7 q-2 -2 0 -7z" fill="#7CC4F2"/>`).join('')}</g>
     ${floor('#CDE7F8')}
-    ${sheep({x:120,y:104,s:.56,who:'ela',wet:true,acc:['foam'],mood:'happy-closed'})}
-    ${sheep({x:196,y:96,s:.64,who:'ele',wet:true,acc:['foam','noglasses'],mood:'wink'})}
+    ${sheep({x:120,y:104,s:.56,who:'ela',wet:true,acc:['foam'],mood:'happy-closed',flip:true})}
+    ${sheep({x:196,y:96,s:.64,who:'ele',wet:true,acc:['foam'],mood:'wink'})}
     <rect x="40" y="112" width="238" height="54" rx="26" fill="#FFFFFF" stroke="#B9D6EA" stroke-width="3"/>
     <rect x="34" y="106" width="250" height="14" rx="7" fill="#F4FAFF" stroke="#B9D6EA" stroke-width="3"/>
     <rect x="64" y="164" width="12" height="14" rx="4" fill="#B9D6EA"/><rect x="244" y="164" width="12" height="14" rx="4" fill="#B9D6EA"/>
@@ -616,26 +673,13 @@ const SCENES = {
     ${bubble(30,104,6)}${bubble(46,90,4)}${bubble(146,62,5)}${bubble(236,50,7)}${bubble(296,60,5)}${bubble(220,30,3)}
   `,'Ovelhas molhadas na banheira com espuma, sabonete e patinho de borracha'),
 
-  feira: () => SCN('#ECFAE6', `
-    ${Array.from({length:8},(_,i)=>`<path d="M${i*40} 0 h40 v26 a20 12 0 0 1 -40 0z" fill="${i%2?'#FFFFFF':'#FF8FAB'}"/>`).join('')}
-    <rect x="0" y="0" width="320" height="6" fill="#E0528A"/>
-    ${floor('#D8EFC8')}
-    <rect x="18" y="120" width="140" height="44" rx="6" fill="#D9A86C"/><rect x="18" y="120" width="140" height="8" fill="#C38E52"/>
-    ${[[34,112,'#FF6F6F'],[52,110,'#FF6F6F'],[70,113,'#FF8A3D'],[88,110,'#FF8A3D'],[106,112,'#9ED85E'],[124,110,'#9ED85E'],[142,113,'#FF6F6F']].map(([x,y,c])=>`<circle cx="${x}" cy="${y}" r="10" fill="${c}"/><circle cx="${x-3}" cy="${y-3}" r="2.5" fill="#fff" opacity=".5"/>`).join('')}
-    <g transform="translate(60 136)">${[0,1,2,3].map(i=>`<path d="M${i*16} 0 l6 22 l6 -22z" fill="#FF8A3D"/><path d="M${i*16+6} 0 l-4 -8 M${i*16+6} 0 l4 -8" stroke="#36A867" stroke-width="2.5" stroke-linecap="round"/>`).join('')}</g>
-    ${sheep({x:206,y:110,s:.54,who:'ela'})}
-    <g transform="translate(184 112) rotate(-30)"><path d="M0 0 l5 22 l5 -22z" fill="#FF8A3D"/><path d="M5 0 l-4 -9 M5 0 l4 -9" stroke="#36A867" stroke-width="2.5" stroke-linecap="round"/></g>
-    ${sheep({x:272,y:106,s:.62,who:'ele'})}
-    <g transform="translate(244 118)"><path d="M0 0 h34 l-5 28 h-24z" fill="#E8B36B" stroke="#C38E52" stroke-width="2"/><path d="M4 0 a13 14 0 0 1 26 0" fill="none" stroke="#C38E52" stroke-width="3"/><circle cx="10" cy="-2" r="6" fill="#9ED85E"/><circle cx="22" cy="-3" r="6" fill="#FF6F6F"/></g>
-  `,'Ovelhas na feira com caixotes de tomate, laranja e cenoura'),
-
   farmacia: () => SCN('#E7F7F2', `
     <g transform="translate(26 18)"><rect width="46" height="46" rx="10" fill="#36A867"/><path d="M17 8 h12 v9 h9 v12 h-9 v9 h-12 v-9 h-9 v-12 h9z" fill="#fff"/></g>
     ${[60,104].map(y=>`<rect x="96" y="${y}" width="210" height="6" rx="3" fill="#B6D9CE"/>`).join('')}
     ${Array.from({length:8},(_,i)=>{const c=['#FF8FAB','#9FC5F8','#FFD36E','#C9A7F2'][i%4];return `<rect x="${104+i*25}" y="38" width="16" height="22" rx="4" fill="${c}"/><rect x="${103+i*25}" y="34" width="18" height="6" rx="2" fill="#fff"/>`}).join('')}
     ${Array.from({length:6},(_,i)=>`<g transform="translate(${108+i*34} 84)"><rect width="26" height="20" rx="4" fill="#fff" stroke="#B6D9CE" stroke-width="2"/><path d="M13 5 v10 M8 10 h10" stroke="${i%2?'#FF6F91':'#36A867'}" stroke-width="2.5"/></g>`).join('')}
     ${floor('#CFEDE3')}
-    ${sheep({x:120,y:128,s:.54,who:'ela',acc:['bandaid']})}
+    ${sheep({x:120,y:128,s:.54,who:'ela',acc:['bandaid'],flip:true})}
     ${sheep({x:220,y:122,s:.62,who:'ele',acc:['thermo'],mood:'o'})}
     <g transform="translate(274 140)"><rect width="30" height="22" rx="6" fill="#fff" stroke="#9AA3B8" stroke-width="2"/><rect x="-2" y="-6" width="34" height="8" rx="3" fill="#FF6F91"/></g>
     <g transform="translate(40 148) rotate(-20)"><rect width="22" height="10" rx="5" fill="#FFD36E"/><rect x="11" width="11" height="10" rx="5" fill="#FF8FAB"/></g>
@@ -644,7 +688,7 @@ const SCENES = {
   limpeza: () => SCN('#F1EDFF', `
     ${floor('#E0D8F7')}
     <g transform="translate(40 118)"><path d="M0 0 h44 l-6 42 h-32z" fill="#7FD1AE"/><path d="M2 0 a20 22 0 0 1 40 0" fill="none" stroke="#5A5168" stroke-width="3"/>${puffs([[8,-4,8],[22,-8,10],[36,-3,8]],'#FFFFFF','#D7CFF0',2)}</g>
-    ${sheep({x:138,y:118,s:.54,who:'ela'})}
+    ${sheep({x:138,y:118,s:.54,who:'ela',flip:true})}
     <g><line x1="164" y1="60" x2="178" y2="150" stroke="#C38E52" stroke-width="5" stroke-linecap="round"/><path d="M166 146 l24 -4 l8 22 l-36 6z" fill="#FFD36E" stroke="#E8B23A" stroke-width="2"/>${[0,1,2,3].map(i=>`<line x1="${170+i*7}" y1="${148-i}" x2="${170+i*8}" y2="${166-i}" stroke="#E8B23A" stroke-width="1.6"/>`).join('')}</g>
     ${sheep({x:248,y:112,s:.62,who:'ele',mood:'happy-closed'})}
     <g transform="translate(276 92) rotate(15)"><rect x="0" y="12" width="20" height="30" rx="5" fill="#9FC5F8"/><path d="M4 12 v-8 h14 l4 4 h-8 v4" fill="#5A5168"/></g>
@@ -652,23 +696,12 @@ const SCENES = {
     ${bubble(96,96,6)}${bubble(212,78,5)}${bubble(196,120,3)}
   `,'Ovelhas limpando a casa com vassoura, balde e borrifador'),
 
-  padaria: () => SCN('#FFEFE3', `
-    <rect x="0" y="118" width="320" height="72" fill="#E6BE93"/><rect x="0" y="118" width="320" height="8" fill="#D4A675"/>
-    ${[[30,100],[66,96],[102,100]].map(([x,y])=>`<ellipse cx="${x}" cy="${y+10}" rx="18" ry="12" fill="#E3A35B"/><path d="M${x-8} ${y+5} l5 8 M${x} ${y+3} l5 8 M${x+8} ${y+5} l4 7" stroke="#FFE3BD" stroke-width="2.2" stroke-linecap="round"/>`).join('')}
-    <path d="M128 112 q16 -26 34 0 q-8 -6 -17 -2 q-9 -4 -17 2z" fill="#F0B76B" stroke="#D99A45" stroke-width="2"/>
-    ${sheep({x:206,y:88,s:.5,who:'ela'})}
-    ${sheep({x:272,y:82,s:.58,who:'ele'})}
-    ${[[188,108,'#FF8FAB'],[254,106,'#9FC5F8']].map(([x,y,c])=>`<g transform="translate(${x} ${y})"><rect width="20" height="18" rx="4" fill="${c}"/><path d="M20 4 a6 6 0 0 1 0 10" fill="none" stroke="${c}" stroke-width="3"/><path d="M6 -4 q-3 -5 0 -9 M13 -4 q-3 -5 0 -9" stroke="#C9B8A8" stroke-width="2" fill="none" stroke-linecap="round" class="blink"/></g>`).join('')}
-    <g transform="translate(18 18)"><rect width="88" height="24" rx="12" fill="#D4A675"/><text x="44" y="16.5" text-anchor="middle" fill="#fff" font-family="Grandstander, sans-serif" font-weight="800" font-size="12">PADARIA</text></g>
-    ${heart(150,40,1.3,'#FF8FAB')}
-  `,'Ovelhas na padaria com pães, croissant e cafés'),
-
   faculdade: () => SCN('#FFF8D6', `
     <rect x="16" y="14" width="188" height="88" rx="8" fill="#2F4A57" stroke="#B8875A" stroke-width="6"/>
     <g font-family="DM Mono, monospace" font-size="12" fill="#EAF4FF"><text x="28" y="36">F = m·a</text><text x="28" y="56" fill="#FFB5CB">ECG: P-QRS-T</text><text x="28" y="76" fill="#9FD0FF">O(n log n)</text><text x="120" y="36" fill="#7FD1AE">A–T  C–G</text><text x="120" y="76">∇²φ = 0</text></g>
     ${floor('#F2E7B5')}
     <g transform="translate(222 120)">${[['#FF8FAB',0],['#9FC5F8',12],['#7FD1AE',24],['#FFD36E',36]].map(([c,y],i)=>`<rect x="${i%2?4:0}" y="${-y}" width="76" height="12" rx="3" fill="${c}"/><rect x="${(i%2?4:0)+8}" y="${-y+3}" width="22" height="2.5" fill="#fff" opacity=".7"/>`).join('')}</g>
-    ${sheep({x:96,y:128,s:.54,who:'ela',acc:['coat']})}
+    ${sheep({x:96,y:128,s:.54,who:'ela',acc:['coat'],flip:true})}
     ${sheep({x:178,y:122,s:.6,who:'ele'})}
     <g transform="translate(254 52) rotate(-20)"><rect width="8" height="44" rx="2" fill="#FFD36E"/><path d="M0 44 l4 9 l4 -9z" fill="#F8D7A8"/><rect width="8" height="7" fill="#FF8FAB"/></g>
     <g transform="translate(276 54) rotate(14)"><rect width="22" height="30" rx="4" fill="#5A5168"/><rect x="3" y="3" width="16" height="7" rx="1" fill="#9FE0C0"/>${[0,1,2].map(r=>[0,1,2].map(c=>`<rect x="${3+c*6}" y="${13+r*5.5}" width="4" height="3.5" rx="1" fill="#fff"/>`).join('')).join('')}</g>
@@ -680,7 +713,7 @@ const SCENES = {
     <g transform="translate(150 70)"><path d="M0 0 h96 a5 5 0 0 1 5 5 v54 h-106 v-54 a5 5 0 0 1 5 -5z" fill="#3E4A6B"/><rect x="5" y="5" width="91" height="50" rx="2" fill="#1F2A44"/>
       <text x="12" y="22" fill="#7FD1AE" font-family="DM Mono, monospace" font-size="10">$ make love</text><text x="12" y="36" fill="#9FD0FF" font-family="DM Mono, monospace" font-size="10">compilando...</text><rect x="12" y="42" width="60" height="5" rx="2.5" fill="#FF8FAB"/>
       <path d="M-14 59 h130 l-8 9 h-114z" fill="#8E9AB8"/></g>
-    ${sheep({x:96,y:106,s:.56,who:'ela',acc:['headphones']})}
+    ${sheep({x:96,y:106,s:.56,who:'ela',acc:['headphones'],flip:true})}
     ${sheep({x:272,y:98,s:.6,who:'ele'})}
     <path d="M30 130 C40 160 80 150 100 170 S150 168 160 178" fill="none" stroke="#7B6CD9" stroke-width="3"/>
     <g transform="translate(18 26)"><rect width="22" height="38" rx="4" fill="#5A5168"/><rect x="7" y="-4" width="8" height="5" rx="1" fill="#5A5168"/><rect x="4" y="18" width="14" height="16" rx="2" fill="#7FD1AE"/><rect x="4" y="8" width="14" height="8" rx="2" fill="#7FD1AE" opacity=".5"/></g>
@@ -690,22 +723,23 @@ const SCENES = {
   presentes: () => SCN('#FFE8F1', `
     ${floor('#FBD3E3')}
     ${[[30,118,46,'#9FC5F8','#FFD36E'],[84,130,34,'#C9A7F2','#FF8FAB'],[250,114,50,'#FF8FAB','#FFFFFF']].map(([x,y,w,c,r])=>`<rect x="${x}" y="${y}" width="${w}" height="${168-y}" rx="5" fill="${c}"/><rect x="${x-3}" y="${y}" width="${w+6}" height="12" rx="4" fill="${c}" stroke="rgba(0,0,0,.08)"/><rect x="${x+w/2-4}" y="${y}" width="8" height="${168-y}" fill="${r}"/><path d="M${x+w/2} ${y} c-10 -12 -18 -4 -10 2z M${x+w/2} ${y} c10 -12 18 -4 10 2z" fill="${r}" stroke="rgba(0,0,0,.1)"/>`).join('')}
-    ${sheep({x:150,y:116,s:.54,who:'ela',mood:'happy-closed'})}
+    ${sheep({x:150,y:116,s:.54,who:'ela',mood:'happy-closed',flip:true})}
     ${sheep({x:210,y:110,s:.6,who:'ele'})}
     <g class="float"><path d="M182 54 C150 30 170 4 182 18 C194 4 214 30 182 54Z" fill="#FF6F91"/><path d="M182 54 C178 70 186 80 180 96" stroke="#C9B8C8" stroke-width="1.5" fill="none"/></g>
     ${heart(60,40,1.4)}${heart(276,56,1.1,'#FFB5CB')}${heart(120,70,.9,'#C58BF2')}${sparkle(240,30,1)}${sparkle(30,80,.8,'#9FC5F8')}
   `,'Ovelhas com caixas de presente, balão de coração e corações'),
 
   shabat: () => SCN('#ECE7FF', `
-    ${[[30,20],[90,36],[150,14],[250,28],[300,50]].map(([x,y])=>sparkle(x,y,.6,'#FFD36E')).join('')}
+    ${[[30,20],[90,36],[150,14],[250,22],[300,50],[200,40]].map(([x,y])=>sparkle(x,y,.6,'#FFD36E')).join('')}
     <path d="M0 126 h320 v64 h-320z" fill="#FFFFFF"/><path d="M0 126 h320" stroke="#C9C2EA" stroke-width="3"/>
     ${Array.from({length:10},(_,i)=>`<path d="M${i*32} 126 q16 10 32 0" fill="none" stroke="#C9C2EA" stroke-width="2"/>`).join('')}
-    ${sheep({x:62,y:96,s:.52,who:'ela'})}
-    ${sheep({x:262,y:90,s:.6,who:'ele',acc:['kippah']})}
-    ${[118,150].map(x=>`<g transform="translate(${x} 70)"><rect x="-5" y="0" width="10" height="50" rx="3" fill="#FFFFFF" stroke="#D7D0F2" stroke-width="2"/><rect x="-9" y="48" width="18" height="8" rx="3" fill="#D4AF37"/><line x1="0" y1="0" x2="0" y2="-5" stroke="#5A5168" stroke-width="1.5"/><path class="flame" d="M0 -22 C6 -14 6 -6 0 -4 C-6 -6 -6 -14 0 -22Z" fill="#FFB020"/><path d="M0 -16 C3 -11 3 -7 0 -6 C-3 -7 -3 -11 0 -16Z" fill="#FFF0B3"/></g>`).join('')}
-    <g transform="translate(196 92)"><path d="M0 0 h24 a12 14 0 0 1 -24 0z" fill="#B23A5B"/><path d="M0 0 h24 a12 14 0 0 1 -24 0z" fill="none" stroke="#D4AF37" stroke-width="2"/><rect x="10" y="12" width="4" height="14" fill="#D4AF37"/><rect x="4" y="25" width="16" height="4" rx="2" fill="#D4AF37"/></g>
-    <g transform="translate(120 140)">${[0,1,2,3].map(i=>`<ellipse cx="${i*18}" cy="${i%2?2:0}" rx="13" ry="9" fill="#D9933F"/><path d="M${i*18-6} ${-2} q6 6 12 0" stroke="#F2C27A" stroke-width="2" fill="none"/>`).join('')}</g>
-  `,'Mesa de Shabat com chalá, velas e cálice, e as ovelhas'),
+    ${[150,180].map(x=>`<g transform="translate(${x} 92)"><rect x="-5" y="0" width="10" height="34" rx="3" fill="#FFFFFF" stroke="#D7D0F2" stroke-width="2"/><rect x="-9" y="31" width="18" height="7" rx="3" fill="#D4AF37"/><line x1="0" y1="0" x2="0" y2="-5" stroke="#5A5168" stroke-width="1.5"/><path class="flame" d="M0 -22 C6 -14 6 -6 0 -4 C-6 -6 -6 -14 0 -22Z" fill="#FFB020"/><path d="M0 -16 C3 -11 3 -7 0 -6 C-3 -7 -3 -11 0 -16Z" fill="#FFF0B3"/></g>`).join('')}
+    <circle cx="165" cy="76" r="26" fill="#FFD36E" opacity=".18"/>
+    <g transform="translate(206 100)"><path d="M0 0 h22 a11 13 0 0 1 -22 0z" fill="#B23A5B" stroke="#D4AF37" stroke-width="2"/><rect x="9" y="12" width="4" height="12" fill="#D4AF37"/><rect x="3" y="23" width="16" height="4" rx="2" fill="#D4AF37"/></g>
+    <g transform="translate(150 148)">${[0,1,2,3].map(i=>`<ellipse cx="${i*16}" cy="${i%2?2:0}" rx="12" ry="8" fill="#D9933F"/><path d="M${i*16-5} -2 q5 5 10 0" stroke="#F2C27A" stroke-width="2" fill="none"/>`).join('')}</g>
+    ${sheep({x:97,y:95,s:.62,who:'ela',acc:['match'],mood:'happy-closed',flip:true})}
+    ${sheep({x:266,y:98,s:.66,who:'ele',acc:['kippah']})}
+  `,'A ovelha bebê acendendo as velas de Shabat e a outra ovelha de kipá, com chalá e cálice'),
 
   viagem: () => SCN('#E4F4FF', `
     <circle cx="276" cy="36" r="18" fill="#FFD36E"/>${[0,45,90,135,180,225,270,315].map(a=>`<line x1="276" y1="36" x2="${276+Math.cos(a*Math.PI/180)*28}" y2="${36+Math.sin(a*Math.PI/180)*28}" stroke="#FFD36E" stroke-width="3" stroke-linecap="round"/>`).join('')}
@@ -714,7 +748,7 @@ const SCENES = {
     <path d="M40 74 q40 30 90 10" stroke="#9FC5F8" stroke-width="2" stroke-dasharray="5 6" fill="none"/>
     ${floor('#CFE8F7')}
     <g transform="translate(30 116)"><rect width="52" height="46" rx="8" fill="#FF8FAB"/><rect x="16" y="-10" width="20" height="12" rx="5" fill="none" stroke="#C25B7E" stroke-width="3.5"/><rect x="8" y="8" width="36" height="5" rx="2.5" fill="#fff" opacity=".6"/><circle cx="12" cy="49" r="4" fill="#5A5168"/><circle cx="40" cy="49" r="4" fill="#5A5168"/></g>
-    ${sheep({x:140,y:116,s:.54,who:'ela'})}
+    ${sheep({x:140,y:116,s:.54,who:'ela',flip:true})}
     ${sheep({x:212,y:110,s:.6,who:'ele'})}
     <g transform="translate(250 122) rotate(8)"><rect width="46" height="34" rx="3" fill="#FFF7E0" stroke="#D9B78A" stroke-width="2"/><path d="M15 0 v34 M31 0 v34" stroke="#D9B78A" stroke-width="1.5"/><path d="M6 24 q10 -14 18 -4 t16 -10" stroke="#FF6F91" stroke-width="2" fill="none" stroke-dasharray="3 3"/><circle cx="40" cy="10" r="3" fill="#FF6F91"/></g>
   `,'Ovelhas viajando com mala, avião e mapa'),
@@ -723,13 +757,64 @@ const SCENES = {
     ${floor('#E6E1EF')}
     ${[[40,116,50,'#D9B78A'],[96,128,40,'#E8CFA2'],[60,86,36,'#E8CFA2']].map(([x,y,w,c])=>`<rect x="${x}" y="${y}" width="${w}" height="${w*.8}" rx="3" fill="${c}"/><rect x="${x+w/2-5}" y="${y}" width="10" height="${w*.8}" fill="#fff" opacity=".35"/>`).join('')}
     <text x="76" y="80" font-family="Grandstander, sans-serif" font-size="30" font-weight="800" fill="#8E6CD8">?</text>
-    ${sheep({x:196,y:118,s:.54,who:'ela'})}
+    ${sheep({x:196,y:118,s:.54,who:'ela',flip:true})}
     ${sheep({x:264,y:110,s:.6,who:'ele',mood:'o'})}
     <g transform="translate(222 62) rotate(-30)"><circle r="14" fill="rgba(200,230,255,.5)" stroke="#5A5168" stroke-width="4"/><line x1="14" y1="0" x2="34" y2="0" stroke="#5A5168" stroke-width="6" stroke-linecap="round"/></g>
   `,'Ovelhas investigando caixas misteriosas com uma lupa'),
 };
+const SCENE_EXTRA = {
+  laser: () => SCN('#252A4D', `
+    ${Array.from({length:6},(_,i)=>`<rect x="${i*54+2}" y="0" width="50" height="112" fill="#2C3260"/>`).join('')}
+    <g font-family="DM Mono, monospace" font-size="9" fill="#9FB4FF" opacity=".8"><text x="12" y="16">E = hν</text><text x="70" y="16">λ = 1064 nm</text><text x="150" y="16">²H + ³H → ⁴He + n + 17,6 MeV</text></g>
+    <g transform="translate(14 28)"><rect width="62" height="20" rx="4" fill="#FFD43B"/><text x="31" y="14" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="9.5" fill="#2E2A4A">LASER ATIVO</text></g>
+    <circle cx="88" cy="38" r="6" fill="#FF3D6E" class="blink"/>
+    ${trefoil(300,40,1)}
+    <rect x="24" y="126" width="10" height="50" fill="#5E6890"/><rect x="286" y="126" width="10" height="50" fill="#5E6890"/>
+    <rect x="8" y="112" width="304" height="16" rx="3" fill="#7E89AE"/><rect x="8" y="112" width="304" height="4" fill="#A3ADCF"/>
+    ${Array.from({length:18},(_,i)=>`<circle cx="${18+i*17}" cy="122" r="1.6" fill="#5E6890"/>`).join('')}
+    <rect x="30" y="106" width="10" height="7" fill="#5E6890"/><rect x="118" y="106" width="10" height="7" fill="#5E6890"/>
+    <rect x="14" y="82" width="132" height="26" rx="9" fill="#DCE2F0" stroke="#9AA6C6" stroke-width="2"/>
+    ${[34,96,124].map(x=>`<rect x="${x}" y="82" width="6" height="26" fill="#9AA6C6"/>`).join('')}
+    <rect x="50" y="87" width="38" height="16" rx="2" fill="#FFD43B"/>${trefoil(60,95,.42)}<text x="70" y="98.5" font-family="DM Mono, monospace" font-size="6.5" fill="#2E2A4A">10 PW</text>
+    <rect x="146" y="88" width="12" height="14" rx="2" fill="#5A5168"/>
+    <polyline points="158,95 214,95 268,74" fill="none" stroke="#FF3D6E" stroke-width="8" opacity=".28" class="blink"/>
+    <polyline points="158,95 214,95 268,74" fill="none" stroke="#FF7A9A" stroke-width="2.6"/>
+    <rect x="211" y="98" width="6" height="14" fill="#7C8BA3"/><rect x="206" y="92" width="16" height="5" rx="1.5" fill="#BFE6FF" stroke="#7C8BA3" transform="rotate(-55 214 95)"/>
+    <rect x="258" y="100" width="22" height="12" fill="#5E6890"/>
+    <circle cx="269" cy="74" r="28" fill="#B9C3DD" stroke="#7C8BA3" stroke-width="3"/>
+    ${[0,60,120,180,240,300].map(a=>`<rect x="-4" y="-33" width="8" height="8" rx="1.5" fill="#7C8BA3" transform="translate(269 74) rotate(${a})"/>`).join('')}
+    <circle cx="269" cy="74" r="11" fill="#FFE08A" class="blink"/><circle cx="269" cy="74" r="5" fill="#FFFFFF"/>
+    ${sparkle(269,74,.9,'#FFFFFF')}
+    <rect y="170" width="320" height="20" fill="#323A6A"/>
+    <g transform="translate(16 134)"><rect width="64" height="40" rx="5" fill="#3E4A6B"/><rect x="5" y="5" width="32" height="18" rx="2" fill="#1F2A44"/>
+      <path d="M8 14 q3 -7 6 0 t6 0 t6 0 t6 0" stroke="#7FD1AE" stroke-width="1.6" fill="none"/>
+      <circle cx="51" cy="14" r="7" fill="#FF3D6E" stroke="#B3123F" stroke-width="1.5"/>${[8,18,28].map(x=>`<rect x="${x}" y="28" width="7" height="5" rx="1.5" fill="#9FB4FF"/>`).join('')}</g>
+    ${sheep({x:116,y:150,s:.54,who:'ele',mood:'o'})}
+    ${sheep({x:236,y:154,s:.48,who:'ela',acc:['coat']})}
+  `,'As duas ovelhas operando um grande laser de física nuclear apontado para uma câmara de fusão'),
+};
+const TYPE_SCENE = {lab:'laser', aula:'faculdade', saude:'farmacia', viagem:'viagem', encontro:'presentes'};
+const sceneFor = k => (SCENES[k] || SCENE_EXTRA[k])();
+function wishScene(){
+  return `<svg viewBox="0 0 900 230" role="img" aria-label="A ovelha bebê sonhando com presentes em cima de uma nuvem">
+    <rect width="900" height="230" fill="#FFE6F1"/><rect width="900" height="230" fill="#E9E1FF" opacity=".45"/>
+    ${[[60,40],[150,90],[700,30],[820,70],[520,30],[380,60],[860,180]].map(([x,y],i)=>sparkle(x,y,.7+(i%3)*.2,i%2?'#FFD36E':'#FFFFFF')).join('')}
+    <g font-family="Cambria Math, STIX Two Math, Georgia, serif" font-style="italic" font-size="14" fill="#8E6CD8" opacity=".55">
+      <text x="640" y="214">lim (desejos) → ∞</text><text x="300" y="40">P(ganhar | pedir com carinho) ≈ 1</text></g>
+    <g transform="translate(100 0)">
+    ${puffs([[300,196,40],[350,186,46],[410,196,38],[250,206,30],[460,206,30],[360,214,40]],'#FFFFFF','#EBDDF5',3)}
+    ${sheep({x:356,y:136,s:.95,who:'ela',mood:'happy-closed',flip:true})}
+    ${[[430,86,7],[458,66,10],[490,50,12]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#FFFFFF" stroke="#EBDDF5" stroke-width="2.5"/>`).join('')}</g>
+    <g transform="translate(46 0)">
+    ${puffs([[600,96,46],[660,80,52],[724,92,46],[770,114,36],[560,126,34],[640,136,40],[712,136,40]],'#FFFFFF','#EBDDF5',3)}
+    <g transform="translate(586 92)"><rect width="40" height="34" rx="4" fill="#FF8FAB"/><rect x="16" width="8" height="34" fill="#FFD36E"/><rect x="-3" y="-2" width="46" height="10" rx="3" fill="#FF8FAB"/><path d="M20 -2 c-9 -11 -17 -4 -9 1z M20 -2 c9 -11 17 -4 9 1z" fill="#FFD36E"/></g>
+    <g transform="translate(646 70)">${[['#9FC5F8',0],['#C9A7F2',10],['#7FD1AE',20]].map(([c,y])=>`<rect x="0" y="${y}" width="46" height="10" rx="2" fill="${c}"/>`).join('')}<rect x="6" y="2.5" width="16" height="2.5" fill="#fff" opacity=".7"/></g>
+    <g transform="translate(712 66)"><path d="M10 0 h10 M12 0 v14 l-9 18 a4 4 0 0 0 3.5 6 h17 a4 4 0 0 0 3.5 -6 l-9 -18 v-14" fill="#FFFFFF" stroke="#B7AEDD" stroke-width="2"/><path d="M4 28 h22 l3 6 a3 3 0 0 1 -3 4 h-22 a3 3 0 0 1 -3 -4z" fill="#FF9DC0"/></g>
+    ${heart(700,128,1.6)}${heart(740,124,1,'#C58BF2')}${sparkle(632,128,1,'#FFD36E')}</g>
+  </svg>`;
+}
 const CATS = [
-  {k:'mercado',n:'Mercado'},{k:'feira',n:'Hortifrúti & feira'},{k:'padaria',n:'Padaria & café'},{k:'banho',n:'Banho & cuidados'},
+  {k:'mercado',n:'Mercado'},{k:'banho',n:'Banho & cuidados'},
   {k:'farmacia',n:'Farmácia'},{k:'limpeza',n:'Casa & limpeza'},{k:'faculdade',n:'Faculdade & papelaria'},{k:'tecnologia',n:'Tecnologia'},
   {k:'presentes',n:'Presentes & mimos'},{k:'shabat',n:'Shabat & festas'},{k:'viagem',n:'Viagem & passeios'},{k:'outros',n:'Outros'},
 ];
@@ -740,7 +825,7 @@ const CATS = [
 const today = new Date(); today.setHours(0,0,0,0);
 const state = {
   view: ls.get('ovelhas.view','cal'), month: new Date(today.getFullYear(), today.getMonth(), 1), sel: iso(today),
-  events: {}, shopping: {}, settings: {nameEla:'Vivian', nameEle:'Namorado', palettes:{}},
+  events: {}, shopping: {}, wishlist: {}, settings: {nameEla:'Viviane', nameEle:'Dov', palettes:{}},
   me: ls.get('ovelhas.me', null), whoFilter: ls.get('ovelhas.who', {ela:true,ele:true,juntos:true}),
   typeFilter: ls.get('ovelhas.types', {}), holFilter: ls.get('ovelhas.hol', {br:true,sp:true,jew:true}),
   cat: ls.get('ovelhas.cat','mercado'), mode:'local', canWrite:true, uid:null,
@@ -748,35 +833,37 @@ const state = {
 const store = {
   db:null,
   async init(){
-    const L = ls.get('ovelhas.local', {events:{},shopping:{},settings:null});
-    state.events = L.events||{}; state.shopping = L.shopping||{}; if (L.settings) Object.assign(state.settings, L.settings);
+    const L = ls.get('ovelhas.local', {events:{},shopping:{},wishlist:{},settings:null});
+    state.events = L.events||{}; state.shopping = L.shopping||{}; state.wishlist = L.wishlist||{}; if (L.settings) Object.assign(state.settings, L.settings);
     if (!window.claude?.use) { renderAll(); return; }
     let db = null, user = null;
     try { [db, user] = await Promise.all([claude.use('db'), claude.use('user')]); } catch {}
     if (!db) { renderAll(); return; }
-    this.db = db; state.mode = 'db'; state.events = {}; state.shopping = {};
+    this.db = db; state.mode = 'db'; state.events = {}; state.shopping = {}; state.wishlist = {};
     try { state.uid = user ? await user.id() : null; const cw = user ? await user.can('data.write') : null; if (cw===false) state.canWrite = false; } catch {}
     db.collection('events').onSnapshot(s => { const o={}; s.docs.forEach(d=>o[d.id]=d.data()); state.events=o; renderCal(); }, e => console.warn(e));
     db.collection('shopping').onSnapshot(s => { const o={}; s.docs.forEach(d=>o[d.id]=d.data()); state.shopping=o; renderShop(); }, e => console.warn(e));
-    db.doc('config/main').onSnapshot(s => { if (s.exists){ state.settings = {...state.settings, ...s.data()}; } renderHero(); renderCal(); renderShop(); renderFlock(); }, e => console.warn(e));
+    db.collection('wishlist').onSnapshot(s => { const o={}; s.docs.forEach(d=>o[d.id]=d.data()); state.wishlist=o; renderWish(); }, e => console.warn(e));
+    db.doc('config/main').onSnapshot(s => { if (s.exists){ state.settings = {...state.settings, ...s.data()}; } renderHero(); renderCal(); renderShop(); renderWish(); renderFlock(); }, e => console.warn(e));
     renderAll();
   },
-  saveLocal(){ ls.set('ovelhas.local',{events:state.events,shopping:state.shopping,settings:state.settings}); },
+  saveLocal(){ ls.set('ovelhas.local',{events:state.events,shopping:state.shopping,wishlist:state.wishlist,settings:state.settings}); },
   async put(col, id, data){
     if (this.db){ try { await this.db.collection(col).doc(id).set(data); } catch(e){ fail(e); } }
-    else { state[col==='events'?'events':'shopping'][id] = data; this.saveLocal(); col==='events'?renderCal():renderShop(); }
+    else { state[col][id] = data; this.saveLocal(); RENDER[col](); }
   },
   async del(col, id){
     if (this.db){ try { await this.db.collection(col).doc(id).delete(); } catch(e){ fail(e); } }
-    else { delete state[col==='events'?'events':'shopping'][id]; this.saveLocal(); col==='events'?renderCal():renderShop(); }
+    else { delete state[col][id]; this.saveLocal(); RENDER[col](); }
   },
   async settings(data){
     state.settings = {...state.settings, ...data};
     if (this.db){ try { await this.db.doc('config/main').set(state.settings); } catch(e){ fail(e); } }
     else this.saveLocal();
-    renderHero(); renderCal(); renderShop(); renderFlock();
+    renderHero(); renderCal(); renderShop(); renderWish(); renderFlock();
   },
 };
+const RENDER = {events:()=>renderCal(), shopping:()=>renderShop(), wishlist:()=>renderWish()};
 const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
 function fail(e){
   if (e?.code==='invalid_argument'){ state.canWrite = false; toast('Você está só com acesso de leitura. Peça para ser convidado como Editor.'); }
@@ -817,7 +904,7 @@ const nameOf = w => w==='ela' ? state.settings.nameEla : w==='ele' ? state.setti
 const $ = s => document.querySelector(s);
 function renderHero(){
   $('#hero').innerHTML = heroScene();
-  $('#brandSheep').innerHTML = sheep({who:'ela',cls:''});
+  $('#brandSheep').innerHTML = sheep({who:'ela',flip:true,cls:''});
   $('#subtitle').textContent = `Calendário compartilhado de ${state.settings.nameEla} & ${state.settings.nameEle}`;
   document.querySelectorAll('.sheep-hit').forEach(g => {
     const say = () => speak(g);
@@ -837,23 +924,14 @@ function speak(g){
 }
 
 function renderShabat(){
-  const w = today.getDay(); const el = $('#shabatBanner');
-  let fri = addDays(today, (5 - w + 7) % 7); if (w===6) fri = addDays(today,-1);
-  const sat = addDays(fri,1);
-  if (w===5 || w===6){
-    el.hidden = false;
-    el.innerHTML = `<div class="shabat" role="status">
-      <svg width="74" height="70" viewBox="-40 -34 80 76" aria-hidden="true">${[-14,14].map(x=>`<g transform="translate(${x} 0)"><rect x="-6" y="0" width="12" height="36" rx="3" fill="#fff" stroke="#D7D0F2" stroke-width="2"/><rect x="-10" y="34" width="20" height="7" rx="3" fill="#D4AF37"/><path class="flame" d="M0 -24 C7 -15 7 -6 0 -3 C-7 -6 -7 -15 0 -24Z" fill="#FFB020"/><path d="M0 -17 C3 -12 3 -7 0 -5 C-3 -7 -3 -12 0 -17Z" fill="#FFF0B3"/></g>`).join('')}</svg>
-      <div><h2>Shabat Shalom!</h2><p>${w===5 ? `Acender as velas hoje às <span class="mono">${candleTime(fri)}</span> em São Paulo` : `Havdalá hoje por volta das <span class="mono">${havdalaTime(sat)}</span>`} · que seja um Shabat de descanso e lã quentinha.</p></div>
-      <svg width="110" height="70" viewBox="-60 -70 170 135" aria-hidden="true" style="margin-left:auto">${sheep({x:62,y:0,s:.9,who:'ele',acc:['kippah'],mood:'happy-closed',cls:''})}${sheep({x:-4,y:8,s:.78,who:'ela',mood:'happy-closed',cls:''})}</svg>
-    </div>`;
-  } else el.hidden = true;
-  $('#shabatCard').innerHTML = `
-    <div class="day-title"><div><div class="eyebrow">${w===5||w===6?'Este Shabat':'Próximo Shabat'}</div><h3>Shabat Shalom!</h3>
-      <div class="muted" style="font-size:13px;font-weight:600">${DOW_FULL[5]} ${fri.getDate()}/${pad(fri.getMonth()+1)} → sábado ${sat.getDate()}/${pad(sat.getMonth()+1)} · São Paulo</div></div>
-      <svg width="46" height="52" viewBox="-14 -26 28 70" aria-hidden="true"><rect x="-6" y="0" width="12" height="36" rx="3" fill="#fff" stroke="#D7D0F2" stroke-width="2"/><rect x="-10" y="34" width="20" height="7" rx="3" fill="#D4AF37"/><path class="flame" d="M0 -24 C7 -15 7 -6 0 -3 C-7 -6 -7 -15 0 -24Z" fill="#FFB020"/></svg></div>
-    <div class="times"><div class="time-box"><small>Acender velas</small><b>${candleTime(fri)}</b></div><div class="time-box"><small>Havdalá (aprox.)</small><b>${havdalaTime(sat)}</b></div></div>
-    <div class="muted" style="font-size:12px">Velas 18 min antes do pôr do sol; Havdalá ~42 min depois. Horários calculados, confira com a sua comunidade.</div>`;
+  const w = today.getDay(), el = $('#shabatBanner');
+  el.hidden = !(w===5 || w===6);
+  if (el.hidden) return;
+  el.innerHTML = `<div class="shabat" role="status">
+    <svg width="64" height="62" viewBox="-40 -34 80 76" aria-hidden="true">${[-14,14].map(x=>`<g transform="translate(${x} 0)"><rect x="-6" y="0" width="12" height="36" rx="3" fill="#fff" stroke="#D7D0F2" stroke-width="2"/><rect x="-10" y="34" width="20" height="7" rx="3" fill="#D4AF37"/><path class="flame" d="M0 -24 C7 -15 7 -6 0 -3 C-7 -6 -7 -15 0 -24Z" fill="#FFB020"/><path d="M0 -17 C3 -12 3 -7 0 -5 C-3 -7 -3 -12 0 -17Z" fill="#FFF0B3"/></g>`).join('')}</svg>
+    <div><h2>Shabat Shalom!</h2><p>Que seja um Shabat de descanso, luz e lã quentinha para ${esc(state.settings.nameEla)} & ${esc(state.settings.nameEle)}.</p></div>
+    <div class="scene-mini">${SCENES.shabat()}</div>
+  </div>`;
 }
 
 function renderFilters(){
@@ -877,12 +955,12 @@ function renderCal(){
     const cls = ['day', d.getMonth()!==m.getMonth()&&'out', k===tk&&'today', k===state.sel&&'sel', hasBr&&'holiday', !hasBr&&hasJ&&'jholiday'].filter(Boolean).join(' ');
     const shown = evs.slice(0, 3);
     html += `<div class="${cls}" role="button" tabindex="0" data-day="${k}" aria-label="${d.getDate()} de ${MESES[d.getMonth()]}, ${evs.length} compromissos${hol.length?', '+hol.map(h=>h.name).join(', '):''}">
-      <div class="top-row"><span class="num">${d.getDate()}</span>${d.getDay()===5?`<span class="candle-mini" title="Acender velas ${candleTime(d)}"><svg viewBox="-8 -14 16 30"><rect x="-3" y="0" width="6" height="14" rx="1.5" fill="currentColor" opacity=".35"/><path d="M0 -12 C4 -7 4 -2 0 -1 C-4 -2 -4 -7 0 -12Z" fill="currentColor"/></svg><span>${candleTime(d)}</span></span>`:''}</div>
+      <div class="top-row"><span class="num">${d.getDate()}</span>${d.getDay()===5?`<span class="candle-mini" title="Shabat Shalom!"><svg viewBox="-8 -14 16 30"><rect x="-3" y="0" width="6" height="14" rx="1.5" fill="currentColor" opacity=".35"/><path d="M0 -12 C4 -7 4 -2 0 -1 C-4 -2 -4 -7 0 -12Z" fill="currentColor"/></svg></span>`:''}</div>
       ${hol.slice(0,2).map(h=>`<div class="hol ${h.kind}${h.minor?' minor':''}" title="${esc(h.name)}">${esc(h.name)}</div>`).join('')}
       ${shown.map(e=>{ const c=colorOf(e.who,e.type); return `<button class="ev" data-ev="${e.id}" data-occ="${k}" style="--c:${c};--t:${textOn(c)};--w:${WHO_COLOR[e.who]}" title="${esc(e.title)}"><i class="who"></i>${!e.allDay&&e.start?`<span class="tm">${e.start}</span>`:''}<span>${esc(e.title)}</span></button>`; }).join('')}
       ${evs.length>3?`<span class="more">+${evs.length-3} mais</span>`:''}
       <div class="dots">${hol.filter(h=>!h.minor).slice(0,1).map(h=>`<i style="--c:${h.kind==='jew'?'var(--jew)':h.kind==='love'?'var(--ela)':'var(--br)'}"></i>`).join('')}${evs.slice(0,4).map(e=>`<i style="--c:${colorOf(e.who,e.type)}"></i>`).join('')}</div>
-      ${k===tk?`<svg class="sticker" viewBox="-60 -70 120 135" aria-hidden="true">${sheep({who:state.me||'ela',body:false,cls:''})}</svg>`:''}
+      ${k===tk?`<svg class="sticker" viewBox="-60 -60 120 120" aria-hidden="true">${sheep({who:state.me||'ela',body:false,cls:''})}</svg>`:''}
     </div>`;
   }
   $('#grid').innerHTML = html;
@@ -892,7 +970,7 @@ function renderCal(){
 function evRow(e, showDate=false){
   const c = colorOf(e.who,e.type), t = TYPES.find(x=>x.k===e.type)||TYPES.at(-1), d = parse(e.occ);
   const when = (showDate ? `${DOW[d.getDay()]} ${d.getDate()}/${pad(d.getMonth()+1)} · ` : '') + (e.allDay||!e.start ? 'dia inteiro' : `${e.start}${e.end?'–'+e.end:''}`);
-  return `<button class="item" data-ev="${e.id}" data-occ="${e.occ}">${miniSheep(e.who)}<span class="meta"><b>${esc(e.title)}</b><small><span class="mono">${when}</span>${e.location?' · '+esc(e.location):''}${e.repeat&&e.repeat!=='none'?' · repete':''}</small></span><span class="tag ticon" style="--c:${c};--t:${textOn(c)}" title="${t.n}">${icon(t.k,2.4)}</span></button>`;
+  return `<button class="item" data-ev="${e.id}" data-occ="${e.occ}">${miniSheep(e.who, e.type)}<span class="meta"><b>${esc(e.title)}</b><small><span class="mono">${when}</span>${e.location?' · '+esc(e.location):''}${e.repeat&&e.repeat!=='none'?' · repete':''}</small></span><span class="tag ticon" style="--c:${c};--t:${textOn(c)}" title="${t.n}">${icon(t.k,2.4)}</span></button>`;
 }
 function renderDay(){
   const d = parse(state.sel), k = state.sel, evs = (occurrences(d,d)[k]||[]).filter(visible), hol = holidaysFor(d);
@@ -900,7 +978,7 @@ function renderDay(){
     <div class="day-title"><div><div class="eyebrow">${DOW_FULL[d.getDay()]}</div><h2>${d.getDate()} de ${MESES[d.getMonth()]}</h2><div class="heb">${esc(hebLabel(d))}</div></div>
       <button class="btn small primary" id="addHere">+ Adicionar</button></div>
     ${hol.length?`<div class="list">${hol.map(h=>`<div class="hol ${h.kind}${h.minor?' minor':''}" style="font-size:12.5px;padding:5px 9px;white-space:normal">${esc(h.name)}</div>`).join('')}</div>`:''}
-    ${d.getDay()===5?`<div class="note">Acender velas de Shabat às <span class="mono">${candleTime(d)}</span></div>`:''}
+    ${d.getDay()===5||d.getDay()===6?`<div class="note">Shabat Shalom!</div>`:''}
     <div class="list">${evs.length ? evs.map(e=>evRow(e)).join('') : `<div class="empty"><svg viewBox="-90 -80 180 150" aria-hidden="true">${sheep({x:-30,y:6,s:.66,who:'ela',mood:'sleep',cls:''})}${sheep({x:34,y:0,s:.78,who:'ele',mood:'sleep',cls:''})}<text x="58" y="-58" font-family="Grandstander" font-size="18" fill="#8E6CD8">z z</text></svg>Dia livre no pasto. Toque em “+ Adicionar” para marcar algo.</div>`}</div>`;
 }
 function renderUpcoming(){
@@ -920,7 +998,8 @@ function openEvent(id=null, occ=null){
   const ov = document.createElement('div'); ov.className='overlay';
   const draw = () => {
     ov.innerHTML = `<form class="modal" id="evForm" aria-label="${id?'Editar':'Novo'} compromisso">
-      <div class="modal-head">${miniSheep(who).replace('mini-sheep','')}<div><div class="eyebrow">${id?'Editar compromisso':'Novo compromisso'}</div><h2>${id?esc(ev.title):'O que vamos anotar?'}</h2></div></div>
+      ${TYPE_SCENE[type] ? `<div class="modal-art">${sceneFor(TYPE_SCENE[type])}</div>` : ''}
+      <div class="modal-head">${miniSheep(who, type).replace('mini-sheep','')}<div><div class="eyebrow">${id?'Editar compromisso':'Novo compromisso'}</div><h2>${id?esc(ev.title):'O que vamos anotar?'}</h2></div></div>
       <div class="field"><label for="f-title">Título</label><input class="inp" id="f-title" required maxlength="80" value="${esc(ev.title)}" placeholder="Ex.: Aula de Biomateriais, Cinema, Plantão de Física"></div>
       <div class="field"><span class="lbl">De quem é?</span><div class="who-pick" role="radiogroup">${['ela','ele','juntos'].map(w=>`<button type="button" class="who-opt" role="radio" data-w="${w}" aria-checked="${who===w}" style="--c:${WHO_COLOR[w]};--cs:${WHO_SOFT[w]}">${miniSheep(w).replace('class="mini-sheep"','')}${esc(nameOf(w))}</button>`).join('')}</div></div>
       <div class="field"><span class="lbl">Tipo</span><div class="type-pick" role="radiogroup">${TYPES.map(t=>{const c=colorOf(who,t.k);return `<button type="button" class="type-opt" role="radio" data-t="${t.k}" aria-checked="${type===t.k}" style="--c:${c}"><span class="ticon" style="--c:${c};--t:${textOn(c)}">${icon(t.k,2.4)}</span>${t.n}</button>`}).join('')}</div></div>
@@ -967,7 +1046,8 @@ function openEvent(id=null, occ=null){
 /* ---------- compras ---------- */
 let shopWho = null;
 function renderShop(){
-  const items = Object.entries(state.shopping).map(([id,v])=>({id,...v}));
+  const known = new Set(CATS.map(c=>c.k));
+  const items = Object.entries(state.shopping).map(([id,v])=>({id,...v, cat: known.has(v.cat) ? v.cat : 'mercado'}));
   const pending = items.filter(i=>!i.done).length;
   $('#shopSummary').innerHTML = `<span class="mono">${pending}</span> ${pending===1?'item pendente':'itens pendentes'} · <span class="mono">${items.length-pending}</span> no carrinho`;
   $('#cats').innerHTML = CATS.map(c => { const n = items.filter(i=>i.cat===c.k && !i.done).length;
@@ -996,6 +1076,42 @@ function renderShop(){
   const cd = $('#clearDone'); if (cd) cd.onclick = async () => { for (const i of list.filter(i=>i.done)) await store.del('shopping', i.id); toast('Carrinho esvaziado'); };
 }
 
+/* ---------- wishlist da ovelha bebê ---------- */
+let wishPrio = 2;
+const safeLink = u => { try { const x = new URL(u.trim()); return /^https?:$/.test(x.protocol) ? x.href : ''; } catch { return ''; } };
+const hearts = n => `<span class="hearts" aria-label="Prioridade ${n} de 3">${[1,2,3].map(i=>`<svg viewBox="0 0 24 24" class="${i>n?'off':''}" fill="currentColor" aria-hidden="true">${I.encontro}</svg>`).join('')}</span>`;
+function renderWish(){
+  const s = state.settings, isDov = state.me === 'ele';
+  $('#wishTop').innerHTML = wishScene() + `<div class="ttl"><span class="eyebrow">Lista de desejos</span><h2>Wishlist da ${esc(s.nameEla)}</h2><span>Pedidos da ovelha bebê, do mais sonhado ao “seria fofo”.</span></div>`;
+  $('#wishForm').innerHTML = `<div><div class="eyebrow">Novo desejo</div><h3>O que a ovelha bebê quer?</h3></div>
+    <div class="field"><label for="w-name">Desejo</label><input class="inp" id="w-name" maxlength="80" required placeholder="Ex.: Livro de biomecânica, pantufa de ovelha"></div>
+    <div class="field"><label for="w-price">Preço (aprox.)</label><input class="inp" id="w-price" maxlength="20" placeholder="R$ 120"></div>
+    <div class="field"><span class="lbl">Quanto quero</span><div class="prio-pick" role="radiogroup">${[1,2,3].map(n=>`<button type="button" role="radio" data-prio="${n}" aria-checked="${wishPrio===n}" aria-label="${n} de 3">${Array.from({length:n},()=>`<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${I.encontro}</svg>`).join('')}</button>`).join('')}</div></div>
+    <div class="field"><label for="w-link">Link da loja</label><input class="inp" id="w-link" maxlength="400" inputmode="url" placeholder="https://..."></div>
+    <div class="field"><label for="w-note">Detalhes</label><textarea class="inp" id="w-note" maxlength="300" placeholder="Tamanho, cor, qual edição..."></textarea></div>
+    <button class="btn ela" type="submit">Pôr na wishlist</button>
+    ${isDov ? `<div class="note">Modo ${esc(s.nameEle)}: o botão “Vou dar” marca um presente em segredo. Essa marcação não aparece para a ${esc(s.nameEla)} neste app.</div>` : ''}`;
+  const all = Object.entries(state.wishlist).map(([id,v])=>({id,...v}));
+  const open = all.filter(w=>!w.got).sort((a,b)=>(b.prio||0)-(a.prio||0) || (a.createdAt||0)-(b.createdAt||0)), got = all.filter(w=>w.got);
+  const card = w => { const link = safeLink(w.link||'');
+    return `<article class="wcard${w.got?' got':''}">
+      <div class="day-title">${hearts(w.prio||1)}${w.price?`<span class="price">${esc(w.price)}</span>`:''}</div>
+      <h3>${esc(w.name)}</h3>${w.note?`<p>${esc(w.note)}</p>`:''}
+      ${isDov && w.reserved && !w.got ? `<span class="secret">Reservado por você (segredo)</span>` : ''}
+      <div class="acts">${link?`<a class="btn small" href="${esc(link)}" target="_blank" rel="noopener noreferrer">Ver na loja</a>`:''}
+        <button class="btn small" data-wgot="${w.id}">${w.got?'Voltar pra lista':'Ganhei!'}</button>
+        ${isDov && !w.got ? `<button class="btn small" data-wres="${w.id}">${w.reserved?'Desmarcar':'Vou dar'}</button>` : ''}
+        <button class="btn small danger" data-wdel="${w.id}" aria-label="Remover ${esc(w.name)}">Remover</button></div>
+    </article>`; };
+  $('#wishList').innerHTML = (open.length ? open.map(card).join('') : `<div class="panel empty" style="grid-column:1/-1;padding:24px"><svg viewBox="-70 -75 140 140" aria-hidden="true">${sheep({who:'ela',mood:'happy-closed',cls:''})}</svg>A wishlist está vazia. Escreva o primeiro desejo ao lado.</div>`)
+    + (got.length ? `<div style="grid-column:1/-1" class="eyebrow">Já ganhei</div>` + got.map(card).join('') : '');
+  $('#wishForm').onsubmit = async e => { e.preventDefault(); const name = $('#w-name').value.trim(); if (!name) return;
+    if (!state.canWrite) return toast('Você está só com acesso de leitura.');
+    const data = {name, price:$('#w-price').value.trim(), link:$('#w-link').value.trim(), note:$('#w-note').value.trim(), prio:wishPrio, got:false, reserved:false, createdAt:Date.now(), by:state.uid||null};
+    await store.put('wishlist', newId(), data); toast('Desejo anotado!'); };
+  document.querySelectorAll('[data-prio]').forEach(b=>b.onclick=()=>{ wishPrio=+b.dataset.prio; document.querySelectorAll('[data-prio]').forEach(x=>x.setAttribute('aria-checked', x===b)); });
+}
+
 /* ---------- rebanho (configurações + convite) ---------- */
 function renderFlock(){
   const s = state.settings;
@@ -1003,19 +1119,19 @@ function renderFlock(){
     <div class="panel"><div class="eyebrow">Quem está usando este aparelho?</div><h2>Qual ovelhinha é você?</h2>
       <div class="who-pick" role="radiogroup" style="grid-template-columns:1fr 1fr">${['ela','ele'].map(w=>`<button class="who-opt" role="radio" data-me="${w}" aria-checked="${state.me===w}" style="--c:${WHO_COLOR[w]};--cs:${WHO_SOFT[w]}">${miniSheep(w).replace('class="mini-sheep"','')}${esc(nameOf(w))}</button>`).join('')}</div>
       <p class="muted" style="margin:0;font-size:13.5px">Isso define o padrão dos novos compromissos e da lista de compras neste aparelho.</p>
-      <div class="row"><div class="field"><label for="n-ela">Nome da ovelha de laço rosa</label><input class="inp" id="n-ela" maxlength="24" value="${esc(s.nameEla)}"></div>
-        <div class="field"><label for="n-ele">Nome da ovelha de óculos</label><input class="inp" id="n-ele" maxlength="24" value="${esc(s.nameEle)}"></div></div>
+      <div class="row"><div class="field"><label for="n-ela">Nome da ovelha bebê</label><input class="inp" id="n-ela" maxlength="24" value="${esc(s.nameEla)}"></div>
+        <div class="field"><label for="n-ele">Nome da outra ovelha</label><input class="inp" id="n-ele" maxlength="24" value="${esc(s.nameEle)}"></div></div>
       <div><button class="btn primary" id="saveNames">Salvar nomes</button></div>
     </div>
-    <div class="panel"><div class="eyebrow">Convite para o rebanho</div><h2>Chame seu namorado</h2>
+    <div class="panel"><div class="eyebrow">Convite para o rebanho</div><h2>Chame o ${esc(s.nameEle)}</h2>
       <svg viewBox="0 0 320 120" aria-hidden="true" style="width:100%;height:auto;border-radius:16px;background:var(--sky)"><path d="M0 100 C80 86 240 96 320 88 V120 H0Z" fill="var(--hill)"/>${sheep({x:110,y:72,s:.5,who:'ela',mood:'wink'})}<g transform="translate(150 40)"><rect width="56" height="38" rx="6" fill="#fff" stroke="#E0528A" stroke-width="2.5"/><path d="M0 4 L28 24 L56 4" fill="none" stroke="#E0528A" stroke-width="2.5"/>${heart(28,16,1.1)}</g>${sheep({x:250,y:66,s:.6,who:'ele',mood:'o'})}</svg>
-      <ol class="steps"><li>Abra o menu <b>Compartilhar</b> deste artifact no Claude (canto superior).</li><li>Convide o e-mail dele com a permissão <b>Editor</b>, assim ele pode adicionar e editar compromissos e itens.</li><li>Não ative o link público: com link público aberto, convidados de fora deixam de poder editar.</li><li>Quando ele abrir, é só ir em <b>Nosso rebanho</b> e escolher a ovelha de óculos.</li></ol>
+      <ol class="steps"><li>Abra o menu <b>Compartilhar</b> deste artifact no Claude (canto superior).</li><li>Convide o e-mail do ${esc(s.nameEle)} com a permissão <b>Editor</b>, assim ele pode adicionar e editar compromissos, compras e a wishlist.</li><li>Não ative o link público: com link público aberto, convidados de fora deixam de poder editar.</li><li>Quando ele abrir, é só ir em <b>Nosso rebanho</b> e escolher a ovelha dele.</li></ol>
       <div class="note">${state.mode==='db' ? (state.canWrite ? 'Tudo que vocês anotam aqui é salvo e sincronizado ao vivo entre os dois.' : 'Você está com acesso de leitura. Peça para ser convidado como Editor para poder anotar.') : 'Modo local: os dados estão só neste navegador. Abra pelo link do Claude para sincronizar entre vocês dois.'}</div>
     </div>
     ${['ela','ele','juntos'].map(w=>`<div class="panel"><div class="eyebrow">Paleta</div><div class="day-title"><h2 style="color:${WHO_COLOR[w]}">${w==='juntos'?'Paleta do casal':'Paleta de '+esc(nameOf(w))}</h2>${miniSheep(w)}</div>
       <div class="pal">${TYPES.map(t=>`<label class="sw"><input type="color" data-pal="${w}" data-pt="${t.k}" value="${colorOf(w,t.k)}" aria-label="Cor de ${t.n} na paleta ${nameOf(w)}">${t.n}</label>`).join('')}</div>
       <div><button class="btn small" data-savepal="${w}">Salvar paleta</button> <button class="btn small" data-resetpal="${w}">Voltar ao padrão</button></div></div>`).join('')}`;
-  document.querySelectorAll('[data-me]').forEach(b=>b.onclick=()=>{ state.me=b.dataset.me; ls.set('ovelhas.me',state.me); shopWho=state.me; renderFlock(); renderCal(); renderShop(); toast(`Oi, ${nameOf(state.me)}! Bééé!`); });
+  document.querySelectorAll('[data-me]').forEach(b=>b.onclick=()=>{ state.me=b.dataset.me; ls.set('ovelhas.me',state.me); shopWho=state.me; renderFlock(); renderCal(); renderShop(); renderWish(); toast(`Oi, ${nameOf(state.me)}! Bééé!`); });
   $('#saveNames').onclick = () => store.settings({nameEla: $('#n-ela').value.trim()||'Ela', nameEle: $('#n-ele').value.trim()||'Ele'}).then(()=>toast('Nomes salvos'));
   document.querySelectorAll('[data-savepal]').forEach(b=>b.onclick=()=>{ const w=b.dataset.savepal, p={}; document.querySelectorAll(`[data-pal="${w}"]`).forEach(i=>p[i.dataset.pt]=i.value.toUpperCase());
     store.settings({palettes:{...(state.settings.palettes||{}), [w]:p}}).then(()=>toast('Paleta salva')); });
@@ -1025,12 +1141,17 @@ function renderFlock(){
 /* ---------- navegação ---------- */
 function setView(v){
   state.view = v; ls.set('ovelhas.view', v);
-  ['cal','shop','flock'].forEach(k => { $('#view-'+k).hidden = k!==v; $('#tab-'+k).setAttribute('aria-selected', k===v); });
+  ['cal','shop','wish','flock'].forEach(k => { $('#view-'+k).hidden = k!==v; $('#tab-'+k).setAttribute('aria-selected', k===v); });
 }
-function renderAll(){ renderHero(); renderShabat(); renderCal(); renderShop(); renderFlock(); setView(state.view); }
+function renderAll(){ renderHero(); renderShabat(); renderCal(); renderShop(); renderWish(); renderFlock(); setView(state.view); }
 
 $('#tab-cal').innerHTML = icon('cal') + 'Calendário';
 $('#tab-shop').innerHTML = icon('cart') + 'Compras';
+$('#tab-wish').innerHTML = icon('gift') + 'Wishlist';
+{ const F = ['E = mc²','e<sup>iπ</sup> + 1 = 0','∇·E = ρ/ε₀','∇×B = μ₀J + μ₀ε₀ ∂E/∂t','iħ ∂ψ/∂t = Ĥψ','F = m·a','∫ e<sup>−x²</sup> dx = √π','Σ 1/n² = π²/6','Δx·Δp ≥ ħ/2','PV = nRT',
+    'Q = πr⁴ΔP / 8μL','E = (RT/zF)·ln(Cₒ/Cᵢ)','A = εlc','C·dP/dt + P/R = Q(t)','f(t) = Σ aₙ cos(nωt)','S = k·ln W','dN/dt = −λN','E = hν','a² + b² = c²','∂u/∂t = α∇²u','T(n) = 2T(n/2) + O(n)','G<sub>μν</sub> + Λg<sub>μν</sub> = κT<sub>μν</sub>'];
+  $('#formulas').innerHTML = F.map((f,i)=>{ const x = (i*37 + 7) % 92, y = (i*53 + 11) % 96, r = ((i*17)%14) - 7, z = 15 + (i*7)%12;
+    return `<span style="left:${x}%;top:${y}%;transform:rotate(${r}deg);font-size:${z}px">${f}</span>`; }).join(''); }
 $('#tab-flock').innerHTML = icon('flock') + 'Nosso rebanho';
 $('#prev').innerHTML = icon('left',2.6); $('#next').innerHTML = icon('right',2.6);
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>setView(t.dataset.view));
@@ -1048,6 +1169,9 @@ document.addEventListener('click', e => {
   const ho = t.closest('[data-hol]'); if (ho){ state.holFilter[ho.dataset.hol] = state.holFilter[ho.dataset.hol]===false; ls.set('ovelhas.hol', state.holFilter); return renderCal(); }
   const c = t.closest('[data-cat]'); if (c){ state.cat = c.dataset.cat; ls.set('ovelhas.cat', state.cat); renderShop(); $('#catDetail').scrollIntoView({behavior:'smooth',block:'start'}); return; }
   const di = t.closest('[data-delitem]'); if (di){ store.del('shopping', di.dataset.delitem); return; }
+  const wg = t.closest('[data-wgot]'); if (wg){ const w = state.wishlist[wg.dataset.wgot]; if (w){ if (!w.got) puffBurst(wg); store.put('wishlist', wg.dataset.wgot, {...w, got:!w.got}); if (!w.got) toast('Eba! Mais um desejo realizado'); } return; }
+  const wr = t.closest('[data-wres]'); if (wr){ const w = state.wishlist[wr.dataset.wres]; if (w) store.put('wishlist', wr.dataset.wres, {...w, reserved:!w.reserved}); return; }
+  const wd = t.closest('[data-wdel]'); if (wd){ store.del('wishlist', wd.dataset.wdel); return; }
 });
 document.addEventListener('keydown', e => { const day = e.target.closest?.('[data-day]'); if (day && (e.key==='Enter'||e.key===' ') && e.target===day){ e.preventDefault(); day.click(); } });
 document.addEventListener('change', e => { const id = e.target.dataset?.chk; if (!id) return; const it = state.shopping[id]; if (!it) return;
