@@ -1,0 +1,1058 @@
+<title>Lã-boratório das Ovelhas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: caderno de laboratório em papel quadriculado; cabeçalho ilustrado com o lab de cada ovelha nas pontas, calendário + coluna lateral abaixo */
+:root{
+  --paper:#FBF8FF; --grid:rgba(110,120,200,.10); --card:#FFFFFF; --card-2:#F6F2FD;
+  --ink:#2E2A4A; --ink-soft:#6E6890; --line:#E6DFF3;
+  --ela:#EE5F95; --ela-soft:#FFE3EE; --ele:#3F82D6; --ele-soft:#DDEBFF; --juntos:#8E6CD8; --juntos-soft:#EEE6FF;
+  --gold:#F2A93B; --gold-soft:#FFF1D6; --br:#239A5A; --br-soft:#E1F6E8; --jew:#3A66CF; --jew-soft:#E3EBFF;
+  --sky:#EAF1FF; --sky-2:#F7EEFF; --hill:#CDEFD6; --hill-2:#B5E5C3;
+  --shadow:0 1px 0 rgba(46,42,74,.04),0 8px 24px -12px rgba(70,50,130,.25);
+  --f-display:"Grandstander","Baloo 2","Comic Sans MS",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"DM Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#17162A; --grid:rgba(160,170,255,.07); --card:#232141; --card-2:#2B2950;
+  --ink:#F2EEFF; --ink-soft:#ADA6CF; --line:#3A3764;
+  --ela:#FF85B1; --ela-soft:#4A2440; --ele:#7DB2FF; --ele-soft:#1F3157; --juntos:#B79CFF; --juntos-soft:#352B5E;
+  --gold:#FFC266; --gold-soft:#3E3020; --br:#5BD18F; --br-soft:#1E3B2E; --jew:#8EAEFF; --jew-soft:#232E55;
+  --sky:#232650; --sky-2:#2D2457; --hill:#2F5A4B; --hill-2:#27503F;
+  --shadow:0 1px 0 rgba(0,0,0,.2),0 10px 28px -12px rgba(0,0,0,.6); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#17162A; --grid:rgba(160,170,255,.07); --card:#232141; --card-2:#2B2950;
+  --ink:#F2EEFF; --ink-soft:#ADA6CF; --line:#3A3764;
+  --ela:#FF85B1; --ela-soft:#4A2440; --ele:#7DB2FF; --ele-soft:#1F3157; --juntos:#B79CFF; --juntos-soft:#352B5E;
+  --gold:#FFC266; --gold-soft:#3E3020; --br:#5BD18F; --br-soft:#1E3B2E; --jew:#8EAEFF; --jew-soft:#232E55;
+  --sky:#232650; --sky-2:#2D2457; --hill:#2F5A4B; --hill-2:#27503F;
+  --shadow:0 1px 0 rgba(0,0,0,.2),0 10px 28px -12px rgba(0,0,0,.6); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 48px;display:grid;gap:18px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(26px,4.2vw,40px);font-weight:800}
+h2{font-size:22px;font-weight:700}
+h3{font-size:17px;font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--juntos);outline-offset:2px;border-radius:8px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-soft)}
+.eyebrow{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--ink-soft)}
+
+/* ---------- topo ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.brand small{display:block;font-family:var(--f-body);font-size:13px;color:var(--ink-soft);font-weight:600}
+.tabs{display:flex;gap:6px;background:var(--card);border:1.5px solid var(--line);padding:5px;border-radius:999px;box-shadow:var(--shadow);flex-wrap:wrap}
+.tab{border:0;background:transparent;padding:8px 16px;border-radius:999px;font-weight:800;color:var(--ink-soft);display:flex;align-items:center;gap:7px}
+.tab svg{width:18px;height:18px}
+.tab[aria-selected="true"]{background:var(--juntos-soft);color:var(--ink)}
+.status{font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
+.status.live i{background:var(--br)}
+
+/* ---------- herói ---------- */
+.hero{position:relative;border-radius:28px;overflow:hidden;background:linear-gradient(180deg,var(--sky),var(--sky-2));border:1.5px solid var(--line);box-shadow:var(--shadow)}
+.hero svg.scene{display:block;width:100%;height:auto}
+.hero .labels{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px 14px;margin-top:-6px}
+.lab-tag{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lab-tag b{font-family:var(--f-display);font-size:17px}
+.lab-tag span{font-size:12.5px;color:var(--ink-soft);font-weight:600}
+.lab-tag.ele{text-align:right;align-items:flex-end}
+.lab-tag.ela b{color:var(--ela)} .lab-tag.ele b{color:var(--ele)}
+.bubble{position:absolute;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:16px;padding:8px 12px;font-weight:700;font-size:13.5px;max-width:240px;box-shadow:var(--shadow);transform:translate(-50%,-100%);pointer-events:none;animation:pop .25s ease-out}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-9px;width:14px;height:14px;background:var(--card);border-right:2px solid var(--line);border-bottom:2px solid var(--line);transform:translateX(-50%) rotate(45deg)}
+@keyframes pop{from{transform:translate(-50%,-90%) scale(.8);opacity:0}}
+.sheep-hit{cursor:pointer}
+.sheep-hit:hover .bob,.sheep-hit:focus .bob{animation:wiggle .6s ease-in-out}
+@keyframes wiggle{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+.float{animation:floaty 5s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-6px)}}
+.blink{animation:blink 1.4s steps(1) infinite}
+@keyframes blink{50%{opacity:.3}}
+
+/* ---------- shabat ---------- */
+.shabat{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:22px;background:linear-gradient(90deg,var(--gold-soft),var(--jew-soft));border:1.5px solid var(--line);box-shadow:var(--shadow);flex-wrap:wrap}
+.shabat svg{flex:none}
+.shabat h2{font-size:clamp(24px,3.4vw,32px);color:var(--ink)}
+.shabat p{margin:2px 0 0;color:var(--ink-soft);font-weight:600}
+.flame{transform-origin:50% 90%;animation:flick 1.6s ease-in-out infinite}
+@keyframes flick{50%{transform:scale(.88,1.08) rotate(3deg)}}
+
+/* ---------- grade principal ---------- */
+.main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+.panel{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.cal{padding:16px;display:grid;gap:12px;min-width:0}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.month-nav{display:flex;align-items:center;gap:8px}
+.month-nav h2{min-width:190px;text-align:center;font-size:24px}
+.iconbtn{width:38px;height:38px;border-radius:12px;border:1.5px solid var(--line);background:var(--card-2);display:grid;place-items:center}
+.iconbtn:hover{background:var(--juntos-soft)}
+.iconbtn svg{width:18px;height:18px}
+.btn{border:0;border-radius:12px;padding:9px 14px;font-weight:800;background:var(--card-2);border:1.5px solid var(--line)}
+.btn:hover{filter:brightness(.97)}
+.btn.primary{background:var(--juntos);color:#fff;border-color:transparent}
+.btn.ela{background:var(--ela);color:#fff;border-color:transparent}
+.btn.danger{background:transparent;color:var(--ela);border-color:var(--ela)}
+.btn.small{padding:6px 10px;font-size:13px;border-radius:10px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:5px 11px 5px 6px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
+.chip .dot{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.chip[aria-pressed="false"]{opacity:.45;text-decoration:line-through}
+.chip svg{width:22px;height:22px}
+.legend{display:flex;gap:6px;flex-wrap:wrap}
+.legend .chip{padding:4px 10px 4px 5px;font-size:12.5px}
+.ticon{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:7px;background:var(--c);color:var(--t)}
+.ticon svg{width:13px;height:13px}
+
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.dow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);text-align:center;padding-bottom:2px}
+.dow.sat{color:var(--jew)}
+.day{position:relative;min-height:112px;border-radius:14px;background:var(--card-2);border:1.5px solid transparent;padding:6px;text-align:left;display:flex;flex-direction:column;gap:3px;min-width:0;overflow:hidden}
+.day:hover{border-color:var(--line)}
+.day.out{opacity:.42}
+.day.sel{border-color:var(--juntos);background:var(--juntos-soft)}
+.day.today .num{background:var(--ela);color:#fff}
+.day.holiday{background:linear-gradient(180deg,var(--br-soft),var(--card-2) 70%)}
+.day.jholiday{background:linear-gradient(180deg,var(--jew-soft),var(--card-2) 70%)}
+.day .top-row{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.num{font-family:var(--f-display);font-weight:700;font-size:15px;width:28px;height:28px;display:grid;place-items:center;border-radius:50%}
+.candle-mini{display:flex;align-items:center;gap:2px;font-size:10.5px;color:var(--gold);font-family:var(--f-mono)}
+.candle-mini svg{width:12px;height:14px}
+.hol{font-size:10.5px;font-weight:800;line-height:1.2;border-radius:6px;padding:2px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hol.br{background:var(--br);color:#fff}
+.hol.sp{background:transparent;color:var(--br);border:1px dashed var(--br)}
+.hol.jew{background:var(--jew);color:#fff}
+.hol.jew.minor{background:transparent;color:var(--jew);border:1px dashed var(--jew)}
+.hol.love{background:var(--ela);color:#fff}
+.ev{display:flex;align-items:center;gap:4px;border:0;border-radius:7px;padding:2px 5px;background:var(--c);color:var(--t);font-size:11.5px;font-weight:700;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;text-align:left}
+.ev .who{flex:none;width:8px;height:8px;border-radius:50%;background:var(--w);box-shadow:0 0 0 1.5px rgba(255,255,255,.85)}
+.ev span{overflow:hidden;text-overflow:ellipsis}
+.ev .tm{font-family:var(--f-mono);font-weight:500;opacity:.85}
+@media (max-width:1180px){.ev .tm{display:none}}
+.more{font-size:11px;font-weight:800;color:var(--ink-soft);padding-left:4px}
+.dots{display:none;gap:3px;flex-wrap:wrap}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+.sticker{position:absolute;right:2px;bottom:0;width:34px;height:34px;opacity:.9;pointer-events:none}
+
+/* ---------- lateral ---------- */
+.side{display:grid;gap:18px;min-width:0}
+.side .panel{padding:16px;display:grid;gap:12px;min-width:0}
+.day-title{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.heb{font-size:12.5px;color:var(--jew);font-weight:700}
+.list{display:grid;gap:8px}
+.item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:14px;background:var(--card-2);border:1.5px solid transparent;text-align:left;width:100%;min-width:0}
+button.item:hover{border-color:var(--line)}
+.item .meta{min-width:0;display:grid}
+.item .meta b{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .meta small{color:var(--ink-soft);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .tag{margin-left:auto;flex:none}
+.mini-sheep{width:34px;height:34px;flex:none}
+.empty{display:grid;justify-items:center;text-align:center;gap:6px;padding:10px 6px;color:var(--ink-soft);font-weight:600;font-size:14px}
+.empty svg{width:120px;height:auto}
+.shabat-card{background:linear-gradient(160deg,var(--gold-soft),var(--card) 70%)}
+.times{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.time-box{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:8px 10px}
+.time-box b{font-family:var(--f-mono);font-size:20px;font-weight:500;display:block}
+.time-box small{font-size:12px;color:var(--ink-soft);font-weight:700}
+
+/* ---------- modal ---------- */
+.overlay{position:fixed;inset:0;background:rgba(30,24,60,.42);display:grid;place-items:center;z-index:50;padding:16px;padding-top:max(16px,env(safe-area-inset-top,0px));padding-bottom:max(16px,env(safe-area-inset-bottom,0px));backdrop-filter:blur(2px)}
+.modal{width:min(560px,100%);max-height:100%;overflow:auto;background:var(--card);border-radius:24px;border:1.5px solid var(--line);box-shadow:0 30px 60px -20px rgba(0,0,0,.5);padding:20px;display:grid;gap:14px;animation:rise .2s ease-out}
+@keyframes rise{from{transform:translateY(14px);opacity:0}}
+.modal-head{display:flex;align-items:center;gap:12px}
+.modal-head svg{width:56px;height:56px;flex:none}
+.field{display:grid;gap:5px}
+.field label,.field .lbl{font-size:12.5px;font-weight:800;color:var(--ink-soft);letter-spacing:.03em}
+.inp{width:100%;border:1.5px solid var(--line);background:var(--card-2);border-radius:12px;padding:9px 11px;min-width:0}
+.inp:focus{outline:none;border-color:var(--juntos)}
+textarea.inp{min-height:64px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.who-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.who-opt{border:2px solid var(--line);background:var(--card-2);border-radius:16px;padding:6px 4px 8px;display:grid;justify-items:center;gap:2px;font-weight:800;font-size:13px}
+.who-opt svg{width:56px;height:52px}
+.who-opt[aria-checked="true"]{border-color:var(--c);background:var(--cs)}
+.type-pick{display:flex;flex-wrap:wrap;gap:6px}
+.type-opt{border:2px solid var(--line);background:var(--card-2);border-radius:999px;padding:4px 10px 4px 4px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px}
+.type-opt[aria-checked="true"]{border-color:var(--c);background:var(--card)}
+.check{display:flex;align-items:center;gap:8px;font-weight:700}
+.check input{width:18px;height:18px;accent-color:var(--juntos)}
+.modal-foot{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.modal-foot .grow{flex:1}
+.confirm{background:var(--ela-soft);border-radius:14px;padding:10px 12px;display:grid;gap:8px;font-weight:700}
+.confirm div{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- compras ---------- */
+.shop{display:grid;gap:18px}
+.shop-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.cat{border:1.5px solid var(--line);background:var(--card);border-radius:20px;overflow:hidden;padding:0;text-align:left;box-shadow:var(--shadow);display:grid;transition:transform .15s}
+.cat:hover{transform:translateY(-3px)}
+.cat[aria-pressed="true"]{outline:3px solid var(--juntos);outline-offset:2px}
+.cat svg{display:block;width:100%;height:auto}
+.cat .cap{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px 11px}
+.cat .cap b{font-family:var(--f-display);font-size:16px}
+.count{font-family:var(--f-mono);font-size:12.5px;background:var(--card-2);border-radius:999px;padding:2px 9px;color:var(--ink-soft);white-space:nowrap}
+.count.has{background:var(--juntos);color:#fff}
+.cat-detail{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:0;overflow:hidden}
+.cat-detail .art{background:var(--card-2)}
+.cat-detail .art svg{display:block;width:100%;height:auto}
+.cat-detail .body{padding:18px;display:grid;gap:12px;align-content:start;min-width:0}
+.add-row{display:grid;grid-template-columns:minmax(0,1fr) 90px auto auto;gap:8px}
+.mine{display:flex;gap:4px}
+.mine button{border:1.5px solid var(--line);background:var(--card-2);border-radius:10px;padding:0 8px;height:100%;min-height:40px}
+.mine button svg{width:30px;height:28px;display:block}
+.mine button[aria-checked="true"]{border-color:var(--c);background:var(--cs)}
+.sitem{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:14px;background:var(--card-2)}
+.sitem input[type=checkbox]{width:22px;height:22px;accent-color:var(--juntos);flex:none}
+.sitem .nm{font-weight:700;min-width:0;overflow-wrap:anywhere}
+.sitem.done .nm{text-decoration:line-through;color:var(--ink-soft)}
+.sitem .qty{font-family:var(--f-mono);font-size:12.5px;color:var(--ink-soft);margin-left:auto;white-space:nowrap}
+.sitem .x{border:0;background:transparent;color:var(--ink-soft);width:28px;height:28px;border-radius:8px;flex:none}
+.sitem .x:hover{background:var(--ela-soft);color:var(--ela)}
+.sitem svg.ws{width:26px;height:24px;flex:none}
+
+/* ---------- rebanho ---------- */
+.flock{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.flock .panel{padding:18px;display:grid;gap:12px;align-content:start}
+.pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.sw{display:flex;align-items:center;gap:8px;background:var(--card-2);border-radius:12px;padding:6px 8px;font-size:13px;font-weight:700}
+.sw input[type=color]{width:30px;height:30px;border:0;padding:0;background:none;border-radius:8px;flex:none;cursor:pointer}
+.steps{margin:0;padding-left:20px;display:grid;gap:6px}
+.note{background:var(--gold-soft);border-radius:14px;padding:10px 12px;font-size:13.5px;font-weight:600}
+
+.toast{position:fixed;left:50%;bottom:max(18px,calc(env(safe-area-inset-bottom,0px) + 12px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:14px;font-weight:700;z-index:60;box-shadow:var(--shadow);animation:rise .2s ease-out;max-width:calc(100% - 32px)}
+.puff{position:fixed;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #E4DDF0;pointer-events:none;z-index:70;animation:puff .9s ease-out forwards}
+@keyframes puff{to{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
+
+@media (max-width:980px){.main{grid-template-columns:minmax(0,1fr)}.cat-detail{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+  .day{min-height:62px;padding:4px;border-radius:11px}
+  .day .ev,.day .hol,.day .more,.candle-mini span,.sticker{display:none}
+  .dots{display:flex}
+  .num{width:24px;height:24px;font-size:13.5px}
+  .week{gap:4px}
+  .month-nav h2{min-width:0;font-size:20px}
+  .hero .labels{grid-template-columns:1fr}
+  .lab-tag.ele{text-align:left;align-items:flex-start}
+  .add-row{grid-template-columns:minmax(0,1fr) 70px}
+  .add-row .mine,.add-row .btn{grid-column:span 1}
+  .tab{padding:7px 11px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <div class="brand">
+      <svg width="52" height="52" viewBox="-70 -70 140 140" aria-hidden="true" id="brandSheep"></svg>
+      <div><h1>Lã-boratório das Ovelhas</h1><small id="subtitle">Calendário do rebanho de duas cientistas</small></div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Seções">
+      <button class="tab" role="tab" id="tab-cal" aria-selected="true" data-view="cal"></button>
+      <button class="tab" role="tab" id="tab-shop" aria-selected="false" data-view="shop"></button>
+      <button class="tab" role="tab" id="tab-flock" aria-selected="false" data-view="flock"></button>
+    </nav>
+  </header>
+
+  <div id="shabatBanner" hidden></div>
+
+  <section class="hero" id="hero" aria-label="As duas ovelhas cientistas"></section>
+
+  <section id="view-cal" class="main">
+    <div class="panel cal">
+      <div class="cal-head">
+        <div class="month-nav">
+          <button class="iconbtn" id="prev" aria-label="Mês anterior"></button>
+          <h2 id="monthTitle">—</h2>
+          <button class="iconbtn" id="next" aria-label="Próximo mês"></button>
+          <button class="btn small" id="todayBtn">Hoje</button>
+        </div>
+        <button class="btn primary" id="addBtn">+ Novo compromisso</button>
+      </div>
+      <div class="filters" id="whoFilters" aria-label="Filtrar por ovelha"></div>
+      <div class="legend" id="legend" aria-label="Tipos de compromisso"></div>
+      <div class="week" id="dows"></div>
+      <div class="week" id="grid"></div>
+      <div class="filters" id="holFilters" aria-label="Feriados"></div>
+    </div>
+    <aside class="side">
+      <div class="panel" id="dayPanel"></div>
+      <div class="panel shabat-card" id="shabatCard"></div>
+      <div class="panel" id="upcoming"></div>
+    </aside>
+  </section>
+
+  <section id="view-shop" class="shop" hidden>
+    <div class="shop-head">
+      <div><div class="eyebrow">Experimento contínuo</div><h2>Lista de compras do rebanho</h2></div>
+      <div class="muted" id="shopSummary"></div>
+    </div>
+    <div class="panel cat-detail" id="catDetail"></div>
+    <div class="cats" id="cats"></div>
+  </section>
+
+  <section id="view-flock" class="flock" hidden></section>
+</div>
+
+<script>
+/* =========================================================
+   Utilidades de data
+   ========================================================= */
+const pad = n => String(n).padStart(2,'0');
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parse = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const addDays = (d,n) => { const x = new Date(d); x.setDate(x.getDate()+n); return x; };
+const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const DOW = ['dom','seg','ter','qua','qui','sex','sáb'];
+const DOW_FULL = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ls = { get(k,d){ try{ const v = localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch{ return d; } },
+             set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{} } };
+
+/* =========================================================
+   Feriados brasileiros (nacionais + SP) e judaicos
+   ========================================================= */
+function easter(y){ const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),
+  h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1; return new Date(y,mo-1,da); }
+const brCache = {};
+function brHolidays(y){
+  if (brCache[y]) return brCache[y];
+  const out = {}; const put = (d,name,kind='br') => { const k = typeof d==='string'? `${y}-${d}` : iso(d); (out[k] ||= []).push({name,kind}); };
+  put('01-01','Confraternização Universal'); put('04-21','Tiradentes'); put('05-01','Dia do Trabalho');
+  put('09-07','Independência do Brasil'); put('10-12','Nossa Senhora Aparecida'); put('11-02','Finados');
+  put('11-15','Proclamação da República'); put('11-20','Dia da Consciência Negra'); put('12-25','Natal');
+  const e = easter(y);
+  put(addDays(e,-48),'Carnaval','sp'); put(addDays(e,-47),'Carnaval','sp');
+  put(addDays(e,-2),'Sexta-feira Santa'); put(e,'Páscoa','sp'); put(addDays(e,60),'Corpus Christi','sp');
+  put('01-25','Aniversário de São Paulo','sp'); put('07-09','Revolução Constitucionalista (SP)','sp');
+  put('06-12','Dia dos Namorados','love');
+  return brCache[y] = out;
+}
+const hebFmt = new Intl.DateTimeFormat('en-u-ca-hebrew',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+const hebPt = new Intl.DateTimeFormat('pt-BR-u-ca-hebrew',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+const hebCache = new Map();
+function heb(d){
+  const k = iso(d); if (hebCache.has(k)) return hebCache.get(k);
+  const p = hebFmt.formatToParts(new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),12)));
+  const r = { day:+p.find(x=>x.type==='day').value, month:p.find(x=>x.type==='month').value, year:+(p.find(x=>x.type==='year')||{}).value };
+  hebCache.set(k,r); return r;
+}
+function hebLabel(d){ return hebPt.format(new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),12))).replace(/\s*AM$/,''); }
+function jewishBase(d){
+  const {day,month} = heb(d), w = d.getDay(), out = [];
+  const add = (name,minor=false) => out.push({name,kind:'jew',minor});
+  const isAdar = month==='Adar' || month==='Adar II';
+  if (month==='Tishri'){
+    if (day===1||day===2) add(`Rosh Hashaná · ${day}º dia`);
+    if (day===10) add('Yom Kipur');
+    if (day===15||day===16) add(`Sucot · ${day-14}º dia`);
+    if (day>=17&&day<=20) add('Chol HaMoed Sucot',true);
+    if (day===21) add('Hoshaná Rabá',true);
+    if (day===22) add('Shemini Atzeret');
+    if (day===23) add('Simchat Torá');
+  }
+  // Chanucá: 25 de Kislev + 7 dias
+  for (let k=0;k<8;k++){ const b = heb(addDays(d,-k)); if (b.month==='Kislev' && b.day===25){ add(`Chanucá · ${k+1}ª vela`, k>0); break; } }
+  if (month==='Shevat' && day===15) add('Tu BiShvat',true);
+  if (isAdar && day===14) add('Purim');
+  if (month==='Nisan'){
+    if (day===15||day===16) add(`Pessach · ${day-14}º dia`);
+    if (day>=17&&day<=20) add('Chol HaMoed Pessach',true);
+    if (day===21||day===22) add(`Pessach · ${day-14}º dia`);
+    const ys = (day===27 && w!==5 && w!==0) || (day===26 && w===4) || (day===28 && w===1);
+    if (ys) add('Yom HaShoá',true);
+  }
+  if (month==='Iyar'){
+    const ya = (day===5 && w!==1 && w!==5 && w!==6) || ((day===4 || day===3) && w===4) || (day===6 && w===2);
+    if (ya) add("Yom Ha'Atzmaut",true);
+    if (day===18) add('Lag BaOmer',true);
+  }
+  if (month==='Sivan' && (day===6||day===7)) add(`Shavuot · ${day-5}º dia`);
+  if (month==='Av'){
+    if ((day===9 && w!==6) || (day===10 && w===0)) add("Tishá BeAv",true);
+    if (day===15) out.push({name:'Tu BeAv · dia do amor',kind:'love'});
+  }
+  return out;
+}
+const MAJOR_EREV = [/^Rosh/,/^Yom Kipur/,/^Sucot · 1/,/^Pessach · 1/,/^Shavuot · 1/,/^Shemini/,/^Pessach · 7/];
+function holidaysFor(d){
+  const k = iso(d); const list = [...(brHolidays(d.getFullYear())[k]||[]), ...jewishBase(d)];
+  const base = h => h.name.split(' ·')[0];
+  const tom = jewishBase(addDays(d,1)).find(h => MAJOR_EREV.some(r=>r.test(h.name)));
+  if (tom && !jewishBase(d).some(h => base(h)===base(tom)))
+    list.push({name:`Erev ${/^Pessach · 7/.test(tom.name)?'últimos dias de Pessach':base(tom)} · ao pôr do sol`,kind:'jew',minor:true});
+  return list;
+}
+
+/* Pôr do sol em São Paulo (algoritmo do almanaque NOAA, simplificado) */
+const SP = {lat:-23.5505, lng:-46.6333, tz:-3};
+function sunset(d){
+  const rad = Math.PI/180, N = Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()) - Date.UTC(d.getFullYear(),0,0))/864e5);
+  const lngH = SP.lng/15, t = N + (18-lngH)/24, M = 0.9856*t - 3.289;
+  let L = (M + 1.916*Math.sin(M*rad) + 0.020*Math.sin(2*M*rad) + 282.634) % 360; if (L<0) L+=360;
+  let RA = Math.atan(0.91764*Math.tan(L*rad))/rad; RA = (RA+360)%360;
+  RA = (RA + Math.floor(L/90)*90 - Math.floor(RA/90)*90)/15;
+  const sinDec = 0.39782*Math.sin(L*rad), cosDec = Math.cos(Math.asin(sinDec));
+  const cosH = (Math.cos(90.833*rad) - sinDec*Math.sin(SP.lat*rad))/(cosDec*Math.cos(SP.lat*rad));
+  const H = Math.acos(cosH)/rad/15, T = H + RA - 0.06571*t - 6.622;
+  let UT = (T - lngH) % 24; if (UT<0) UT+=24;
+  let local = (UT + SP.tz + 24) % 24; return local*60; // minutos desde 0h
+}
+const hm = m => `${pad(Math.floor(m/60))}:${pad(Math.round(m%60)%60)}`;
+const candleTime = d => hm(sunset(d) - 18);
+const havdalaTime = d => hm(sunset(d) + 42);
+
+/* =========================================================
+   Ícones
+   ========================================================= */
+const I = {
+  cal:'<path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/>',
+  cart:'<path d="M3 4h2l2.5 11h10L20 7H6.2M9 20a1 1 0 1 0 0-.1M17 20a1 1 0 1 0 0-.1"/>',
+  flock:'<path d="M7 13a3 3 0 1 1 1.5-5.6A3 3 0 0 1 14 8a3 3 0 1 1 1 5.8V16H8v-2.2A3 3 0 0 1 7 13zM9 16v3M13 16v3"/>',
+  left:'<path d="M15 5l-7 7 7 7"/>', right:'<path d="M9 5l7 7-7 7"/>',
+  aula:'<path d="M3 5h6a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H3zM21 5h-6a3 3 0 0 0-3 3v11a2 2 0 0 1 2-2h7z"/>',
+  prova:'<path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3"/>',
+  lab:'<path d="M9 3h6M10 3v6l-5.5 9.5A1.8 1.8 0 0 0 6 21h12a1.8 1.8 0 0 0 1.5-2.5L14 9V3M7.5 15h9"/>',
+  social:'<path d="M12 3c3 0 5 2.5 5 5.5S14.5 15 12 15s-5-3.5-5-6.5S9 3 12 3zM12 15l-1 2h2zM12 17c0 2-2 2.5-1 4.5"/>',
+  encontro:'<path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/>',
+  saude:'<path d="M3 12h4l2-5 3 10 2-5h7"/>',
+  trabalho:'<path d="M4 8h16v11H4zM9 8V5h6v3M4 13h16"/>',
+  viagem:'<path d="M2.5 12.5l19-8-7.5 16-2.6-6.2zM11.4 14.3l10.1-9.8"/>',
+  outro:'<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
+};
+const icon = (k,w=2) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`;
+
+/* =========================================================
+   Paletas
+   ========================================================= */
+const TYPES = [
+  {k:'aula',n:'Aula'},{k:'prova',n:'Prova / entrega'},{k:'lab',n:'Lab / pesquisa'},{k:'social',n:'Evento social'},
+  {k:'encontro',n:'Encontro'},{k:'saude',n:'Saúde'},{k:'trabalho',n:'Estágio / trabalho'},{k:'viagem',n:'Viagem'},{k:'outro',n:'Outro'},
+];
+const DEFAULT_PAL = {
+  ela:{aula:'#F48FB1',prova:'#E2557F',lab:'#6FCBA2',social:'#FFB5CB',encontro:'#FF6F91',saude:'#8FD3C1',trabalho:'#D18AD6',viagem:'#FFC09F',outro:'#F2B8D9'},
+  ele:{aula:'#74A9E8',prova:'#3B6FC2',lab:'#5FC0C6',social:'#A9D2F2',encontro:'#6E8FF0',saude:'#8DD0C0',trabalho:'#8A8FE0',viagem:'#9BC1E6',outro:'#B6C7DE'},
+  juntos:{aula:'#B79CED',prova:'#8E6CD8',lab:'#9ED7B5',social:'#FFD36E',encontro:'#C58BF2',saude:'#A8DCC8',trabalho:'#C4B5F5',viagem:'#FFB16E',outro:'#E3D7FA'},
+};
+const WHO_COLOR = {ela:'var(--ela)', ele:'var(--ele)', juntos:'var(--juntos)'};
+const WHO_SOFT = {ela:'var(--ela-soft)', ele:'var(--ele-soft)', juntos:'var(--juntos-soft)'};
+function textOn(hex){ const h=hex.replace('#',''); const [r,g,b]=[0,2,4].map(i=>parseInt(h.substr(i,2),16)/255).map(c=>c<=.03928?c/12.92:((c+.055)/1.055)**2.4);
+  const L=.2126*r+.7152*g+.0722*b; return L>.42 ? '#2A2440' : '#FFFFFF'; }
+const colorOf = (who,type) => (state.settings.palettes?.[who]?.[type]) || DEFAULT_PAL[who]?.[type] || '#ccc';
+
+/* =========================================================
+   Desenhos: as ovelhas
+   ========================================================= */
+const C = {wool:'#FFFFFF', line:'#E2DAF0', face:'#F8E4D6', ear:'#EEC5AF', hoof:'#5A5168', blush:'#FF9DB9', ink:'#2E2A4A'};
+function puffs(list, fill, stroke, sw=2.5){
+  return `<g fill="${fill}" stroke="${stroke}" stroke-width="${sw}">${list.map(([a,b,r])=>`<circle cx="${a}" cy="${b}" r="${r}"/>`).join('')}</g>`+
+         `<g fill="${fill}">${list.map(([a,b,r])=>`<circle cx="${a}" cy="${b}" r="${r-sw}"/>`).join('')}</g>`;
+}
+function eye(cx,cy,iris,mood,side){
+  if (mood==='sleep' || (mood==='wink' && side>0)) return `<path d="M${cx-6} ${cy} Q${cx} ${cy+5} ${cx+6} ${cy}" stroke="${C.ink}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+  if (mood==='happy-closed') return `<path d="M${cx-6} ${cy+2} Q${cx} ${cy-5} ${cx+6} ${cy+2}" stroke="${C.ink}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+  return `<circle cx="${cx}" cy="${cy}" r="6.6" fill="${iris}"/><circle cx="${cx}" cy="${cy+.4}" r="3.7" fill="#1E1A2B"/><circle cx="${cx-2}" cy="${cy-2.2}" r="2" fill="#fff"/><circle cx="${cx+2.2}" cy="${cy+2}" r=".9" fill="#fff"/>`;
+}
+/** who: 'ela' (menor, lacinho rosa, olhos verdes) | 'ele' (óculos redondos, olhos castanhos) */
+function sheep({x=0,y=0,s=1,who='ela',mood='happy',wet=false,acc=[],flip=false,body=true,cls='bob'}={}){
+  const ela = who==='ela', iris = ela ? '#36A867' : '#7A5236';
+  const wool = wet ? '#EEF7FF' : C.wool, line = wet ? '#BFDCF2' : C.line;
+  let g = '';
+  if (body){
+    g += `<rect x="-27" y="34" width="13" height="26" rx="6.5" fill="${C.hoof}"/><rect x="14" y="34" width="13" height="26" rx="6.5" fill="${C.hoof}"/>`;
+    g += puffs([[0,16,38],[-31,6,19],[31,6,19],[-38,26,17],[38,26,17],[-22,42,17],[22,42,17],[0,46,17],[-17,-8,17],[17,-8,17]], wool, line);
+    if (acc.includes('stetho')) g += `<path d="M-20 -2 C-22 22 -8 30 0 30 C8 30 22 22 20 -2" fill="none" stroke="#FF7AAE" stroke-width="3.2" stroke-linecap="round"/><circle cx="0" cy="31" r="5.5" fill="#C9CCDA" stroke="#FF7AAE" stroke-width="2.5"/>`;
+    if (acc.includes('bowtie')) g += `<path d="M0 4 L-13 -3 L-13 11 Z M0 4 L13 -3 L13 11 Z" fill="#4C8BD9" stroke="#2F67B0" stroke-width="1.5" stroke-linejoin="round"/><circle cx="0" cy="4" r="3.5" fill="#2F67B0"/>`;
+    if (acc.includes('coat')) g += `<path d="M-24 0 L-6 24 L-6 52 M24 0 L6 24 L6 52" stroke="#D6D9E6" stroke-width="3" fill="none"/><rect x="11" y="28" width="9" height="11" rx="2" fill="none" stroke="#D6D9E6" stroke-width="2"/><path d="M14 27 v-4" stroke="#4C8BD9" stroke-width="2.4"/>`;
+  }
+  g += `<ellipse cx="-31" cy="-24" rx="13" ry="6.5" transform="rotate(-24 -31 -24)" fill="${C.ear}"/><ellipse cx="31" cy="-24" rx="13" ry="6.5" transform="rotate(24 31 -24)" fill="${C.ear}"/>`;
+  g += `<ellipse cx="0" cy="-22" rx="25" ry="23.5" fill="${C.face}"/>`;
+  g += puffs([[-13,-43,9.5],[0,-48,10.5],[13,-43,9.5]], wool, line, 2.2);
+  g += eye(-10,-23,iris,mood,-1) + eye(10,-23,iris,mood,1);
+  if (ela) g += `<path d="M-18 -31 q2 -2 5 -1.5 M18 -31 q-2 -2 -5 -1.5" stroke="${C.ink}" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".55"/>`;
+  g += `<ellipse cx="-17" cy="-12" rx="5.5" ry="3.2" fill="${C.blush}" opacity=".75"/><ellipse cx="17" cy="-12" rx="5.5" ry="3.2" fill="${C.blush}" opacity=".75"/>`;
+  g += mood==='o' ? `<ellipse cx="0" cy="-8" rx="3" ry="3.6" fill="${C.ink}"/>` : `<path d="M-5.5 -10 Q0 -4.5 5.5 -10" stroke="${C.ink}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+  if (!ela && !acc.includes('noglasses')) g += `<g fill="rgba(255,255,255,.18)" stroke="#3A3550" stroke-width="2.2"><circle cx="-10" cy="-23" r="9.5"/><circle cx="10" cy="-23" r="9.5"/></g><path d="M-0.5 -24 h1 M-19.5 -25 L-25 -27 M19.5 -25 L25 -27" stroke="#3A3550" stroke-width="2.2" stroke-linecap="round"/>`;
+  if (ela) g += `<g transform="translate(-15 -48) rotate(-18)"><path d="M0 0 C-5 -11 -20 -11 -19 1 C-18 11 -6 7 0 0Z M0 0 C5 -11 20 -11 19 1 C18 11 6 7 0 0Z" fill="#FF7AAE" stroke="#E0528A" stroke-width="2" stroke-linejoin="round"/><path d="M-3 2 L-8 13 M3 2 L8 13" stroke="#E0528A" stroke-width="3" stroke-linecap="round"/><circle r="4.6" fill="#FF5C9A" stroke="#E0528A" stroke-width="1.6"/></g>`;
+  if (acc.includes('kippah')) g += `<path d="M10 -50 a14 7 0 0 1 26 6 z" fill="#3A66CF" stroke="#2A4FA8" stroke-width="1.5" transform="rotate(10 20 -48)"/>`;
+  if (acc.includes('bandaid')) g += `<g transform="translate(14 -36) rotate(35)"><rect x="-9" y="-3.5" width="18" height="7" rx="3.5" fill="#F7C99A"/><rect x="-3" y="-3.5" width="6" height="7" fill="#EDB27D"/></g>`;
+  if (acc.includes('thermo')) g += `<g transform="translate(6 -9) rotate(-20)"><rect x="0" y="-2" width="22" height="4" rx="2" fill="#E9EDF6" stroke="#9AA3B8" stroke-width="1"/><circle cx="22" cy="0" r="3" fill="#FF5C7A"/></g>`;
+  if (acc.includes('headphones')) g += `<path d="M-27 -22 A27 30 0 0 1 27 -22" fill="none" stroke="#7B6CD9" stroke-width="4"/><rect x="-33" y="-28" width="9" height="15" rx="4" fill="#7B6CD9"/><rect x="24" y="-28" width="9" height="15" rx="4" fill="#7B6CD9"/>`;
+  if (wet) g += `<g fill="#7CC4F2"><path d="M-36 -40 q4 7 0 9 q-4 -2 0 -9z"/><path d="M40 -8 q4 7 0 9 q-4 -2 0 -9z"/><path d="M-46 12 q3.5 6 0 8 q-3.5 -2 0 -8z"/></g>`;
+  if (acc.includes('foam')) g += puffs([[-6,-56,7],[6,-60,8],[16,-54,6],[-16,-55,5]],'#FFFFFF','#CDE6F7',1.6);
+  const t = `translate(${x} ${y}) scale(${flip?-s:s} ${s})`;
+  return `<g transform="${t}"><g class="${cls}" style="transform-box:fill-box;transform-origin:50% 100%">${g}</g></g>`;
+}
+const miniSheep = (who, extra='') => `<svg class="mini-sheep" viewBox="-60 -70 120 135" aria-hidden="true" ${extra}>${who==='juntos'
+  ? sheep({x:16,y:4,s:.72,who:'ele',cls:''})+sheep({x:-18,y:12,s:.62,who:'ela',cls:''}) : sheep({who,s:who==='ela'?.9:1,cls:''})}</svg>`;
+const heart = (x,y,s=1,c='#FF6F91') => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 6 C-10 -2 -8 -10 -3 -10 C-1 -10 0 -8 0 -7 C0 -8 1 -10 3 -10 C8 -10 10 -2 0 6Z" fill="${c}"/>`;
+const sparkle = (x,y,s=1,c='#FFD36E') => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 -8 Q1 -1 8 0 Q1 1 0 8 Q-1 1 -8 0 Q-1 -1 0 -8Z" fill="${c}"/>`;
+const bubble = (x,y,r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="rgba(255,255,255,.55)" stroke="#9FD3F5" stroke-width="1.4"/><circle cx="${x-r*.35}" cy="${y-r*.35}" r="${r*.22}" fill="#fff"/>`;
+
+/* ---------- cena principal ---------- */
+function heroScene(){
+  const n = state.settings;
+  return `<svg class="scene" viewBox="0 0 960 300" role="img" aria-label="Ovelha de laço rosa num laboratório de engenharia biomédica e ovelha de óculos com computador e física">
+  <defs><pattern id="stars" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="8" cy="10" r="1.2" fill="#fff" opacity=".5"/><circle cx="40" cy="34" r="1" fill="#fff" opacity=".35"/></pattern></defs>
+  <rect width="960" height="300" fill="url(#stars)" opacity=".6"/>
+  <!-- ECG -->
+  <path d="M20 58 H90 l10 -22 l12 44 l10 -36 l8 14 H190" fill="none" stroke="#FF7AAE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="blink"/>
+  ${heart(212,58,1.6,'#FF7AAE')}
+  <!-- DNA -->
+  <g class="float" transform="translate(268 30)">
+    ${Array.from({length:9},(_,i)=>{const y=i*13,x1=Math.sin(i*.75)*16;return `<line x1="${x1}" y1="${y}" x2="${-x1}" y2="${y}" stroke="${i%2?'#7FD1AE':'#F48FB1'}" stroke-width="3" stroke-linecap="round"/>`}).join('')}
+    <path d="${Array.from({length:9},(_,i)=>`${i?'L':'M'}${Math.sin(i*.75)*16} ${i*13}`).join(' ')}" fill="none" stroke="#E0528A" stroke-width="3"/>
+    <path d="${Array.from({length:9},(_,i)=>`${i?'L':'M'}${-Math.sin(i*.75)*16} ${i*13}`).join(' ')}" fill="none" stroke="#36A867" stroke-width="3"/>
+  </g>
+  <!-- bancada dela -->
+  <rect x="20" y="196" width="300" height="12" rx="6" fill="#E8D6F5"/>
+  <rect x="34" y="208" width="10" height="60" fill="#D9C4EC"/><rect x="296" y="208" width="10" height="60" fill="#D9C4EC"/>
+  <!-- microscópio -->
+  <g transform="translate(70 110)">
+    <rect x="-6" y="80" width="56" height="8" rx="4" fill="#8E86B5"/>
+    <path d="M30 80 C30 50 44 40 40 20" stroke="#8E86B5" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <rect x="6" y="56" width="34" height="6" rx="3" fill="#B7AEDD"/>
+    <rect x="10" y="-6" width="14" height="44" rx="5" fill="#C9C2EA" transform="rotate(-22 17 16)"/>
+    <rect x="16" y="-14" width="16" height="10" rx="3" fill="#8E86B5" transform="rotate(-22 24 -9)"/>
+    <circle cx="20" cy="49" r="4" fill="#FF7AAE"/>
+  </g>
+  <!-- frascos -->
+  <g transform="translate(170 140)">
+    <path d="M0 0 h18 M3 0 v18 l-11 30 a5 5 0 0 0 4 7 h26 a5 5 0 0 0 4 -7 l-11 -30 v-18" fill="rgba(255,255,255,.7)" stroke="#B7AEDD" stroke-width="2.5"/>
+    <path d="M-5 38 h28 l5 10 a4 4 0 0 1 -4 6 h-30 a4 4 0 0 1 -4 -6z" fill="#FF9DC0"/>
+    ${bubble(10,28,3)}${bubble(4,18,2)}
+  </g>
+  <g transform="translate(232 150)"><rect x="0" y="0" width="16" height="44" rx="8" fill="rgba(255,255,255,.7)" stroke="#B7AEDD" stroke-width="2.5"/><rect x="2" y="22" width="12" height="20" rx="6" fill="#7FD1AE"/></g>
+  <g transform="translate(262 150)"><rect x="0" y="6" width="16" height="38" rx="8" fill="rgba(255,255,255,.7)" stroke="#B7AEDD" stroke-width="2.5"/><rect x="2" y="26" width="12" height="16" rx="6" fill="#FFC09F"/></g>
+  <!-- colina -->
+  <path d="M0 262 C180 228 300 250 480 236 C660 222 780 248 960 232 V300 H0Z" fill="var(--hill)"/>
+  <path d="M0 280 C200 262 360 276 520 268 C700 260 820 278 960 268 V300 H0Z" fill="var(--hill-2)"/>
+  ${[60,140,410,520,600,880].map((x,i)=>`<g transform="translate(${x} ${270+(i%2)*10})"><circle r="4" fill="${i%2?'#FFD36E':'#FFB5CB'}"/><circle r="1.6" fill="#fff"/></g>`).join('')}
+  <!-- lado dele: lousa + computador -->
+  <g transform="translate(650 34)">
+    <rect width="280" height="132" rx="10" fill="#2F4A57" stroke="#B8875A" stroke-width="8"/>
+    <g fill="#EAF4FF" font-family="DM Mono, monospace" font-size="15">
+      <text x="18" y="34">iħ ∂ψ/∂t = Ĥψ</text>
+      <text x="18" y="62">∮ E·dA = Q/ε₀</text>
+      <text x="18" y="90" fill="#9FD0FF">if (bééé) return amor;</text>
+      <text x="18" y="116" fill="#FFD36E" font-size="13">01100010 01100101</text>
+    </g>
+    <g transform="translate(236 40)" class="float"><circle r="5" fill="#FFD36E"/>
+      <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2"/>
+      <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2" transform="rotate(60)"/>
+      <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2" transform="rotate(-60)"/></g>
+  </g>
+  <rect x="640" y="200" width="300" height="12" rx="6" fill="#CFE0F5"/>
+  <rect x="654" y="212" width="10" height="56" fill="#BCD2EE"/><rect x="916" y="212" width="10" height="56" fill="#BCD2EE"/>
+  <g transform="translate(800 148)">
+    <path d="M0 0 h86 a4 4 0 0 1 4 4 v46 h-94 v-46 a4 4 0 0 1 4 -4z" fill="#3E4A6B"/>
+    <rect x="4" y="4" width="82" height="42" rx="2" fill="#1F2A44"/>
+    <text x="12" y="22" fill="#7FD1AE" font-family="DM Mono, monospace" font-size="11">&lt;/&gt; ok ✓</text>
+    <text x="12" y="38" fill="#9FD0FF" font-family="DM Mono, monospace" font-size="11">build 100%</text>
+    <path d="M-10 50 h110 l-6 8 h-98z" fill="#8E9AB8"/>
+  </g>
+  <g transform="translate(700 170)"><rect width="30" height="30" rx="4" fill="#5FC0C6"/><path d="M6 8 h18 M6 15 h12 M6 22 h16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="40" cy="22" r="8" fill="#FFD36E"/><path d="M40 14 v-6" stroke="#8E9AB8" stroke-width="2"/></g>
+  <!-- as ovelhas -->
+  <g class="sheep-hit" data-who="ele" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEle)}">${sheep({x:545,y:188,s:1.18,who:'ele',acc:['bowtie']})}</g>
+  <g class="sheep-hit" data-who="ela" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEla)}">${sheep({x:420,y:203,s:.92,who:'ela',acc:['stetho']})}</g>
+  <g class="float">${heart(482,96,1.8)}${heart(505,72,1.1,'#FFB5CB')}</g>
+  ${sparkle(360,110,1.2)}${sparkle(612,92,1,'#9FD0FF')}
+  </svg>
+  <div class="labels">
+    <div class="lab-tag ela"><b>Lã-boratório de ${esc(n.nameEla)}</b><span>Engenharia Biomédica · Faculdade Israelita de Ciências da Saúde Albert Einstein</span></div>
+    <div class="lab-tag ele"><b>Lã-boratório de ${esc(n.nameEle)}</b><span>Engenharia de Computação · Insper &nbsp;|&nbsp; Física · USP</span></div>
+  </div>`;
+}
+
+/* ---------- cenas das categorias de compras ---------- */
+const SCN = (bg, inner, label) => `<svg viewBox="0 0 320 190" role="img" aria-label="${label}"><rect width="320" height="190" fill="${bg}"/>${inner}</svg>`;
+const floor = (c) => `<rect y="160" width="320" height="30" fill="${c}"/>`;
+const SCENES = {
+  mercado: () => SCN('#FFF3DE', `
+    ${[30,72,114].map((y,r)=>`<rect x="10" y="${y}" width="300" height="6" rx="3" fill="#D9B78A"/>`+
+      Array.from({length:11},(_,i)=>{const c=['#FF8FAB','#7FD1AE','#FFD36E','#9FC5F8','#C9A7F2','#FFB070'][(i+r*2)%6];const h=14+((i*7+r*5)%3)*5;
+        return i%3===1?`<rect x="${16+i*27}" y="${y-h}" width="14" height="${h}" rx="5" fill="${c}"/><rect x="${16+i*27}" y="${y-h}" width="14" height="4" rx="2" fill="#fff" opacity=".6"/>`
+          :`<rect x="${14+i*27}" y="${y-h}" width="20" height="${h}" rx="3" fill="${c}"/><rect x="${18+i*27}" y="${y-h+4}" width="12" height="5" rx="2" fill="#fff" opacity=".7"/>`}).join('')).join('')}
+    ${floor('#F1DDB8')}${Array.from({length:12},(_,i)=>`<rect x="${i*28}" y="${160+(i%2)*15}" width="28" height="15" fill="#E8CFA2"/>`).join('')}
+    <g transform="translate(16 2)"><rect x="0" y="0" width="74" height="22" rx="6" fill="#FF7AAE"/><text x="37" y="15.5" text-anchor="middle" fill="#fff" font-family="Grandstander, sans-serif" font-weight="800" font-size="12">MERCADO</text></g>
+    ${sheep({x:168,y:96,s:.5,who:'ela',mood:'happy'})}
+    <g><path d="M112 112 L226 112 L214 156 L124 156 Z" fill="rgba(180,200,220,.45)" stroke="#7C8BA3" stroke-width="3.5" stroke-linejoin="round"/>
+      ${[132,150,168,186,204].map(x=>`<line x1="${x}" y1="112" x2="${x-2}" y2="156" stroke="#7C8BA3" stroke-width="2"/>`).join('')}
+      <line x1="117" y1="134" x2="221" y2="134" stroke="#7C8BA3" stroke-width="2"/>
+      <path d="M226 112 L240 94 h14" fill="none" stroke="#7C8BA3" stroke-width="4" stroke-linecap="round"/>
+      <path d="M124 156 L120 164 h96" fill="none" stroke="#7C8BA3" stroke-width="3.5"/>
+      <circle cx="132" cy="172" r="7" fill="#5A5168"/><circle cx="204" cy="172" r="7" fill="#5A5168"/>
+      <rect x="196" y="88" width="10" height="34" rx="5" fill="#E8B36B" transform="rotate(20 201 105)"/>
+      <circle cx="132" cy="108" r="9" fill="#FF6F6F"/><path d="M132 99 q3 -5 6 -4" stroke="#36A867" stroke-width="2.5" fill="none"/></g>
+    ${sheep({x:272,y:118,s:.6,who:'ele',flip:true})}
+    <path d="M252 104 L242 96" stroke="${C.face}" stroke-width="6" stroke-linecap="round"/>
+  `,'Ovelhas no mercado: a pequena sentada no carrinho e a outra empurrando'),
+
+  banho: () => SCN('#E2F3FF', `
+    ${Array.from({length:8},(_,i)=>`<line x1="${i*40+20}" y1="0" x2="${i*40+20}" y2="120" stroke="#C8E4F7" stroke-width="2"/>`).join('')}
+    ${[30,70,110].map(y=>`<line x1="0" y1="${y}" x2="320" y2="${y}" stroke="#C8E4F7" stroke-width="2"/>`).join('')}
+    <g><path d="M24 12 h22 v8" stroke="#A9B6CC" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M34 20 h24 l-4 10 h-16z" fill="#A9B6CC"/>
+      ${[38,44,50,56].map((x,i)=>`<path d="M${x-2} ${40+i*6} q2 5 0 7 q-2 -2 0 -7z" fill="#7CC4F2"/>`).join('')}</g>
+    ${floor('#CDE7F8')}
+    ${sheep({x:120,y:104,s:.56,who:'ela',wet:true,acc:['foam'],mood:'happy-closed'})}
+    ${sheep({x:196,y:96,s:.64,who:'ele',wet:true,acc:['foam','noglasses'],mood:'wink'})}
+    <rect x="40" y="112" width="238" height="54" rx="26" fill="#FFFFFF" stroke="#B9D6EA" stroke-width="3"/>
+    <rect x="34" y="106" width="250" height="14" rx="7" fill="#F4FAFF" stroke="#B9D6EA" stroke-width="3"/>
+    <rect x="64" y="164" width="12" height="14" rx="4" fill="#B9D6EA"/><rect x="244" y="164" width="12" height="14" rx="4" fill="#B9D6EA"/>
+    ${puffs([[60,108,10],[80,102,12],[100,108,9],[150,104,10],[172,100,11],[226,104,10],[250,102,12],[268,108,8]],'#FFFFFF','#CDE6F7',2)}
+    <g transform="translate(266 80)"><ellipse cx="0" cy="12" rx="16" ry="10" fill="#FFD43B"/><circle cx="-6" cy="-1" r="9" fill="#FFD43B"/><path d="M-15 0 l-8 2 l8 3z" fill="#FF8A3D"/><circle cx="-8" cy="-3" r="1.8" fill="#2E2A4A"/><path d="M4 8 q8 -2 10 4" stroke="#F2B705" stroke-width="2" fill="none"/></g>
+    <g transform="translate(16 128) rotate(-10)"><rect width="28" height="16" rx="6" fill="#FF9DC0"/><rect x="5" y="4" width="18" height="3" rx="1.5" fill="#fff" opacity=".6"/></g>
+    ${bubble(30,104,6)}${bubble(46,90,4)}${bubble(146,62,5)}${bubble(236,50,7)}${bubble(296,60,5)}${bubble(220,30,3)}
+  `,'Ovelhas molhadas na banheira com espuma, sabonete e patinho de borracha'),
+
+  feira: () => SCN('#ECFAE6', `
+    ${Array.from({length:8},(_,i)=>`<path d="M${i*40} 0 h40 v26 a20 12 0 0 1 -40 0z" fill="${i%2?'#FFFFFF':'#FF8FAB'}"/>`).join('')}
+    <rect x="0" y="0" width="320" height="6" fill="#E0528A"/>
+    ${floor('#D8EFC8')}
+    <rect x="18" y="120" width="140" height="44" rx="6" fill="#D9A86C"/><rect x="18" y="120" width="140" height="8" fill="#C38E52"/>
+    ${[[34,112,'#FF6F6F'],[52,110,'#FF6F6F'],[70,113,'#FF8A3D'],[88,110,'#FF8A3D'],[106,112,'#9ED85E'],[124,110,'#9ED85E'],[142,113,'#FF6F6F']].map(([x,y,c])=>`<circle cx="${x}" cy="${y}" r="10" fill="${c}"/><circle cx="${x-3}" cy="${y-3}" r="2.5" fill="#fff" opacity=".5"/>`).join('')}
+    <g transform="translate(60 136)">${[0,1,2,3].map(i=>`<path d="M${i*16} 0 l6 22 l6 -22z" fill="#FF8A3D"/><path d="M${i*16+6} 0 l-4 -8 M${i*16+6} 0 l4 -8" stroke="#36A867" stroke-width="2.5" stroke-linecap="round"/>`).join('')}</g>
+    ${sheep({x:206,y:110,s:.54,who:'ela'})}
+    <g transform="translate(184 112) rotate(-30)"><path d="M0 0 l5 22 l5 -22z" fill="#FF8A3D"/><path d="M5 0 l-4 -9 M5 0 l4 -9" stroke="#36A867" stroke-width="2.5" stroke-linecap="round"/></g>
+    ${sheep({x:272,y:106,s:.62,who:'ele'})}
+    <g transform="translate(244 118)"><path d="M0 0 h34 l-5 28 h-24z" fill="#E8B36B" stroke="#C38E52" stroke-width="2"/><path d="M4 0 a13 14 0 0 1 26 0" fill="none" stroke="#C38E52" stroke-width="3"/><circle cx="10" cy="-2" r="6" fill="#9ED85E"/><circle cx="22" cy="-3" r="6" fill="#FF6F6F"/></g>
+  `,'Ovelhas na feira com caixotes de tomate, laranja e cenoura'),
+
+  farmacia: () => SCN('#E7F7F2', `
+    <g transform="translate(26 18)"><rect width="46" height="46" rx="10" fill="#36A867"/><path d="M17 8 h12 v9 h9 v12 h-9 v9 h-12 v-9 h-9 v-12 h9z" fill="#fff"/></g>
+    ${[60,104].map(y=>`<rect x="96" y="${y}" width="210" height="6" rx="3" fill="#B6D9CE"/>`).join('')}
+    ${Array.from({length:8},(_,i)=>{const c=['#FF8FAB','#9FC5F8','#FFD36E','#C9A7F2'][i%4];return `<rect x="${104+i*25}" y="38" width="16" height="22" rx="4" fill="${c}"/><rect x="${103+i*25}" y="34" width="18" height="6" rx="2" fill="#fff"/>`}).join('')}
+    ${Array.from({length:6},(_,i)=>`<g transform="translate(${108+i*34} 84)"><rect width="26" height="20" rx="4" fill="#fff" stroke="#B6D9CE" stroke-width="2"/><path d="M13 5 v10 M8 10 h10" stroke="${i%2?'#FF6F91':'#36A867'}" stroke-width="2.5"/></g>`).join('')}
+    ${floor('#CFEDE3')}
+    ${sheep({x:120,y:128,s:.54,who:'ela',acc:['bandaid']})}
+    ${sheep({x:220,y:122,s:.62,who:'ele',acc:['thermo'],mood:'o'})}
+    <g transform="translate(274 140)"><rect width="30" height="22" rx="6" fill="#fff" stroke="#9AA3B8" stroke-width="2"/><rect x="-2" y="-6" width="34" height="8" rx="3" fill="#FF6F91"/></g>
+    <g transform="translate(40 148) rotate(-20)"><rect width="22" height="10" rx="5" fill="#FFD36E"/><rect x="11" width="11" height="10" rx="5" fill="#FF8FAB"/></g>
+  `,'Ovelhas na farmácia com curativo e termômetro'),
+
+  limpeza: () => SCN('#F1EDFF', `
+    ${floor('#E0D8F7')}
+    <g transform="translate(40 118)"><path d="M0 0 h44 l-6 42 h-32z" fill="#7FD1AE"/><path d="M2 0 a20 22 0 0 1 40 0" fill="none" stroke="#5A5168" stroke-width="3"/>${puffs([[8,-4,8],[22,-8,10],[36,-3,8]],'#FFFFFF','#D7CFF0',2)}</g>
+    ${sheep({x:138,y:118,s:.54,who:'ela'})}
+    <g><line x1="164" y1="60" x2="178" y2="150" stroke="#C38E52" stroke-width="5" stroke-linecap="round"/><path d="M166 146 l24 -4 l8 22 l-36 6z" fill="#FFD36E" stroke="#E8B23A" stroke-width="2"/>${[0,1,2,3].map(i=>`<line x1="${170+i*7}" y1="${148-i}" x2="${170+i*8}" y2="${166-i}" stroke="#E8B23A" stroke-width="1.6"/>`).join('')}</g>
+    ${sheep({x:248,y:112,s:.62,who:'ele',mood:'happy-closed'})}
+    <g transform="translate(276 92) rotate(15)"><rect x="0" y="12" width="20" height="30" rx="5" fill="#9FC5F8"/><path d="M4 12 v-8 h14 l4 4 h-8 v4" fill="#5A5168"/></g>
+    ${sparkle(110,60,1.3)}${sparkle(214,46,1,'#C9A7F2')}${sparkle(300,140,1.1,'#9FC5F8')}${sparkle(70,40,.9,'#FF8FAB')}
+    ${bubble(96,96,6)}${bubble(212,78,5)}${bubble(196,120,3)}
+  `,'Ovelhas limpando a casa com vassoura, balde e borrifador'),
+
+  padaria: () => SCN('#FFEFE3', `
+    <rect x="0" y="118" width="320" height="72" fill="#E6BE93"/><rect x="0" y="118" width="320" height="8" fill="#D4A675"/>
+    ${[[30,100],[66,96],[102,100]].map(([x,y])=>`<ellipse cx="${x}" cy="${y+10}" rx="18" ry="12" fill="#E3A35B"/><path d="M${x-8} ${y+5} l5 8 M${x} ${y+3} l5 8 M${x+8} ${y+5} l4 7" stroke="#FFE3BD" stroke-width="2.2" stroke-linecap="round"/>`).join('')}
+    <path d="M128 112 q16 -26 34 0 q-8 -6 -17 -2 q-9 -4 -17 2z" fill="#F0B76B" stroke="#D99A45" stroke-width="2"/>
+    ${sheep({x:206,y:88,s:.5,who:'ela'})}
+    ${sheep({x:272,y:82,s:.58,who:'ele'})}
+    ${[[188,108,'#FF8FAB'],[254,106,'#9FC5F8']].map(([x,y,c])=>`<g transform="translate(${x} ${y})"><rect width="20" height="18" rx="4" fill="${c}"/><path d="M20 4 a6 6 0 0 1 0 10" fill="none" stroke="${c}" stroke-width="3"/><path d="M6 -4 q-3 -5 0 -9 M13 -4 q-3 -5 0 -9" stroke="#C9B8A8" stroke-width="2" fill="none" stroke-linecap="round" class="blink"/></g>`).join('')}
+    <g transform="translate(18 18)"><rect width="88" height="24" rx="12" fill="#D4A675"/><text x="44" y="16.5" text-anchor="middle" fill="#fff" font-family="Grandstander, sans-serif" font-weight="800" font-size="12">PADARIA</text></g>
+    ${heart(150,40,1.3,'#FF8FAB')}
+  `,'Ovelhas na padaria com pães, croissant e cafés'),
+
+  faculdade: () => SCN('#FFF8D6', `
+    <rect x="16" y="14" width="188" height="88" rx="8" fill="#2F4A57" stroke="#B8875A" stroke-width="6"/>
+    <g font-family="DM Mono, monospace" font-size="12" fill="#EAF4FF"><text x="28" y="36">F = m·a</text><text x="28" y="56" fill="#FFB5CB">ECG: P-QRS-T</text><text x="28" y="76" fill="#9FD0FF">O(n log n)</text><text x="120" y="36" fill="#7FD1AE">A–T  C–G</text><text x="120" y="76">∇²φ = 0</text></g>
+    ${floor('#F2E7B5')}
+    <g transform="translate(222 120)">${[['#FF8FAB',0],['#9FC5F8',12],['#7FD1AE',24],['#FFD36E',36]].map(([c,y],i)=>`<rect x="${i%2?4:0}" y="${-y}" width="76" height="12" rx="3" fill="${c}"/><rect x="${(i%2?4:0)+8}" y="${-y+3}" width="22" height="2.5" fill="#fff" opacity=".7"/>`).join('')}</g>
+    ${sheep({x:96,y:128,s:.54,who:'ela',acc:['coat']})}
+    ${sheep({x:178,y:122,s:.6,who:'ele'})}
+    <g transform="translate(254 52) rotate(-20)"><rect width="8" height="44" rx="2" fill="#FFD36E"/><path d="M0 44 l4 9 l4 -9z" fill="#F8D7A8"/><rect width="8" height="7" fill="#FF8FAB"/></g>
+    <g transform="translate(276 54) rotate(14)"><rect width="22" height="30" rx="4" fill="#5A5168"/><rect x="3" y="3" width="16" height="7" rx="1" fill="#9FE0C0"/>${[0,1,2].map(r=>[0,1,2].map(c=>`<rect x="${3+c*6}" y="${13+r*5.5}" width="4" height="3.5" rx="1" fill="#fff"/>`).join('')).join('')}</g>
+  `,'Ovelhas estudando com lousa de equações, livros e calculadora'),
+
+  tecnologia: () => SCN('#E6EDFF', `
+    ${floor('#D4DEFA')}
+    <rect x="18" y="130" width="284" height="10" rx="5" fill="#B9C6EC"/>
+    <g transform="translate(150 70)"><path d="M0 0 h96 a5 5 0 0 1 5 5 v54 h-106 v-54 a5 5 0 0 1 5 -5z" fill="#3E4A6B"/><rect x="5" y="5" width="91" height="50" rx="2" fill="#1F2A44"/>
+      <text x="12" y="22" fill="#7FD1AE" font-family="DM Mono, monospace" font-size="10">$ make love</text><text x="12" y="36" fill="#9FD0FF" font-family="DM Mono, monospace" font-size="10">compilando...</text><rect x="12" y="42" width="60" height="5" rx="2.5" fill="#FF8FAB"/>
+      <path d="M-14 59 h130 l-8 9 h-114z" fill="#8E9AB8"/></g>
+    ${sheep({x:96,y:106,s:.56,who:'ela',acc:['headphones']})}
+    ${sheep({x:272,y:98,s:.6,who:'ele'})}
+    <path d="M30 130 C40 160 80 150 100 170 S150 168 160 178" fill="none" stroke="#7B6CD9" stroke-width="3"/>
+    <g transform="translate(18 26)"><rect width="22" height="38" rx="4" fill="#5A5168"/><rect x="7" y="-4" width="8" height="5" rx="1" fill="#5A5168"/><rect x="4" y="18" width="14" height="16" rx="2" fill="#7FD1AE"/><rect x="4" y="8" width="14" height="8" rx="2" fill="#7FD1AE" opacity=".5"/></g>
+    <g transform="translate(56 30)" stroke="#7B6CD9" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M0 10 h20 v-10 h20 M40 0 h12 M20 10 v16 h28"/><circle cx="52" cy="0" r="3" fill="#FFD36E"/><circle cx="48" cy="26" r="3" fill="#FF8FAB"/></g>
+  `,'Ovelhas com computador, cabos e bateria'),
+
+  presentes: () => SCN('#FFE8F1', `
+    ${floor('#FBD3E3')}
+    ${[[30,118,46,'#9FC5F8','#FFD36E'],[84,130,34,'#C9A7F2','#FF8FAB'],[250,114,50,'#FF8FAB','#FFFFFF']].map(([x,y,w,c,r])=>`<rect x="${x}" y="${y}" width="${w}" height="${168-y}" rx="5" fill="${c}"/><rect x="${x-3}" y="${y}" width="${w+6}" height="12" rx="4" fill="${c}" stroke="rgba(0,0,0,.08)"/><rect x="${x+w/2-4}" y="${y}" width="8" height="${168-y}" fill="${r}"/><path d="M${x+w/2} ${y} c-10 -12 -18 -4 -10 2z M${x+w/2} ${y} c10 -12 18 -4 10 2z" fill="${r}" stroke="rgba(0,0,0,.1)"/>`).join('')}
+    ${sheep({x:150,y:116,s:.54,who:'ela',mood:'happy-closed'})}
+    ${sheep({x:210,y:110,s:.6,who:'ele'})}
+    <g class="float"><path d="M182 54 C150 30 170 4 182 18 C194 4 214 30 182 54Z" fill="#FF6F91"/><path d="M182 54 C178 70 186 80 180 96" stroke="#C9B8C8" stroke-width="1.5" fill="none"/></g>
+    ${heart(60,40,1.4)}${heart(276,56,1.1,'#FFB5CB')}${heart(120,70,.9,'#C58BF2')}${sparkle(240,30,1)}${sparkle(30,80,.8,'#9FC5F8')}
+  `,'Ovelhas com caixas de presente, balão de coração e corações'),
+
+  shabat: () => SCN('#ECE7FF', `
+    ${[[30,20],[90,36],[150,14],[250,28],[300,50]].map(([x,y])=>sparkle(x,y,.6,'#FFD36E')).join('')}
+    <path d="M0 126 h320 v64 h-320z" fill="#FFFFFF"/><path d="M0 126 h320" stroke="#C9C2EA" stroke-width="3"/>
+    ${Array.from({length:10},(_,i)=>`<path d="M${i*32} 126 q16 10 32 0" fill="none" stroke="#C9C2EA" stroke-width="2"/>`).join('')}
+    ${sheep({x:62,y:96,s:.52,who:'ela'})}
+    ${sheep({x:262,y:90,s:.6,who:'ele',acc:['kippah']})}
+    ${[118,150].map(x=>`<g transform="translate(${x} 70)"><rect x="-5" y="0" width="10" height="50" rx="3" fill="#FFFFFF" stroke="#D7D0F2" stroke-width="2"/><rect x="-9" y="48" width="18" height="8" rx="3" fill="#D4AF37"/><line x1="0" y1="0" x2="0" y2="-5" stroke="#5A5168" stroke-width="1.5"/><path class="flame" d="M0 -22 C6 -14 6 -6 0 -4 C-6 -6 -6 -14 0 -22Z" fill="#FFB020"/><path d="M0 -16 C3 -11 3 -7 0 -6 C-3 -7 -3 -11 0 -16Z" fill="#FFF0B3"/></g>`).join('')}
+    <g transform="translate(196 92)"><path d="M0 0 h24 a12 14 0 0 1 -24 0z" fill="#B23A5B"/><path d="M0 0 h24 a12 14 0 0 1 -24 0z" fill="none" stroke="#D4AF37" stroke-width="2"/><rect x="10" y="12" width="4" height="14" fill="#D4AF37"/><rect x="4" y="25" width="16" height="4" rx="2" fill="#D4AF37"/></g>
+    <g transform="translate(120 140)">${[0,1,2,3].map(i=>`<ellipse cx="${i*18}" cy="${i%2?2:0}" rx="13" ry="9" fill="#D9933F"/><path d="M${i*18-6} ${-2} q6 6 12 0" stroke="#F2C27A" stroke-width="2" fill="none"/>`).join('')}</g>
+  `,'Mesa de Shabat com chalá, velas e cálice, e as ovelhas'),
+
+  viagem: () => SCN('#E4F4FF', `
+    <circle cx="276" cy="36" r="18" fill="#FFD36E"/>${[0,45,90,135,180,225,270,315].map(a=>`<line x1="276" y1="36" x2="${276+Math.cos(a*Math.PI/180)*28}" y2="${36+Math.sin(a*Math.PI/180)*28}" stroke="#FFD36E" stroke-width="3" stroke-linecap="round"/>`).join('')}
+    <path d="M20 40 q14 -14 28 0 q10 -8 18 2 h-52z" fill="#fff"/><path d="M150 30 q12 -12 24 0 q8 -6 14 2 h-42z" fill="#fff"/>
+    <g transform="translate(70 62) rotate(-8)"><path d="M0 8 L56 0 L60 6 L4 16z" fill="#fff" stroke="#9FC5F8" stroke-width="2"/><path d="M26 4 l10 -14 l6 0 l-4 14z M8 10 l-4 -10 l5 0 l6 8z" fill="#9FC5F8"/></g>
+    <path d="M40 74 q40 30 90 10" stroke="#9FC5F8" stroke-width="2" stroke-dasharray="5 6" fill="none"/>
+    ${floor('#CFE8F7')}
+    <g transform="translate(30 116)"><rect width="52" height="46" rx="8" fill="#FF8FAB"/><rect x="16" y="-10" width="20" height="12" rx="5" fill="none" stroke="#C25B7E" stroke-width="3.5"/><rect x="8" y="8" width="36" height="5" rx="2.5" fill="#fff" opacity=".6"/><circle cx="12" cy="49" r="4" fill="#5A5168"/><circle cx="40" cy="49" r="4" fill="#5A5168"/></g>
+    ${sheep({x:140,y:116,s:.54,who:'ela'})}
+    ${sheep({x:212,y:110,s:.6,who:'ele'})}
+    <g transform="translate(250 122) rotate(8)"><rect width="46" height="34" rx="3" fill="#FFF7E0" stroke="#D9B78A" stroke-width="2"/><path d="M15 0 v34 M31 0 v34" stroke="#D9B78A" stroke-width="1.5"/><path d="M6 24 q10 -14 18 -4 t16 -10" stroke="#FF6F91" stroke-width="2" fill="none" stroke-dasharray="3 3"/><circle cx="40" cy="10" r="3" fill="#FF6F91"/></g>
+  `,'Ovelhas viajando com mala, avião e mapa'),
+
+  outros: () => SCN('#F4F2F8', `
+    ${floor('#E6E1EF')}
+    ${[[40,116,50,'#D9B78A'],[96,128,40,'#E8CFA2'],[60,86,36,'#E8CFA2']].map(([x,y,w,c])=>`<rect x="${x}" y="${y}" width="${w}" height="${w*.8}" rx="3" fill="${c}"/><rect x="${x+w/2-5}" y="${y}" width="10" height="${w*.8}" fill="#fff" opacity=".35"/>`).join('')}
+    <text x="76" y="80" font-family="Grandstander, sans-serif" font-size="30" font-weight="800" fill="#8E6CD8">?</text>
+    ${sheep({x:196,y:118,s:.54,who:'ela'})}
+    ${sheep({x:264,y:110,s:.6,who:'ele',mood:'o'})}
+    <g transform="translate(222 62) rotate(-30)"><circle r="14" fill="rgba(200,230,255,.5)" stroke="#5A5168" stroke-width="4"/><line x1="14" y1="0" x2="34" y2="0" stroke="#5A5168" stroke-width="6" stroke-linecap="round"/></g>
+  `,'Ovelhas investigando caixas misteriosas com uma lupa'),
+};
+const CATS = [
+  {k:'mercado',n:'Mercado'},{k:'feira',n:'Hortifrúti & feira'},{k:'padaria',n:'Padaria & café'},{k:'banho',n:'Banho & cuidados'},
+  {k:'farmacia',n:'Farmácia'},{k:'limpeza',n:'Casa & limpeza'},{k:'faculdade',n:'Faculdade & papelaria'},{k:'tecnologia',n:'Tecnologia'},
+  {k:'presentes',n:'Presentes & mimos'},{k:'shabat',n:'Shabat & festas'},{k:'viagem',n:'Viagem & passeios'},{k:'outros',n:'Outros'},
+];
+
+/* =========================================================
+   Estado + camada de dados (db compartilhado, ou local)
+   ========================================================= */
+const today = new Date(); today.setHours(0,0,0,0);
+const state = {
+  view: ls.get('ovelhas.view','cal'), month: new Date(today.getFullYear(), today.getMonth(), 1), sel: iso(today),
+  events: {}, shopping: {}, settings: {nameEla:'Vivian', nameEle:'Namorado', palettes:{}},
+  me: ls.get('ovelhas.me', null), whoFilter: ls.get('ovelhas.who', {ela:true,ele:true,juntos:true}),
+  typeFilter: ls.get('ovelhas.types', {}), holFilter: ls.get('ovelhas.hol', {br:true,sp:true,jew:true}),
+  cat: ls.get('ovelhas.cat','mercado'), mode:'local', canWrite:true, uid:null,
+};
+const store = {
+  db:null,
+  async init(){
+    const L = ls.get('ovelhas.local', {events:{},shopping:{},settings:null});
+    state.events = L.events||{}; state.shopping = L.shopping||{}; if (L.settings) Object.assign(state.settings, L.settings);
+    if (!window.claude?.use) { renderAll(); return; }
+    let db = null, user = null;
+    try { [db, user] = await Promise.all([claude.use('db'), claude.use('user')]); } catch {}
+    if (!db) { renderAll(); return; }
+    this.db = db; state.mode = 'db'; state.events = {}; state.shopping = {};
+    try { state.uid = user ? await user.id() : null; const cw = user ? await user.can('data.write') : null; if (cw===false) state.canWrite = false; } catch {}
+    db.collection('events').onSnapshot(s => { const o={}; s.docs.forEach(d=>o[d.id]=d.data()); state.events=o; renderCal(); }, e => console.warn(e));
+    db.collection('shopping').onSnapshot(s => { const o={}; s.docs.forEach(d=>o[d.id]=d.data()); state.shopping=o; renderShop(); }, e => console.warn(e));
+    db.doc('config/main').onSnapshot(s => { if (s.exists){ state.settings = {...state.settings, ...s.data()}; } renderHero(); renderCal(); renderShop(); renderFlock(); }, e => console.warn(e));
+    renderAll();
+  },
+  saveLocal(){ ls.set('ovelhas.local',{events:state.events,shopping:state.shopping,settings:state.settings}); },
+  async put(col, id, data){
+    if (this.db){ try { await this.db.collection(col).doc(id).set(data); } catch(e){ fail(e); } }
+    else { state[col==='events'?'events':'shopping'][id] = data; this.saveLocal(); col==='events'?renderCal():renderShop(); }
+  },
+  async del(col, id){
+    if (this.db){ try { await this.db.collection(col).doc(id).delete(); } catch(e){ fail(e); } }
+    else { delete state[col==='events'?'events':'shopping'][id]; this.saveLocal(); col==='events'?renderCal():renderShop(); }
+  },
+  async settings(data){
+    state.settings = {...state.settings, ...data};
+    if (this.db){ try { await this.db.doc('config/main').set(state.settings); } catch(e){ fail(e); } }
+    else this.saveLocal();
+    renderHero(); renderCal(); renderShop(); renderFlock();
+  },
+};
+const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+function fail(e){
+  if (e?.code==='invalid_argument'){ state.canWrite = false; toast('Você está só com acesso de leitura. Peça para ser convidado como Editor.'); }
+  else if (e?.code==='quota_exceeded') toast('O caderno encheu! Apague alguns itens antigos para liberar espaço.');
+  else toast('Não deu para salvar agora. Tente de novo em alguns segundos.');
+}
+let toastT; function toast(msg){ document.querySelector('.toast')?.remove(); const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.append(t); clearTimeout(toastT); toastT=setTimeout(()=>t.remove(),3200); }
+function puffBurst(el){
+  const r = el.getBoundingClientRect(); if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  for (let i=0;i<9;i++){ const p=document.createElement('i'); p.className='puff'; p.style.left=(r.left+r.width/2)+'px'; p.style.top=(r.top+r.height/2)+'px';
+    const a=Math.random()*Math.PI*2, d=30+Math.random()*30; p.style.setProperty('--dx',Math.cos(a)*d+'px'); p.style.setProperty('--dy',Math.sin(a)*d-20+'px');
+    if (i%3===0) p.style.background='#FFB5CB'; document.body.append(p); setTimeout(()=>p.remove(),950); }
+}
+
+/* =========================================================
+   Ocorrências (com repetição semanal / quinzenal)
+   ========================================================= */
+function occurrences(from, to){
+  const F = iso(from), T = iso(to), out = {};
+  const push = (k, id, ev) => (out[k] ||= []).push({id, ...ev, occ:k});
+  for (const [id, ev] of Object.entries(state.events)){
+    if (!ev?.date) continue;
+    if (!ev.repeat || ev.repeat==='none'){ if (ev.date>=F && ev.date<=T) push(ev.date,id,ev); continue; }
+    const step = ev.repeat==='biweekly'?14:7, until = ev.until || T; let d = parse(ev.date);
+    if (iso(d) < F){ const diff = Math.floor((from - d)/864e5); d = addDays(d, Math.floor(diff/step)*step); }
+    for (; iso(d) <= T && iso(d) <= until; d = addDays(d, step)){ const k = iso(d); if (k>=F && !(ev.exdates||[]).includes(k)) push(k,id,ev); }
+  }
+  for (const k in out) out[k].sort((a,b)=> (a.allDay?'':a.start||'99') < (b.allDay?'':b.start||'99') ? -1 : 1);
+  return out;
+}
+const visible = ev => state.whoFilter[ev.who] !== false && state.typeFilter[ev.type] !== false;
+const visibleHol = h => h.kind==='love' ? true : state.holFilter[h.kind==='jew'?'jew':h.kind] !== false;
+const nameOf = w => w==='ela' ? state.settings.nameEla : w==='ele' ? state.settings.nameEle : 'Juntos';
+
+/* =========================================================
+   Renderização
+   ========================================================= */
+const $ = s => document.querySelector(s);
+function renderHero(){
+  $('#hero').innerHTML = heroScene();
+  $('#brandSheep').innerHTML = sheep({who:'ela',cls:''});
+  $('#subtitle').textContent = `Calendário compartilhado de ${state.settings.nameEla} & ${state.settings.nameEle}`;
+  document.querySelectorAll('.sheep-hit').forEach(g => {
+    const say = () => speak(g);
+    g.addEventListener('click', say); g.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' '){ e.preventDefault(); say(); } });
+  });
+}
+const PUNS = {
+  ela:['Bééé-m-vindo ao meu lã-boratório!','Batimentos: 120 bpm de saudade 💓','Hipótese: hoje vai ser um dia ótimo (p < 0,05)','Biomaterial favorito: lã 100% orgânica','Meu ECG fica assim quando te vejo: /\\/\\/\\','Pipetando carinho em microlitros'],
+  ele:['Compilou sem erros! ✓','Ovelha de Schrödinger: dormindo e acordada até alguém abrir a caixa','E = mc², com c = carinho','git commit -m "te amo"','Entropia do quarto: aumentando, como manda a 2ª lei','Bééé-a-bá da mecânica quântica'],
+};
+function speak(g){
+  document.querySelector('.bubble')?.remove();
+  const hero = $('#hero'), r = g.getBoundingClientRect(), hr = hero.getBoundingClientRect(), w = g.dataset.who;
+  const b = document.createElement('div'); b.className='bubble'; const list = PUNS[w]; b.textContent = list[Math.floor(Math.random()*list.length)];
+  b.style.left = Math.min(Math.max(r.left - hr.left + r.width/2, 130), hr.width-130) + 'px'; b.style.top = (r.top - hr.top + 6) + 'px';
+  hero.append(b); setTimeout(()=>b.remove(), 3000);
+}
+
+function renderShabat(){
+  const w = today.getDay(); const el = $('#shabatBanner');
+  let fri = addDays(today, (5 - w + 7) % 7); if (w===6) fri = addDays(today,-1);
+  const sat = addDays(fri,1);
+  if (w===5 || w===6){
+    el.hidden = false;
+    el.innerHTML = `<div class="shabat" role="status">
+      <svg width="74" height="70" viewBox="-40 -34 80 76" aria-hidden="true">${[-14,14].map(x=>`<g transform="translate(${x} 0)"><rect x="-6" y="0" width="12" height="36" rx="3" fill="#fff" stroke="#D7D0F2" stroke-width="2"/><rect x="-10" y="34" width="20" height="7" rx="3" fill="#D4AF37"/><path class="flame" d="M0 -24 C7 -15 7 -6 0 -3 C-7 -6 -7 -15 0 -24Z" fill="#FFB020"/><path d="M0 -17 C3 -12 3 -7 0 -5 C-3 -7 -3 -12 0 -17Z" fill="#FFF0B3"/></g>`).join('')}</svg>
+      <div><h2>Shabat Shalom!</h2><p>${w===5 ? `Acender as velas hoje às <span class="mono">${candleTime(fri)}</span> em São Paulo` : `Havdalá hoje por volta das <span class="mono">${havdalaTime(sat)}</span>`} · que seja um Shabat de descanso e lã quentinha.</p></div>
+      <svg width="110" height="70" viewBox="-60 -70 170 135" aria-hidden="true" style="margin-left:auto">${sheep({x:62,y:0,s:.9,who:'ele',acc:['kippah'],mood:'happy-closed',cls:''})}${sheep({x:-4,y:8,s:.78,who:'ela',mood:'happy-closed',cls:''})}</svg>
+    </div>`;
+  } else el.hidden = true;
+  $('#shabatCard').innerHTML = `
+    <div class="day-title"><div><div class="eyebrow">${w===5||w===6?'Este Shabat':'Próximo Shabat'}</div><h3>Shabat Shalom!</h3>
+      <div class="muted" style="font-size:13px;font-weight:600">${DOW_FULL[5]} ${fri.getDate()}/${pad(fri.getMonth()+1)} → sábado ${sat.getDate()}/${pad(sat.getMonth()+1)} · São Paulo</div></div>
+      <svg width="46" height="52" viewBox="-14 -26 28 70" aria-hidden="true"><rect x="-6" y="0" width="12" height="36" rx="3" fill="#fff" stroke="#D7D0F2" stroke-width="2"/><rect x="-10" y="34" width="20" height="7" rx="3" fill="#D4AF37"/><path class="flame" d="M0 -24 C7 -15 7 -6 0 -3 C-7 -6 -7 -15 0 -24Z" fill="#FFB020"/></svg></div>
+    <div class="times"><div class="time-box"><small>Acender velas</small><b>${candleTime(fri)}</b></div><div class="time-box"><small>Havdalá (aprox.)</small><b>${havdalaTime(sat)}</b></div></div>
+    <div class="muted" style="font-size:12px">Velas 18 min antes do pôr do sol; Havdalá ~42 min depois. Horários calculados, confira com a sua comunidade.</div>`;
+}
+
+function renderFilters(){
+  $('#whoFilters').innerHTML = ['ela','ele','juntos'].map(w => `<button class="chip" data-who="${w}" aria-pressed="${state.whoFilter[w]!==false}" style="--c:${WHO_COLOR[w]}">${miniSheep(w).replace('class="mini-sheep"','')}${esc(nameOf(w))}</button>`).join('')
+    + `<span class="muted" style="font-size:12.5px;margin-left:4px">cores por tipo, na paleta de cada ovelha</span>`;
+  $('#legend').innerHTML = TYPES.map(t => { const c = colorOf(state.me||'juntos', t.k); return `<button class="chip" data-type="${t.k}" aria-pressed="${state.typeFilter[t.k]!==false}"><span class="ticon" style="--c:${c};--t:${textOn(c)}">${icon(t.k,2.4)}</span>${t.n}</button>`; }).join('');
+  $('#holFilters').innerHTML = `<span class="eyebrow">Mostrar</span>` + [['br','Feriados nacionais','var(--br)'],['sp','Datas de SP & pontos facultativos','var(--br)'],['jew','Feriados judaicos','var(--jew)']]
+    .map(([k,n,c]) => `<button class="chip" data-hol="${k}" aria-pressed="${state.holFilter[k]!==false}"><span class="dot" style="--c:${c}"></span>${n}</button>`).join('');
+}
+
+function renderCal(){
+  renderFilters();
+  const m = state.month, first = new Date(m.getFullYear(), m.getMonth(), 1), start = addDays(first, -first.getDay());
+  const end = addDays(start, 41), occ = occurrences(start, end), tk = iso(today);
+  $('#monthTitle').textContent = `${MESES[m.getMonth()]} ${m.getFullYear()}`;
+  $('#dows').innerHTML = DOW.map((d,i)=>`<div class="dow${i===6?' sat':''}">${d}</div>`).join('');
+  let html = '';
+  for (let i=0;i<42;i++){
+    const d = addDays(start,i), k = iso(d), hol = holidaysFor(d).filter(visibleHol), evs = (occ[k]||[]).filter(visible);
+    const hasBr = hol.some(h=>h.kind==='br'), hasJ = hol.some(h=>h.kind==='jew' && !h.minor);
+    const cls = ['day', d.getMonth()!==m.getMonth()&&'out', k===tk&&'today', k===state.sel&&'sel', hasBr&&'holiday', !hasBr&&hasJ&&'jholiday'].filter(Boolean).join(' ');
+    const shown = evs.slice(0, 3);
+    html += `<div class="${cls}" role="button" tabindex="0" data-day="${k}" aria-label="${d.getDate()} de ${MESES[d.getMonth()]}, ${evs.length} compromissos${hol.length?', '+hol.map(h=>h.name).join(', '):''}">
+      <div class="top-row"><span class="num">${d.getDate()}</span>${d.getDay()===5?`<span class="candle-mini" title="Acender velas ${candleTime(d)}"><svg viewBox="-8 -14 16 30"><rect x="-3" y="0" width="6" height="14" rx="1.5" fill="currentColor" opacity=".35"/><path d="M0 -12 C4 -7 4 -2 0 -1 C-4 -2 -4 -7 0 -12Z" fill="currentColor"/></svg><span>${candleTime(d)}</span></span>`:''}</div>
+      ${hol.slice(0,2).map(h=>`<div class="hol ${h.kind}${h.minor?' minor':''}" title="${esc(h.name)}">${esc(h.name)}</div>`).join('')}
+      ${shown.map(e=>{ const c=colorOf(e.who,e.type); return `<button class="ev" data-ev="${e.id}" data-occ="${k}" style="--c:${c};--t:${textOn(c)};--w:${WHO_COLOR[e.who]}" title="${esc(e.title)}"><i class="who"></i>${!e.allDay&&e.start?`<span class="tm">${e.start}</span>`:''}<span>${esc(e.title)}</span></button>`; }).join('')}
+      ${evs.length>3?`<span class="more">+${evs.length-3} mais</span>`:''}
+      <div class="dots">${hol.filter(h=>!h.minor).slice(0,1).map(h=>`<i style="--c:${h.kind==='jew'?'var(--jew)':h.kind==='love'?'var(--ela)':'var(--br)'}"></i>`).join('')}${evs.slice(0,4).map(e=>`<i style="--c:${colorOf(e.who,e.type)}"></i>`).join('')}</div>
+      ${k===tk?`<svg class="sticker" viewBox="-60 -70 120 135" aria-hidden="true">${sheep({who:state.me||'ela',body:false,cls:''})}</svg>`:''}
+    </div>`;
+  }
+  $('#grid').innerHTML = html;
+  renderDay(); renderUpcoming();
+}
+
+function evRow(e, showDate=false){
+  const c = colorOf(e.who,e.type), t = TYPES.find(x=>x.k===e.type)||TYPES.at(-1), d = parse(e.occ);
+  const when = (showDate ? `${DOW[d.getDay()]} ${d.getDate()}/${pad(d.getMonth()+1)} · ` : '') + (e.allDay||!e.start ? 'dia inteiro' : `${e.start}${e.end?'–'+e.end:''}`);
+  return `<button class="item" data-ev="${e.id}" data-occ="${e.occ}">${miniSheep(e.who)}<span class="meta"><b>${esc(e.title)}</b><small><span class="mono">${when}</span>${e.location?' · '+esc(e.location):''}${e.repeat&&e.repeat!=='none'?' · repete':''}</small></span><span class="tag ticon" style="--c:${c};--t:${textOn(c)}" title="${t.n}">${icon(t.k,2.4)}</span></button>`;
+}
+function renderDay(){
+  const d = parse(state.sel), k = state.sel, evs = (occurrences(d,d)[k]||[]).filter(visible), hol = holidaysFor(d);
+  $('#dayPanel').innerHTML = `
+    <div class="day-title"><div><div class="eyebrow">${DOW_FULL[d.getDay()]}</div><h2>${d.getDate()} de ${MESES[d.getMonth()]}</h2><div class="heb">${esc(hebLabel(d))}</div></div>
+      <button class="btn small primary" id="addHere">+ Adicionar</button></div>
+    ${hol.length?`<div class="list">${hol.map(h=>`<div class="hol ${h.kind}${h.minor?' minor':''}" style="font-size:12.5px;padding:5px 9px;white-space:normal">${esc(h.name)}</div>`).join('')}</div>`:''}
+    ${d.getDay()===5?`<div class="note">Acender velas de Shabat às <span class="mono">${candleTime(d)}</span></div>`:''}
+    <div class="list">${evs.length ? evs.map(e=>evRow(e)).join('') : `<div class="empty"><svg viewBox="-90 -80 180 150" aria-hidden="true">${sheep({x:-30,y:6,s:.66,who:'ela',mood:'sleep',cls:''})}${sheep({x:34,y:0,s:.78,who:'ele',mood:'sleep',cls:''})}<text x="58" y="-58" font-family="Grandstander" font-size="18" fill="#8E6CD8">z z</text></svg>Dia livre no pasto. Toque em “+ Adicionar” para marcar algo.</div>`}</div>`;
+}
+function renderUpcoming(){
+  const to = addDays(today, 21), occ = occurrences(today, to), rows = [];
+  for (let d=new Date(today); d<=to; d=addDays(d,1)) (occ[iso(d)]||[]).filter(visible).forEach(e=>rows.push(e));
+  const hol = []; for (let d=new Date(today); d<=addDays(today,45) && hol.length<4; d=addDays(d,1)) holidaysFor(d).filter(h=>!h.minor && visibleHol(h)).forEach(h=>hol.length<4 && hol.push({...h,d}));
+  $('#upcoming').innerHTML = `<div><div class="eyebrow">Próximas 3 semanas</div><h3>Agenda do rebanho</h3></div>
+    <div class="list">${rows.length ? rows.slice(0,8).map(e=>evRow(e,true)).join('') : `<div class="empty">Nada marcado ainda. Comece pelas aulas da semana: elas podem se repetir sozinhas.</div>`}</div>
+    ${hol.length?`<div class="eyebrow">Datas que vêm aí</div><div class="list">${hol.map(h=>`<div class="item"><span class="hol ${h.kind}" style="font-size:11.5px">${h.kind==='jew'?'Judaico':h.kind==='love'?'Amor':h.kind==='sp'?'SP':'Feriado'}</span><span class="meta"><b>${esc(h.name)}</b><small class="mono">${DOW[h.d.getDay()]} ${h.d.getDate()}/${pad(h.d.getMonth()+1)}</small></span></div>`).join('')}</div>`:''}`;
+}
+
+/* ---------- modal de compromisso ---------- */
+function openEvent(id=null, occ=null){
+  if (!state.canWrite && !id) return toast('Você está só com acesso de leitura.');
+  const ev = id ? {...state.events[id]} : {title:'', who: state.me||'juntos', type: 'aula', date: state.sel, allDay:false, start:'09:00', end:'10:00', repeat:'none', until:'', location:'', notes:''};
+  let who = ev.who, type = ev.type;
+  const ov = document.createElement('div'); ov.className='overlay';
+  const draw = () => {
+    ov.innerHTML = `<form class="modal" id="evForm" aria-label="${id?'Editar':'Novo'} compromisso">
+      <div class="modal-head">${miniSheep(who).replace('mini-sheep','')}<div><div class="eyebrow">${id?'Editar compromisso':'Novo compromisso'}</div><h2>${id?esc(ev.title):'O que vamos anotar?'}</h2></div></div>
+      <div class="field"><label for="f-title">Título</label><input class="inp" id="f-title" required maxlength="80" value="${esc(ev.title)}" placeholder="Ex.: Aula de Biomateriais, Cinema, Plantão de Física"></div>
+      <div class="field"><span class="lbl">De quem é?</span><div class="who-pick" role="radiogroup">${['ela','ele','juntos'].map(w=>`<button type="button" class="who-opt" role="radio" data-w="${w}" aria-checked="${who===w}" style="--c:${WHO_COLOR[w]};--cs:${WHO_SOFT[w]}">${miniSheep(w).replace('class="mini-sheep"','')}${esc(nameOf(w))}</button>`).join('')}</div></div>
+      <div class="field"><span class="lbl">Tipo</span><div class="type-pick" role="radiogroup">${TYPES.map(t=>{const c=colorOf(who,t.k);return `<button type="button" class="type-opt" role="radio" data-t="${t.k}" aria-checked="${type===t.k}" style="--c:${c}"><span class="ticon" style="--c:${c};--t:${textOn(c)}">${icon(t.k,2.4)}</span>${t.n}</button>`}).join('')}</div></div>
+      <div class="row"><div class="field"><label for="f-date">Data</label><input class="inp" type="date" id="f-date" required value="${ev.date}"></div>
+        <div class="field"><label for="f-start">Início</label><input class="inp" type="time" id="f-start" value="${ev.start||''}" ${ev.allDay?'disabled':''}></div>
+        <div class="field"><label for="f-end">Fim</label><input class="inp" type="time" id="f-end" value="${ev.end||''}" ${ev.allDay?'disabled':''}></div></div>
+      <label class="check"><input type="checkbox" id="f-allday" ${ev.allDay?'checked':''}> Dia inteiro</label>
+      <div class="row"><div class="field"><label for="f-repeat">Repetir</label><select class="inp" id="f-repeat">
+          <option value="none" ${ev.repeat==='none'||!ev.repeat?'selected':''}>Não repete</option><option value="weekly" ${ev.repeat==='weekly'?'selected':''}>Toda semana</option><option value="biweekly" ${ev.repeat==='biweekly'?'selected':''}>A cada 2 semanas</option></select></div>
+        <div class="field"><label for="f-until">Até (fim do semestre)</label><input class="inp" type="date" id="f-until" value="${ev.until||''}"></div></div>
+      <div class="field"><label for="f-loc">Local</label><input class="inp" id="f-loc" maxlength="80" value="${esc(ev.location)}" placeholder="Ex.: Einstein, Insper, IF-USP, Paulista"></div>
+      <div class="field"><label for="f-notes">Notas</label><textarea class="inp" id="f-notes" maxlength="500" placeholder="Levar jaleco, trazer pipoca...">${esc(ev.notes)}</textarea></div>
+      <div id="confirmBox"></div>
+      <div class="modal-foot">${id?`<button type="button" class="btn danger" id="f-del">Excluir</button>`:''}<span class="grow"></span><button type="button" class="btn" id="f-cancel">Cancelar</button><button type="submit" class="btn primary">${id?'Salvar':'Adicionar'}</button></div>
+    </form>`;
+    const f = ov.querySelector('form');
+    const keep = () => { ev.title=f.querySelector('#f-title').value; ev.date=f.querySelector('#f-date').value; ev.start=f.querySelector('#f-start').value; ev.end=f.querySelector('#f-end').value;
+      ev.allDay=f.querySelector('#f-allday').checked; ev.repeat=f.querySelector('#f-repeat').value; ev.until=f.querySelector('#f-until').value; ev.location=f.querySelector('#f-loc').value; ev.notes=f.querySelector('#f-notes').value; };
+    f.querySelectorAll('.who-opt').forEach(b=>b.onclick=()=>{ keep(); who=b.dataset.w; draw(); ov.querySelector(`[data-w="${who}"]`).focus(); });
+    f.querySelectorAll('.type-opt').forEach(b=>b.onclick=()=>{ keep(); type=b.dataset.t; draw(); ov.querySelector(`[data-t="${type}"]`).focus(); });
+    f.querySelector('#f-allday').onchange = e => { f.querySelector('#f-start').disabled = f.querySelector('#f-end').disabled = e.target.checked; };
+    f.querySelector('#f-cancel').onclick = close;
+    f.onsubmit = async e => { e.preventDefault(); keep(); if (!ev.title.trim()) return;
+      const data = {...ev, title:ev.title.trim(), who, type, updatedAt:Date.now(), by: state.uid||null}; if (!id) data.createdAt = Date.now();
+      if (data.allDay){ data.start=''; data.end=''; }
+      close(); await store.put('events', id||newId(), data); state.sel = data.date; toast(id?'Compromisso atualizado':'Anotado no caderno do rebanho!'); renderCal(); };
+    const del = f.querySelector('#f-del');
+    if (del) del.onclick = () => {
+      const rep = ev.repeat && ev.repeat!=='none';
+      f.querySelector('#confirmBox').innerHTML = `<div class="confirm">${rep?'Este compromisso se repete. Excluir o quê?':'Excluir este compromisso?'}<div>
+        ${rep&&occ?`<button type="button" class="btn small" id="c-one">Só ${parse(occ).getDate()}/${pad(parse(occ).getMonth()+1)}</button>`:''}<button type="button" class="btn small ela" id="c-all">${rep?'Todas as repetições':'Sim, excluir'}</button><button type="button" class="btn small" id="c-no">Manter</button></div></div>`;
+      f.querySelector('#c-no').onclick = () => f.querySelector('#confirmBox').innerHTML='';
+      f.querySelector('#c-all').onclick = async () => { close(); await store.del('events', id); toast('Compromisso excluído'); };
+      const one = f.querySelector('#c-one'); if (one) one.onclick = async () => { close(); await store.put('events', id, {...state.events[id], exdates:[...(state.events[id].exdates||[]), occ]}); toast('Só esse dia foi removido'); };
+    };
+  };
+  const close = () => { ov.remove(); document.removeEventListener('keydown', onKey); };
+  const onKey = e => { if (e.key==='Escape') close(); };
+  document.addEventListener('keydown', onKey);
+  ov.addEventListener('mousedown', e => { if (e.target===ov) close(); });
+  draw(); document.body.append(ov); ov.querySelector('#f-title').focus();
+}
+
+/* ---------- compras ---------- */
+let shopWho = null;
+function renderShop(){
+  const items = Object.entries(state.shopping).map(([id,v])=>({id,...v}));
+  const pending = items.filter(i=>!i.done).length;
+  $('#shopSummary').innerHTML = `<span class="mono">${pending}</span> ${pending===1?'item pendente':'itens pendentes'} · <span class="mono">${items.length-pending}</span> no carrinho`;
+  $('#cats').innerHTML = CATS.map(c => { const n = items.filter(i=>i.cat===c.k && !i.done).length;
+    return `<button class="cat" data-cat="${c.k}" aria-pressed="${state.cat===c.k}">${SCENES[c.k]()}<span class="cap"><b>${c.n}</b><span class="count${n?' has':''}">${n} ${n===1?'item':'itens'}</span></span></button>`; }).join('');
+  const cat = CATS.find(c=>c.k===state.cat) || CATS[0];
+  const list = items.filter(i=>i.cat===cat.k).sort((a,b)=> (a.done-b.done) || (a.createdAt||0)-(b.createdAt||0));
+  shopWho ||= state.me || 'juntos';
+  $('#catDetail').innerHTML = `<div class="art">${SCENES[cat.k]()}</div>
+    <div class="body">
+      <div class="day-title"><div><div class="eyebrow">Categoria</div><h2>${cat.n}</h2></div>${list.some(i=>i.done)?`<button class="btn small" id="clearDone">Limpar comprados</button>`:''}</div>
+      <form class="add-row" id="addItem">
+        <input class="inp" id="i-name" maxlength="60" placeholder="Adicionar em ${cat.n.toLowerCase()}..." aria-label="Item">
+        <input class="inp" id="i-qty" maxlength="12" placeholder="qtd." aria-label="Quantidade">
+        <div class="mine" role="radiogroup" aria-label="Para quem">${['ela','ele','juntos'].map(w=>`<button type="button" role="radio" data-sw="${w}" aria-checked="${shopWho===w}" aria-label="${esc(nameOf(w))}" title="${esc(nameOf(w))}" style="--c:${WHO_COLOR[w]};--cs:${WHO_SOFT[w]}">${miniSheep(w).replace('class="mini-sheep"','')}</button>`).join('')}</div>
+        <button class="btn primary" type="submit">Pôr na lista</button>
+      </form>
+      <div class="list">${list.length ? list.map(i=>`<div class="sitem${i.done?' done':''}"><input type="checkbox" id="chk-${i.id}" data-chk="${i.id}" ${i.done?'checked':''} aria-label="Comprado: ${esc(i.name)}">
+        ${miniSheep(i.who||'juntos').replace('class="mini-sheep"','class="ws"')}<label class="nm" for="chk-${i.id}">${esc(i.name)}</label><span class="qty">${esc(i.qty||'')}</span><button class="x" data-delitem="${i.id}" aria-label="Remover ${esc(i.name)}">✕</button></div>`).join('')
+        : `<div class="empty">Nada por aqui ainda. Escreva o primeiro item acima e escolha de qual ovelha ele é.</div>`}</div>
+    </div>`;
+  $('#addItem').onsubmit = async e => { e.preventDefault(); const name = $('#i-name').value.trim(); if (!name) return;
+    if (!state.canWrite) return toast('Você está só com acesso de leitura.');
+    const qty = $('#i-qty').value.trim(); $('#i-name').value=''; $('#i-qty').value='';
+    await store.put('shopping', newId(), {name, qty, cat:cat.k, who:shopWho, done:false, createdAt:Date.now(), by:state.uid||null}); $('#i-name')?.focus(); };
+  document.querySelectorAll('[data-sw]').forEach(b=>b.onclick=()=>{ shopWho=b.dataset.sw; document.querySelectorAll('[data-sw]').forEach(x=>x.setAttribute('aria-checked', x===b)); });
+  const cd = $('#clearDone'); if (cd) cd.onclick = async () => { for (const i of list.filter(i=>i.done)) await store.del('shopping', i.id); toast('Carrinho esvaziado'); };
+}
+
+/* ---------- rebanho (configurações + convite) ---------- */
+function renderFlock(){
+  const s = state.settings;
+  $('#view-flock').innerHTML = `
+    <div class="panel"><div class="eyebrow">Quem está usando este aparelho?</div><h2>Qual ovelhinha é você?</h2>
+      <div class="who-pick" role="radiogroup" style="grid-template-columns:1fr 1fr">${['ela','ele'].map(w=>`<button class="who-opt" role="radio" data-me="${w}" aria-checked="${state.me===w}" style="--c:${WHO_COLOR[w]};--cs:${WHO_SOFT[w]}">${miniSheep(w).replace('class="mini-sheep"','')}${esc(nameOf(w))}</button>`).join('')}</div>
+      <p class="muted" style="margin:0;font-size:13.5px">Isso define o padrão dos novos compromissos e da lista de compras neste aparelho.</p>
+      <div class="row"><div class="field"><label for="n-ela">Nome da ovelha de laço rosa</label><input class="inp" id="n-ela" maxlength="24" value="${esc(s.nameEla)}"></div>
+        <div class="field"><label for="n-ele">Nome da ovelha de óculos</label><input class="inp" id="n-ele" maxlength="24" value="${esc(s.nameEle)}"></div></div>
+      <div><button class="btn primary" id="saveNames">Salvar nomes</button></div>
+    </div>
+    <div class="panel"><div class="eyebrow">Convite para o rebanho</div><h2>Chame seu namorado</h2>
+      <svg viewBox="0 0 320 120" aria-hidden="true" style="width:100%;height:auto;border-radius:16px;background:var(--sky)"><path d="M0 100 C80 86 240 96 320 88 V120 H0Z" fill="var(--hill)"/>${sheep({x:110,y:72,s:.5,who:'ela',mood:'wink'})}<g transform="translate(150 40)"><rect width="56" height="38" rx="6" fill="#fff" stroke="#E0528A" stroke-width="2.5"/><path d="M0 4 L28 24 L56 4" fill="none" stroke="#E0528A" stroke-width="2.5"/>${heart(28,16,1.1)}</g>${sheep({x:250,y:66,s:.6,who:'ele',mood:'o'})}</svg>
+      <ol class="steps"><li>Abra o menu <b>Compartilhar</b> deste artifact no Claude (canto superior).</li><li>Convide o e-mail dele com a permissão <b>Editor</b>, assim ele pode adicionar e editar compromissos e itens.</li><li>Não ative o link público: com link público aberto, convidados de fora deixam de poder editar.</li><li>Quando ele abrir, é só ir em <b>Nosso rebanho</b> e escolher a ovelha de óculos.</li></ol>
+      <div class="note">${state.mode==='db' ? (state.canWrite ? 'Tudo que vocês anotam aqui é salvo e sincronizado ao vivo entre os dois.' : 'Você está com acesso de leitura. Peça para ser convidado como Editor para poder anotar.') : 'Modo local: os dados estão só neste navegador. Abra pelo link do Claude para sincronizar entre vocês dois.'}</div>
+    </div>
+    ${['ela','ele','juntos'].map(w=>`<div class="panel"><div class="eyebrow">Paleta</div><div class="day-title"><h2 style="color:${WHO_COLOR[w]}">${w==='juntos'?'Paleta do casal':'Paleta de '+esc(nameOf(w))}</h2>${miniSheep(w)}</div>
+      <div class="pal">${TYPES.map(t=>`<label class="sw"><input type="color" data-pal="${w}" data-pt="${t.k}" value="${colorOf(w,t.k)}" aria-label="Cor de ${t.n} na paleta ${nameOf(w)}">${t.n}</label>`).join('')}</div>
+      <div><button class="btn small" data-savepal="${w}">Salvar paleta</button> <button class="btn small" data-resetpal="${w}">Voltar ao padrão</button></div></div>`).join('')}`;
+  document.querySelectorAll('[data-me]').forEach(b=>b.onclick=()=>{ state.me=b.dataset.me; ls.set('ovelhas.me',state.me); shopWho=state.me; renderFlock(); renderCal(); renderShop(); toast(`Oi, ${nameOf(state.me)}! Bééé!`); });
+  $('#saveNames').onclick = () => store.settings({nameEla: $('#n-ela').value.trim()||'Ela', nameEle: $('#n-ele').value.trim()||'Ele'}).then(()=>toast('Nomes salvos'));
+  document.querySelectorAll('[data-savepal]').forEach(b=>b.onclick=()=>{ const w=b.dataset.savepal, p={}; document.querySelectorAll(`[data-pal="${w}"]`).forEach(i=>p[i.dataset.pt]=i.value.toUpperCase());
+    store.settings({palettes:{...(state.settings.palettes||{}), [w]:p}}).then(()=>toast('Paleta salva')); });
+  document.querySelectorAll('[data-resetpal]').forEach(b=>b.onclick=()=>{ const P={...(state.settings.palettes||{})}; delete P[b.dataset.resetpal]; store.settings({palettes:P}).then(()=>toast('Paleta original de volta')); });
+}
+
+/* ---------- navegação ---------- */
+function setView(v){
+  state.view = v; ls.set('ovelhas.view', v);
+  ['cal','shop','flock'].forEach(k => { $('#view-'+k).hidden = k!==v; $('#tab-'+k).setAttribute('aria-selected', k===v); });
+}
+function renderAll(){ renderHero(); renderShabat(); renderCal(); renderShop(); renderFlock(); setView(state.view); }
+
+$('#tab-cal').innerHTML = icon('cal') + 'Calendário';
+$('#tab-shop').innerHTML = icon('cart') + 'Compras';
+$('#tab-flock').innerHTML = icon('flock') + 'Nosso rebanho';
+$('#prev').innerHTML = icon('left',2.6); $('#next').innerHTML = icon('right',2.6);
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>setView(t.dataset.view));
+$('#prev').onclick = () => { state.month = new Date(state.month.getFullYear(), state.month.getMonth()-1, 1); renderCal(); };
+$('#next').onclick = () => { state.month = new Date(state.month.getFullYear(), state.month.getMonth()+1, 1); renderCal(); };
+$('#todayBtn').onclick = () => { state.month = new Date(today.getFullYear(), today.getMonth(), 1); state.sel = iso(today); renderCal(); };
+$('#addBtn').onclick = () => openEvent();
+document.addEventListener('click', e => {
+  const t = e.target;
+  const ev = t.closest('[data-ev]'); if (ev){ e.stopPropagation(); return openEvent(ev.dataset.ev, ev.dataset.occ); }
+  const day = t.closest('[data-day]'); if (day){ state.sel = day.dataset.day; const d = parse(state.sel); if (d.getMonth()!==state.month.getMonth()) state.month = new Date(d.getFullYear(), d.getMonth(), 1); renderCal(); if (innerWidth<=980) $('#dayPanel').scrollIntoView({behavior:'smooth',block:'nearest'}); return; }
+  if (t.closest('#addHere')) return openEvent();
+  const w = t.closest('[data-who]:not(.sheep-hit)'); if (w){ state.whoFilter[w.dataset.who] = state.whoFilter[w.dataset.who]===false; ls.set('ovelhas.who', state.whoFilter); return renderCal(); }
+  const ty = t.closest('[data-type]'); if (ty){ state.typeFilter[ty.dataset.type] = state.typeFilter[ty.dataset.type]===false; ls.set('ovelhas.types', state.typeFilter); return renderCal(); }
+  const ho = t.closest('[data-hol]'); if (ho){ state.holFilter[ho.dataset.hol] = state.holFilter[ho.dataset.hol]===false; ls.set('ovelhas.hol', state.holFilter); return renderCal(); }
+  const c = t.closest('[data-cat]'); if (c){ state.cat = c.dataset.cat; ls.set('ovelhas.cat', state.cat); renderShop(); $('#catDetail').scrollIntoView({behavior:'smooth',block:'start'}); return; }
+  const di = t.closest('[data-delitem]'); if (di){ store.del('shopping', di.dataset.delitem); return; }
+});
+document.addEventListener('keydown', e => { const day = e.target.closest?.('[data-day]'); if (day && (e.key==='Enter'||e.key===' ') && e.target===day){ e.preventDefault(); day.click(); } });
+document.addEventListener('change', e => { const id = e.target.dataset?.chk; if (!id) return; const it = state.shopping[id]; if (!it) return;
+  if (e.target.checked) puffBurst(e.target); store.put('shopping', id, {...it, done:e.target.checked}); });
+
+renderAll();
+store.init();
+</script>
