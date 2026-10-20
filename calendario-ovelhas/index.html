@@ -698,7 +698,8 @@ const SCENES = {
     ${R(158,122,12,36,'#FFB38A',2,1.1)}<path d="M160 122 v-5 h8 v5" fill="#FFFFFF" ${O(1)}/>
     <path d="${cloudPath(98,114,11,8,7,.6)}" fill="#A8D97F" ${O(1.2)}/>
     <circle cx="126" cy="112" r="7" fill="#F5655F" ${O(1.1)}/><path d="M126 105 q2 -3 4 -3" stroke="#6B4A2E" stroke-width="1.4" fill="none"/>
-    ${sheep({who:'ela',pose:'sit',x:190,y:146,s:.58,flip:true})}
+    <g><rect x="172" y="110" width="34" height="48" rx="3" fill="#CFE8FA" fill-opacity=".9" ${O(1.2)}/>${[178,187,196].map(x=>`<rect x="${x}" y="106" width="6" height="6" rx="1.5" fill="#2E7FD1" ${O(.8)}/><rect x="${x-1}" y="112" width="8" height="44" rx="3" fill="#9FD0F5" fill-opacity=".7"/>`).join('')}<rect x="172" y="126" width="34" height="9" fill="#2E7FD1"/><text x="189" y="133" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="6" fill="#FFFFFF">ÁGUA</text></g>
+    ${sheep({who:'ela',pose:'turn',x:189,y:107,s:.5,flip:true})}
     <path d="M82 116 H212 L201 158 H93 Z" fill="rgba(255,255,255,.18)"/>
     ${[108,130,152,174,194].map(x=>`<path d="M${x+2} 118 L${x} 157" stroke="#A3AEC2" stroke-width="1.3"/>`).join('')}<path d="M88 137 H206" stroke="#A3AEC2" stroke-width="1.3"/>
     <path d="M82 116 H212 L201 158 H93 Z" fill="none" stroke="#7B879D" stroke-width="2.4" stroke-linejoin="round"/>
@@ -728,7 +729,6 @@ const SCENES = {
     <ellipse cx="160" cy="189" rx="48" ry="3" fill="#3A3226" opacity=".12"/>
     <path d="${cloudPath(160,183,46,8,20,.62)}" fill="#F7A8C4" ${O(1.2)}/><rect x="122" y="178" width="76" height="10" rx="5" fill="#FBC3D7"/>
     ${[136,148,160,172,184].map((x,k)=>heart(x,183.6,.32,k%2?'#FFFFFF':'#F59AB9')).join('')}
-    <g transform="translate(24 182)"><ellipse cx="0" cy="0" rx="9" ry="5" fill="#F59AB9" ${O(1.1)}/><ellipse cx="18" cy="2" rx="9" ry="5" fill="#F59AB9" ${O(1.1)}/><ellipse cx="270" cy="0" rx="10" ry="5.5" fill="#9DC3F2" ${O(1.1)}/><ellipse cx="290" cy="2" rx="10" ry="5.5" fill="#9DC3F2" ${O(1.1)}/></g>
   `,'Banheiro: as ovelhas tomando banho de espuma com patinho de borracha, toalhas rosa e azul'),
 
   farmacia: () => SCN('#EAF6EF', `
@@ -746,7 +746,7 @@ const SCENES = {
   ${T(186,140,'atchim!',9,'#6E6890',{f:'Caveat, cursive',w:600})}`,'Farmácia com prateleiras, balcão e, no fundo, uma seção de camisinhas douradas; a ovelha bebê com curativo e a outra com termômetro', `${T(196,28,'FARMÁCIA',11,'#3E9C73')}${T(40,54.6,'VITAMINAS',6,'#FFFFFF')}`),
 
   limpeza: () => SCN('#F1ECFB', `
-    <path d="M10 30 H204" stroke="#B9AFCF" stroke-width="1.6" stroke-linecap="round"/><path d="M10 26 v8 M204 26 v8" stroke="#9E92B8" stroke-width="3" stroke-linecap="round"/>
+    <path d="M10 14 H204" stroke="#B9AFCF" stroke-width="1.6" stroke-linecap="round"/><path d="M10 10 v8 M204 10 v8" stroke="#9E92B8" stroke-width="3" stroke-linecap="round"/>
     ${(()=>{const pin=x=>`<rect x="${x-1.2}" y="-3.4" width="2.4" height="6" rx="1" fill="#E9B266" ${O(.6)}/>`;
       const items=[
         [26,`<path d="M0 0 h7 v11 q0 3 3 3 h3 q3 0 3 3 q0 3 -3 3 h-7 q-6 0 -6 -6z" fill="#F7A8C4" ${O(1)}/><path d="M0 2.6 h7" stroke="#E9789F" stroke-width="1.8"/>${pin(3.5)}`],
@@ -755,16 +755,20 @@ const SCENES = {
         [124,`<path d="M0 0 h16 v4 l-2 11 h-5 l-1 -7 l-1 7 h-5 l-2 -11z" fill="#FFD27A" ${O(1)}/>${pin(2.5)}${pin(13.5)}`],
         [156,`<rect width="14" height="18" rx="1.5" fill="#FFFFFF" ${O(1)}/><path d="M0 12 h14 M0 15 h14" stroke="#8FD3B6" stroke-width="1.6"/>${pin(3)}${pin(11)}`],
         [182,`<path d="M0 0 h7 v11 q0 3 3 3 h3 q3 0 3 3 q0 3 -3 3 h-7 q-6 0 -6 -6z" fill="#9DC3F2" ${O(1)}/><path d="M0 2.6 h7" stroke="#6F9FDF" stroke-width="1.8"/>${pin(3.5)}`]];
-      return items.map(([x,g])=>`<g transform="translate(${x} 30)">${g}</g>`).join('');})()}
+      return items.map(([x,g])=>`<g transform="translate(${x} 14)">${g}</g>`).join('');})()}
     ${R(238,18,64,62,'#FFFFFF',3)}<rect x="243" y="23" width="54" height="52" fill="#DCEFFF"/>${cloud(262,44,.4)}<path d="M270 23 V75 M243 49 H297" ${O(1.2)}/>
     <path d="M232 14 q8 30 2 68 h12 q4 -40 -2 -68z M308 14 q-8 30 -2 68 h-12 q-4 -40 2 -68z" fill="#F7A8C4" ${O(1.2)}/><path d="M228 14 H312" stroke="${OL}" stroke-width="2.4" stroke-linecap="round"/>
     <rect y="148" width="320" height="52" fill="#E8D7C3"/>${[156,170,188].map(y=>`<path d="M0 ${y} H320" stroke="#D6C1A8" stroke-width="1.2"/>`).join('')}${[40,110,190,260].map((x,i)=>`<path d="M${x+(i%2)*20} 148 v8 M${x+30} 156 v14 M${x+6} 170 v18" stroke="#D6C1A8" stroke-width="1.2"/>`).join('')}<path d="M0 148 H320" ${O(1.2)}/>
-    ${R(14,72,64,5,'#D9C6EE',2)}${R(18,54,12,18,'#8FD3B6',3,1.1)}${R(34,58,12,14,'#C7B2F0',3,1.1)}${R(50,50,14,22,'#FFD27A',3,1.1)}
+    ${R(10,72,74,5,'#D9C6EE',2)}
+    <g transform="translate(14 46)"><path d="M2 26 V10 Q2 6 6 6 H9 L12 1 Q14 -1 15 1 L14 6 Q16 7 16 10 V26Z" fill="#2E7FD1" ${O(1)}/><rect x="3.5" y="13" width="11" height="8" rx="1" fill="#FFFFFF"/><text x="9" y="19" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="3.6" fill="#2E7FD1">Pato</text></g>
+    <g transform="translate(33 50)"><rect x="1" y="4" width="12" height="18" rx="3" fill="#7DC36B" fill-opacity=".85" ${O(1)}/><rect x="4" y="0" width="6" height="5" rx="1" fill="#2F8A3B" ${O(.8)}/><rect x="2.5" y="10" width="9" height="6" rx="1" fill="#FFFFFF"/><text x="7" y="14.6" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="3.4" fill="#2F8A3B">Ypê</text></g>
+    <g transform="translate(49 44)"><path d="M2 28 V8 Q2 4 6 4 H12 Q16 4 16 8 V28Z" fill="#7FB8F0" ${O(1)}/><path d="M12 8 q5 0 5 5 v4 q0 3 -3 3" fill="none" stroke="#7A5E4C" stroke-width="1.6"/><rect x="5" y="0" width="7" height="5" rx="1" fill="#2E5FB8" ${O(.8)}/><rect x="4" y="14" width="10" height="7" rx="1" fill="#FFFFFF"/><text x="9" y="19.2" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="3" fill="#2E5FB8">Comfort</text></g>
+    <g transform="translate(67 52)"><rect x="0" y="0" width="15" height="20" rx="1.5" fill="#E8453F" ${O(1)}/><circle cx="7.5" cy="8.6" r="5" fill="#1E5FB8"/><text x="7.5" y="10" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="4" fill="#FFFFFF">Omo</text><rect x="2" y="15" width="11" height="2.4" rx="1" fill="#FFFFFF"/></g>
     ${R(14,92,66,82,'#FFFFFF',6)}${R(14,92,66,14,'#EEF0F7',4,1.2)}<circle cx="26" cy="99" r="3" fill="#F59AB9" ${O(1)}/><circle cx="38" cy="99" r="3" fill="#9DC3F2" ${O(1)}/>
     <circle cx="47" cy="140" r="21" fill="#E1E6F0" ${O(1.4)}/><circle cx="47" cy="140" r="15" fill="#BFE3F7" ${O(1.2)}/>${bubble(42,136,4)}${bubble(52,144,3)}${bubble(46,147,2)}
     <g><path d="M222 66 L206 182" stroke="#C99A62" stroke-width="5" stroke-linecap="round"/><path d="M222 66 L206 182" ${O(1)}/><path d="M192 176 h26 l6 12 h-38z" fill="#FFD27A" ${O(1.2)}/>${[196,202,208,214].map(x=>`<path d="M${x} 178 l-1 9" stroke="#E0A94A" stroke-width="1.3"/>`).join('')}</g>
     ${sheep({who:'ela',pose:'sit',x:136,y:158,s:.58,mood:'closed'})}
-    <path d="M100 144 H172 L166 182 H106Z" fill="#E7C08F" ${O(1.4)}/>${[152,160,168,176].map(y=>`<path d="M${102+(y-144)*.16} ${y} H${170-(y-144)*.16}" stroke="#C99A62" stroke-width="1.1"/>`).join('')}
+    <path d="M100 144 H172 L166 182 H106Z" fill="#E7C08F" ${O(1.4)}/>${[[104,144,7],[116,140,8],[128,145,6],[150,145,6],[160,140,8],[171,144,6.5]].map(([a,b,r],i)=>wool(a,b,r,r*.8,7,90+i,true)).join('')}${bubble(184,128,3)}${bubble(96,132,2.4)}${[152,160,168,176].map(y=>`<path d="M${102+(y-144)*.16} ${y} H${170-(y-144)*.16}" stroke="#C99A62" stroke-width="1.1"/>`).join('')}
     ${sheep({who:'ele',pose:'turn',x:246,y:186,s:.78})}
     <g transform="translate(292 158) scale(.85)"><path d="M0 0 h28 l-4 32 h-20z" fill="#8FD3B6" ${O(1.3)}/>${[[4,-2,6],[13,-5,7],[22,-2,6]].map(([a,b,r],i)=>wool(a,b,r,r*.85,6,70+i,true)).join('')}</g>
     ${sparkle(178,110,1)}${sparkle(98,88,.7,'#C7B2F0')}${bubble(188,92,4)}${bubble(198,76,3)}
@@ -781,9 +785,8 @@ const SCENES = {
     <path d="M214 26 l14 24 h-28z" fill="#FFD449" ${O(1.3)}/><path d="M215 32 l-5 9 h4 l-2 6 l6 -9 h-4z" fill="#33304A"/>
     ${trefoil(304,30,.7)}
     <circle cx="281" cy="62" r="34" fill="url(#ov-glow-v)"/>
-    ${bolt('262,60 246,52 238,58 222,46 214,50')}${bolt('296,56 306,40 300,34 312,22')}${bolt('281,54 278,40 285,32 280,24')}
-    <circle cx="210" cy="50" r="6" fill="#C5CDE2" ${O(1.2)}/><path d="M210 56 V96" stroke="#7C87AB" stroke-width="2.4"/>
-    ${R(264,158,36,28,'#6F7AA5',4)}${R(270,74,22,84,'#C77B4A',4,1.4)}${Array.from({length:26},(_,i)=>`<path d="M270 ${78+i*3.1} h22" stroke="#9E5A31" stroke-width=".9"/>`).join('')}
+    ${bolt('296,56 306,40 300,34 312,22')}${bolt('281,54 278,40 285,32 280,24')}
+    ${R(264,158,36,28,'#6F7AA5',4)}${R(270,74,22,84,'#8E7FE0',4,1.4)}${Array.from({length:26},(_,i)=>`<path d="M270 ${78+i*3.1} h22" stroke="#6A5BC4" stroke-width=".9"/>`).join('')}<path d="M274 78 v76" stroke="#B8AEF2" stroke-width="2" opacity=".7"/>
     <ellipse cx="281" cy="66" rx="23" ry="8.5" fill="#D4DAEA" ${O(1.4)}/><path d="M264 63 q10 -5 24 -3" stroke="#FFFFFF" stroke-width="1.6" fill="none" stroke-linecap="round"/>
     ${R(0,126,204,9,'#E9EEF6',2)}${R(4,135,196,52,'#AFC0DA',2)}${[52,100,148].map(x=>`<path d="M${x} 135 V187" ${O(1.2)}/><rect x="${x-10}" y="158" width="6" height="2.4" rx="1.2" fill="#6F7AA5"/>`).join('')}
     <circle cx="28" cy="112" r="16" fill="url(#ov-glow-g)"/><path d="M24 96 h8 M25 96 v10 l-9 16 a3 3 0 0 0 3 4 h18 a3 3 0 0 0 3 -4 l-9 -16 v-10" fill="#FFFFFF" fill-opacity=".55" ${O(1.2)}/><path d="M17 118 h22 l3 5 a3 3 0 0 1 -3 3 h-22 a3 3 0 0 1 -3 -3z" fill="#5BE39A"/>${bubble(28,104,2)}${bubble(30,92,2.4)}${bubble(26,82,1.8)}
@@ -811,7 +814,7 @@ const SCENES = {
       const B=(x,y,r,inner)=>`<g transform="translate(${x} ${y}) rotate(${r})"><clipPath id="bnr${x}"><path d="${shape}"/></clipPath><g clip-path="url(#bnr${x})">${inner}</g><path d="${shape}" fill="none" ${O(1.2)}/><path d="M-2 0 H${W+2}" stroke="#C99A62" stroke-width="2.4" stroke-linecap="round"/></g>`;
       const star=(cx,cy,r)=>`<path d="M${cx} ${cy-r} L${cx+r*.866} ${cy+r/2} L${cx-r*.866} ${cy+r/2}Z M${cx} ${cy+r} L${cx+r*.866} ${cy-r/2} L${cx-r*.866} ${cy-r/2}Z" fill="none" stroke="#1F4FA0" stroke-width="1.1" stroke-linejoin="round"/>`;
       return B(46,18,-5,`<rect width="${W}" height="${H}" fill="#74ACDF"/><rect y="${H*.33}" width="${W}" height="${H*.3}" fill="#FFFFFF"/><circle cx="${W/2}" cy="${H*.48}" r="3" fill="#F6B40E"/>${Array.from({length:8},(_,k)=>`<path d="M${W/2} ${H*.48} l0 -4.6" stroke="#F6B40E" stroke-width=".9" transform="rotate(${k*45} ${W/2} ${H*.48})"/>`).join('')}`)
-        +B(106,21,3,`<rect width="${W}" height="${H}" fill="#009C3B"/><path d="M${W/2} 4 L${W-3} ${H*.42} L${W/2} ${H*.84} L3 ${H*.42}Z" fill="#FFDF00"/><circle cx="${W/2}" cy="${H*.42}" r="6" fill="#002776"/><path d="M${W/2-5.8} ${H*.42-1} q5.8 -2.4 11.6 1.6" stroke="#FFFFFF" stroke-width="1" fill="none"/>`)
+        +B(106,21,3,`<rect width="${W}" height="${H}" fill="#009C3B"/><path d="M${W/2} 8.4 L${W-2.6} 17 L${W/2} 25.6 L2.6 17Z" fill="#FFDF00"/><circle cx="${W/2}" cy="17" r="4.8" fill="#002776"/><path d="M${W/2-4.6} 16.2 q4.6 -2 9.2 1.3" stroke="#FFFFFF" stroke-width=".9" fill="none"/>`)
         +B(166,19,-3,`<rect width="${W}" height="${H}" fill="#FFFFFF"/><rect y="4" width="${W}" height="3.6" fill="#1F4FA0"/><rect y="${H*.66}" width="${W}" height="3.6" fill="#1F4FA0"/>${star(W/2,H*.4,5.4)}`);})()}
     <rect y="150" width="320" height="50" fill="#F2D7C9"/>${[160,176].map(y=>`<path d="M0 ${y} H320" stroke="#E5C2B0" stroke-width="1.2"/>`).join('')}<path d="M0 150 H320" ${O(1.2)}/>
     ${R(36,118,140,8,'#F7A8C4',3)}<path d="M40 126 v40 M172 126 v40" stroke="#C99A62" stroke-width="4" stroke-linecap="round"/><path d="M36 126 q70 14 140 0" fill="#F7A8C4" ${O(1.2)}/>
@@ -855,8 +858,12 @@ const SCENES = {
     <rect x="76" y="148" width="3" height="12" rx="1.5" fill="#3A3C44"/>
     ${[33,45,59,71].map(x=>`<rect x="${x-3}" y="180" width="6" height="3" fill="#3A3C44"/><circle cx="${x}" cy="185" r="3" fill="#2B2D33" ${O(.8)}/>`).join('')}
     ${sheep({who:'ela',pose:'sit',x:52,y:124,s:.48})}
-    ${R(84,152,26,30,'#8FD3B6',8)}<path d="M88 160 q9 -6 18 0" fill="none" ${O(1.1)}/>${R(90,168,14,8,'#6FC29E',3,1)}
-    ${R(120,170,18,12,'#6B4E9B',2,1.1)}<path d="M124 174 h10" stroke="#FFD27A" stroke-width="1"/>
+    <path d="M88 156 q-6 2 -5 14 l2 10" fill="none" stroke="#4FA27F" stroke-width="2.4" stroke-linecap="round"/>
+    ${R(84,148,28,34,'#8FD3B6',9)}<path d="M84 160 q14 -8 28 0" fill="none" ${O(1.1)}/><path d="M88 158 q10 -6 20 0" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="1.6 1.6"/>
+    ${R(89,166,18,12,'#6FC29E',3,1)}<path d="M91 169 h14" stroke="#FFFFFF" stroke-width=".9" stroke-dasharray="1.4 1.4"/><circle cx="104" cy="164" r="1.4" fill="#C9CED6"/>
+    <path d="M92 148 q6 -8 12 0" fill="none" stroke="#4FA27F" stroke-width="2.4"/><path d="M108 172 l4 4" stroke="#C9CED6" stroke-width="1"/>${heart(113,179,.42,'#F59AB9')}
+    <g transform="translate(120 168) rotate(-8)">${R(0,0,14,18,'#1F3F8F',1.5,1.1)}<circle cx="7" cy="7" r="3.4" fill="none" stroke="#E9C46A" stroke-width=".9"/><path d="M4 13 h6" stroke="#E9C46A" stroke-width=".9"/><path d="M5 15.4 h4" stroke="#E9C46A" stroke-width=".7"/></g>
+    <g transform="translate(130 176) rotate(10)">${R(0,0,16,8,'#FFFFFF',1,1)}<rect x="0" y="0" width="4" height="8" fill="#2E7FD1"/><path d="M6 3 h8 M6 5.4 h6" stroke="#9AA3B8" stroke-width=".8"/></g>
     ${sheep({who:'ele',pose:'side',x:180,y:188,s:.8})}
   `,'Aeroporto: avião da El Al decolando na janela, painel de partidas e a ovelha bebê sentada na mala', `${T(261,27,'PARTIDAS',6.5,'#FFD27A')}    <g font-family="DM Mono, monospace" font-size="5.6" fill="#EAF4FF">${[['TEL AVIV','09:40','#7DF0B4'],['PARIS','11:15','#EAF4FF'],['NOVA YORK','13:20','#EAF4FF'],['TÓQUIO','22:05','#FFD27A']].map(([c,h,s],i)=>`<text x="218" y="${40+i*11}">${c}</text><text x="292" y="${40+i*11}" text-anchor="end" fill="${s}">${h}</text>`).join('')}</g>`),
 
@@ -911,6 +918,8 @@ const SCENES = {
     <path d="M248 176 V96 M278 176 V96 M248 100 H278 M248 116 H278" stroke="#7A4C38" stroke-width="4" stroke-linecap="round"/>
     ${sheep({who:'ela',pose:'side',x:86,y:146,s:.66,flip:true})}
     ${sheep({who:'ele',pose:'side',x:236,y:150,s:.76})}
+    ${R(40,145,60,5,'#9A6242',2,1.2)}<path d="M46 150 V176 M94 150 V176" stroke="#7A4C38" stroke-width="3.4" stroke-linecap="round"/>
+    ${R(214,149,70,5,'#9A6242',2,1.2)}<path d="M220 154 V176 M278 154 V176" stroke="#7A4C38" stroke-width="3.4" stroke-linecap="round"/>
     ${R(62,128,196,6,'#FFFFFF',2,1.3)}
     <rect x="66" y="134" width="188" height="40" fill="#FFFFFF"/>${(()=>{let o='';for(let r=0;r<4;r++)for(let c=0;c<19;c++) if((r+c)%2===0) o+=`<rect x="${66+c*9.9}" y="${134+r*10}" width="9.9" height="10" fill="#E5534B"/>`; return o;})()}<rect x="66" y="134" width="188" height="40" fill="none" ${O(1.3)}/>
     ${[120,200].map(x=>`<ellipse cx="${x}" cy="129" rx="19" ry="4.6" fill="#FFFFFF" ${O(1.2)}/><ellipse cx="${x}" cy="128.6" rx="13" ry="2.8" fill="none" stroke="#E7E1EE" stroke-width="1"/><path d="M${x-12} 128.4 C${x-12} 121 ${x+12} 121 ${x+12} 128.4 Z" fill="#F2C25B" ${O(1)}/><path d="M${x-8} 127 q4 -3.6 8 0 q4 3.6 8 0 M${x-6} 124.6 q3 -2.4 6 0 q3 2.4 6 0" fill="none" stroke="#E3AE47" stroke-width="1" stroke-linecap="round"/><ellipse cx="${x}" cy="123.4" rx="6.5" ry="2.6" fill="#D9433A" ${O(.9)}/><ellipse cx="${x-2}" cy="122.6" rx="2" ry=".8" fill="#F27A6E"/><ellipse cx="${x+3}" cy="121.4" rx="2.6" ry="1.3" fill="#5FA84A" transform="rotate(-24 ${x+3} 121.4)"/>`).join('')}
@@ -925,9 +934,13 @@ const SCENES = {
     ${R(12,58,84,5,'#C99A62',1.5)}${R(12,96,84,5,'#C99A62',1.5)}
     <circle cx="28" cy="46" r="11" fill="#9DC3F2" ${O(1.2)}/><path d="M20 42 q8 4 16 0 M22 50 q6 -3 12 0" stroke="#8FD3B6" stroke-width="2" fill="none"/><path d="M28 57 v1" ${O(1)}/>
     ${R(46,40,16,18,'#FFD27A',3,1.2)}<circle cx="54" cy="49" r="5" fill="#FFFFFF" ${O(1)}/><path d="M54 46 v3 l2 1.5" ${O(.9)}/>
-    ${R(68,44,22,14,'#E8C49A',2,1.2)}${R(18,78,30,18,'#EED3B0',2,1.2)}${R(52,82,38,14,'#F7A8C4',2,1.2)}
+    ${R(68,40,22,18,'#E5384B',2,1.2)}<ellipse cx="79" cy="49" rx="8" ry="5" fill="#FFD449" transform="rotate(-18 79 49)"/><text x="79" y="51.4" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="6" fill="#E5384B" transform="rotate(-18 79 49)">UNO</text>
+    ${R(18,74,26,22,'#E9C38F',2,1.2)}${[0,1,2,3,4].map(r=>`<rect x="${24+(r%2)*2}" y="${78+r*3.4}" width="12" height="3" rx=".6" fill="#D49A55" ${O(.5)}/>`).join('')}<text x="31" y="94" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="4.4" fill="#7A4E1F">JENGA</text>
+    ${R(50,80,40,16,'#33304A',2,1.2)}${Array.from({length:8},(_,k)=>`<rect x="${54+k*4}" y="${83+(k%2)*4}" width="4" height="4" fill="#FFFFFF"/><rect x="${54+k*4}" y="${87-(k%2)*4}" width="4" height="4" fill="#C9C2E6"/>`).join('')}<text x="70" y="94.6" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="3.6" fill="#FFFFFF">XADREZ</text>
     <rect y="150" width="320" height="50" fill="#E3CFB6"/>${[160,176,192].map(y=>`<path d="M0 ${y} H320" stroke="#D2B998" stroke-width="1.2"/>`).join('')}<path d="M0 150 H320" ${O(1.2)}/>
-    ${R(206,122,46,38,'#E8C49A',2)}${R(216,96,34,26,'#EED3B0',2)}${R(250,140,40,30,'#DDB385',2)}
+    ${R(204,124,50,36,'#FFFFFF',2)}<rect x="206" y="126" width="46" height="32" fill="none" stroke="#2F9E5B" stroke-width="2"/><rect x="204" y="134" width="50" height="11" fill="#E5384B"/><text x="229" y="142.6" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="7" fill="#FFFFFF">MONOPOLY</text><path d="M222 154 h14 M224 154 v-5 h10 v5" fill="#33304A" stroke="#33304A" stroke-width="1"/>
+    ${R(212,96,40,28,'#FFFFFF',2)}${[[220,104,'#E5384B'],[230,104,'#2E7FD1'],[240,104,'#FFD449'],[225,113,'#2F9E5B'],[235,113,'#E5384B']].map(([x,y,c])=>`<circle cx="${x}" cy="${y}" r="3.6" fill="${c}" ${O(.6)}/>`).join('')}<text x="232" y="121.6" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="6" fill="#2E7FD1">Twister</text>
+    ${R(256,142,36,28,'#F2E3C4',2)}${['A','M','O','R'].map((l,k)=>`<rect x="${259+k*8}" y="${150}" width="7" height="8" rx="1" fill="#FFF8E6" ${O(.7)}/><text x="${262.5+k*8}" y="156.6" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="5.4" fill="#7A4E1F">${l}</text>`).join('')}<rect x="256" y="142" width="36" height="5" fill="#C99A62"/>
     <path d="M92 150 L98 120 H162 L168 150" fill="#C99A62" ${O(1.3)}/>
     ${sheep({who:'ela',pose:'sit',x:130,y:150,s:.56})}
     <path d="M90 150 H170 V184 H90Z" fill="#E8C49A" ${O(1.4)}/><path d="M90 150 L78 140 M170 150 L182 140" ${O(1.4)}/><path d="M118 150 v34 M142 150 v34" stroke="#F2DCC0" stroke-width="4"/>
@@ -967,29 +980,38 @@ function heroScene(){
   <path d="M0 232 C160 214 300 226 480 222 C660 218 800 230 960 216 V300 H0Z" fill="#9FD39B" ${O(1.6)}/>
   <path d="M0 262 C200 250 420 258 600 256 C760 254 860 262 960 256 V300 H0Z" fill="#8CC788" ${O(1.4)}/>
   <g>
-    <ellipse cx="146" cy="271" rx="116" ry="7" fill="#3A3226" opacity=".18"/>
-    <ellipse cx="58" cy="254" rx="11" ry="13" fill="#17181C"/><ellipse cx="128" cy="261" rx="13" ry="15" fill="#17181C"/>
-    <path d="M150 264 L40 252 C36 246 36 238 40 234 L50 226 L62 222 L84 202 C88 198 92 196 98 196 L160 192 L152 206 Z" fill="#26282E" ${O(1.6)}/>
-    <path d="M154 226 L158 199 L100 200 C94 200 90 202 86 206 L72 223 Z" fill="#4F607A" ${O(1.2)}/>
-    <path d="M128 199 L126 225 M104 200 L98 224" stroke="#26282E" stroke-width="3.6"/>
-    <path d="M92 210 L102 202 L114 202 L104 212Z" fill="#8FA3BD" opacity=".5"/>
-    <path d="M104 193 L156 190" stroke="#C9CED6" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M74 220 l-8 -3 l-1 5 l6 2z" fill="#26282E" ${O(1)}/>
-    <path d="M40 236 L50 230 L52 236 L42 241Z" fill="#FFF3C2" ${O(1)}/>
-    <path d="M152 240 L44 232" stroke="#3B3E47" stroke-width="2"/><path d="M118 214 v24 M86 222 v18" stroke="#1C1D22" stroke-width="1"/>
-    <rect x="112" y="231" width="8" height="2.4" rx="1.2" fill="#C9CED6"/>
-    <ellipse cx="128" cy="261" rx="10" ry="12.5" fill="#26272B" ${O(1.3)}/><ellipse cx="128" cy="261" rx="6" ry="8" fill="#C9CED6" ${O(1)}/><ellipse cx="128" cy="261" rx="2" ry="2.6" fill="#6E7480"/>
-    <ellipse cx="58" cy="254" rx="8.6" ry="10.6" fill="#26272B" ${O(1.3)}/><ellipse cx="58" cy="254" rx="5" ry="6.6" fill="#C9CED6" ${O(1)}/>
-    <rect x="156" y="258" width="20" height="16" rx="5" fill="#17181C"/><rect x="222" y="256" width="20" height="16" rx="5" fill="#17181C"/>
-    <path d="M150 264 L152 206 C153 198 156 192 162 192 L236 190 C242 190 246 196 246 204 L248 262 Z" fill="#2B2D33" ${O(1.6)}/>
-    <rect x="164" y="186" width="70" height="5" rx="2.5" fill="#2B2D33" ${O(1.2)}/>
-    <path d="M160 200 Q160 196 164 196 L234 194 Q238 194 238 198 L241 224 Q241 228 237 228 L160 230 Q156 230 156 226Z" fill="#53647C" ${O(1.2)}/>
-    <path d="M168 224 L184 199 L196 199 L180 224Z M204 222 L216 198 L222 198 L210 222Z" fill="#8FA3BD" opacity=".5"/>
-    <path d="M153 233 h16 v12 h-14 q-2 -6 -2 -12z" fill="#E5384B" ${O(1.1)}/><path d="M156 236 h10" stroke="#FF8A8A" stroke-width="1.6"/>
-    <path d="M247 231 h-16 v12 h14 q2 -6 2 -12z" fill="#E5384B" ${O(1.1)}/><path d="M244 234 h-10" stroke="#FF8A8A" stroke-width="1.6"/>
-    <circle cx="199" cy="234" r="3" fill="#C9CED6" ${O(.8)}/>
-    <path d="M148 252 L249 250 L250 264 Q249 268 244 268 L153 270 Q149 270 148 266Z" fill="#1E2025" ${O(1.4)}/><path d="M156 256 L242 254.6" stroke="#C9CED6" stroke-width="1.4"/>
-    <rect x="180" y="238" width="38" height="13.5" rx="1.8" fill="#FFFFFF" stroke="#33353B" stroke-width="1.1"/><rect x="180" y="238" width="38" height="3.6" rx="1" fill="#2F5BB7"/><text x="199" y="249.4" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="6.4" fill="#22252B">P0RFAV0R</text>
+    <ellipse cx="140.0" cy="274" rx="126.9" ry="7" fill="#3A3226" opacity=".18"/>
+    <path d="M202.4 226.0 L203.0 220.2 L204.5 215.1 L206.9 211.0 L209.9 208.1 L213.5 206.7 L217.3 206.9 L221.2 208.8 L224.8 212.2 L227.9 216.9 L230.2 222.7 L231.6 229.1 L232.0 235.6 L231.2 241.7 L229.5 247.0 L226.8 251.0 L223.5 253.6 L219.8 254.6 L216.0 254.0 L212.3 251.7 L208.9 248.1 L206.1 243.5 L204.0 238.0 L202.7 232.0Z" fill="#26272B" stroke="#7A5E4C" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M40.9 178.4 L132.2 172.2 L104.8 167.4 L19.8 172.7Z" fill="#33363E" stroke="#7A5E4C" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M144.6 268.6 L20.0 205.4 L18.0 193.4 L19.5 173.6 L40.9 178.4 L144.9 214.1Z" fill="#26282E" stroke="#7A5E4C" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M95.3 238.3 L95.7 231.0 L97.0 224.5 L99.0 219.3 L101.7 215.7 L105.0 214.0 L108.6 214.3 L112.3 216.8 L115.9 221.3 L119.0 227.6 L121.4 235.2 L122.9 243.6 L123.5 252.1 L123.0 260.0 L121.4 266.7 L119.0 271.9 L116.0 275.0 L112.5 276.0 L108.9 274.9 L105.3 271.8 L102.1 267.0 L99.3 260.8 L97.2 253.7 L95.8 246.0Z" fill="#17181C" stroke="#7A5E4C" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M27.6 205.4 L27.7 199.7 L28.2 194.6 L29.3 190.4 L30.8 187.5 L32.6 185.9 L34.7 185.9 L36.8 187.5 L38.8 190.7 L40.7 195.2 L42.1 200.7 L43.1 206.9 L43.6 213.2 L43.4 219.3 L42.7 224.5 L41.5 228.7 L39.9 231.4 L38.0 232.6 L35.9 232.1 L33.8 230.2 L31.9 226.8 L30.2 222.4 L28.9 217.1 L28.0 211.3Z" fill="#17181C" stroke="#7A5E4C" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M96.2 239.4 L96.5 233.0 L97.6 227.5 L99.4 223.0 L101.7 219.9 L104.5 218.5 L107.6 218.8 L110.8 221.0 L113.8 224.9 L116.4 230.3 L118.5 236.8 L119.8 243.9 L120.3 251.1 L119.8 257.9 L118.5 263.7 L116.5 268.1 L113.9 270.8 L111.0 271.7 L107.9 270.8 L104.8 268.2 L102.0 264.0 L99.6 258.7 L97.8 252.6 L96.6 246.0Z" fill="#26272B" stroke="#7A5E4C" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M100.3 241.8 L100.5 238.0 L101.1 234.8 L102.2 232.2 L103.6 230.4 L105.2 229.7 L107.0 230.0 L108.8 231.3 L110.6 233.6 L112.0 236.7 L113.2 240.4 L113.9 244.5 L114.2 248.6 L114.0 252.5 L113.3 255.8 L112.1 258.3 L110.7 260.0 L109.0 260.6 L107.2 260.1 L105.4 258.6 L103.7 256.3 L102.3 253.2 L101.2 249.6 L100.6 245.7Z" fill="#C9CED6" stroke="#7A5E4C" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M104.3 244.1 L104.4 242.4 L104.9 241.1 L105.6 240.5 L106.4 240.5 L107.2 241.2 L107.9 242.6 L108.4 244.4 L108.6 246.3 L108.4 248.0 L108.0 249.3 L107.3 249.9 L106.4 249.9 L105.6 249.1 L104.9 247.7 L104.5 246.0Z" fill="#6E7480"/>
+    <path d="M28.1 206.0 L28.2 201.1 L28.7 196.7 L29.6 193.1 L30.9 190.6 L32.5 189.3 L34.2 189.3 L36.0 190.7 L37.8 193.4 L39.3 197.3 L40.6 202.0 L41.4 207.3 L41.8 212.7 L41.7 217.8 L41.1 222.4 L40.1 225.9 L38.7 228.3 L37.0 229.3 L35.3 228.9 L33.5 227.3 L31.8 224.4 L30.4 220.6 L29.3 216.0 L28.5 211.1Z" fill="#26272B" stroke="#7A5E4C" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M30.3 207.4 L30.4 204.5 L30.7 201.9 L31.2 199.9 L32.0 198.4 L32.9 197.7 L33.9 197.7 L35.0 198.6 L36.0 200.2 L36.8 202.4 L37.6 205.1 L38.0 208.2 L38.3 211.3 L38.2 214.2 L37.9 216.8 L37.3 218.9 L36.5 220.3 L35.5 220.9 L34.5 220.7 L33.5 219.8 L32.5 218.2 L31.7 215.9 L31.0 213.3 L30.5 210.4Z" fill="#C9CED6" stroke="#7A5E4C" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M32.5 208.7 L32.5 207.4 L32.8 206.4 L33.1 205.8 L33.6 205.8 L34.1 206.2 L34.5 207.2 L34.8 208.5 L34.9 209.9 L34.9 211.3 L34.6 212.3 L34.2 212.9 L33.8 212.9 L33.3 212.4 L32.9 211.4 L32.6 210.1Z" fill="#6E7480"/>
+    <path d="M142.7 241.9 L20.3 188.3 L20.2 187.3 L142.7 240.3Z" fill="#3B3E47"/>
+    <path d="M147.1 213.0 L148.3 155.8 L69.2 140.6 L43.1 177.8Z" fill="#26282E" stroke="#7A5E4C" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M139.6 204.5 L142.6 160.7 L70.0 145.9 L47.7 175.1Z" fill="#53647C" stroke="#7A5E4C" stroke-width="1.1" stroke-linejoin="round"/>
+    <path d="M104.3 194.4 L109.2 150.7 L104.4 149.9 L99.5 192.8Z" fill="#26282E"/>
+    <path d="M74.0 184.5 L78.2 144.0 L74.3 143.4 L70.2 183.3Z" fill="#26282E"/>
+    <path d="M38.2 177.3 L38.0 170.2 L34.0 169.0 L34.2 175.9Z" fill="#26282E" stroke="#7A5E4C" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M19.8 184.0 L21.3 178.4 L19.9 174.8 L18.4 180.4Z" fill="#FFF3C2" stroke="#7A5E4C" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M148.3 155.8 L244.0 150.7 L149.8 137.7 L69.2 140.6Z" fill="#33363E" stroke="#7A5E4C" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M149.8 150.7 L149.9 148.4 L82.5 138.6 L82.5 140.5Z" fill="#C9CED6"/>
+    <path d="M226.3 147.0 L226.4 144.8 L148.7 136.2 L148.7 138.1Z" fill="#C9CED6"/>
+    <path d="M144.6 268.6 L259.5 250.3 L261.5 201.6 L144.9 214.1Z" fill="#2B2D33" stroke="#7A5E4C" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M147.1 213.0 L255.5 201.4 L244.0 150.7 L148.3 155.8Z" fill="#2B2D33" stroke="#7A5E4C" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M156.3 207.6 L246.5 198.3 L240.1 156.4 L154.8 161.4Z" fill="#53647C" stroke="#7A5E4C" stroke-width="1.1" stroke-linejoin="round"/>
+    <path d="M152.9 157.6 L243.6 152.6 L245.8 146.7 L154.6 151.3Z" fill="#2B2D33" stroke="#7A5E4C" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M147.9 234.4 L171.8 231.3 L172.0 215.3 L148.0 218.0Z" fill="#E5384B" stroke="#7A5E4C" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M238.7 222.8 L258.7 220.3 L259.3 205.6 L239.2 207.8Z" fill="#E5384B" stroke="#7A5E4C" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M145.1 274.1 L261.4 255.0 L262.0 240.6 L145.2 258.0Z" fill="#1E2025" stroke="#7A5E4C" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M153.3 260.2 L255.8 244.6 L255.9 243.1 L153.3 258.6Z" fill="#C9CED6"/>
+    <circle cx="206.8" cy="219.3" r="3" fill="#C9CED6" stroke="#7A5E4C" stroke-width=".8"/>
+    <g transform="matrix(0.7496 -0.0967 -0.0147 0.8228 183.5 231.5)"><rect width="60" height="20" rx="2" fill="#FFFFFF" stroke="#33353B" stroke-width="1.4"/><rect width="60" height="5.4" rx="1.5" fill="#2F5BB7"/><text x="30.0" y="17" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="11.5" fill="#22252B">P0RFAV0R</text></g>
   </g>
 
   <g transform="translate(300 60) rotate(-14)">${heart(0,0,3.4,'#FF6F95')}<path d="M0 -26 V18 M-24 -8 H24" stroke="#C25B85" stroke-width="1.6"/></g>
@@ -1390,7 +1412,7 @@ document.body.insertAdjacentHTML('afterbegin', ART_DEFS);
 { const T = [['∇·E = ρ/ε₀',40,60,-5,24],['∇×B = μ₀J + μ₀ε₀ ∂E/∂t',330,44,3,22],['iħ ∂ψ/∂t = −(ħ²/2m)∇²ψ + Vψ',560,110,-3,21],['∇×E = −∂B/∂t',120,170,4,22],
     ['Gμν + Λgμν = (8πG/c⁴) Tμν',380,206,-4,20],['(iγᵘ∂ᵤ − m)ψ = 0',700,270,3,21],['d/dt (∂L/∂q̇) − ∂L/∂q = 0',30,300,-2,21],['ρ(∂v/∂t + v·∇v) = −∇p + μ∇²v',300,350,4,20],
     ['f̂(ξ) = ∫ f(x) e^(−2πixξ) dx',560,400,-5,20],['S = k_B ln Ω',90,452,3,23],['E² = (pc)² + (mc²)²',360,500,-3,21],['γ = 1/√(1 − v²/c²)',690,470,5,21],
-    ['Δx·Δp ≥ ħ/2',640,560,-2,22],['Z = Σ e^(−βEᵢ)',30,560,2,21],['eⁱᵖ + 1 = 0',230,262,0,24],['∇·B = 0',820,150,0,24],['E = (RT/zF) ln(Cₒ/Cᵢ)',470,620,-3,20],['C dV/dt = −Σ gᵢ(V − Eᵢ)',60,640,3,20]];
+    ['Δx·Δp ≥ ħ/2',640,560,-2,22],['Z = Σ e^(−βEᵢ)',30,560,2,21],['eⁱᵖ + 1 = 0',230,262,0,24],['∇·B = 0',820,150,0,24],['E = (RT/zF) ln(Cₒ/Cᵢ)',470,620,-3,20],['C dV/dt = −Σ gᵢ(V − Eᵢ)',60,640,3,20],['Ĥψ = Eψ',770,330,-4,22],['F = q(E + v×B)',150,110,3,21],['∮ B·dl = μ₀I',640,180,-3,21],['ΔS ≥ 0',820,420,4,22],['Q = πr⁴ΔP / 8μL',260,410,-2,20],['∂²u/∂t² = c²∇²u',520,300,3,20],['λ = h/p',400,130,-5,23],['e^(iθ) = cos θ + i sin θ',600,660,2,19],['∇²φ = −ρ/ε₀',30,200,-3,21],['P(A|B) = P(B|A)P(A)/P(B)',300,600,3,18],['∫₀^∞ e^(−x²) dx = √π/2',700,520,-4,19],['F = G m₁m₂/r²',480,30,2,21],['τ = r × F',830,600,-3,22],['pV^γ = cte',130,370,4,21]];
   const D = [
     `<g transform="translate(250 110)"><circle r="3" fill="currentColor"/>${[0,60,-60].map(a=>`<ellipse rx="22" ry="8" transform="rotate(${a})"/>`).join('')}</g>`,
     `<path transform="translate(420 140)" d="M0 0 C10 10 10 20 0 30 C-10 40 -10 50 0 60 M14 0 C4 10 4 20 14 30 C24 40 24 50 14 60 M2 8 h10 M2 22 h10 M2 38 h10 M2 52 h10"/>`,
@@ -1402,8 +1424,8 @@ document.body.insertAdjacentHTML('afterbegin', ART_DEFS);
     `<path transform="translate(360 300)" d="M0 -14 L12 -7 L12 7 L0 14 L-12 7 L-12 -7Z M0 -8 L7 -4 L7 4 L0 8 L-7 4 L-7 -4Z"/>`,
     `<path transform="translate(120 230)" d="M0 30 L40 30 L0 0Z M8 30 a8 8 0 0 0 -2 -6"/>`];
   $('#chalk').innerHTML = `<defs><pattern id="chalkTile" width="900" height="680" patternUnits="userSpaceOnUse">
-    <g fill="#FFFFFF" fill-opacity=".14" font-family="Caveat, 'Segoe Print', cursive">${T.map(([t,x,y,r,z])=>`<text x="${x}" y="${y}" font-size="${z}" transform="rotate(${r} ${x} ${y})">${t}</text>`).join('')}</g>
-    <g fill="none" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="rgba(255,255,255,.14)">${D.join('')}</g>
+    <g fill="#FFFFFF" fill-opacity=".27" font-family="Caveat, 'Segoe Print', cursive">${T.map(([t,x,y,r,z])=>`<text x="${x}" y="${y}" font-size="${z}" transform="rotate(${r} ${x} ${y})">${t}</text>`).join('')}</g>
+    <g fill="none" stroke="#FFFFFF" stroke-opacity=".22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="rgba(255,255,255,.14)">${D.join('')}</g>
   </pattern></defs><rect width="100%" height="100%" fill="url(#chalkTile)"/>`; }
 $('#tab-cal').innerHTML = icon('cal') + 'Calendário';
 $('#tab-shop').innerHTML = icon('cart') + 'Compras';
