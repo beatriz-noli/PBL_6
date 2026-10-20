@@ -17,7 +17,8 @@ Tudo fica num único arquivo, `index.html` (HTML + CSS + JS puros, desenhos em S
 - Ilustração por tipo de compromisso no formulário (Lab / pesquisa: as ovelhas operando um grande laser de física nuclear).
 - Lista de compras com 10 categorias ilustradas (mercado, banho & cuidados, farmácia, Shabat & festas etc.).
 - Wishlist da Viviane, com prioridade, preço, link da loja e "Ganhei!". No modo Dov aparece um "Vou dar" para reservar presentes sem ela ver.
-- Fórmulas de física, matemática e engenharia biomédica espalhadas pelo design.
+- Fundo de lousa verde com fórmulas e rabiscos de giz discretos.
+- Ovelhas e cenas desenhadas em SVG no próprio código, com gradientes compartilhados (`ART_DEFS`).
 
 ## Sincronização
 
