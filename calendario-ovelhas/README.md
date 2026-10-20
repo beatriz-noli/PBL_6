@@ -15,10 +15,10 @@ Tudo fica num único arquivo, `index.html` (HTML + CSS + JS puros, desenhos em S
 - Feriados judaicos calculados pelo calendário hebraico do navegador (`Intl`, `ca-hebrew`), com as vésperas (Erev) e a data hebraica de cada dia.
 - Aviso "Shabat Shalom!" na sexta e no sábado; no painel do dia, nesses dias, aparece a ilustração da ovelha bebê acendendo as velas.
 - Ilustração por tipo de compromisso no formulário (Lab / pesquisa: laboratório com bobina de Tesla, laser e equações de Maxwell).
-- Lista de compras com 8 categorias ilustradas: mercado, banho & cuidados, farmácia, casa & limpeza, pesquisa & laboratório, presentes, viagem e outros.
+- Lista de compras com 10 categorias ilustradas: mercado, banho & cuidados, farmácia, casa & limpeza, pesquisa & laboratório, dates, presentes, viagens, Guarujá e outros.
 - Wishlist da Viviane, com prioridade, preço, link da loja e "Ganhei!". No modo Dov aparece um "Vou dar" para reservar presentes sem ela ver.
 - Fundo de lousa verde com fórmulas e rabiscos de giz discretos.
-- Ovelhas e cenas desenhadas em SVG no próprio código, com traço de ilustração feito à mão (filtro `ov-rough`) e várias poses: perfil, 3/4, de frente, sentada e deitada.
+- Ovelhas e cenas desenhadas em SVG no próprio código, em traço vetorial limpo com cores chapadas e várias poses: perfil, 3/4, de frente, sentada e deitada.
 
 ## Sincronização
 
