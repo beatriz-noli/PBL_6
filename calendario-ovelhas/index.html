@@ -5,7 +5,7 @@
 <style>
 /* Layout: caderno de laboratório em papel quadriculado; cabeçalho ilustrado com o lab de cada ovelha nas pontas, calendário + coluna lateral abaixo */
 :root{
-  --paper:#FBF8FF; --grid:rgba(110,120,200,.10); --card:#FFFFFF; --card-2:#F6F2FD;
+  --paper:#F4F7FF; --blob-ela:#FFE3EF; --blob-ele:#DCEBFF; --card:#FFFFFF; --card-2:#F5F4FD;
   --ink:#2E2A4A; --ink-soft:#6E6890; --line:#E6DFF3;
   --ela:#EE5F95; --ela-soft:#FFE3EE; --ele:#3F82D6; --ele-soft:#DDEBFF; --juntos:#8E6CD8; --juntos-soft:#EEE6FF;
   --gold:#F2A93B; --gold-soft:#FFF1D6; --br:#239A5A; --br-soft:#E1F6E8; --jew:#3A66CF; --jew-soft:#E3EBFF;
@@ -17,7 +17,7 @@
   --r:18px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#17162A; --grid:rgba(160,170,255,.07); --card:#232141; --card-2:#2B2950;
+  --paper:#161830; --blob-ela:#3A2142; --blob-ele:#1C2D57; --card:#232141; --card-2:#2B2950;
   --ink:#F2EEFF; --ink-soft:#ADA6CF; --line:#3A3764;
   --ela:#FF85B1; --ela-soft:#4A2440; --ele:#7DB2FF; --ele-soft:#1F3157; --juntos:#B79CFF; --juntos-soft:#352B5E;
   --gold:#FFC266; --gold-soft:#3E3020; --br:#5BD18F; --br-soft:#1E3B2E; --jew:#8EAEFF; --jew-soft:#232E55;
@@ -25,7 +25,7 @@
   --shadow:0 1px 0 rgba(0,0,0,.2),0 10px 28px -12px rgba(0,0,0,.6); color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --paper:#17162A; --grid:rgba(160,170,255,.07); --card:#232141; --card-2:#2B2950;
+  --paper:#161830; --blob-ela:#3A2142; --blob-ele:#1C2D57; --card:#232141; --card-2:#2B2950;
   --ink:#F2EEFF; --ink-soft:#ADA6CF; --line:#3A3764;
   --ela:#FF85B1; --ela-soft:#4A2440; --ele:#7DB2FF; --ele-soft:#1F3157; --juntos:#B79CFF; --juntos-soft:#352B5E;
   --gold:#FFC266; --gold-soft:#3E3020; --br:#5BD18F; --br-soft:#1E3B2E; --jew:#8EAEFF; --jew-soft:#232E55;
@@ -35,8 +35,8 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:24px 24px;}
+  background-image:radial-gradient(900px 520px at -8% -6%,var(--blob-ela),transparent 70%),radial-gradient(900px 560px at 108% 4%,var(--blob-ele),transparent 70%);
+  background-attachment:fixed;background-repeat:no-repeat;}
 .wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 48px;display:grid;gap:18px}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
 h1{font-size:clamp(26px,4.2vw,40px);font-weight:800}
@@ -48,10 +48,6 @@ button{cursor:pointer}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 .muted{color:var(--ink-soft)}
 .eyebrow{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--ink-soft)}
-
-/* ---------- fórmulas ao fundo ---------- */
-.formulas{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;color:var(--ink);opacity:.075;font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-style:italic}
-.formulas span{position:absolute;white-space:nowrap}
 
 /* ---------- topo ---------- */
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -68,6 +64,7 @@ button{cursor:pointer}
 /* ---------- herói ---------- */
 .hero{position:relative;border-radius:28px;overflow:hidden;background:linear-gradient(180deg,var(--sky),var(--sky-2));border:1.5px solid var(--line);box-shadow:var(--shadow)}
 .hero svg.scene{display:block;width:100%;height:auto}
+.hero .hint{position:absolute;left:50%;top:12px;transform:translateX(-50%);font-size:12px;font-weight:800;color:var(--ink-soft);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;opacity:.85;pointer-events:none}
 .hero .labels{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px 14px;margin-top:-6px}
 .lab-tag{display:flex;flex-direction:column;gap:2px;min-width:0}
 .lab-tag b{font-family:var(--f-display);font-size:17px}
@@ -278,7 +275,8 @@ textarea.inp{min-height:64px;resize:vertical}
   .num{width:24px;height:24px;font-size:13.5px}
   .week{gap:4px}
   .month-nav h2{min-width:0;font-size:20px}
-  .hero .labels{grid-template-columns:1fr}
+  .hero .hint{position:absolute;left:50%;top:12px;transform:translateX(-50%);font-size:12px;font-weight:800;color:var(--ink-soft);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;opacity:.85;pointer-events:none}
+.hero .labels{grid-template-columns:1fr}
   .lab-tag.ele{text-align:left;align-items:flex-start}
   .add-row{grid-template-columns:minmax(0,1fr) 70px}
   .add-row .mine,.add-row .btn{grid-column:span 1}
@@ -288,7 +286,6 @@ textarea.inp{min-height:64px;resize:vertical}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
-<div class="formulas" id="formulas" aria-hidden="true"></div>
 <div class="wrap" id="app">
   <header class="top">
     <div class="brand">
@@ -482,58 +479,75 @@ const colorOf = (who,type) => (state.settings.palettes?.[who]?.[type]) || DEFAUL
 /* =========================================================
    Desenhos: as ovelhas
    ========================================================= */
-const C = {wool:'#FFFDF7', ol:'#6B5444', curl:'#EADFCF', face:'#F7E3CF', ear:'#F0D0B5', earIn:'#F7B4B8', leg:'#EBD3BA', legBack:'#DDC2A6', blush:'#FFA3B1', ink:'#4A3A30', line:'#6B5444', hoof:'#6B5444'};
+const OL = '#5B4636';
+const C = {wool:'#FFFDF8', wet:'#EEF7FF', face:'#FBE7D3', ear:'#F4D2B8', earIn:'#F9B9C0', leg:'#EED6BF', legBack:'#E2C6AB', blush:'#FF9FB2', ink:'#3E2F26', curl:'#EFE3D3', hoof:'#5B4636', line:'#5B4636'};
 function puffs(list, fill, stroke, sw=2.5){
   return `<g fill="${fill}" stroke="${stroke}" stroke-width="${sw}">${list.map(([a,b,r])=>`<circle cx="${a}" cy="${b}" r="${r}"/>`).join('')}</g>`+
          `<g fill="${fill}">${list.map(([a,b,r])=>`<circle cx="${a}" cy="${b}" r="${r-sw/2-.4}"/>`).join('')}</g>`;
 }
-function eye(cx,cy,iris,mood,side){
-  const st = `stroke="${C.ink}" stroke-width="2.3" fill="none" stroke-linecap="round"`;
-  if (mood==='sleep' || (mood==='wink' && side>0)) return `<path d="M${cx-4} ${cy} Q${cx} ${cy+3.5} ${cx+4} ${cy}" ${st}/>`;
-  if (mood==='happy-closed') return `<path d="M${cx-4} ${cy+1.5} Q${cx} ${cy-3.5} ${cx+4} ${cy+1.5}" ${st}/>`;
-  return `<ellipse cx="${cx}" cy="${cy}" rx="3.9" ry="4.8" fill="${iris}"/><ellipse cx="${cx}" cy="${cy+.5}" rx="2.1" ry="2.7" fill="#2A211C"/><circle cx="${cx-1.3}" cy="${cy-1.8}" r="1.3" fill="#fff"/>`;
+function scallop(cx,cy,rx,ry,n,rot=-Math.PI/2,k=.6){
+  const P=[]; for(let i=0;i<n;i++){const t=rot+i/n*2*Math.PI; P.push([cx+rx*Math.cos(t), cy+ry*Math.sin(t)]);}
+  let d=`M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`;
+  for(let i=0;i<n;i++){const [a,b]=P[i],[c,e]=P[(i+1)%n],r=(Math.hypot(c-a,e-b)*k).toFixed(1); d+=` A${r} ${r} 0 0 1 ${c.toFixed(1)} ${e.toFixed(1)}`;}
+  return d+'Z';
 }
-/** Ovelha de lado, estilo kawaii (olhando para a esquerda; flip olha para a direita).
- *  who: 'ela' (ovelha bebê, lacinho rosa, olhos verdes) | 'ele' (maior, olhos castanhos) */
+function eye(cx,cy,iris,mood,side){
+  const st=`stroke="${C.ink}" stroke-width="2.4" fill="none" stroke-linecap="round"`;
+  if (mood==='sleep'||(mood==='wink'&&side>0)) return `<path d="M${cx-4} ${cy} Q${cx} ${cy+3.6} ${cx+4} ${cy}" ${st}/>`;
+  if (mood==='happy-closed') return `<path d="M${cx-4} ${cy+1.6} Q${cx} ${cy-3.4} ${cx+4} ${cy+1.6}" ${st}/>`;
+  return `<ellipse cx="${cx}" cy="${cy}" rx="3.7" ry="4.5" fill="${iris}"/><ellipse cx="${cx}" cy="${cy+.6}" rx="2.1" ry="2.6" fill="#24190F"/><circle cx="${cx-1.3}" cy="${cy-1.7}" r="1.35" fill="#fff"/><circle cx="${cx+1.4}" cy="${cy+1.9}" r=".6" fill="#fff"/>`;
+}
+/** Ovelha kawaii: corpo de lado, cabeça de frente. Olha para a esquerda; flip olha para a direita.
+ *  who: 'ela' (ovelha bebê, lacinho rosa, olhos verdes) | 'ele' (maior, olhos castanhos, topete de lã) */
 function sheep({x=0,y=0,s=1,who='ela',mood='happy',wet=false,acc=[],flip=false,body=true,cls='bob'}={}){
-  const ela = who==='ela', iris = ela ? '#3FAE6E' : '#6B4429';
-  const wool = wet ? '#EEF7FF' : C.wool, OL = C.ol;
+  const ela = who==='ela', iris = ela ? '#3BA86A' : '#6B4429', wool = wet ? C.wet : C.wool;
+  const W = (d,f=wool) => `<path d="${d}" fill="${f}" stroke="${OL}" stroke-width="2.4" stroke-linejoin="round"/>`;
   let g = '';
   if (body){
-    const leg = (lx,c) => `<rect x="${lx}" y="28" width="9.5" height="30" rx="4.5" fill="${c}" stroke="${OL}" stroke-width="2.2"/><path d="M${lx+1.1} 51 h7.3 v3.5 a3.6 3.6 0 0 1 -3.6 3.6 a3.6 3.6 0 0 1 -3.7 -3.6z" fill="${OL}"/>`;
-    g += leg(6,C.legBack) + leg(40,C.legBack) + leg(-12,C.leg) + leg(24,C.leg);
-    g += puffs([[57,4,7.5]], wool, OL, 2.6);
-    g += puffs([[10,12,28],[-14,4,14],[-12,24,14],[4,-10,14],[22,-10,14],[40,-4,14],[50,12,13],[42,28,14],[22,32,14],[2,32,14],[-20,14,10]], wool, OL, 2.6);
-    g += `<g stroke="${C.curl}" stroke-width="2" fill="none" stroke-linecap="round"><path d="M14 4 q4 -4 8 0"/><path d="M30 16 q4 -4 8 0"/><path d="M6 22 q4 -4 8 0"/></g>`;
-    if (acc.includes('coat')) g += `<path d="M-18 -8 Q10 -20 40 -14 Q60 -2 54 26 Q50 40 30 42 L-10 42 Q-26 36 -26 18 Q-26 2 -18 -8Z" fill="#F3F6FC" stroke="#9FAEC6" stroke-width="2.4" stroke-linejoin="round"/>
-      <path d="M-16 -6 L-4 16 L-22 12Z" fill="#FFFFFF" stroke="#9FAEC6" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M-4 16 Q-6 30 -6 42" stroke="#9FAEC6" stroke-width="2" fill="none"/><circle cx="-1" cy="24" r="2" fill="#9FAEC6"/><circle cx="-1" cy="34" r="2" fill="#9FAEC6"/>
-      <rect x="20" y="16" width="16" height="13" rx="2.5" fill="#F3F6FC" stroke="#9FAEC6" stroke-width="2"/><path d="M24.5 17 v-7" stroke="#FF7AAE" stroke-width="2.6" stroke-linecap="round"/><path d="M30 17 v-5.5" stroke="#4C8BD9" stroke-width="2.6" stroke-linecap="round"/>
-      <rect x="38" y="4" width="13" height="9" rx="2.5" fill="#FFB5CB"/><path d="M41 8.5 h7" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>`;
-    if (acc.includes('bowtie')) g += `<g transform="translate(-12 14) rotate(-10)"><path d="M0 0 L-11 -7 L-11 7 Z M0 0 L11 -7 L11 7 Z" fill="#4C8BD9" stroke="#2F67B0" stroke-width="1.6" stroke-linejoin="round"/><circle r="3.3" fill="#2F67B0"/></g>`;
-    if (acc.includes('match')) g += `<path d="M-8 26 Q-30 30 -46 18" stroke="${OL}" stroke-width="13" stroke-linecap="round" fill="none"/><path d="M-8 26 Q-30 30 -46 18" stroke="${wool}" stroke-width="8.6" stroke-linecap="round" fill="none"/><circle cx="-48" cy="16" r="5" fill="${OL}"/><line x1="-50" y1="14" x2="-84" y2="-12" stroke="#E8B36B" stroke-width="3" stroke-linecap="round"/><circle cx="-85" cy="-13" r="3" fill="#C2410C"/><path class="flame" d="M-86 -27 C-80 -20 -80 -15 -86 -13 C-92 -15 -92 -20 -86 -27Z" fill="#FFB020"/>`;
+    const leg = (lx,top,c) => `<path d="M${lx} ${top} h11 v${50-top} a5.5 5.5 0 0 1 -11 0z" fill="${c}" stroke="${OL}" stroke-width="2.3" stroke-linejoin="round"/><path d="M${lx+1.1} 48.5 h8.8 v1.5 a4.4 4.4 0 0 1 -8.8 0z" fill="${C.hoof}"/>`;
+    g += leg(28,26,C.legBack) + leg(44,24,C.legBack);
+    g += W(scallop(58,6,8,8,6));
+    g += W(scallop(14,12,40,27,14));
+    g += `<g stroke="${C.curl}" stroke-width="2.2" fill="none" stroke-linecap="round"><path d="M22 2 q4 -4 8 0"/><path d="M36 18 q4 -4 8 0"/><path d="M14 24 q4 -4 8 0"/></g>`;
+    g += leg(-16,30,C.leg) + leg(2,32,C.leg);
+    if (acc.includes('coat')){
+      const CO = '#F4F8FF';
+      g += `<path d="M-14 6 C2 -3 24 -5 44 0 C53 6 55 22 50 36 C34 41 4 41 -16 37 C-21 28 -20 14 -14 6Z" fill="${CO}" stroke="${OL}" stroke-width="2.3" stroke-linejoin="round"/>
+      <path d="M-14 6 C-8 10 -4 16 -5 24 C-6 30 -7 34 -8 39" fill="none" stroke="${OL}" stroke-width="2" stroke-linecap="round"/>
+      <path d="M-14 6 L-3 9 L-8 18 Z" fill="#FFFFFF" stroke="${OL}" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="-4" cy="27" r="1.7" fill="${OL}"/><circle cx="-5.5" cy="34" r="1.7" fill="${OL}"/>
+      <path d="M20 21 h14 v8 a3 3 0 0 1 -3 3 h-8 a3 3 0 0 1 -3 -3z" fill="#E6EEFA" stroke="${OL}" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M24 21 v-6" stroke="#FF6FA5" stroke-width="2.6" stroke-linecap="round"/><path d="M29 21 v-4.5" stroke="#4C8BD9" stroke-width="2.6" stroke-linecap="round"/>
+      <rect x="6" y="12" width="11" height="7" rx="2" fill="#FFB8CF" stroke="${OL}" stroke-width="1.5"/>
+      <path d="M40 33 v-10" stroke="${OL}" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
+      ${[-16,2].map(lx=>`<path d="M${lx-1.5} 33 h14 v9 h-14z" fill="${CO}" stroke="${OL}" stroke-width="2.1" stroke-linejoin="round"/><path d="M${lx-1.5} 39 h14" stroke="${OL}" stroke-width="1.5"/>`).join('')}`;
+    }
+    if (acc.includes('match')) g += `
+      <path d="M-27 15 L-66 -18" stroke="#E2B371" stroke-width="3" stroke-linecap="round"/><circle cx="-67" cy="-19" r="3" fill="#C2410C"/>
+      <path class="flame" d="M-68 -34 C-62 -27 -62 -23 -68 -21 C-74 -23 -74 -27 -68 -34Z" fill="#FFB020"/><path d="M-68 -29 C-65.5 -26 -65.5 -24 -68 -23 C-70.5 -24 -70.5 -26 -68 -29Z" fill="#FFF0B3"/>
+      <g transform="translate(-4 22) rotate(196)"><path d="M0 -5.5 h22 a5.5 5.5 0 0 1 0 11 h-22z" fill="${C.leg}" stroke="${OL}" stroke-width="2.3"/><path d="M20 -4.4 h2 a4.4 4.4 0 0 1 0 8.8 h-2z" fill="${C.hoof}"/></g>`;
   }
-  // cabeça (olha para a esquerda)
   let h = '';
-  h += `<ellipse cx="-6" cy="-10" rx="12" ry="6.5" transform="rotate(28 -6 -10)" fill="${C.ear}" stroke="${OL}" stroke-width="2.4"/><ellipse cx="-6" cy="-10" rx="6.5" ry="3" transform="rotate(28 -6 -10)" fill="${C.earIn}"/>`;
-  h += `<ellipse cx="-51" cy="-8" rx="12" ry="6.5" transform="rotate(-28 -51 -8)" fill="${C.ear}" stroke="${OL}" stroke-width="2.4"/><ellipse cx="-51" cy="-8" rx="6.5" ry="3" transform="rotate(-28 -51 -8)" fill="${C.earIn}"/>`;
-  h += `<ellipse cx="-28" cy="-5" rx="22" ry="20" fill="${C.face}" stroke="${OL}" stroke-width="2.6"/>`;
-  h += puffs([[-45,-17,8],[-39,-27,9.5],[-27,-31,10],[-15,-27,9.5],[-9,-17,8]], wool, OL, 2.6);
-  h += `<rect x="-46" y="-19" width="36" height="7" fill="${wool}"/>`;
-  h += eye(-36,-1,iris,mood,-1) + eye(-20,-1,iris,mood,1);
-  h += `<ellipse cx="-42" cy="7" rx="4.6" ry="2.8" fill="${C.blush}" opacity=".8"/><ellipse cx="-14" cy="7" rx="4.6" ry="2.8" fill="${C.blush}" opacity=".8"/>`;
-  h += mood==='o' ? `<ellipse cx="-28" cy="8" rx="2.4" ry="3" fill="${C.ink}"/>` : `<path d="M-31.5 6.5 Q-28 10 -24.5 6.5" stroke="${C.ink}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
-  if (ela) h += `<g transform="translate(-44 -30) rotate(-20)"><path d="M0 0 C-5 -10 -18 -10 -17 1 C-16 10 -5 6 0 0Z M0 0 C5 -10 18 -10 17 1 C16 10 5 6 0 0Z" fill="#FF7AAE" stroke="#D9437E" stroke-width="2" stroke-linejoin="round"/><path d="M-3 2 L-7 12 M3 2 L7 12" stroke="#D9437E" stroke-width="3" stroke-linecap="round"/><circle r="4.4" fill="#FF5C9A" stroke="#D9437E" stroke-width="1.6"/></g>`;
-  if (acc.includes('kippah')) h += `<path d="M-38 -36 Q-27 -46 -16 -36 Z" fill="#3A66CF" stroke="#2A4FA8" stroke-width="1.8" stroke-linejoin="round"/><path d="M-32 -39 h10" stroke="#9FC0FF" stroke-width="1.4" stroke-linecap="round"/>`;
-  if (acc.includes('bandaid')) h += `<g transform="translate(-14 -24) rotate(35)"><rect x="-9" y="-3.5" width="18" height="7" rx="3.5" fill="#F7C99A"/><rect x="-3" y="-3.5" width="6" height="7" fill="#EDB27D"/></g>`;
-  if (acc.includes('thermo')) h += `<g transform="translate(-30 8) rotate(160)"><rect x="0" y="-2" width="22" height="4" rx="2" fill="#E9EDF6" stroke="#9AA3B8" stroke-width="1"/><circle cx="22" cy="0" r="3" fill="#FF5C7A"/></g>`;
-  if (acc.includes('headphones')) h += `<path d="M-50 -6 A23 26 0 0 1 -6 -6" fill="none" stroke="#7B6CD9" stroke-width="4"/><rect x="-55" y="-11" width="9" height="15" rx="4" fill="#7B6CD9"/><rect x="-10" y="-11" width="9" height="15" rx="4" fill="#7B6CD9"/>`;
-  if (acc.includes('foam')) h += puffs([[-34,-40,7],[-22,-43,8],[-12,-38,6],[-44,-36,5]],'#FFFFFF','#BFDCF2',1.8);
-  if (wet) h += `<g fill="#7CC4F2"><path d="M-58 -26 q4 7 0 9 q-4 -2 0 -9z"/><path d="M4 -30 q4 7 0 9 q-4 -2 0 -9z"/><path d="M-62 10 q3.5 6 0 8 q-3.5 -2 0 -8z"/></g>`;
-  g += body ? h : `<g transform="translate(28 4)">${h}</g>`;
-  const t = `translate(${x} ${y}) scale(${flip?-s:s} ${s})`;
-  return `<g transform="${t}"><g class="${cls}" style="transform-box:fill-box;transform-origin:50% 100%">${g}</g></g>`;
+  h += `<ellipse cx="-49" cy="-5" rx="11" ry="5.6" transform="rotate(-24 -49 -5)" fill="${C.ear}" stroke="${OL}" stroke-width="2.3"/><ellipse cx="-50" cy="-4.6" rx="6" ry="2.6" transform="rotate(-24 -49 -5)" fill="${C.earIn}"/>`;
+  h += `<ellipse cx="-3" cy="-5" rx="11" ry="5.6" transform="rotate(24 -3 -5)" fill="${C.ear}" stroke="${OL}" stroke-width="2.3"/><ellipse cx="-2" cy="-4.6" rx="6" ry="2.6" transform="rotate(24 -3 -5)" fill="${C.earIn}"/>`;
+  h += `<ellipse cx="-26" cy="-2" rx="22" ry="19" fill="${C.face}" stroke="${OL}" stroke-width="2.4"/>`;
+  h += W(scallop(-26,-15.5,18.5,9,9,-Math.PI/2,.62));
+  if (!ela && !acc.includes('kippah')) h += `<path d="M-28 -26 q4 -7 9 -3" fill="none" stroke="${OL}" stroke-width="2.2" stroke-linecap="round"/>`;
+  h += eye(-34,0,iris,mood,-1) + eye(-18,0,iris,mood,1);
+  if (ela && mood!=='sleep' && mood!=='happy-closed') h += `<path d="M-38.5 -3.5 l-2.2 -1.6 M-13.5 -3.5 l2.2 -1.6" stroke="${C.ink}" stroke-width="1.6" stroke-linecap="round"/>`;
+  h += `<ellipse cx="-40" cy="7" rx="4.6" ry="2.7" fill="${C.blush}" opacity=".85"/><ellipse cx="-12" cy="7" rx="4.6" ry="2.7" fill="${C.blush}" opacity=".85"/>`;
+  h += mood==='o' ? `<ellipse cx="-26" cy="8" rx="2.3" ry="2.9" fill="${C.ink}"/>` : `<path d="M-29.5 6 q1.75 2.6 3.5 0 q1.75 2.6 3.5 0" stroke="${C.ink}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+  if (ela) h += `<g transform="translate(-40 -24) rotate(-16)"><path d="M0 0 C-4 -9 -16 -9 -15 1 C-14 9 -4 5 0 0Z M0 0 C4 -9 16 -9 15 1 C14 9 4 5 0 0Z" fill="#FF83B3" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M-9 -2 q3 -3 6 -1 M9 -2 q-3 -3 -6 -1" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".8"/><circle r="4" fill="#FF5E9C" stroke="${OL}" stroke-width="1.8"/></g>`;
+  if (acc.includes('kippah')) h += `<path d="M-35 -25 Q-26 -35.5 -17 -25 Z" fill="#3A66CF" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/><path d="M-31 -28 q5 -3 10 0" stroke="#A9C4FF" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+  if (acc.includes('bandaid')) h += `<g transform="translate(-12 -20) rotate(35)"><rect x="-8" y="-3.2" width="16" height="6.4" rx="3.2" fill="#F7C99A" stroke="${OL}" stroke-width="1.4"/><rect x="-2.6" y="-3.2" width="5.2" height="6.4" fill="#EDB27D"/></g>`;
+  if (acc.includes('thermo')) h += `<g transform="translate(-24 9) rotate(155)"><rect x="0" y="-2" width="20" height="4" rx="2" fill="#E9EDF6" stroke="${OL}" stroke-width="1.2"/><circle cx="20" cy="0" r="3" fill="#FF5C7A"/></g>`;
+  if (acc.includes('headphones')) h += `<path d="M-47 -6 A21 24 0 0 1 -5 -6" fill="none" stroke="#7B6CD9" stroke-width="4" stroke-linecap="round"/><rect x="-52" y="-11" width="9" height="15" rx="4.5" fill="#7B6CD9" stroke="${OL}" stroke-width="1.6"/><rect x="-9" y="-11" width="9" height="15" rx="4.5" fill="#7B6CD9" stroke="${OL}" stroke-width="1.6"/>`;
+  if (acc.includes('foam')) h += [[-34,-31,6],[-23,-34,7],[-13,-29,5.5]].map(([a,b,r])=>W(scallop(a,b,r,r,6),'#FFFFFF')).join('');
+  if (wet) h += `<g fill="#7CC4F2" stroke="${OL}" stroke-width="1.2"><path d="M-58 -24 q4 7 0 9 q-4 -2 0 -9z"/><path d="M6 -26 q4 7 0 9 q-4 -2 0 -9z"/></g>`;
+  g += body ? h : `<g transform="translate(26 4)">${h}</g>`;
+  return `<g transform="translate(${x} ${y}) scale(${flip?-s:s} ${s})"><g class="${cls}" style="transform-box:fill-box;transform-origin:50% 100%">${g}</g></g>`;
 }
+
 // quando o compromisso é de trabalho, a ovelha bebê aparece de jaleco
 const WORKING = ['lab','trabalho'];
 const miniSheep = (who, type=null) => { const acc = WORKING.includes(type) ? ['coat'] : [];
@@ -549,32 +563,20 @@ const bubble = (x,y,r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="rgba(255,2
 /* ---------- cena principal ---------- */
 function heroScene(){
   const n = state.settings;
-  return `<svg class="scene" viewBox="0 0 960 300" role="img" aria-label="Ovelha de laço rosa num laboratório de engenharia biomédica e ovelha de óculos com computador e física">
-  <defs><pattern id="stars" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="8" cy="10" r="1.2" fill="#fff" opacity=".5"/><circle cx="40" cy="34" r="1" fill="#fff" opacity=".35"/></pattern></defs>
-  <rect width="960" height="300" fill="url(#stars)" opacity=".6"/>
-  <g font-family="Cambria Math, STIX Two Math, Georgia, serif" font-style="italic" font-size="15">
-    <text x="20" y="24" fill="#E0528A" opacity=".8">C·dP/dt + P/R = Q(t)</text>
-    <text x="318" y="64" fill="#8E6CD8" opacity=".75">Q = πr⁴ΔP / 8μL</text>
-    <text x="126" y="128" fill="#36A867" opacity=".8" font-size="13">A = εlc</text>
-    <text x="430" y="40" fill="#8E6CD8" opacity=".7" font-size="14">Σ 1/n² = π²/6</text>
-    <text x="548" y="26" fill="#3F82D6" opacity=".8">e<tspan dy="-6" font-size="10">iπ</tspan><tspan dy="6"> + 1 = 0</tspan></text>
-    <text x="70" y="240" fill="#8E6CD8" opacity=".6" font-size="12">E = (RT/zF)·ln(Cₒ/Cᵢ)</text>
-    <text x="690" y="244" fill="#3F82D6" opacity=".65" font-size="12">∇×B = μ₀J + μ₀ε₀ ∂E/∂t</text>
-  </g>
-  <!-- ECG -->
-  <path d="M20 58 H90 l10 -22 l12 44 l10 -36 l8 14 H190" fill="none" stroke="#FF7AAE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="blink"/>
-  ${heart(212,58,1.6,'#FF7AAE')}
-  <!-- DNA -->
-  <g transform="translate(268 30)"><g class="float">
-    ${Array.from({length:9},(_,i)=>{const y=i*13,x1=Math.sin(i*.75)*16;return `<line x1="${x1}" y1="${y}" x2="${-x1}" y2="${y}" stroke="${i%2?'#7FD1AE':'#F48FB1'}" stroke-width="3" stroke-linecap="round"/>`}).join('')}
-    <path d="${Array.from({length:9},(_,i)=>`${i?'L':'M'}${Math.sin(i*.75)*16} ${i*13}`).join(' ')}" fill="none" stroke="#E0528A" stroke-width="3"/>
-    <path d="${Array.from({length:9},(_,i)=>`${i?'L':'M'}${-Math.sin(i*.75)*16} ${i*13}`).join(' ')}" fill="none" stroke="#36A867" stroke-width="3"/>
-  </g></g>
+  const row = (y, f, cap, c1, c2, x0, x1) => `<text x="${x0}" y="${y}" fill="${c1}" font-family="Cambria Math, STIX Two Math, Georgia, serif" font-style="italic" font-size="16">${f}</text><text x="${x1}" y="${y}" fill="${c2}" font-family="DM Mono, monospace" font-size="10" text-anchor="end">${cap}</text>`;
+  return `<svg class="scene" viewBox="0 0 960 300" role="img" aria-label="A ovelha bebê de jaleco no laboratório de engenharia biomédica e a outra ovelha ao lado da lousa de física">
+  <!-- quadro dela -->
+  <rect x="28" y="22" width="272" height="114" rx="12" fill="#FFFFFF" stroke="#F4A7C4" stroke-width="6"/>
+  <text x="46" y="38" fill="#E0528A" font-family="DM Mono, monospace" font-size="10" letter-spacing="1">ENG. BIOMÉDICA</text>
+  ${row(60,'Q = πr⁴ΔP / 8μL','Poiseuille','#4A3A5E','#C98AA6',46,284)}
+  ${row(84,'C·dP/dt + P/R = Q(t)','Windkessel','#4A3A5E','#C98AA6',46,284)}
+  ${row(108,'E = (RT/zF)·ln(Cₒ/Cᵢ)','Nernst','#4A3A5E','#C98AA6',46,284)}
+  <path d="M46 124 H150 l6 -9 l8 16 l6 -13 l4 6 H284" fill="none" stroke="#FF7AAE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="124" y="136" width="80" height="6" rx="3" fill="#F4A7C4"/>
   <!-- bancada dela -->
-  <rect x="20" y="196" width="300" height="12" rx="6" fill="#E8D6F5"/>
-  <rect x="34" y="208" width="10" height="60" fill="#D9C4EC"/><rect x="296" y="208" width="10" height="60" fill="#D9C4EC"/>
-  <!-- microscópio -->
-  <g transform="translate(70 110)">
+  <rect x="28" y="206" width="272" height="10" rx="5" fill="#EBD9F5"/>
+  <rect x="42" y="216" width="10" height="52" fill="#DCC6EC"/><rect x="276" y="216" width="10" height="52" fill="#DCC6EC"/>
+  <g transform="translate(52 146) scale(.78)">
     <rect x="-6" y="80" width="56" height="8" rx="4" fill="#8E86B5"/>
     <path d="M30 80 C30 50 44 40 40 20" stroke="#8E86B5" stroke-width="10" fill="none" stroke-linecap="round"/>
     <rect x="6" y="56" width="34" height="6" rx="3" fill="#B7AEDD"/>
@@ -582,52 +584,52 @@ function heroScene(){
     <rect x="16" y="-14" width="16" height="10" rx="3" fill="#8E86B5" transform="rotate(-22 24 -9)"/>
     <circle cx="20" cy="49" r="4" fill="#FF7AAE"/>
   </g>
-  <!-- frascos -->
-  <g transform="translate(170 140)">
-    <path d="M0 0 h18 M3 0 v18 l-11 30 a5 5 0 0 0 4 7 h26 a5 5 0 0 0 4 -7 l-11 -30 v-18" fill="rgba(255,255,255,.7)" stroke="#B7AEDD" stroke-width="2.5"/>
-    <path d="M-5 38 h28 l5 10 a4 4 0 0 1 -4 6 h-30 a4 4 0 0 1 -4 -6z" fill="#FF9DC0"/>
-    ${bubble(10,28,3)}${bubble(4,18,2)}
+  <g transform="translate(150 152)">
+    <path d="M0 0 h18 M3 0 v18 l-11 30 a5 5 0 0 0 4 7 h26 a5 5 0 0 0 4 -7 l-11 -30 v-18" fill="rgba(255,255,255,.75)" stroke="#B7AEDD" stroke-width="2.5"/>
+    <path d="M-5 38 h28 l5 10 a4 4 0 0 1 -4 6 h-30 a4 4 0 0 1 -4 -6z" fill="#FF9DC0"/>${bubble(10,28,3)}${bubble(4,18,2)}
   </g>
-  <g transform="translate(232 150)"><rect x="0" y="0" width="16" height="44" rx="8" fill="rgba(255,255,255,.7)" stroke="#B7AEDD" stroke-width="2.5"/><rect x="2" y="22" width="12" height="20" rx="6" fill="#7FD1AE"/></g>
-  <g transform="translate(262 150)"><rect x="0" y="6" width="16" height="38" rx="8" fill="rgba(255,255,255,.7)" stroke="#B7AEDD" stroke-width="2.5"/><rect x="2" y="26" width="12" height="16" rx="6" fill="#FFC09F"/></g>
+  <g transform="translate(206 160)"><rect width="15" height="44" rx="7.5" fill="rgba(255,255,255,.75)" stroke="#B7AEDD" stroke-width="2.5"/><rect x="2" y="22" width="11" height="20" rx="5.5" fill="#7FD1AE"/></g>
+  <g transform="translate(230 160)"><rect y="6" width="15" height="38" rx="7.5" fill="rgba(255,255,255,.75)" stroke="#B7AEDD" stroke-width="2.5"/><rect x="2" y="26" width="11" height="16" rx="5.5" fill="#FFC09F"/></g>
+  <g transform="translate(272 150)">
+    <rect x="-9" y="50" width="18" height="6" rx="2" fill="#B7AEDD"/><rect x="-1.5" y="0" width="3" height="52" fill="#D6CDEE"/>
+    ${Array.from({length:7},(_,i)=>{const yy=4+i*7,x1=Math.sin(i*.9)*10;return `<line x1="${x1.toFixed(1)}" y1="${yy}" x2="${(-x1).toFixed(1)}" y2="${yy}" stroke="${i%2?'#7FD1AE':'#F48FB1'}" stroke-width="2.6" stroke-linecap="round"/>`}).join('')}
+    <path d="${Array.from({length:7},(_,i)=>`${i?'L':'M'}${(Math.sin(i*.9)*10).toFixed(1)} ${4+i*7}`).join(' ')}" fill="none" stroke="#E0528A" stroke-width="2.4"/>
+    <path d="${Array.from({length:7},(_,i)=>`${i?'L':'M'}${(-Math.sin(i*.9)*10).toFixed(1)} ${4+i*7}`).join(' ')}" fill="none" stroke="#36A867" stroke-width="2.4"/>
+  </g>
+  <!-- lousa dele -->
+  <rect x="660" y="22" width="272" height="114" rx="12" fill="#2F4A57" stroke="#B8875A" stroke-width="6"/>
+  <text x="678" y="38" fill="#9FD0FF" font-family="DM Mono, monospace" font-size="10" letter-spacing="1">COMPUTAÇÃO · FÍSICA</text>
+  ${row(60,'iħ ∂ψ/∂t = Ĥψ','Schrödinger','#EAF4FF','#9FD0FF',678,916)}
+  ${row(84,'∇·E = ρ / ε₀','Gauss','#EAF4FF','#9FD0FF',678,916)}
+  ${row(108,'e<tspan dy="-6" font-size="11">iπ</tspan><tspan dy="6"> + 1 = 0</tspan>','Euler','#EAF4FF','#9FD0FF',678,916)}
+  <text x="678" y="127" fill="#FFD36E" font-family="DM Mono, monospace" font-size="11.5">if (bééé) return amor;</text>
+  <rect x="756" y="136" width="80" height="6" rx="3" fill="#B8875A"/>
+  <!-- mesa dele -->
+  <rect x="660" y="206" width="272" height="10" rx="5" fill="#D3E3F6"/>
+  <rect x="674" y="216" width="10" height="52" fill="#C0D4EE"/><rect x="908" y="216" width="10" height="52" fill="#C0D4EE"/>
+  <g transform="translate(700 176)"><rect x="-6" y="18" width="12" height="12" rx="2" fill="#8E9AB8"/><circle r="5" fill="#FFD36E"/>
+    ${[0,60,-60].map(a=>`<ellipse rx="22" ry="8" fill="none" stroke="#6FA3E0" stroke-width="2.2" transform="rotate(${a})"/>`).join('')}</g>
+  <g transform="translate(736 172)">${[['#FF8FAB',0],['#9FC5F8',11],['#7FD1AE',22]].map(([c,yy],i)=>`<rect x="${i%2?3:0}" y="${yy}" width="46" height="11" rx="2.5" fill="${c}"/><rect x="${(i%2?3:0)+6}" y="${yy+4}" width="16" height="2.4" fill="#fff" opacity=".7"/>`).join('')}</g>
+  <g transform="translate(806 148)">
+    <path d="M0 0 h86 a4 4 0 0 1 4 4 v46 h-94 v-46 a4 4 0 0 1 4 -4z" fill="#3E4A6B"/><rect x="4" y="4" width="82" height="42" rx="2" fill="#1F2A44"/>
+    <text x="12" y="22" fill="#7FD1AE" font-family="DM Mono, monospace" font-size="11">&lt;/&gt; ok ✓</text><text x="12" y="38" fill="#9FD0FF" font-family="DM Mono, monospace" font-size="11">build 100%</text>
+    <path d="M-10 50 h110 l-6 8 h-98z" fill="#8E9AB8"/>
+  </g>
   <!-- colina -->
   <path d="M0 262 C180 228 300 250 480 236 C660 222 780 248 960 232 V300 H0Z" fill="var(--hill)"/>
   <path d="M0 280 C200 262 360 276 520 268 C700 260 820 278 960 268 V300 H0Z" fill="var(--hill-2)"/>
-  ${[60,140,410,520,600,880].map((x,i)=>`<g transform="translate(${x} ${270+(i%2)*10})"><circle r="4" fill="${i%2?'#FFD36E':'#FFB5CB'}"/><circle r="1.6" fill="#fff"/></g>`).join('')}
-  <!-- lado dele: lousa + computador -->
-  <g transform="translate(650 34)">
-    <rect width="280" height="132" rx="10" fill="#2F4A57" stroke="#B8875A" stroke-width="8"/>
-    <g fill="#EAF4FF" font-family="DM Mono, monospace" font-size="15">
-      <text x="18" y="34">iħ ∂ψ/∂t = Ĥψ</text>
-      <text x="18" y="62">∮ E·dA = Q/ε₀</text>
-      <text x="18" y="90" fill="#9FD0FF">if (bééé) return amor;</text>
-      <text x="18" y="116" fill="#FFD36E" font-size="13">01100010 01100101</text>
-    </g>
-    <g transform="translate(236 40)"><g class="float"><circle r="5" fill="#FFD36E"/>
-      <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2"/>
-      <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2" transform="rotate(60)"/>
-      <ellipse rx="26" ry="9" fill="none" stroke="#9FD0FF" stroke-width="2" transform="rotate(-60)"/></g></g>
-  </g>
-  <rect x="640" y="200" width="300" height="12" rx="6" fill="#CFE0F5"/>
-  <rect x="654" y="212" width="10" height="56" fill="#BCD2EE"/><rect x="916" y="212" width="10" height="56" fill="#BCD2EE"/>
-  <g transform="translate(800 148)">
-    <path d="M0 0 h86 a4 4 0 0 1 4 4 v46 h-94 v-46 a4 4 0 0 1 4 -4z" fill="#3E4A6B"/>
-    <rect x="4" y="4" width="82" height="42" rx="2" fill="#1F2A44"/>
-    <text x="12" y="22" fill="#7FD1AE" font-family="DM Mono, monospace" font-size="11">&lt;/&gt; ok ✓</text>
-    <text x="12" y="38" fill="#9FD0FF" font-family="DM Mono, monospace" font-size="11">build 100%</text>
-    <path d="M-10 50 h110 l-6 8 h-98z" fill="#8E9AB8"/>
-  </g>
-  <g transform="translate(700 170)"><rect width="30" height="30" rx="4" fill="#5FC0C6"/><path d="M6 8 h18 M6 15 h12 M6 22 h16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="40" cy="22" r="8" fill="#FFD36E"/><path d="M40 14 v-6" stroke="#8E9AB8" stroke-width="2"/></g>
+  ${[70,150,390,560,810,890].map((x,i)=>`<g transform="translate(${x} ${272+(i%2)*10})"><circle r="4" fill="${i%2?'#FFD36E':'#FFB5CB'}"/><circle r="1.6" fill="#fff"/></g>`).join('')}
   <!-- as ovelhas -->
-  <g class="sheep-hit" data-who="ele" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEle)}">${sheep({x:568,y:190,s:1.18,who:'ele',acc:['bowtie']})}</g>
-  <g class="sheep-hit" data-who="ela" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEla)}">${sheep({x:404,y:206,s:.92,who:'ela',acc:['coat'],flip:true})}</g>
-  <g class="float">${heart(486,110,1.8)}${heart(508,86,1.1,'#FFB5CB')}</g>
-  ${sparkle(360,110,1.2)}${sparkle(612,92,1,'#9FD0FF')}
+  <g class="sheep-hit" data-who="ele" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEle)}: toque para ouvir">${sheep({x:566,y:192,s:1.2,who:'ele'})}</g>
+  <g class="sheep-hit" data-who="ela" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEla)}: toque para ouvir">${sheep({x:404,y:204,s:.98,who:'ela',acc:['coat'],flip:true})}</g>
+  <g class="float">${heart(486,104,1.8)}${heart(510,80,1.1,'#FFB5CB')}</g>
+  ${sparkle(352,96,1.1)}${sparkle(624,92,1,'#9FD0FF')}
   </svg>
   <div class="labels">
     <div class="lab-tag ela"><b>Lã-boratório de ${esc(n.nameEla)}</b><span>Engenharia Biomédica · Faculdade Israelita de Ciências da Saúde Albert Einstein</span></div>
     <div class="lab-tag ele"><b>Lã-boratório de ${esc(n.nameEle)}</b><span>Engenharia de Computação · Insper &nbsp;|&nbsp; Física · USP</span></div>
-  </div>`;
+  </div>
+  <div class="hint">Toque nas ovelhas</div>`;
 }
 
 /* ---------- cenas das categorias de compras ---------- */
@@ -734,10 +736,9 @@ const SCENES = {
     <path d="M0 126 h320 v64 h-320z" fill="#FFFFFF"/><path d="M0 126 h320" stroke="#C9C2EA" stroke-width="3"/>
     ${Array.from({length:10},(_,i)=>`<path d="M${i*32} 126 q16 10 32 0" fill="none" stroke="#C9C2EA" stroke-width="2"/>`).join('')}
     ${[150,180].map(x=>`<g transform="translate(${x} 92)"><rect x="-5" y="0" width="10" height="34" rx="3" fill="#FFFFFF" stroke="#D7D0F2" stroke-width="2"/><rect x="-9" y="31" width="18" height="7" rx="3" fill="#D4AF37"/><line x1="0" y1="0" x2="0" y2="-5" stroke="#5A5168" stroke-width="1.5"/><path class="flame" d="M0 -22 C6 -14 6 -6 0 -4 C-6 -6 -6 -14 0 -22Z" fill="#FFB020"/><path d="M0 -16 C3 -11 3 -7 0 -6 C-3 -7 -3 -11 0 -16Z" fill="#FFF0B3"/></g>`).join('')}
-    <circle cx="165" cy="76" r="26" fill="#FFD36E" opacity=".18"/>
     <g transform="translate(206 100)"><path d="M0 0 h22 a11 13 0 0 1 -22 0z" fill="#B23A5B" stroke="#D4AF37" stroke-width="2"/><rect x="9" y="12" width="4" height="12" fill="#D4AF37"/><rect x="3" y="23" width="16" height="4" rx="2" fill="#D4AF37"/></g>
     <g transform="translate(150 148)">${[0,1,2,3].map(i=>`<ellipse cx="${i*16}" cy="${i%2?2:0}" rx="12" ry="8" fill="#D9933F"/><path d="M${i*16-5} -2 q5 5 10 0" stroke="#F2C27A" stroke-width="2" fill="none"/>`).join('')}</g>
-    ${sheep({x:97,y:95,s:.62,who:'ela',acc:['match'],mood:'happy-closed',flip:true})}
+    ${sheep({x:108,y:99,s:.62,who:'ela',acc:['match'],mood:'happy-closed',flip:true})}
     ${sheep({x:266,y:98,s:.66,who:'ele',acc:['kippah']})}
   `,'A ovelha bebê acendendo as velas de Shabat e a outra ovelha de kipá, com chalá e cálice'),
 
@@ -799,8 +800,6 @@ function wishScene(){
   return `<svg viewBox="0 0 900 230" role="img" aria-label="A ovelha bebê sonhando com presentes em cima de uma nuvem">
     <rect width="900" height="230" fill="#FFE6F1"/><rect width="900" height="230" fill="#E9E1FF" opacity=".45"/>
     ${[[60,40],[150,90],[700,30],[820,70],[520,30],[380,60],[860,180]].map(([x,y],i)=>sparkle(x,y,.7+(i%3)*.2,i%2?'#FFD36E':'#FFFFFF')).join('')}
-    <g font-family="Cambria Math, STIX Two Math, Georgia, serif" font-style="italic" font-size="14" fill="#8E6CD8" opacity=".55">
-      <text x="640" y="214">lim (desejos) → ∞</text><text x="300" y="40">P(ganhar | pedir com carinho) ≈ 1</text></g>
     <g transform="translate(100 0)">
     ${puffs([[300,196,40],[350,186,46],[410,196,38],[250,206,30],[460,206,30],[360,214,40]],'#FFFFFF','#EBDDF5',3)}
     ${sheep({x:356,y:136,s:.95,who:'ela',mood:'happy-closed',flip:true})}
@@ -912,8 +911,8 @@ function renderHero(){
   });
 }
 const PUNS = {
-  ela:['Bééé-m-vindo ao meu lã-boratório!','Batimentos: 120 bpm de saudade 💓','Hipótese: hoje vai ser um dia ótimo (p < 0,05)','Biomaterial favorito: lã 100% orgânica','Meu ECG fica assim quando te vejo: /\\/\\/\\','Pipetando carinho em microlitros'],
-  ele:['Compilou sem erros! ✓','Ovelha de Schrödinger: dormindo e acordada até alguém abrir a caixa','E = mc², com c = carinho','git commit -m "te amo"','Entropia do quarto: aumentando, como manda a 2ª lei','Bééé-a-bá da mecânica quântica'],
+  ela:['Bééé-m-vindo ao meu lã-boratório!','Batimentos: 120 bpm de saudade 💓','Hipótese: hoje vai ser um dia ótimo (p < 0,05)','Biomaterial favorito: lã 100% orgânica','Meu ECG fica assim quando te vejo: /\\/\\/\\','Pipetando carinho em microlitros','Resistência vascular: zero quando você chega','Biocompatível com você: testado e aprovado','Meu débito cardíaco aumenta quando você chega'],
+  ele:['Compilou sem erros! ✓','Ovelha de Schrödinger: dormindo e acordada até alguém abrir a caixa','E = mc², com c = carinho','git commit -m "te amo"','Entropia do quarto: aumentando, como manda a 2ª lei','Bééé-a-bá da mecânica quântica','Você é meu ponto fixo','Nosso amor é O(1): constante','Emaranhados, mesmo a distância'],
 };
 function speak(g){
   document.querySelector('.bubble')?.remove();
@@ -1148,10 +1147,6 @@ function renderAll(){ renderHero(); renderShabat(); renderCal(); renderShop(); r
 $('#tab-cal').innerHTML = icon('cal') + 'Calendário';
 $('#tab-shop').innerHTML = icon('cart') + 'Compras';
 $('#tab-wish').innerHTML = icon('gift') + 'Wishlist';
-{ const F = ['E = mc²','e<sup>iπ</sup> + 1 = 0','∇·E = ρ/ε₀','∇×B = μ₀J + μ₀ε₀ ∂E/∂t','iħ ∂ψ/∂t = Ĥψ','F = m·a','∫ e<sup>−x²</sup> dx = √π','Σ 1/n² = π²/6','Δx·Δp ≥ ħ/2','PV = nRT',
-    'Q = πr⁴ΔP / 8μL','E = (RT/zF)·ln(Cₒ/Cᵢ)','A = εlc','C·dP/dt + P/R = Q(t)','f(t) = Σ aₙ cos(nωt)','S = k·ln W','dN/dt = −λN','E = hν','a² + b² = c²','∂u/∂t = α∇²u','T(n) = 2T(n/2) + O(n)','G<sub>μν</sub> + Λg<sub>μν</sub> = κT<sub>μν</sub>'];
-  $('#formulas').innerHTML = F.map((f,i)=>{ const x = (i*37 + 7) % 92, y = (i*53 + 11) % 96, r = ((i*17)%14) - 7, z = 15 + (i*7)%12;
-    return `<span style="left:${x}%;top:${y}%;transform:rotate(${r}deg);font-size:${z}px">${f}</span>`; }).join(''); }
 $('#tab-flock').innerHTML = icon('flock') + 'Nosso rebanho';
 $('#prev').innerHTML = icon('left',2.6); $('#next').innerHTML = icon('right',2.6);
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>setView(t.dataset.view));
