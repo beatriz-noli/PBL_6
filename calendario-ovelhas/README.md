@@ -13,12 +13,12 @@ Tudo fica num único arquivo, `index.html` (HTML + CSS + JS puros, desenhos em S
 - Cores por tipo (aula, prova, lab/pesquisa, evento social, encontro, saúde, estágio, viagem, outro). Cada ovelha tem a sua paleta e existe uma paleta do casal; dá para editar as cores na aba "Nosso rebanho".
 - Feriados nacionais, datas de São Paulo e pontos facultativos (Carnaval, Corpus Christi), Dia dos Namorados.
 - Feriados judaicos calculados pelo calendário hebraico do navegador (`Intl`, `ca-hebrew`), com as vésperas (Erev) e a data hebraica de cada dia.
-- Aviso "Shabat Shalom!" na sexta e no sábado, com a ovelha bebê acendendo as velas.
-- Ilustração por tipo de compromisso no formulário (Lab / pesquisa: as ovelhas operando um grande laser de física nuclear).
-- Lista de compras com 10 categorias ilustradas (mercado, banho & cuidados, farmácia, Shabat & festas etc.).
+- Aviso "Shabat Shalom!" na sexta e no sábado; no painel do dia, nesses dias, aparece a ilustração da ovelha bebê acendendo as velas.
+- Ilustração por tipo de compromisso no formulário (Lab / pesquisa: laboratório com bobina de Tesla, laser e equações de Maxwell).
+- Lista de compras com 8 categorias ilustradas: mercado, banho & cuidados, farmácia, casa & limpeza, pesquisa & laboratório, presentes, viagem e outros.
 - Wishlist da Viviane, com prioridade, preço, link da loja e "Ganhei!". No modo Dov aparece um "Vou dar" para reservar presentes sem ela ver.
 - Fundo de lousa verde com fórmulas e rabiscos de giz discretos.
-- Ovelhas e cenas desenhadas em SVG no próprio código, com gradientes compartilhados (`ART_DEFS`).
+- Ovelhas e cenas desenhadas em SVG no próprio código, com traço de ilustração feito à mão (filtro `ov-rough`) e várias poses: perfil, 3/4, de frente, sentada e deitada.
 
 ## Sincronização
 

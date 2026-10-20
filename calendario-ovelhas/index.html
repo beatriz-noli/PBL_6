@@ -93,12 +93,6 @@ button{cursor:pointer}
 /* ---------- shabat ---------- */
 .shabat{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:22px;background:linear-gradient(90deg,var(--gold-soft),var(--jew-soft));border:1.5px solid var(--line);box-shadow:var(--shadow);flex-wrap:wrap}
 .shabat svg{flex:none}
-.shabat .scene-mini{width:min(240px,100%);border-radius:16px;overflow:hidden;margin-left:auto}
-.shabat .scene-mini svg{display:block;width:100%;height:auto}
-.shabat h2{font-size:clamp(24px,3.4vw,32px);color:var(--ink)}
-.shabat p{margin:2px 0 0;color:var(--ink-soft);font-weight:600}
-.flame{transform-origin:50% 90%;animation:flick 1.6s ease-in-out infinite}
-@keyframes flick{50%{transform:scale(.88,1.08) rotate(3deg)}}
 
 /* ---------- grade principal ---------- */
 .main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
@@ -161,6 +155,9 @@ button{cursor:pointer}
 .side .panel{padding:16px;display:grid;gap:12px;min-width:0}
 .day-title{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .heb{font-size:12.5px;color:var(--jew);font-weight:700}
+.day-art{margin:0;border-radius:16px;overflow:hidden;border:1.5px solid var(--line);position:relative}
+.day-art svg{display:block;width:100%;height:auto}
+.day-art figcaption{position:absolute;left:10px;top:8px;font-family:var(--f-display);font-weight:800;font-size:16px;color:#4B3F7A;background:rgba(255,255,255,.85);border-radius:10px;padding:2px 8px}
 .list{display:grid;gap:8px}
 .item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:14px;background:var(--card-2);border:1.5px solid transparent;text-align:left;width:100%;min-width:0}
 button.item:hover{border-color:var(--line)}
@@ -207,7 +204,7 @@ textarea.inp{min-height:64px;resize:vertical}
 /* ---------- compras ---------- */
 .shop{display:grid;gap:18px}
 .shop-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
 .cat{border:1.5px solid var(--line);background:var(--card);border-radius:20px;overflow:hidden;padding:0;text-align:left;box-shadow:var(--shadow);display:grid;transition:transform .15s}
 .cat:hover{transform:translateY(-3px)}
 .cat[aria-pressed="true"]{outline:3px solid var(--juntos);outline-offset:2px}
@@ -298,7 +295,7 @@ textarea.inp{min-height:64px;resize:vertical}
 <div class="wrap" id="app">
   <header class="top">
     <div class="brand">
-      <svg width="64" height="50" viewBox="-68 -54 136 106" aria-hidden="true" id="brandSheep"></svg>
+      <svg width="62" height="50" viewBox="-62 -92 124 98" aria-hidden="true" id="brandSheep"></svg>
       <div><h1>Lã-boratório das Ovelhas</h1><small id="subtitle">Calendário do rebanho de duas cientistas</small></div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Seções">
@@ -486,301 +483,434 @@ function textOn(hex){ const h=hex.replace('#',''); const [r,g,b]=[0,2,4].map(i=>
 const colorOf = (who,type) => (state.settings.palettes?.[who]?.[type]) || DEFAULT_PAL[who]?.[type] || '#ccc';
 
 /* =========================================================
-   Desenhos: ovelhas e cenas
+   Desenhos: ovelhas e cenas (traço feito à mão)
    ========================================================= */
-/* Gradientes compartilhados por todos os desenhos (um único <defs> na página) */
+/* Filtro de traço feito à mão + sombra, compartilhados por todos os desenhos */
 const ART_DEFS = `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-  <radialGradient id="ov-wool" cx=".38" cy=".28" r=".85"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#FBF5EC"/><stop offset="1" stop-color="#E9DCCB"/></radialGradient>
-  <radialGradient id="ov-wool-wet" cx=".38" cy=".28" r=".85"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#EEF6FD"/><stop offset="1" stop-color="#CADDEE"/></radialGradient>
-  <radialGradient id="ov-curl" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F3EADD"/></radialGradient>
-  <linearGradient id="ov-face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6E3CE"/><stop offset="1" stop-color="#E6C3A3"/></linearGradient>
-  <linearGradient id="ov-ear" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9C8A9"/><stop offset="1" stop-color="#D9AE8A"/></linearGradient>
-  <linearGradient id="ov-leg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8CDB1"/><stop offset="1" stop-color="#D8B492"/></linearGradient>
-  <linearGradient id="ov-leg-far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DABB9C"/><stop offset="1" stop-color="#C9A27F"/></linearGradient>
-  <radialGradient id="ov-coat" cx=".35" cy=".25" r=".9"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F2F5FA"/><stop offset="1" stop-color="#D6DEEA"/></radialGradient>
-  <radialGradient id="ov-blush"><stop offset="0" stop-color="#FF8FA8" stop-opacity=".75"/><stop offset="1" stop-color="#FF8FA8" stop-opacity="0"/></radialGradient>
-  <radialGradient id="ov-shadow"><stop offset="0" stop-color="#2A2A1E" stop-opacity=".26"/><stop offset="1" stop-color="#2A2A1E" stop-opacity="0"/></radialGradient>
-  <linearGradient id="ov-bow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF9CC3"/><stop offset="1" stop-color="#F0609B"/></linearGradient>
-  <linearGradient id="ov-kippah" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5D86E0"/><stop offset="1" stop-color="#2F57B5"/></linearGradient>
-  <linearGradient id="ov-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D7ECFF"/><stop offset="1" stop-color="#F3FAFF"/></linearGradient>
-  <linearGradient id="ov-dream" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE3EF"/><stop offset="1" stop-color="#E7E0FF"/></linearGradient>
-  <linearGradient id="ov-tub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D9E8F5"/></linearGradient>
-  <linearGradient id="ov-metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9EDF7"/><stop offset=".5" stop-color="#C5CDE2"/><stop offset="1" stop-color="#9AA5C7"/></linearGradient>
-  <radialGradient id="ov-bread" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#F2BE72"/><stop offset="1" stop-color="#C77C33"/></radialGradient>
-  <radialGradient id="ov-glow"><stop offset="0" stop-color="#FFE7A3" stop-opacity=".9"/><stop offset="1" stop-color="#FFE7A3" stop-opacity="0"/></radialGradient>
+  <filter id="ov-rough" x="-3%" y="-3%" width="106%" height="106%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.7" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <radialGradient id="ov-glow"><stop offset="0" stop-color="#FFE7A3" stop-opacity=".85"/><stop offset="1" stop-color="#FFE7A3" stop-opacity="0"/></radialGradient>
+  <radialGradient id="ov-glow-v"><stop offset="0" stop-color="#D9C8FF" stop-opacity=".9"/><stop offset="1" stop-color="#B9A2FF" stop-opacity="0"/></radialGradient>
+  <radialGradient id="ov-glow-g"><stop offset="0" stop-color="#B8FFD8" stop-opacity=".9"/><stop offset="1" stop-color="#7DF0B4" stop-opacity="0"/></radialGradient>
 </defs></svg>`;
 
-function cloudPath(cx,cy,rx,ry,n,k=.58,rot=-Math.PI/2){
-  const P=[]; for(let i=0;i<n;i++){const t=rot+i/n*2*Math.PI; P.push([cx+rx*Math.cos(t), cy+ry*Math.sin(t)]);}
+const OL = '#6A5040', LW = 1.8;
+const PAL = {wool:'#FFFBF3', woolSh:'#EFE2CF', curl:'#DCCAB2', face:'#F3DCC4', faceSh:'#E5C4A5', ear:'#E7C09F', earIn:'#F2B0AE', leg:'#E8CBAE', legFar:'#D6B190', hoof:'#7A5A48', blush:'#F59AA6',
+  wetWool:'#F2F8FF', wetSh:'#D9E8F5', coat:'#FAFCFF', coatSh:'#DCE4EF', coatOL:'#7D7F95'};
+let SEED = 1; const rnd = () => (SEED = (SEED*16807) % 2147483647) / 2147483647;
+/** contorno de lã irregular (cada bolinha com tamanho um pouco diferente) */
+function woolPath(cx,cy,rx,ry,n,seed=1,k=.6){
+  SEED = seed*977+13; const P=[];
+  for(let i=0;i<n;i++){ const t=-Math.PI/2+(i+(rnd()-.5)*.25)/n*2*Math.PI, j=1+(rnd()-.5)*.08; P.push([cx+rx*j*Math.cos(t), cy+ry*j*Math.sin(t)]); }
   let d=`M${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`;
-  for(let i=0;i<n;i++){const [a,b]=P[i],[c,e]=P[(i+1)%n],r=(Math.hypot(c-a,e-b)*k).toFixed(1); d+=` A${r} ${r} 0 0 1 ${c.toFixed(1)} ${e.toFixed(1)}`;}
+  for(let i=0;i<n;i++){ const [a,b]=P[i],[c,e]=P[(i+1)%n], r=(Math.hypot(c-a,e-b)*(k+(rnd()-.5)*.12)).toFixed(1); d+=` A${r} ${r} 0 0 1 ${c.toFixed(1)} ${e.toFixed(1)}`; }
   return d+'Z';
 }
-const woolBlob = (cx,cy,rx,ry,n,fill='url(#ov-wool)',edge='#E4D4C0') => `<path d="${cloudPath(cx,cy,rx,ry,n)}" fill="${fill}" stroke="${edge}" stroke-width="1.4" stroke-linejoin="round"/>`;
+const cloudPath = (cx,cy,rx,ry,n,k=.6) => woolPath(cx,cy,rx,ry,n,3,k);
+/** lã com sombra chapada embaixo à direita e contorno */
+function wool(cx,cy,rx,ry,n,seed,wet=false,curls=[]){
+  const f = wet?PAL.wetWool:PAL.wool, sh = wet?PAL.wetSh:PAL.woolSh, d = woolPath(cx,cy,rx,ry,n,seed);
+  return `<path d="${d}" fill="${sh}"/><path d="${woolPath(cx-2,cy-2.6,rx-3,ry-3.2,n,seed)}" fill="${f}"/>`+
+    curls.map(([x,y,r])=>`<path d="M${x-r} ${y+r*.2} a${r} ${r} 0 1 1 ${r*1.5} ${r*.7}" fill="none" stroke="${PAL.curl}" stroke-width="1.5" stroke-linecap="round"/>`).join('')+
+    `<path d="${d}" fill="none" stroke="${OL}" stroke-width="${LW}" stroke-linejoin="round"/>`;
+}
+const ol = (w=LW) => `stroke="${OL}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
 
-/** Ovelha de perfil, olhando para a esquerda (flip: olha para a direita).
- *  who 'ela' = ovelha bebê (cabeça maior, pernas curtas, lacinho rosa, olhos verdes); 'ele' = adulta, olhos castanhos. */
-function sheep({x=0,y=0,s=1,who='ela',mood='happy',wet=false,acc=[],flip=false,body=true,cls='bob'}={}){
-  if (mood==='happy-closed') mood = 'closed';
-  const baby = who==='ela', wool = wet ? 'url(#ov-wool-wet)' : 'url(#ov-wool)', edge = wet ? '#C4D8EA' : '#E4D4C0';
-  const B = baby ? {cx:8,cy:6,rx:34,ry:24,legTop:16,legBot:42,head:[-27,-10],hs:1.18,tail:[42,-2]}
-                 : {cx:10,cy:2,rx:42,ry:28,legTop:14,legBot:48,head:[-35,-14],hs:1,tail:[52,-8]};
-  const coat = acc.includes('coat'), raise = false, match = acc.includes('match');
-  const leg = (lx,far) => { const top=B.legTop, bot=B.legBot-(far?2:0);
-    return `<path d="M${lx} ${top} h9 v${bot-top-4.5} a4.5 4.5 0 0 1 -9 0z" fill="url(#ov-leg${far?'-far':''})"/><path d="M${lx} ${bot-7} h9 v2.5 a4.5 4.5 0 0 1 -9 0z" fill="${far?'#6E5140':'#7E5E4A'}"/>`; };
-  const fl = baby ? [-20,-7] : [-26,-12], bl = baby ? [16,28] : [22,36];
-  let g = '';
-  if (body){
-    g += `<ellipse cx="${B.cx}" cy="${B.legBot+1}" rx="${B.rx+4}" ry="4.5" fill="url(#ov-shadow)"/>`;
-    g += leg(bl[0]+4,true) + leg(fl[0]+4,true);
-    g += leg(bl[1],false) + (raise ? '' : leg(fl[1],false));
-    if (coat){
-      const {cx,cy,rx,ry} = B, L=cx-rx, R=cx+rx, T=cy-ry, H=cy+ry+2;
-      g += woolBlob(B.tail[0],B.tail[1],7,7,6,wool,edge);
-      g += `<path d="M${L+6} ${T+10} C${L+10} ${T-7} ${R-10} ${T-7} ${R-2} ${T+8} C${R+4} ${cy} ${R+5} ${H-6} ${R+3} ${H+1} Q${cx} ${H+8} ${L-3} ${H+1} C${L-5} ${H-8} ${L-3} ${T+22} ${L+6} ${T+10}Z" fill="url(#ov-coat)" stroke="#C6D1DF" stroke-width="1.3"/><path d="M${R-5} ${H-12} L${R-3} ${H+1}" stroke="#C6D1DF" stroke-width="1.4" stroke-linecap="round"/>`;
-      g += `<path d="M${cx+14} ${T+8} q5 12 3 ${H-T-12}" fill="none" stroke="#DCE3ED" stroke-width="2" stroke-linecap="round"/>`;
-      g += `<path d="M${L+10} ${T+12} C${L+16} ${cy} ${L+15} ${H-10} ${L+13} ${H+3}" fill="none" stroke="#C6D1DF" stroke-width="1.5" stroke-linecap="round"/>`;
-      g += `<path d="M${L+6} ${T+10} L${L+19} ${T+11} L${L+11} ${T+23}Z" fill="#FFFFFF" stroke="#C6D1DF" stroke-width="1.2" stroke-linejoin="round"/>`;
-      g += `<circle cx="${L+16}" cy="${cy+4}" r="1.7" fill="#B4C0D1"/><circle cx="${L+16}" cy="${cy+13}" r="1.7" fill="#B4C0D1"/>`;
-      g += `<path d="M${cx+8} ${cy+2} h13 v7 a3 3 0 0 1 -3 3 h-7 a3 3 0 0 1 -3 -3z" fill="#EAF0F7" stroke="#C6D1DF" stroke-width="1.1"/><rect x="${cx+11}" y="${cy-3}" width="2.3" height="6" rx="1.15" fill="#F06A9F"/><rect x="${cx+15.5}" y="${cy-2}" width="2.3" height="5" rx="1.15" fill="#5B8FE0"/>`;
-      g += `<rect x="${cx+20}" y="${T+8}" width="11" height="6.5" rx="1.8" fill="#FFC2D6"/><rect x="${cx+22}" y="${T+10.5}" width="7" height="1.5" rx=".75" fill="#fff"/>`;
-      g += woolBlob(L+8,T+8,8.5,7.5,7,wool,edge);
-    } else {
-      g += woolBlob(B.tail[0],B.tail[1],7.5,7.5,6,wool,edge);
-      g += woolBlob(B.cx,B.cy,B.rx,B.ry,15,wool,edge);
-      g += [[B.cx-4,B.cy-6,6.5],[B.cx+18,B.cy+2,6],[B.cx,B.cy+10,5.5]].map(([a,b,r])=>`<path d="M${a-r} ${b} a${r} ${r} 0 0 1 ${2*r} 0" fill="none" stroke="${wet?'#DCE9F4':'#F1E8DB'}" stroke-width="2" stroke-linecap="round"/>`).join('');
-    }
-    if (raise){
-      g += `<g transform="translate(${fl[1]+4} ${B.legTop+4}) rotate(118)"><path d="M-4.5 0 h9 v22 a4.5 4.5 0 0 1 -9 0z" fill="url(#ov-leg)"/><path d="M-4.5 17 h9 v5 a4.5 4.5 0 0 1 -9 0z" fill="#7E5E4A"/></g>`;
-      const hx = fl[1]+4-24, hy = B.legTop+4-11;
-      g += `<path d="M${hx} ${hy} L${hx-20} ${hy-22}" stroke="#E2B776" stroke-width="2.6" stroke-linecap="round"/><circle cx="${hx-20.5}" cy="${hy-22.5}" r="2.6" fill="#C4421A"/>`;
-      g += `<circle cx="${hx-21}" cy="${hy-30}" r="9" fill="url(#ov-glow)"/><path class="flame" d="M${hx-21} ${hy-37} C${hx-16} ${hy-31} ${hx-16} ${hy-27} ${hx-21} ${hy-25} C${hx-26} ${hy-27} ${hx-26} ${hy-31} ${hx-21} ${hy-37}Z" fill="#FFB429"/><path d="M${hx-21} ${hy-32} C${hx-19} ${hy-29.5} ${hx-19} ${hy-28} ${hx-21} ${hy-27} C${hx-23} ${hy-28} ${hx-23} ${hy-29.5} ${hx-21} ${hy-32}Z" fill="#FFF3C2"/>`;
-    }
-  }
-  // cabeça de perfil
-  const iris = baby ? '#3AA56A' : '#3A2A1F';
+/* ---------- olhos e cabeças ---------- */
+function eyes(pts, baby, mood){
+  return pts.map(([x,y],i)=>{
+    if (mood==='sleep') return `<path d="M${x-3.8} ${y} q3.8 2.8 7.6 0" fill="none" ${ol(1.7)}/>`;
+    if (mood==='closed' || (mood==='wink' && i===pts.length-1)) return `<path d="M${x-3.8} ${y+1} q3.8 -4 7.6 0" fill="none" ${ol(1.7)}/>`;
+    return baby
+      ? `<ellipse cx="${x}" cy="${y}" rx="3.5" ry="4.1" fill="#58A83A"/><ellipse cx="${x}" cy="${y}" rx="3.5" ry="4.1" fill="none" stroke="#2F6A22" stroke-width="1"/><ellipse cx="${x-.3}" cy="${y+.4}" rx="1.9" ry="2.4" fill="#1E1611"/><circle cx="${x-1.2}" cy="${y-1.6}" r="1.2" fill="#fff"/>`
+      : `<ellipse cx="${x}" cy="${y}" rx="2.7" ry="3.3" fill="#3B2A20"/><circle cx="${x-.9}" cy="${y-1.3}" r="1" fill="#fff"/>`;
+  }).join('') + (baby && mood!=='sleep' && mood!=='closed' ? pts.map(([x,y],i)=>`<path d="M${x+(i?2.6:-2.6)} ${y-3.6} l${i?2:-2} -1.8" ${ol(1.2)}/>`).join('') : '');
+}
+const bow = (x,y,r=-14,sc=1) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${sc})"><path d="M-1.5 2 L-5 9 L-1.5 8Z M1.5 2 L5 9 L1.5 8Z" fill="#E4619A" ${ol(1.2)}/><path d="M0 0 C-3 -7 -13 -9 -13 -2 C-13 5 -5 4.5 0 0Z M0 0 C3 -7 13 -9 13 -2 C13 5 5 4.5 0 0Z" fill="#F78DB8" ${ol(1.4)}/><path d="M-9 -3.5 q2 -2.6 4.6 -2.2 M9 -3.5 q-2 -2.6 -4.6 -2.2" stroke="#FFD3E5" stroke-width="1.3" fill="none" stroke-linecap="round"/><ellipse rx="3.3" ry="3.7" fill="#EC6EA5" ${ol(1.3)}/></g>`;
+const bandaid = (x,y,r) => `<g transform="translate(${x} ${y}) rotate(${r})"><rect x="-7" y="-2.8" width="14" height="5.6" rx="2.8" fill="#F4C394" ${ol(1.1)}/><rect x="-2.2" y="-2.8" width="4.4" height="5.6" fill="#E7AC77"/><circle cx="-4.6" cy="0" r=".5" fill="#C98E5E"/><circle cx="4.6" cy="0" r=".5" fill="#C98E5E"/></g>`;
+const flameAt = (x,y,s=1) => `<circle cx="${x}" cy="${y-5*s}" r="${9*s}" fill="url(#ov-glow)"/><path d="M${x} ${y-12*s} C${x+4.6*s} ${y-6.5*s} ${x+4.6*s} ${y-2.5*s} ${x} ${y} C${x-4.6*s} ${y-2.5*s} ${x-4.6*s} ${y-6.5*s} ${x} ${y-12*s}Z" fill="#FFB429"/><path d="M${x} ${y-6.5*s} C${x+1.8*s} ${y-4*s} ${x+1.8*s} ${y-2.2*s} ${x} ${y-1.2*s} C${x-1.8*s} ${y-2.2*s} ${x-1.8*s} ${y-4*s} ${x} ${y-6.5*s}Z" fill="#FFF3C2"/>`;
+
+/** cabeça de perfil, olhando para a esquerda; origem no centro da cabeça */
+function headSide(baby, mood, acc, wet){
+  let h = `<g transform="rotate(22 14 -6)"><ellipse cx="22" cy="-6" rx="11" ry="5" fill="${PAL.ear}" ${ol(1.5)}/><ellipse cx="23" cy="-5.5" rx="6.2" ry="2.2" fill="${PAL.earIn}"/></g>`;
+  const F = 'M14 -14 C6 -22 -12 -23 -20 -13 C-26 -5 -28 5 -22 10 C-16 15 -2 16 8 10 C16 4 18 -8 14 -14Z';
+  h += `<path d="${F}" fill="${PAL.face}"/><path d="M-22 10 C-16 15 -2 16 8 10 C12 7 15 2 16 -4 C10 6 -6 12 -22 10Z" fill="${PAL.faceSh}"/><path d="${F}" fill="none" ${ol()}/>`;
+  h += wool(3,-14,16.5,10,10,baby?11:21,wet,[[6,-16,2.6]]);
+  h += eyes([[-12,-3]], baby, mood);
+  h += `<ellipse cx="-4" cy="5" rx="5" ry="3" fill="${PAL.blush}" opacity=".55"/>`;
+  h += `<path d="M-25.4 -1 q1.2 1.3 2.4 .7" fill="none" ${ol(1.4)}/>`;
+  h += mood==='o' ? `<ellipse cx="-19" cy="7" rx="2" ry="2.5" fill="#7A4E3A" ${ol(1)}/>` : `<path d="M-22 6 q3.4 2.8 7 0" fill="none" ${ol(1.5)}/>`;
+  if (acc.includes('bandaid')) h += bandaid(-5,6,-18);
+  if (baby) h += bow(-5,-23,-14);
+  if (acc.includes('kippah')) h += `<g transform="translate(13 -20) rotate(38)"><path d="M-12 2 Q0 -11 12 2 Z" fill="#3E67C9" ${ol(1.4)}/><path d="M-7 -1.5 q7 -4.4 14 0" stroke="#9DB8F2" stroke-width="1.3" fill="none" stroke-linecap="round"/></g>`;
+  if (acc.includes('icepack')) h += `<g transform="translate(5 -24) rotate(-12)"><path d="M-12 0 C-12 -9 12 -9 12 0 C12 5 -12 5 -12 0Z" fill="#9DC3F2" ${ol(1.4)}/><path d="M-4 -6 q4 -3 8 0" stroke="#FFFFFF" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M-3 -8 l3 -4 l3 4" fill="#7EA8E6" ${ol(1)}/></g>`;
+  if (acc.includes('thermo')) h += `<g transform="translate(-18 7) rotate(168)"><rect x="0" y="-1.8" width="18" height="3.6" rx="1.8" fill="#EEF1F7" ${ol(.9)}/><circle cx="18" cy="0" r="2.6" fill="#FF5C7A" ${ol(.9)}/></g>`;
+  if (acc.includes('match')) h += `<path d="M-17 7 L-44 -8" stroke="#E2B776" stroke-width="2.4" stroke-linecap="round"/><path d="M-17 7 L-44 -8" stroke="${OL}" stroke-width=".6" opacity=".4"/><circle cx="-44.5" cy="-8.3" r="2.3" fill="#C4421A"/>${flameAt(-45,-10.4,.9)}`;
+  if (acc.includes('foam')) h += [[-6,-25,5.5],[4,-28,6.5],[13,-24,5]].map(([a,b,r],i)=>wool(a,b,r,r,6,30+i,true)).join('');
+  return h;
+}
+/** cabeça de frente; origem no centro do rosto */
+function headFront(baby, mood, acc, wet){
   let h = '';
-  h += `<g transform="rotate(22 14 -6)"><ellipse cx="22" cy="-6" rx="11" ry="5" fill="url(#ov-ear)"/><ellipse cx="23" cy="-5.5" rx="6.5" ry="2.4" fill="#F2B3B5" opacity=".9"/></g>`;
-  h += `<path d="M14 -14 C6 -22 -12 -23 -20 -13 C-26 -5 -28 5 -22 10 C-16 15 -2 16 8 10 C16 4 18 -8 14 -14Z" fill="url(#ov-face)"/>`;
-  h += `<path d="M-14 -16 C-8 -19 0 -19 4 -16" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" opacity=".5"/>`;
-  h += woolBlob(3,-14,17,10.5,10,wool,edge);
-  if (mood==='sleep') h += `<path d="M-15.5 -3 q3.5 2.6 7 0" fill="none" stroke="#3A2A1F" stroke-width="2" stroke-linecap="round"/>`;
-  else if (mood==='closed') h += `<path d="M-15.5 -2 q3.5 -4 7 0" fill="none" stroke="#3A2A1F" stroke-width="2" stroke-linecap="round"/>`;
-  else h += baby
-    ? `<ellipse cx="-12" cy="-3" rx="3.7" ry="4.3" fill="${iris}"/><ellipse cx="-12.6" cy="-2.6" rx="2.1" ry="2.7" fill="#1C1510"/><circle cx="-13.5" cy="-4.6" r="1.3" fill="#fff"/><path d="M-8.9 -6.6 l2 -1.6 M-10.1 -7.6 l1.2 -2.2" stroke="#3A2A1F" stroke-width="1.3" stroke-linecap="round"/>`
-    : `<ellipse cx="-12" cy="-3" rx="3" ry="3.6" fill="${iris}"/><circle cx="-13" cy="-4.4" r="1.15" fill="#fff"/>`;
-  h += `<ellipse cx="-5" cy="5" rx="6.5" ry="4" fill="url(#ov-blush)"/>`;
-  h += `<path d="M-25.5 -1 q1.2 1.4 2.6 .8" fill="none" stroke="#9C7158" stroke-width="1.6" stroke-linecap="round"/>`;
-  h += mood==='o' ? `<ellipse cx="-19" cy="7" rx="2.2" ry="2.6" fill="#7A4E3A"/>` : `<path d="M-22 6 q3.5 3 7.5 0" fill="none" stroke="#8A5A44" stroke-width="1.7" stroke-linecap="round"/>`;
-  if (baby) h += `<g transform="translate(-6 -22) rotate(-16)"><path d="M-2 2 L-6 8 L-2.5 7.5 Z M2 2 L6 8 L2.5 7.5 Z" fill="#E2558F"/><path d="M0 0 C-3 -7 -13 -9 -13.5 -2 C-14 5 -5 5 0 0Z" fill="url(#ov-bow)"/><path d="M0 0 C3 -7 13 -9 13.5 -2 C14 5 5 5 0 0Z" fill="url(#ov-bow)"/><path d="M-9.5 -3 q2 -3 5 -2.4 M9.5 -3 q-2 -3 -5 -2.4" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".85"/><ellipse rx="3.4" ry="3.8" fill="#F0609B"/></g>`;
-  if (acc.includes('kippah')) h += `<path d="M-6 -21 Q4 -32 14 -21 Z" fill="url(#ov-kippah)"/><path d="M-1 -24 q5 -3 10 0" stroke="#A9C4FF" stroke-width="1.2" fill="none" stroke-linecap="round"/>`;
-  if (acc.includes('bandaid')) h += `<g transform="translate(10 -20) rotate(30)"><rect x="-7.5" y="-3" width="15" height="6" rx="3" fill="#F5C796"/><rect x="-2.4" y="-3" width="4.8" height="6" fill="#E9AE78"/></g>`;
-  if (acc.includes('thermo')) h += `<g transform="translate(-18 7) rotate(168)"><rect x="0" y="-1.8" width="18" height="3.6" rx="1.8" fill="#EEF1F7" stroke="#A9B2C4" stroke-width=".8"/><circle cx="18" cy="0" r="2.6" fill="#FF5C7A"/></g>`;
-  if (match) h += `<path d="M-17 7 L-44 -8" stroke="#E2B776" stroke-width="2.4" stroke-linecap="round"/><circle cx="-44.5" cy="-8.3" r="2.3" fill="#C4421A"/><circle cx="-45" cy="-15" r="8" fill="url(#ov-glow)"/><path class="flame" d="M-45 -21 C-40.5 -15.5 -40.5 -12 -45 -10.3 C-49.5 -12 -49.5 -15.5 -45 -21Z" fill="#FFB429"/><path d="M-45 -16.5 C-43.3 -14.5 -43.3 -13 -45 -12 C-46.7 -13 -46.7 -14.5 -45 -16.5Z" fill="#FFF3C2"/>`;
-  if (acc.includes('foam')) h += [[-6,-25,5.5],[4,-28,6.5],[13,-24,5]].map(([a,b,r])=>woolBlob(a,b,r,r,6,'#FFFFFF','#CFE2F2')).join('');
-  if (wet) h += `<g fill="#86C7F0"><path d="M-30 -20 q3.5 6 0 8 q-3.5 -2 0 -8z"/><path d="M24 -24 q3.5 6 0 8 q-3.5 -2 0 -8z"/></g>`;
-  const [hx,hy] = body ? B.head : [8,10];
-  g += `<g transform="translate(${hx} ${hy}) scale(${B.hs})">${h}</g>`;
+  h += `<ellipse cx="-22" cy="2" rx="11" ry="5.2" transform="rotate(-24 -22 2)" fill="${PAL.ear}" ${ol(1.5)}/><ellipse cx="-23" cy="2.6" rx="6" ry="2.2" transform="rotate(-24 -22 2)" fill="${PAL.earIn}"/>`;
+  h += `<ellipse cx="22" cy="2" rx="11" ry="5.2" transform="rotate(24 22 2)" fill="${PAL.ear}" ${ol(1.5)}/><ellipse cx="23" cy="2.6" rx="6" ry="2.2" transform="rotate(24 22 2)" fill="${PAL.earIn}"/>`;
+  h += `<ellipse cx="0" cy="3" rx="18.5" ry="17" fill="${PAL.face}"/><path d="M-17 8 C-12 19 12 19 17 8 C12 15 -12 15 -17 8Z" fill="${PAL.faceSh}"/><ellipse cx="0" cy="3" rx="18.5" ry="17" fill="none" ${ol()}/>`;
+  h += wool(0,-10,18.5,9.5,10,baby?12:22,wet,[[-6,-11,2.4],[7,-12,2.2]]);
+  h += eyes([[-7.5,4],[7.5,4]], baby, mood);
+  h += `<ellipse cx="-12" cy="10.5" rx="4.4" ry="2.6" fill="${PAL.blush}" opacity=".55"/><ellipse cx="12" cy="10.5" rx="4.4" ry="2.6" fill="${PAL.blush}" opacity=".55"/>`;
+  h += `<path d="M-1.6 9.6 q1.6 1.4 3.2 0" fill="none" ${ol(1.3)}/>`;
+  h += mood==='o' ? `<ellipse cx="0" cy="14" rx="2" ry="2.4" fill="#7A4E3A" ${ol(1)}/>` : `<path d="M-3.6 12.6 q1.8 2.2 3.6 0 q1.8 2.2 3.6 0" fill="none" ${ol(1.4)}/>`;
+  if (acc.includes('bandaid')) h += bandaid(11,10,28);
+  if (baby) h += bow(-11,-17,-18);
+  if (acc.includes('kippah')) h += `<g transform="translate(9 -18) rotate(16)"><path d="M-12 2 Q0 -10 12 2 Z" fill="#3E67C9" ${ol(1.4)}/><path d="M-7 -1.2 q7 -4 14 0" stroke="#9DB8F2" stroke-width="1.3" fill="none" stroke-linecap="round"/></g>`;
+  if (acc.includes('foam')) h += [[-9,-19,5.5],[2,-22,6.5],[12,-18,5]].map(([a,b,r],i)=>wool(a,b,r,r,6,40+i,true)).join('');
+  if (acc.includes('thermo')) h += `<g transform="translate(2 13) rotate(20)"><rect x="0" y="-1.6" width="16" height="3.2" rx="1.6" fill="#EEF1F7" ${ol(.9)}/><circle cx="16" cy="0" r="2.4" fill="#FF5C7A" ${ol(.9)}/></g>`;
+  return h;
+}
+
+/* ---------- corpos ---------- */
+const leg = (x,top,len,far) => `<path d="M${x} ${top} h8.6 v${len-4.3} a4.3 4.3 0 0 1 -8.6 0z" fill="${far?PAL.legFar:PAL.leg}" ${ol(1.5)}/><path d="M${x+.8} ${top+len-5.6} h7 v1.3 a3.5 3.5 0 0 1 -7 0z" fill="${PAL.hoof}"/>`;
+function coatSide(cx,cy,rx,ry){
+  const L=cx-rx, R=cx+rx, T=cy-ry, H=cy+ry+2;
+  const d = `M${L+6} ${T+10} C${L+10} ${T-7} ${R-10} ${T-7} ${R-2} ${T+8} C${R+4} ${cy} ${R+5} ${H-6} ${R+3} ${H+1} Q${cx} ${H+8} ${L-3} ${H+1} C${L-5} ${H-8} ${L-3} ${T+22} ${L+6} ${T+10}Z`;
+  return `<path d="${d}" fill="${PAL.coat}"/><path d="M${R-6} ${T+10} C${R+2} ${cy} ${R+3} ${H-6} ${R+2} ${H+1} Q${cx+10} ${H+6} ${cx-8} ${H+5} C${cx+12} ${H-2} ${R-4} ${cy+6} ${R-6} ${T+10}Z" fill="${PAL.coatSh}"/><path d="${d}" fill="none" ${ol(1.5)}/>
+    <path d="M${L+10} ${T+12} C${L+16} ${cy} ${L+15} ${H-10} ${L+13} ${H+3}" fill="none" ${ol(1.3)}/>
+    <path d="M${L+6} ${T+10} L${L+19} ${T+11} L${L+11} ${T+23}Z" fill="#FFFFFF" ${ol(1.2)}/>
+    <circle cx="${L+16}" cy="${cy+4}" r="1.6" fill="#9AA3B8"/><circle cx="${L+16}" cy="${cy+13}" r="1.6" fill="#9AA3B8"/>
+    <path d="M${cx+8} ${cy+2} h13 v7 a3 3 0 0 1 -3 3 h-7 a3 3 0 0 1 -3 -3z" fill="#EEF2F8" ${ol(1.1)}/><rect x="${cx+11}" y="${cy-3.5}" width="2.4" height="6.5" rx="1.2" fill="#F06A9F" ${ol(.8)}/><rect x="${cx+15.5}" y="${cy-2.5}" width="2.4" height="5.5" rx="1.2" fill="#5B8FE0" ${ol(.8)}/>
+    <rect x="${cx+20}" y="${T+7}" width="11" height="7" rx="1.8" fill="#FFC2D6" ${ol(1)}/>`;
+}
+function coatFront(cx,cy,rx,ry){
+  const T=cy-ry, H=cy+ry;
+  const d = `M${cx-rx*.62} ${T+4} C${cx-rx*1.05} ${T+10} ${cx-rx*1.12} ${H-8} ${cx-rx*1.08} ${H+2} Q${cx} ${H+7} ${cx+rx*1.08} ${H+2} C${cx+rx*1.12} ${H-8} ${cx+rx*1.05} ${T+10} ${cx+rx*.62} ${T+4} Q${cx} ${T-4} ${cx-rx*.62} ${T+4}Z`;
+  return `<path d="${d}" fill="${PAL.coat}"/><path d="M${cx+rx*.5} ${T+8} C${cx+rx*1.0} ${T+16} ${cx+rx*1.05} ${H-8} ${cx+rx*1.02} ${H+2} Q${cx+rx*.6} ${H+5} ${cx+rx*.3} ${H+5} C${cx+rx*.8} ${H-6} ${cx+rx*.7} ${T+16} ${cx+rx*.5} ${T+8}Z" fill="${PAL.coatSh}"/><path d="${d}" fill="none" ${ol(1.5)}/>
+    <path d="M${cx-rx*.55} ${T+5} L${cx-3} ${T+20} L${cx-rx*.62} ${T+16}Z M${cx+rx*.55} ${T+5} L${cx+3} ${T+20} L${cx+rx*.62} ${T+16}Z" fill="#FFFFFF" ${ol(1.2)}/>
+    <path d="M${cx} ${T+20} V${H+5}" ${ol(1.2)}/><circle cx="${cx-3}" cy="${T+27}" r="1.5" fill="#9AA3B8"/><circle cx="${cx-3}" cy="${T+35}" r="1.5" fill="#9AA3B8"/>
+    <path d="M${cx+5} ${T+24} h10 v6 a2.5 2.5 0 0 1 -2.5 2.5 h-5 a2.5 2.5 0 0 1 -2.5 -2.5z" fill="#EEF2F8" ${ol(1)}/><rect x="${cx+7}" y="${T+19}" width="2.2" height="6" rx="1.1" fill="#F06A9F" ${ol(.7)}/><rect x="${cx+11}" y="${T+20}" width="2.2" height="5" rx="1.1" fill="#5B8FE0" ${ol(.7)}/>
+    <rect x="${cx-rx*.85}" y="${T+18}" width="10" height="6.5" rx="1.6" fill="#FFC2D6" ${ol(.9)}/>`;
+}
+
+/** Ovelha. pose: 'side' (perfil) | 'turn' (corpo de lado, rosto de frente) | 'front' | 'sit' | 'lie'.
+ *  x,y = ponto no chão sob a ovelha. Olha para a esquerda; flip olha para a direita.
+ *  who 'ela' = ovelha bebê (lacinho rosa, olhos verdes); 'ele' = maior, olhos castanhos. */
+function sheep({x=0,y=0,s=1,who='ela',pose='side',mood='happy',wet=false,acc=[],flip=false,cls='bob',body=true}={}){
+  if (mood==='happy-closed') mood='closed';
+  const baby = who==='ela', coat = acc.includes('coat') && baby;
+  let g = '';
+  const Hs = baby ? 1.2 : 1;
+  if (!body){ g = `<g transform="scale(${Hs})">${headFront(baby,mood,acc,wet)}</g>`; }
+  else if (pose==='side' || pose==='turn'){
+    const B = baby ? {cx:6,cy:-30,rx:33,ry:23,lt:-17,fl:[-20,-7],bl:[16,27],tail:[40,-38]} : {cx:8,cy:-36,rx:42,ry:27,lt:-19,fl:[-26,-12],bl:[22,36],tail:[52,-44]};
+    const len = -B.lt;
+    g += `<ellipse cx="${B.cx}" cy="1" rx="${B.rx+4}" ry="4" fill="#3A3226" opacity=".12"/>`;
+    g += leg(B.bl[0]+4,B.lt-2,len+1,true) + leg(B.fl[0]+4,B.lt-2,len+1,true) + leg(B.bl[1],B.lt,len,false) + leg(B.fl[1],B.lt,len,false);
+    g += wool(B.tail[0],B.tail[1],7,7,6,5,wet);
+    if (coat) g += coatSide(B.cx,B.cy,B.rx,B.ry) + wool(B.cx-B.rx+8,B.cy-B.ry+8,8,7,7,9,wet);
+    else g += wool(B.cx,B.cy,B.rx,B.ry,15,baby?3:4,wet,[[B.cx-6,B.cy-6,3.2],[B.cx+16,B.cy+1,3],[B.cx+2,B.cy+10,2.8],[B.cx+24,B.cy-10,2.6]]);
+    if (pose==='side') g += `<g transform="translate(${baby?-27:-35} ${baby?-42:-50}) scale(${Hs})">${headSide(baby,mood,acc,wet)}</g>`;
+    else g += `<g transform="translate(${baby?-26:-33} ${baby?-46:-56}) scale(${Hs})">${headFront(baby,mood,acc,wet)}</g>`;
+  } else if (pose==='front' || pose==='sit'){
+    const sit = pose==='sit';
+    const B = baby ? {cy:sit?-22:-28,rx:sit?27:26,ry:sit?22:22} : {cy:sit?-26:-34,rx:sit?32:31,ry:sit?26:26};
+    g += `<ellipse cx="0" cy="1" rx="${B.rx+6}" ry="4" fill="#3A3226" opacity=".12"/>`;
+    if (sit){
+      g += `<ellipse cx="${-B.rx+2}" cy="-5" rx="9" ry="6" fill="${PAL.leg}" ${ol(1.5)}/><path d="M${-B.rx-6} -6 a5 5 0 0 0 4 6 l3 -1 l-2 -8z" fill="${PAL.hoof}"/>`;
+      g += `<ellipse cx="${B.rx-2}" cy="-5" rx="9" ry="6" fill="${PAL.leg}" ${ol(1.5)}/><path d="M${B.rx+6} -6 a5 5 0 0 1 -4 6 l-3 -1 l2 -8z" fill="${PAL.hoof}"/>`;
+    } else g += leg(-B.rx+6,-16,16,true) + leg(B.rx-14,-16,16,true);
+    if (coat) g += coatFront(0,B.cy,B.rx,B.ry);
+    else g += wool(0,B.cy,B.rx,B.ry,14,baby?6:7,wet,[[-10,B.cy+2,3],[9,B.cy+8,2.8],[14,B.cy-6,2.4]]);
+    const lt = sit ? -12 : -18;
+    g += leg(-12,lt,-lt,false) + leg(3.4,lt,-lt,false);
+    if (coat) g += `<path d="M-13.5 ${lt-2} h11.6 v7 h-11.6z M1.9 ${lt-2} h11.6 v7 h-11.6z" fill="${PAL.coat}" ${ol(1.3)}/>`;
+    g += `<g transform="translate(0 ${B.cy-B.ry-8}) scale(${Hs})">${headFront(baby,mood,acc,wet)}</g>`;
+  } else if (pose==='lie'){
+    const B = baby ? {cx:6,cy:-17,rx:36,ry:17} : {cx:8,cy:-20,rx:44,ry:20};
+    g += `<ellipse cx="${B.cx}" cy="1" rx="${B.rx+4}" ry="4" fill="#3A3226" opacity=".12"/>`;
+    g += [B.cx-20,B.cx-6,B.cx+22].map(xx=>`<path d="M${xx} -6 h9 v2 a4 4 0 0 1 -4 4 h-1 a4 4 0 0 1 -4 -4z" fill="${PAL.hoof}" ${ol(1.2)}/>`).join('');
+    g += wool(B.cx+B.rx-2,B.cy-6,6.5,6.5,6,5,wet);
+    g += wool(B.cx,B.cy,B.rx,B.ry,15,baby?8:9,wet,[[B.cx-4,B.cy-4,3],[B.cx+16,B.cy+2,2.8]]);
+    g += `<g transform="translate(${B.cx-B.rx-2} ${B.cy-10}) rotate(-6) scale(${Hs})">${headSide(baby,mood,acc,wet)}</g>`;
+  }
   return `<g transform="translate(${x} ${y}) scale(${flip?-s:s} ${s})"><g class="${cls}" style="transform-box:fill-box;transform-origin:50% 100%">${g}</g></g>`;
 }
 
-/* ---------- pequenos elementos ---------- */
-const heart = (x,y,s=1,c='#FF7FA3') => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 6 C-10 -2 -8 -10 -3 -10 C-1 -10 0 -8 0 -7 C0 -8 1 -10 3 -10 C8 -10 10 -2 0 6Z" fill="${c}"/><path transform="translate(${x} ${y}) scale(${s})" d="M-5.5 -6.5 q1.5 -1.6 3 -.6" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".7"/>`;
+/* ---------- elementos de cenário ---------- */
+const O = (w=1.5) => ol(w);
+const heart = (x,y,s=1,c='#FF7FA3') => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 6 C-10 -2 -8 -10 -3 -10 C-1 -10 0 -8 0 -7 C0 -8 1 -10 3 -10 C8 -10 10 -2 0 6Z" fill="${c}" ${O(1.2/s)}/>`;
 const sparkle = (x,y,s=1,c='#FFD98A') => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 -8 Q1 -1 8 0 Q1 1 0 8 Q-1 1 -8 0 Q-1 -1 0 -8Z" fill="${c}"/>`;
-const bubble = (x,y,r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="rgba(255,255,255,.45)" stroke="#A9D6F3" stroke-width="1.2"/><path d="M${x-r*.55} ${y-r*.15} a${r*.6} ${r*.6} 0 0 1 ${r*.45} ${-r*.42}" stroke="#fff" stroke-width="${Math.max(1,r*.18)}" fill="none" stroke-linecap="round"/>`;
-const cloud = (x,y,s=1,c='#FFFFFF',o=1) => `<g transform="translate(${x} ${y}) scale(${s})" opacity="${o}"><path d="${cloudPath(0,0,34,13,9,.62)}" fill="${c}"/></g>`;
-const shadow = (x,y,rx) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${Math.max(3,rx*.12)}" fill="url(#ov-shadow)"/>`;
-const shine = d => `<path d="${d}" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" opacity=".55"/>`;
-const trefoil = (x,y,s=1) => { const sec = a => { const r=Math.PI/180, a1=(a-30)*r, a2=(a+30)*r, P=(R,t)=>`${(R*Math.cos(t)).toFixed(2)} ${(R*Math.sin(t)).toFixed(2)}`;
+const bubble = (x,y,r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="rgba(255,255,255,.5)" stroke="#8FBFE0" stroke-width="1"/><path d="M${x-r*.5} ${y-r*.1} a${r*.55} ${r*.55} 0 0 1 ${r*.4} ${-r*.4}" stroke="#fff" stroke-width="${Math.max(.9,r*.2)}" fill="none" stroke-linecap="round"/>`;
+const cloud = (x,y,s=1,c='#FFFFFF') => `<path transform="translate(${x} ${y}) scale(${s})" d="${cloudPath(0,0,30,11,8,.62)}" fill="${c}" ${O(1.3/s)}/>`;
+const R = (x,y,w,h,f,r=2,w2=1.5) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${f}" ${O(w2)}/>`;
+const T = (x,y,t,sz,c,o={}) => `<text x="${x}" y="${y}" font-family="${o.f||'Grandstander, sans-serif'}" font-size="${sz}" font-weight="${o.w||800}" fill="${c}" text-anchor="${o.a||'middle'}"${o.r?` transform="rotate(${o.r} ${x} ${y})"`:''}>${t}</text>`;
+const COL = ['#F59AB9','#8FD3B6','#FFD27A','#9DC3F2','#C7B2F0','#FFB38A','#F7E39A','#B8E0A0'];
+/** fileira de produtos de mercado/farmácia em cima de uma prateleira (y = topo da prateleira) */
+function goods(x0,x1,y,seed,kind='market'){
+  SEED = seed*131+7; let x = x0, out = '';
+  while (x < x1-8){
+    const t = Math.floor(rnd()*(kind==='market'?6:4)), c = COL[Math.floor(rnd()*COL.length)], c2 = COL[Math.floor(rnd()*COL.length)];
+    let w = 0;
+    if (t===0){ w=13; const h=18+Math.round(rnd()*6); out += R(x,y-h,w,h,c,1.5,1.2)+`<rect x="${x+2.5}" y="${y-h+5}" width="8" height="6" rx="1" fill="#fff" opacity=".85"/><circle cx="${x+6.5}" cy="${y-h+8}" r="1.8" fill="${c2}"/>`; }
+    else if (t===1){ w=9; out += R(x,y-12,w,12,c,2,1.2)+`<rect x="${x}" y="${y-8.5}" width="${w}" height="4.5" fill="#fff" opacity=".8"/>`; }
+    else if (t===2){ w=8; out += `<path d="M${x+2.5} ${y-21} h3 v4 l2.5 3 v14 h-8 v-14 l2.5 -3z" fill="${c}" ${O(1.2)}/><rect x="${x+2.5}" y="${y-23}" width="3" height="2.4" fill="#fff" ${O(.8)}/>`; }
+    else if (t===3){ w=11; out += R(x,y-13,w,13,c,3,1.2)+`<rect x="${x-.5}" y="${y-16}" width="12" height="4" rx="1.5" fill="${c2}" ${O(1)}/>`; }
+    else if (t===4){ w=12; out += `<path d="M${x} ${y} v-14 l3 -5 h6 l3 5 v14z" fill="#FFFFFF" ${O(1.2)}/><path d="M${x} ${y-14} h12" stroke="${OL}" stroke-width=".8"/><rect x="${x+2}" y="${y-11}" width="8" height="6" rx="1" fill="${c}"/>`; }
+    else { w=16; out += `<path d="M${x+1} ${y} q-2 -9 1 -16 q7 -3 13 0 q3 7 1 16z" fill="${c}" ${O(1.2)}/><path d="M${x+4} ${y-9} h8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>`; }
+    x += w + 2 + Math.round(rnd()*3);
+  }
+  return out;
+}
+const priceTags = (x0,x1,y,step=26) => { let o=''; for (let x=x0+6;x<x1-8;x+=step) o += `<rect x="${x}" y="${y+1}" width="9" height="5" rx="1" fill="#FFFFFF" ${O(.8)}/><path d="M${x+2} ${y+3.6} h5" stroke="#E2557F" stroke-width="1.2"/>`; return o; };
+const flame = flameAt;
+const trefoil = (x,y,s=1) => { const sec = a => { const r=Math.PI/180, a1=(a-30)*r, a2=(a+30)*r, P=(Rr,t)=>`${(Rr*Math.cos(t)).toFixed(2)} ${(Rr*Math.sin(t)).toFixed(2)}`;
   return `<path d="M${P(3.6,a1)} L${P(10,a1)} A10 10 0 0 1 ${P(10,a2)} L${P(3.6,a2)} A3.6 3.6 0 0 0 ${P(3.6,a1)}Z" fill="#33304A"/>`; };
-  return `<g transform="translate(${x} ${y}) scale(${s})"><circle r="13" fill="#FFD449"/>${[-90,30,150].map(sec).join('')}<circle r="2.4" fill="#33304A"/></g>`; };
-const box = (x,y,w,h,c,c2,rib) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${c}"/><rect x="${x}" y="${y}" width="${w}" height="${h*.28}" rx="4" fill="${c2}"/>${rib?`<rect x="${x+w/2-3.5}" y="${y}" width="7" height="${h}" fill="${rib}"/><path d="M${x+w/2} ${y} c-8 -11 -17 -5 -9 1z M${x+w/2} ${y} c8 -11 17 -5 9 1z" fill="${rib}"/>`:''}${shine(`M${x+5} ${y+h*.45} v${h*.3}`)}`;
-const BABY = 42, ADULT = 48;          // altura dos pés em unidades da ovelha
-const onGround = (who,s,gy=170) => gy - (who==='ela'?BABY:ADULT)*s;
-
-/* ---------- moldura das cenas (vinheta) ---------- */
-const SCN = (t, inner, label) => `<svg viewBox="0 0 320 200" role="img" aria-label="${label}"><rect width="320" height="200" fill="${t[0]}"/><circle cx="160" cy="100" r="92" fill="${t[1]}"/><ellipse cx="160" cy="172" rx="138" ry="13" fill="${t[2]}"/>${inner}</svg>`;
-const S = (who,x,s,extra={}) => sheep({who,x,y:onGround(who,s),s,...extra});
+  return `<g transform="translate(${x} ${y}) scale(${s})"><circle r="13" fill="#FFD449" ${O(1.4/s)}/>${[-90,30,150].map(sec).join('')}<circle r="2.4" fill="#33304A"/></g>`; };
+const bolt = (pts,glow='#CDB8FF') => `<polyline points="${pts}" fill="none" stroke="${glow}" stroke-width="5" stroke-linejoin="round" opacity=".45"/><polyline points="${pts}" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>`;
+const SCN = (bg, inner, label, over='') => `<svg viewBox="0 0 320 200" role="img" aria-label="${label}"><rect width="100%" height="100%" fill="${bg}"/><g filter="url(#ov-rough)">${inner}</g>${over}</svg>`;
 
 const SCENES = {
-  mercado: () => SCN(['#FFF6EE','#FFE8D6','#F5D8BF'], `
-    ${sparkle(46,52,.9)}${sparkle(278,40,.7,'#FFB8CF')}
-    ${shadow(150,170,62)}
-    ${sheep({who:'ela',x:146,y:104,s:.8,flip:true})}
-    <g transform="translate(104 100) rotate(-12)"><circle r="10" fill="#9ED37A"/><circle cx="-5" cy="2" r="7" fill="#B5E08F"/><path d="M-4 -2 q4 -4 8 0" stroke="#7DBB57" stroke-width="1.6" fill="none"/></g>
-    <circle cx="122" cy="104" r="8" fill="#F5655F"/><path d="M122 96 q2 -4 5 -4" stroke="#6B4A2E" stroke-width="1.8" fill="none" stroke-linecap="round"/><ellipse cx="126" cy="94" rx="3.5" ry="2" fill="#7CC36A"/><circle cx="119" cy="101" r="2" fill="#fff" opacity=".6"/>
-    <g transform="translate(196 96) rotate(32)"><rect x="-6" y="-26" width="12" height="44" rx="6" fill="#E9B266"/>${[-16,-6,4].map(yy=>`<path d="M-3 ${yy} l6 -4" stroke="#FFE1B3" stroke-width="1.8" stroke-linecap="round"/>`).join('')}</g>
-    <path d="M80 104 H210 L198 148 Q197 151 194 151 H96 Q93 151 92 148 Z" fill="rgba(255,255,255,.62)" stroke="#8F9DB4" stroke-width="3.2" stroke-linejoin="round"/>
-    ${[100,116,132,148,164,180].map(x=>`<path d="M${x+2} 106 L${x} 149" stroke="#A9B4C8" stroke-width="1.8"/>`).join('')}<path d="M85 127 H205" stroke="#A9B4C8" stroke-width="1.8"/>
-    <path d="M76 104 H214" stroke="#8F9DB4" stroke-width="4.2" stroke-linecap="round"/>
-    <path d="M210 104 L224 90" stroke="#8F9DB4" stroke-width="3.6" stroke-linecap="round"/><rect x="218" y="84" width="18" height="9" rx="4.5" fill="#F07AA8" transform="rotate(-40 227 88)"/>
-    <path d="M96 151 L92 160 H200" fill="none" stroke="#8F9DB4" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-    ${[104,190].map(x=>`<circle cx="${x}" cy="166" r="7" fill="#4E5368"/><circle cx="${x}" cy="166" r="2.6" fill="#B9BFD0"/>`).join('')}
-    ${S('ele',268,.84)}
-  `,'A ovelha bebê sentada no carrinho de compras e a outra empurrando'),
+  mercado: () => SCN('#FCEAD3', `
+    <rect width="320" height="20" fill="#F6CBA8"/>
+    <path d="M128 0 L132 10 M188 0 L184 10" stroke="${OL}" stroke-width="1.2"/>${R(118,9,84,20,'#F27BA6',6)}
+    ${R(8,32,232,112,'#F2D5B3',3)}
+    ${[66,100,134].map(y=>R(8,y,232,6,'#C98F5B',1.5)+priceTags(8,240,y)).join('')}
+    ${goods(13,236,66,1)}${goods(13,236,100,2)}${goods(13,236,134,3)}
+    ${R(250,36,62,15,'#7DBF6C',4)}
+    ${[256,268,280].map((x,i)=>`<path d="M${x} 84 q6 -12 14 -8" fill="none" stroke="#F2C744" stroke-width="5" stroke-linecap="round"/><path d="M${x} 84 q6 -12 14 -8" fill="none" ${O(1)}/>`).join('')}${[[96,'#F5655F'],[124,'#FFA53D']].map(([y,c])=>`${Array.from({length:6},(_,i)=>`<circle cx="${256+i*10}" cy="${y-4}" r="5" fill="${c}" ${O(1.1)}/>`).join('')}${R(248,y,66,18,'#D9A066',2)}<path d="M248 ${y+6} h66 M248 ${y+12} h66" stroke="#B57E46" stroke-width="1"/>`).join('')}
+    
+    ${[264,282,298].map(x=>`<path d="${cloudPath(x,146,8,6,6,.6)}" fill="#A8D97F" ${O(1.1)}/>`).join('')}
+    <rect y="144" width="320" height="56" fill="#EFDCC0"/>${[144,156,172,192].map((y,i)=>Array.from({length:11},(_,k)=>(k+i)%2?`<rect x="${k*32-(i*8)}" y="${y}" width="32" height="${[12,16,20,8][i]}" fill="#E5CCA7"/>`:'').join('')).join('')}<path d="M0 144 H320" ${O(1.2)}/>
+    ${sheep({who:'ela',pose:'sit',x:140,y:140,s:.6,flip:true})}
+    ${R(86,118,14,40,'#FFFFFF',2,1.2)}<path d="M86 118 l7 -7 l7 7" fill="#FFFFFF" ${O(1.2)}/><rect x="88" y="128" width="10" height="9" rx="1.5" fill="#9DC3F2"/>
+    ${R(102,110,16,48,'#FFD27A',2,1.2)}<rect x="105" y="118" width="10" height="9" rx="1.5" fill="#F59AB9"/>
+    <path d="${cloudPath(98,114,11,8,7,.6)}" fill="#A8D97F" ${O(1.2)}/>
+    <g transform="translate(184 152) rotate(-30)"><rect x="-5" y="-50" width="10" height="52" rx="5" fill="#E9B266" ${O(1.2)}/>${[-42,-32,-22].map(yy=>`<path d="M-2.5 ${yy} l5 -3.5" stroke="#FFE1B3" stroke-width="1.6" stroke-linecap="round"/>`).join('')}</g>
+    ${R(170,118,12,40,'#FFB38A',2,1.2)}<path d="M172 118 v-5 h8 v5" fill="#FFFFFF" ${O(1)}/>
+    <g transform="translate(196 112)"><path d="M0 0 l4 18 l4 -18z" fill="#FF9A3C" ${O(1)}/><path d="M4 0 l-3 -7 M4 0 l3 -7" stroke="#5FA84A" stroke-width="2" stroke-linecap="round"/></g>
+    ${R(120,124,20,34,'#FFFFFF',2,1.2)}<path d="M120 124 h20" stroke="#F59AB9" stroke-width="3"/>${R(142,132,22,26,'#F59AB9',2,1.2)}<rect x="146" y="138" width="14" height="8" rx="1.5" fill="#FFFFFF"/>
+    ${R(150,124,28,10,'#FFF4D6',2,1.1)}${[155,162,169].map(x=>`<ellipse cx="${x}" cy="124" rx="3" ry="3.6" fill="#FFFFFF" ${O(.9)}/>`).join('')}
+    <path d="M186 158 v-30 l4 -6 h6 l4 6 v30z" fill="#6FB36A" ${O(1.2)}/><rect x="189" y="114" width="6" height="8" fill="#6FB36A" ${O(1)}/><rect x="186" y="136" width="14" height="10" fill="#FFFFFF" opacity=".85"/>
+    <path d="M82 116 H212 L201 158 H93 Z" fill="rgba(255,255,255,.16)"/>
+    ${[100,115,130,145,160,175,190].map(x=>`<path d="M${x+2} 118 L${x} 157" stroke="#8F9DB4" stroke-width="1.4"/>`).join('')}<path d="M86 137 H208" stroke="#8F9DB4" stroke-width="1.4"/>
+    <path d="M82 116 H212 L201 158 H93 Z" fill="none" stroke="#7B879D" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="M78 116 H216" stroke="#7B879D" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M76 112 q8 10 18 4 q6 6 12 0" fill="#F7DA5B" ${O(1.1)}/>
+    <path d="M212 116 L228 110" stroke="#7B879D" stroke-width="3.2" stroke-linecap="round"/>${R(224,104,16,8,'#F07AA8',4,1.2)}
+    <path d="M93 158 L90 168 H204" fill="none" stroke="#7B879D" stroke-width="2.8" stroke-linecap="round"/>
+    ${[100,196].map(x=>`<circle cx="${x}" cy="175" r="6" fill="#4E5368" ${O(1.2)}/><circle cx="${x}" cy="175" r="2.2" fill="#B9BFD0"/>`).join('')}
+    ${sheep({who:'ele',pose:'turn',x:268,y:183,s:.8})}
+  `,'Corredor do mercado: a ovelha bebê sentada no carrinho cheio de compras e a outra empurrando', `${T(160,23.5,'MERCADO',11.5,'#FFFFFF')}${T(281,47,'HORTIFRÚTI',7.6,'#FFFFFF')}`),
 
-  banho: () => SCN(['#F0F8FF','#DAEDFB','#C6DFF2'], `
-    ${bubble(56,60,9)}${bubble(84,36,5)}${bubble(262,48,7)}${bubble(240,26,4)}${bubble(290,84,5)}
-    ${sheep({who:'ela',x:118,y:98,s:.8,wet:true,acc:['foam'],mood:'closed',flip:true})}
-    ${sheep({who:'ele',x:214,y:92,s:.88,wet:true,acc:['foam']})}
-    ${shadow(160,172,104)}
-    <path d="M62 120 H258 C258 150 238 166 210 166 H110 C82 166 62 150 62 120Z" fill="url(#ov-tub)"/>
-    ${shine('M78 132 q6 18 26 24')}
-    <rect x="54" y="112" width="212" height="12" rx="6" fill="#FFFFFF"/><rect x="54" y="119" width="212" height="5" rx="2.5" fill="#E2EEF8"/>
-    ${[96,224].map(x=>`<path d="M${x-7} 164 q7 12 14 0z" fill="#F1C35E"/>`).join('')}
-    ${[[66,110,9],[84,107,10],[160,109,8],[176,106,9],[250,108,9],[266,106,10]].map(([a,b,r])=>woolBlob(a,b,r,r*.8,7,'#FFFFFF','#D3E6F5')).join('')}
-    <g transform="translate(276 92)"><ellipse cx="0" cy="8" rx="14" ry="9" fill="#FFD43B"/><circle cx="-7" cy="-3" r="8" fill="#FFD43B"/><path d="M-15 -2 q-6 1 -7 3 q4 2 7 1z" fill="#FF9030"/><circle cx="-9" cy="-5" r="1.6" fill="#33304A"/><path d="M2 4 q8 -2 9 5" stroke="#F2B705" stroke-width="1.8" fill="none"/>${shine('M-10 -9 q2 -2 4 -1')}</g>
-    <g transform="translate(36 160) rotate(-8)"><rect width="30" height="14" rx="6" fill="#FFA9C6"/><rect x="5" y="3" width="17" height="3" rx="1.5" fill="#fff" opacity=".6"/></g>
-  `,'As ovelhas tomando banho de espuma na banheira, com patinho de borracha'),
+  banho: () => SCN('#E8F2FB', `
+    <rect y="70" width="320" height="82" fill="#D3E8F7"/>${Array.from({length:21},(_,i)=>`<path d="M${i*16} 70 V152" stroke="#BDD9EE" stroke-width="1"/>`).join('')}${[86,102,118,134].map(y=>`<path d="M0 ${y} H320" stroke="#BDD9EE" stroke-width="1"/>`).join('')}<path d="M0 70 H320" ${O(1.2)}/>
+    ${R(24,12,52,42,'#FFFFFF',4)}<rect x="29" y="17" width="42" height="32" rx="2" fill="#CFE8FF"/>${cloud(46,34,.45)}<path d="M50 17 V49 M29 33 H71" ${O(1.2)}/>
+    <path d="M246 40 H306" stroke="#B9C2D0" stroke-width="3" stroke-linecap="round"/>
+    <path d="M252 40 h22 v34 q-11 4 -22 0z" fill="#F7A8C4" ${O(1.3)}/><path d="M252 66 h22" stroke="#FFFFFF" stroke-width="2"/>
+    <path d="M280 40 h22 v30 q-11 4 -22 0z" fill="#9DC3F2" ${O(1.3)}/><path d="M280 62 h22" stroke="#FFFFFF" stroke-width="2"/>
+    ${R(16,92,62,5,'#E9D8C4',2)}${R(22,74,9,18,'#F59AB9',3,1.2)}${R(34,78,9,14,'#8FD3B6',3,1.2)}${R(46,72,8,20,'#FFD27A',3,1.2)}<path d="M62 92 q-2 -10 4 -16 M66 92 q3 -8 8 -11" stroke="#5FA84A" stroke-width="2" fill="none" stroke-linecap="round"/>${R(58,84,14,8,'#E9B266',2,1.1)}
+    <rect y="152" width="320" height="48" fill="#C7DDEE"/>${[0,40,80,120,160,200,240,280].map(x=>`<path d="M${x} 152 L${x-14} 200" stroke="#B4CDE2" stroke-width="1"/>`).join('')}<path d="M0 152 H320" ${O(1.2)}/>
+    ${sheep({who:'ela',pose:'turn',x:126,y:132,s:.66,wet:true,acc:['foam'],mood:'closed',flip:true})}
+    ${sheep({who:'ele',pose:'side',x:214,y:140,s:.74,wet:true,acc:['foam']})}
+    <path d="M66 120 H274 C274 152 252 168 222 168 H118 C88 168 66 152 66 120Z" fill="#FFFFFF" ${O()}/><path d="M74 132 C80 154 96 162 120 164 H220 C244 162 262 152 268 134 C254 150 236 156 214 157 H124 C100 156 84 148 74 132Z" fill="#E3EEF8"/>
+    ${R(58,112,224,11,'#FFFFFF',5.5)}
+    ${[100,240].map(x=>`<path d="M${x-7} 166 q7 14 14 0z" fill="#F1C35E" ${O(1.2)}/>`).join('')}
+    ${[[72,110,9],[90,106,10],[108,111,7],[160,110,8],[176,107,9],[256,108,9],[272,110,8]].map(([a,b,r],i)=>wool(a,b,r,r*.8,7,50+i,true)).join('')}
+    <g transform="translate(240 98)"><ellipse cx="0" cy="8" rx="13" ry="8" fill="#FFD43B" ${O(1.2)}/><circle cx="-7" cy="-2" r="7.5" fill="#FFD43B" ${O(1.2)}/><path d="M-14 -1 q-6 1 -7 3 q4 2 7 1z" fill="#FF9030" ${O(1)}/><circle cx="-9" cy="-4" r="1.5" fill="#33304A"/></g>
+    ${bubble(150,62,8)}${bubble(172,42,5)}${bubble(206,58,6)}${bubble(120,40,4)}${bubble(290,96,5)}
+    ${R(118,178,84,12,'#F7A8C4',6)}<path d="M126 184 h68" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <g transform="translate(24 182)"><ellipse cx="0" cy="0" rx="9" ry="5" fill="#F59AB9" ${O(1.1)}/><ellipse cx="18" cy="2" rx="9" ry="5" fill="#F59AB9" ${O(1.1)}/><ellipse cx="270" cy="0" rx="10" ry="5.5" fill="#9DC3F2" ${O(1.1)}/><ellipse cx="290" cy="2" rx="10" ry="5.5" fill="#9DC3F2" ${O(1.1)}/></g>
+  `,'Banheiro: as ovelhas tomando banho de espuma com patinho de borracha, toalhas rosa e azul'),
 
-  farmacia: () => SCN(['#F0FAF5','#D8F1E5','#C3E6D5'], `
-    <g transform="translate(160 40)"><rect x="-19" y="-19" width="38" height="38" rx="10" fill="#4DB386"/><path d="M-5 -12 h10 v7 h7 v10 h-7 v7 h-10 v-7 h-7 v-10 h7z" fill="#fff"/></g>
-    ${shadow(44,170,22)}<g transform="translate(28 120)"><rect y="8" width="32" height="42" rx="7" fill="#FFB27A" opacity=".95"/><rect x="4" y="22" width="24" height="16" rx="2" fill="#fff"/><path d="M10 30 h12" stroke="#4DB386" stroke-width="2.4" stroke-linecap="round"/><rect x="-2" y="0" width="36" height="11" rx="4" fill="#FFFFFF"/>${shine('M5 14 v30')}</g>
-    ${S('ela',106,.76,{acc:['bandaid'],flip:true})}
-    ${S('ele',224,.86,{acc:['thermo'],mood:'o'})}
-    ${shadow(282,170,24)}<g transform="translate(262 138)"><rect width="46" height="34" rx="7" fill="#FFFFFF"/><rect y="0" width="46" height="9" rx="4" fill="#FFE1EA"/><path d="M19 13 h8 v6 h6 v8 h-6 v6 h-8 v-6 h-6 v-8 h6z" fill="#F0709A"/><path d="M16 0 v-5 h14 v5" fill="none" stroke="#C9D3DD" stroke-width="2.4"/></g>
-    <g transform="translate(160 172) rotate(-18)"><rect x="-9" y="-3.5" width="18" height="7" rx="3.5" fill="#FFD98A"/><rect x="0" y="-3.5" width="9" height="7" rx="3.5" fill="#FF9DBB"/></g>
-  `,'Ovelhas na farmácia, uma com curativo e a outra com termômetro'),
+  farmacia: () => SCN('#EAF6EF', `
+    ${R(132,8,28,28,'#4DB386',7)}<path d="M142 13 h8 v6 h6 v8 h-6 v6 h-8 v-6 h-6 v-8 h6z" fill="#FFFFFF"/>
+    ${R(10,44,146,98,'#FFFFFF',3)}${[76,108,140].map(y=>R(10,y,146,5,'#B8DCCB',1.5)+priceTags(10,156,y,30)).join('')}${goods(15,152,76,11,'ph')}${goods(15,152,108,12,'ph')}${goods(15,152,140,13,'ph')}
+    ${R(14,47,52,10,'#8FD3B6',3,1)}
+    ${R(166,44,144,98,'#FFFFFF',3)}${[76,108,140].map(y=>R(166,y,144,5,'#B8DCCB',1.5)).join('')}
+    ${goods(170,232,76,14,'ph')}${goods(170,306,108,15,'ph')}${goods(170,306,140,16,'ph')}
+    <rect x="236" y="48" width="70" height="28" rx="2" fill="#FFF6DA"/>${R(240,40,62,11,'#E7B73C',3,1.2)}
+    ${Array.from({length:5},(_,i)=>`<g transform="translate(${242+i*12.5} 58)">${R(0,0,10,18,'#F1C84B',1.5,1)}<rect x="1.5" y="2" width="7" height="6" rx="1" fill="#FFE38A"/><text x="5" y="14" text-anchor="middle" font-family="DM Mono, monospace" font-size="2.8" font-weight="700" fill="#7A5212">JONTEX</text></g>`).join('')}
+    ${sparkle(238,42,.5,'#FFE38A')}${sparkle(306,64,.55,'#FFE38A')}${sparkle(272,80,.4,'#FFE38A')}
+    <rect y="142" width="320" height="58" fill="#D6ECDF"/>${[150,164,182].map(y=>`<path d="M0 ${y} H320" stroke="#C2E0CF" stroke-width="1"/>`).join('')}<path d="M0 142 H320" ${O(1.2)}/>
+    ${R(8,132,104,50,'#FFFFFF',3)}${R(8,132,104,7,'#4DB386',2)}${R(16,146,40,28,'#F3FAF6',2,1.2)}${R(62,146,42,28,'#F3FAF6',2,1.2)}<circle cx="52" cy="160" r="1.6" fill="${OL}"/><circle cx="66" cy="160" r="1.6" fill="${OL}"/><path d="M33 152 h6 v4 h4 v6 h-4 v4 h-6 v-4 h-4 v-6 h4z" fill="#8FD3B6"/>${R(18,116,26,16,'#C7B2F0',2)}<rect x="22" y="119" width="18" height="6" rx="1" fill="#2E3A52"/>${R(54,122,14,10,'#FFB27A',2,1.1)}<rect x="53" y="118" width="16" height="5" rx="2" fill="#FFFFFF" ${O(1)}/>${R(76,112,24,20,'#F2E3CF',2,1.1)}<path d="M80 118 h16 M80 123 h12" stroke="${OL}" stroke-width=".8"/>
+    ${sheep({who:'ela',pose:'front',x:150,y:186,s:.62,acc:['bandaid']})}
+    ${sheep({who:'ele',pose:'side',x:248,y:188,s:.78,acc:['icepack'],mood:'o'})}
+    <g transform="translate(116 186) rotate(-14)"><rect x="-8" y="-3" width="16" height="6" rx="3" fill="#FFD98A" ${O(1)}/><rect x="0" y="-3" width="8" height="6" rx="3" fill="#FF9DBB" ${O(1)}/></g>
+  `,'Farmácia com prateleiras, balcão e, no fundo, uma seção de camisinhas douradas; a ovelha bebê com curativo e a outra com termômetro', `${T(196,28,'FARMÁCIA',11,'#3E9C73')}${T(40,54.6,'VITAMINAS',6,'#FFFFFF')}${T(271,48.4,'♥ JONTEX ♥',6.6,'#7A5212')}`),
 
-  limpeza: () => SCN(['#F6F2FF','#E8E0FB','#D8CDF3'], `
-    ${sparkle(64,60,1.2)}${sparkle(256,48,.9,'#C9B6F2')}${sparkle(292,108,.8,'#9FC5F8')}
-    ${shadow(74,170,26)}<g transform="translate(52 128)"><path d="M-2 0 h48 l-6 40 a4 4 0 0 1 -4 3 h-28 a4 4 0 0 1 -4 -3z" fill="#8FD3B8"/><path d="M-2 0 h48" stroke="#6FBF9F" stroke-width="4" stroke-linecap="round"/><path d="M2 0 a20 22 0 0 1 40 0" fill="none" stroke="#7D8BA3" stroke-width="2.6"/>${[[6,-3,7],[18,-6,9],[31,-4,8],[40,-1,6]].map(([a,b,r])=>woolBlob(a,b,r,r*.85,7,'#FFFFFF','#DCD3F2')).join('')}${shine('M6 10 l2 22')}</g>
-    ${bubble(110,92,6)}${bubble(122,74,4)}
-    ${S('ela',136,.76,{flip:true})}
-    <g><path d="M210 62 L194 150" stroke="#C99A62" stroke-width="5" stroke-linecap="round"/><path d="M182 146 h26 l6 24 h-38z" fill="#FFD27A"/>${[186,192,198,204,210].map(x=>`<path d="M${x} 150 l-1 18" stroke="#EDB54A" stroke-width="1.6"/>`).join('')}<rect x="183" y="143" width="26" height="6" rx="3" fill="#F2A541"/></g>
-    ${S('ele',256,.84,{mood:'closed'})}
-  `,'Ovelhas limpando a casa com balde de espuma, vassoura e borrifador'),
+  limpeza: () => SCN('#F1ECFB', `
+    <path d="M8 30 Q100 44 200 26" fill="none" stroke="#B9AFCF" stroke-width="1.4"/>
+    <g transform="translate(40 34)"><path d="M0 0 h10 v14 h6 v6 h-12 a4 4 0 0 1 -4 -4z" fill="#F7A8C4" ${O(1.2)}/></g>
+    <g transform="translate(76 37)"><path d="M0 0 h24 l6 8 l-5 4 v18 h-16 v-18 l-5 -4z" fill="#9DC3F2" ${O(1.2)}/></g>
+    <g transform="translate(124 37)"><path d="M0 0 h18 v20 a9 9 0 0 1 -18 0z" fill="#FFFFFF" ${O(1.2)}/>${heart(9,12,.55,'#F59AB9')}</g>
+    ${[46,88,133,168].map(x=>`<rect x="${x}" y="${x<100?34:36}" width="3" height="6" fill="#E9B266" ${O(.8)}/>`).join('')}
+    ${R(238,18,64,62,'#FFFFFF',3)}<rect x="243" y="23" width="54" height="52" fill="#DCEFFF"/>${cloud(262,44,.4)}<path d="M270 23 V75 M243 49 H297" ${O(1.2)}/>
+    <path d="M232 14 q8 30 2 68 h12 q4 -40 -2 -68z M308 14 q-8 30 -2 68 h-12 q-4 -40 2 -68z" fill="#F7A8C4" ${O(1.2)}/><path d="M228 14 H312" stroke="${OL}" stroke-width="2.4" stroke-linecap="round"/>
+    <rect y="148" width="320" height="52" fill="#E8D7C3"/>${[156,170,188].map(y=>`<path d="M0 ${y} H320" stroke="#D6C1A8" stroke-width="1.2"/>`).join('')}${[40,110,190,260].map((x,i)=>`<path d="M${x+(i%2)*20} 148 v8 M${x+30} 156 v14 M${x+6} 170 v18" stroke="#D6C1A8" stroke-width="1.2"/>`).join('')}<path d="M0 148 H320" ${O(1.2)}/>
+    ${R(14,72,64,5,'#D9C6EE',2)}${R(18,54,12,18,'#8FD3B6',3,1.1)}${R(34,58,12,14,'#C7B2F0',3,1.1)}${R(50,50,14,22,'#FFD27A',3,1.1)}
+    ${R(14,92,66,82,'#FFFFFF',6)}${R(14,92,66,14,'#EEF0F7',4,1.2)}<circle cx="26" cy="99" r="3" fill="#F59AB9" ${O(1)}/><circle cx="38" cy="99" r="3" fill="#9DC3F2" ${O(1)}/>
+    <circle cx="47" cy="140" r="21" fill="#E1E6F0" ${O(1.4)}/><circle cx="47" cy="140" r="15" fill="#BFE3F7" ${O(1.2)}/>${bubble(42,136,4)}${bubble(52,144,3)}${bubble(46,147,2)}
+    <g><path d="M222 66 L206 182" stroke="#C99A62" stroke-width="5" stroke-linecap="round"/><path d="M222 66 L206 182" ${O(1)}/><path d="M192 176 h26 l6 12 h-38z" fill="#FFD27A" ${O(1.2)}/>${[196,202,208,214].map(x=>`<path d="M${x} 178 l-1 9" stroke="#E0A94A" stroke-width="1.3"/>`).join('')}</g>
+    ${sheep({who:'ela',pose:'sit',x:136,y:170,s:.58,mood:'closed'})}
+    <path d="M100 144 H172 L166 182 H106Z" fill="#E7C08F" ${O(1.4)}/>${[152,160,168,176].map(y=>`<path d="M${102+(y-144)*.16} ${y} H${170-(y-144)*.16}" stroke="#C99A62" stroke-width="1.1"/>`).join('')}
+    <path d="M104 146 q10 -10 22 -2 q10 -8 20 0" fill="#9DC3F2" ${O(1.1)}/><path d="M150 146 q8 -8 18 -2" fill="#F7A8C4" ${O(1.1)}/>
+    ${sheep({who:'ele',pose:'turn',x:262,y:186,s:.78})}
+    <g transform="translate(286 152)"><path d="M0 0 h28 l-4 32 h-20z" fill="#8FD3B6" ${O(1.3)}/>${[[4,-2,6],[13,-5,7],[22,-2,6]].map(([a,b,r],i)=>wool(a,b,r,r*.85,6,70+i,true)).join('')}</g>
+    ${sparkle(178,110,1)}${sparkle(98,88,.7,'#C7B2F0')}${bubble(188,92,4)}${bubble(198,76,3)}
+  `,'Lavanderia: a ovelha bebê sentada no cesto de roupas e a outra ao lado da vassoura e do balde'),
 
-  faculdade: () => SCN(['#FFF9EC','#FFEDC9','#F4DDAE'], `
-    ${sparkle(250,46,1)}${sparkle(70,48,.8,'#FFB8CF')}
-    ${shadow(56,170,36)}<g>${[['#F7A8C4','#EE7AA6',0],['#A9C8F5','#7EA8E6',13],['#9ED9BE','#6FC29E',26]].map(([c,c2,yy],i)=>`<rect x="${24+(i%2)*6}" y="${156-yy}" width="64" height="13" rx="3" fill="${c}"/><rect x="${24+(i%2)*6}" y="${156-yy}" width="8" height="13" rx="2" fill="${c2}"/><rect x="${38+(i%2)*6}" y="${161-yy}" width="30" height="2.4" rx="1.2" fill="#fff" opacity=".7"/>`).join('')}</g>
-    ${S('ela',150,.76,{flip:true})}
-    ${S('ele',258,.84)}
-    ${shadow(104,170,12)}<g transform="translate(94 132)"><path d="M0 8 h24 l-3 30 h-18z" fill="#C9B6F2"/>${[['#FFD27A',4,-14],['#F7A8C4',11,-18],['#A9C8F5',18,-12]].map(([c,xx,yy])=>`<rect x="${xx-2.2}" y="${yy}" width="4.4" height="26" rx="1.5" fill="${c}"/><path d="M${xx-2.2} ${yy} l2.2 -5 l2.2 5z" fill="#F7D9B5"/>`).join('')}<path d="M0 8 h24" stroke="#A890E2" stroke-width="3" stroke-linecap="round"/></g>
-  `,'Ovelhas estudando com pilha de livros e lápis'),
+  pesquisa: () => SCN('#252E4C', `
+    <rect width="320" height="200" fill="#283253"/>
+    <path d="M0 9 H320 M0 15 H320" stroke="#5E6A92" stroke-width="4"/><path d="M0 9 H320 M0 15 H320" ${O(1)}/>${[60,210].map(x=>`<circle cx="${x}" cy="12" r="5" fill="#C9574F" ${O(1.1)}/>`).join('')}
+    <path d="M150 18 V30" stroke="${OL}" stroke-width="1.2"/><path d="M140 30 h20 l6 8 h-32z" fill="#7C87AB" ${O(1.2)}/><path d="M134 38 L112 126 H188 L166 38Z" fill="#FFF3C2" opacity=".07"/>
+    ${R(10,24,118,56,'#2F4A42',3,1.6)}<rect x="10" y="24" width="118" height="56" rx="3" fill="none" stroke="#B8875A" stroke-width="3"/>
 
-  tecnologia: () => SCN(['#F0F3FF','#DEE5FB','#CAD5F2'], `
-    ${sparkle(58,44,.9,'#9FC5F8')}${sparkle(274,52,1)}
-    ${S('ela',74,.76,{flip:true})}
-    ${shadow(166,170,48)}<g transform="translate(124 116)"><path d="M6 0 h72 a5 5 0 0 1 5 5 v46 h-82 v-46 a5 5 0 0 1 5 -5z" fill="#46506E"/><rect x="5" y="5" width="74" height="42" rx="3" fill="#25304D"/>
-      ${[[12,'#9ED9BE',30],[12,'#A9C8F5',44],[20,'#F7A8C4',22],[12,'#FFD98A',36]].map(([xx,c,w],i)=>`<rect x="${xx}" y="${12+i*8}" width="${w}" height="4" rx="2" fill="${c}"/>`).join('')}
-      <path d="M-10 51 h104 a3 3 0 0 1 -3 4 l-4 4 h-90 l-4 -4 a3 3 0 0 1 -3 -4z" fill="#A6B0C8"/></g>
-    ${S('ele',254,.84)}
-    ${shadow(26,170,10)}<g transform="translate(18 142)"><rect width="16" height="28" rx="4" fill="#33304A"/><rect x="2" y="3" width="12" height="20" rx="2" fill="#7EA8E6"/></g>
-  `,'Ovelhas com notebook e celular'),
+    ${R(134,26,62,40,'#F5F0E6',2)}
+    ${(()=>{let o='';const rows=[[0,17],[0,1,12,13,14,15,16,17],[0,1,12,13,14,15,16,17],[...Array(18).keys()],[...Array(18).keys()]];rows.forEach((r,ri)=>r.forEach(ci=>{const c=ci<2?'#F59AB9':ci>11?'#9DC3F2':'#FFD27A';o+=`<rect x="${137+ci*3.15}" y="${36+ri*5.2}" width="2.7" height="4.4" fill="${ci===17?'#C7B2F0':c}"/>`}));return o;})()}
+    <path d="M214 26 l14 24 h-28z" fill="#FFD449" ${O(1.3)}/><path d="M215 32 l-5 9 h4 l-2 6 l6 -9 h-4z" fill="#33304A"/>
+    ${trefoil(304,30,.7)}
+    <circle cx="281" cy="62" r="34" fill="url(#ov-glow-v)"/>
+    ${bolt('262,60 246,52 238,58 222,46 214,50')}${bolt('296,56 306,40 300,34 312,22')}${bolt('281,54 278,40 285,32 280,24')}
+    <circle cx="210" cy="50" r="6" fill="#C5CDE2" ${O(1.2)}/><path d="M210 56 V96" stroke="#7C87AB" stroke-width="2.4"/>
+    ${R(264,158,36,28,'#6F7AA5',4)}${R(270,74,22,84,'#C77B4A',4,1.4)}${Array.from({length:26},(_,i)=>`<path d="M270 ${78+i*3.1} h22" stroke="#9E5A31" stroke-width=".9"/>`).join('')}
+    <ellipse cx="281" cy="66" rx="23" ry="8.5" fill="#D4DAEA" ${O(1.4)}/><path d="M264 63 q10 -5 24 -3" stroke="#FFFFFF" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    ${R(0,126,204,9,'#E9EEF6',2)}${R(4,135,196,52,'#AFC0DA',2)}${[52,100,148].map(x=>`<path d="M${x} 135 V187" ${O(1.2)}/><rect x="${x-10}" y="158" width="6" height="2.4" rx="1.2" fill="#6F7AA5"/>`).join('')}
+    <circle cx="28" cy="112" r="16" fill="url(#ov-glow-g)"/><path d="M24 96 h8 M25 96 v10 l-9 16 a3 3 0 0 0 3 4 h18 a3 3 0 0 0 3 -4 l-9 -16 v-10" fill="#FFFFFF" fill-opacity=".55" ${O(1.2)}/><path d="M17 118 h22 l3 5 a3 3 0 0 1 -3 3 h-22 a3 3 0 0 1 -3 -3z" fill="#5BE39A"/>${bubble(28,104,2)}${bubble(30,92,2.4)}${bubble(26,82,1.8)}
+    <path d="M62 126 V100 M54 100 h16" stroke="#7C87AB" stroke-width="2"/><circle cx="62" cy="94" r="9" fill="#FFFFFF" fill-opacity=".6" ${O(1.2)}/><path d="M53.5 96 a9 9 0 0 0 17 0z" fill="#F07AA8"/><path d="M60 85 v-6 h4 v6" fill="none" ${O(1)}/>
+    <path d="M58 126 v-6 h8 v6" fill="#7C87AB" ${O(1)}/><path d="M62 119 c3 -3 3 -6 0 -9 c-3 3 -3 6 0 9z" fill="#6FA8FF"/>
+    ${R(76,112,30,6,'#C99A62',1.5,1.1)}${['#F59AB9','#FFD27A','#8FD3B6','#9DC3F2'].map((c,i)=>`<rect x="${79+i*7}" y="100" width="4.6" height="24" rx="2.3" fill="#FFFFFF" fill-opacity=".6" ${O(1)}/><rect x="${79+i*7}" y="${110+i}" width="4.6" height="${14-i}" rx="2.3" fill="${c}"/>`).join('')}
+    ${R(110,98,36,28,'#3E4770',3)}<rect x="114" y="102" width="22" height="16" rx="1.5" fill="#12233A"/><path d="M116 110 q2.5 -6 5 0 t5 0 t5 0 t4 0" stroke="#7DF0B4" stroke-width="1.2" fill="none"/>${[140,140].map((x,i)=>`<circle cx="${x}" cy="${106+i*8}" r="2.2" fill="${i?'#F59AB9':'#FFD27A'}"/>`).join('')}
+    ${R(152,114,18,12,'#5A6386',2)}<rect x="168" y="117" width="4" height="6" fill="#33304A"/>
+    <path d="M172 120 H188" stroke="#FF4F7E" stroke-width="2.2"/><path d="M188 110 L196 126 H180Z" fill="#E6F6FF" fill-opacity=".8" ${O(1.1)}/>
+    ${['#FF5C5C','#FFA53D','#FFE14D','#5BE39A','#5BB8FF','#B07CFF'].map((c,i)=>`<path d="M193 119 L240 ${104+i*5}" stroke="${c}" stroke-width="1.6" opacity=".9"/>`).join('')}
+    <g transform="translate(230 112)"><circle r="3" fill="#FFE14D"/>${[0,60,-60].map(a=>`<ellipse rx="13" ry="4.6" fill="none" stroke="#9FD0FF" stroke-width="1.2" transform="rotate(${a})"/>`).join('')}</g>
+    <rect y="187" width="320" height="13" fill="#1E2540"/>
+    ${sheep({who:'ela',pose:'front',x:92,y:196,s:.64,acc:['coat']})}
+    ${sheep({who:'ele',pose:'front',x:226,y:196,s:.72,mood:'o'})}
+    ${bolt('214,140 218,132 214,128 220,120',"#FFE14D")}${bolt('238,140 234,132 240,128 236,120',"#FFE14D")}
+  `,'Laboratório de pesquisa com bobina de Tesla soltando raios, equações de Maxwell na lousa, laser num prisma, frascos borbulhando; a ovelha bebê de jaleco e a outra eletrizada', `    <g fill="#F2F0E6" font-family="Caveat, cursive" font-size="10.5" font-weight="600">
+      <text x="18" y="37">∇·E = ρ/ε₀</text><text x="74" y="37">∇·B = 0</text>
+      <text x="18" y="50">∇×E = −∂B/∂t</text><text x="80" y="50" font-size="9" fill="#FFD27A">E = mc²</text>
+      <text x="18" y="63">∇×B = μ₀J + μ₀ε₀ ∂E/∂t</text>
+      <text x="18" y="76" font-size="9.5" fill="#BFE6FF">iħ ∂ψ/∂t = Ĥψ</text></g>${T(165,33,'TABELA PERIÓDICA',4.2,'#33304A')}${T(214,58,'ALTA TENSÃO',4.6,'#FFD449')}`),
 
-  presentes: () => SCN(['#FFF3F7','#FFE0EB','#F7C9DA'], `
-    ${heart(70,52,1.4)}${heart(266,62,1.1,'#C9A7F2')}${sparkle(236,32,.9)}${sparkle(96,84,.7,'#FFB8CF')}
-    <path d="M200 58 C196 80 204 96 198 120" stroke="#C9B3C3" stroke-width="1.4" fill="none"/>
-    <g class="float"><path d="M200 60 C172 40 182 14 200 26 C218 14 228 40 200 60Z" fill="#FF6F95"/>${shine('M188 30 q3 -5 8 -4')}</g>
-    ${shadow(64,170,30)}${box(36,126,56,44,'#F7A8C4','#F28FB5','#FFD98A')}${box(94,146,30,24,'#C9B6F2','#B9A2EC','#FFFFFF')}
-    ${S('ela',146,.76,{mood:'closed',flip:true})}
-    ${S('ele',256,.84)}
-    ${shadow(278,170,22)}${box(258,136,40,34,'#9ED9BE','#8ACFB0','#F7A8C4')}
-  `,'Ovelhas com caixas de presente e um balão de coração'),
+  presentes: () => SCN('#FFEFF5', `
+    <path d="M0 14 Q160 44 320 14" fill="none" stroke="${OL}" stroke-width="1.2"/>
+    ${Array.from({length:13},(_,i)=>{const x=6+i*24.5, y=14+30*Math.sin(Math.PI*x/320)*.95; return `<path d="M${x} ${y} l9 ${0} l-4.5 13z" fill="${COL[i%6]}" ${O(1)}/>`;}).join('')}
+    <rect y="150" width="320" height="50" fill="#F2D7C9"/>${[160,176].map(y=>`<path d="M0 ${y} H320" stroke="#E5C2B0" stroke-width="1.2"/>`).join('')}<path d="M0 150 H320" ${O(1.2)}/>
+    ${R(36,118,140,8,'#F7A8C4',3)}<path d="M40 126 v40 M172 126 v40" stroke="#C99A62" stroke-width="4" stroke-linecap="round"/><path d="M36 126 q70 14 140 0" fill="#F7A8C4" ${O(1.2)}/>
+    ${R(62,96,40,22,'#FFFFFF',4)}${R(68,80,28,16,'#F59AB9',4)}<path d="M62 102 q20 6 40 0" stroke="#F59AB9" stroke-width="2" fill="none"/><rect x="80.5" y="70" width="3" height="10" fill="#FFFFFF" ${O(.9)}/>${flame(82,70,.6)}
+    ${(()=>{const b=(x,y,w,h,c,rb)=>R(x,y,w,h,c,2)+`<rect x="${x+w/2-2.5}" y="${y}" width="5" height="${h}" fill="${rb}"/><path d="M${x+w/2} ${y} c-6 -8 -13 -4 -7 1z M${x+w/2} ${y} c6 -8 13 -4 7 1z" fill="${rb}" ${O(1)}/>`;
+      return b(118,92,30,26,'#9DC3F2','#FFD27A')+b(148,100,22,18,'#C7B2F0','#FFFFFF')+b(12,154,36,30,'#8FD3B6','#F59AB9')+b(50,166,22,18,'#FFD27A','#9DC3F2');})()}
+    ${[[262,48,'#FF7FA3',true],[288,36,'#C7B2F0'],[300,64,'#8FD3B6'],[274,72,'#FFD27A']].map(([x,y,c,h])=>`<path d="M${x} ${y+14} Q${x+4} ${y+60} 292 168" fill="none" stroke="#B9A9B6" stroke-width="1"/>${h?heart(x,y+4,1.6,c):`<ellipse cx="${x}" cy="${y}" rx="10" ry="12" fill="${c}" ${O(1.2)}/><path d="M${x-4} ${y-6} q2 -3 5 -3" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M${x-2} ${y+12} h4 l-2 3z" fill="${c}" ${O(.8)}/>`}`).join('')}
+    ${R(282,166,20,18,'#F59AB9',2)}
+    ${sheep({who:'ela',pose:'sit',x:196,y:184,s:.64,mood:'closed'})}
+    ${sheep({who:'ele',pose:'turn',x:262,y:188,s:.76})}
+    ${Array.from({length:14},(_,i)=>`<rect x="${(i*53)%300+10}" y="${(i*37)%60+40}" width="3" height="3" fill="${COL[i%6]}" transform="rotate(${i*30} ${(i*53)%300+11} ${(i*37)%60+41})"/>`).join('')}
+  `,'Festa com bandeirinhas, bolo, presentes e balões; a ovelha bebê sentada entre os presentes'),
 
-  shabat: () => SCN(['#F4F1FF','#E4DDFB','#D5CBF2'], `
-    <path d="M262 26 a16 16 0 1 0 14 24 a12 12 0 1 1 -14 -24z" fill="#FFE59A"/>
-    ${[[40,36],[92,22],[214,30],[300,70],[140,40]].map(([x,y],i)=>sparkle(x,y,.55+(i%2)*.2)).join('')}
-    ${sheep({who:'ela',x:93,y:118,s:.72,acc:['match'],mood:'closed',flip:true})}
-    ${sheep({who:'ele',x:268,y:126,s:.82,acc:['kippah']})}
-    <rect x="12" y="140" width="296" height="24" rx="5" fill="#FFFFFF"/><rect x="12" y="140" width="296" height="5" rx="2.5" fill="#EEEAFB"/>
-    <path d="M12 164 ${Array.from({length:12},(_,i)=>`a12.3 7 0 0 0 24.6 0`).join(' ')}" fill="#FFFFFF"/>
-    ${[150,178].map((x,i)=>`<g transform="translate(${x} 8)"><circle cy="${i?84:86}" r="13" fill="url(#ov-glow)"/><path d="M-9 132 q9 -6 18 0z" fill="#E1B54A"/><rect x="-2" y="118" width="4" height="12" fill="#E1B54A"/><path d="M-7 118 h14 l-2 3 h-10z" fill="#E1B54A"/><rect x="-4.5" y="96" width="9" height="22" rx="2" fill="#FFFDF7"/><rect x="-4.5" y="96" width="3" height="22" rx="1.5" fill="#FFFFFF"/><path d="M0 96 v-4" stroke="#5A5168" stroke-width="1.3"/>${i?`<path class="flame" d="M0 77 C5 83 5 88 0 91 C-5 88 -5 83 0 77Z" fill="#FFB429"/><path d="M0 83 C2 85.5 2 87.5 0 89 C-2 87.5 -2 85.5 0 83Z" fill="#FFF3C2"/>`:`<path class="flame" d="M0 84 C3.5 88 3.5 90.5 0 92 C-3.5 90.5 -3.5 88 0 84Z" fill="#FFB429"/>`}</g>`).join('')}
-    <g transform="translate(200 136)">${[0,1,2,3].map(i=>`<ellipse cx="${i*11}" cy="${i%2?-1:0}" rx="9" ry="7" fill="url(#ov-bread)"/><path d="M${i*11-4} -3 q4 3 8 0" stroke="#F4CE8E" stroke-width="1.6" fill="none" stroke-linecap="round"/>`).join('')}</g>
-    <g transform="translate(292 118)"><path d="M-9 0 h18 a9 11 0 0 1 -18 0z" fill="#B23A5B"/><path d="M-9 0 h18" stroke="#E1B54A" stroke-width="2.2"/><rect x="-1.5" y="10" width="3" height="10" fill="#E1B54A"/><path d="M-6 22 q6 -4 12 0z" fill="#E1B54A"/></g>
-  `,'Mesa de Shabat: a ovelha bebê acende as velas e a outra, de kipá, observa'),
+  viagem: () => SCN('#EAF4FC', `
+    ${R(10,16,190,98,'#9FB3CC',4)}<rect x="16" y="22" width="178" height="86" fill="#CFE8FF"/>${cloud(52,48,.6)}${cloud(150,40,.45)}
+    <g transform="translate(120 66) rotate(-18)"><path d="M-26 0 C-16 -5 16 -5 26 0 C16 5 -16 5 -26 0Z" fill="#FFFFFF" ${O(1.1)}/><path d="M-2 -1 L-13 -17 h7 l13 16z M-2 1 L-13 17 h7 l13 -16z" fill="#9DC3F2" ${O(1)}/><path d="M-24 -1 l-5 -9 h5 l7 8z" fill="#F7A8C4" ${O(1)}/>${[4,10,16].map(x=>`<circle cx="${x}" cy="-.5" r="1.3" fill="#9DC3F2"/>`).join('')}</g>
+    <path d="M16 98 H194" stroke="#B9C9DA" stroke-width="3"/><path d="M30 98 h14 M60 98 h14 M90 98 h14 M120 98 h14 M150 98 h14" stroke="#FFFFFF" stroke-width="1.4"/>
+    <path d="M75 22 V108 M135 22 V108" stroke="#9FB3CC" stroke-width="3"/>
+    ${R(212,16,98,66,'#2D3550',3)}
 
-  viagem: () => SCN(['#F0F8FF','#DAEEFB','#C3E1F4'], `
-    ${cloud(70,56,.7,'#FFFFFF',.9)}${cloud(250,72,.55,'#FFFFFF',.9)}
-    <path d="M58 92 C100 70 150 70 196 48" fill="none" stroke="#A9C8F5" stroke-width="2.2" stroke-dasharray="5 6" stroke-linecap="round"/>
-    <g transform="translate(212 42) rotate(-16)"><path d="M-22 0 C-14 -4 14 -4 22 0 C14 4 -14 4 -22 0Z" fill="#FFFFFF"/><path d="M-2 -1 L-12 -15 h6 l12 14z M-2 1 L-12 15 h6 l12 -14z" fill="#9FC5F8"/><path d="M-20 -1 l-4 -8 h4 l6 7z" fill="#F7A8C4"/>${[4,9,14].map(x=>`<circle cx="${x}" cy="-.5" r="1.2" fill="#9FC5F8"/>`).join('')}</g>
-    ${shadow(80,170,28)}<g transform="translate(56 120)"><rect width="50" height="46" rx="8" fill="#F7A8C4"/><rect x="0" y="0" width="50" height="10" rx="5" fill="#F28FB5"/><path d="M17 0 v-8 a3 3 0 0 1 3 -3 h10 a3 3 0 0 1 3 3 v8" fill="none" stroke="#C25B85" stroke-width="3"/><circle cx="14" cy="26" r="7" fill="#FFD98A"/><rect x="28" y="20" width="14" height="10" rx="2" fill="#9FC5F8"/>${[10,40].map(x=>`<circle cx="${x}" cy="49" r="3.5" fill="#4E5368"/>`).join('')}${shine('M6 16 v22')}</g>
-    ${S('ela',148,.76,{flip:true})}
-    ${S('ele',258,.84)}
-    ${shadow(28,170,8)}<g transform="translate(28 140)"><path d="M0 28 C-10 14 -12 8 -12 2 a12 12 0 0 1 24 0 c0 6 -2 12 -12 26z" fill="#F0709A"/><circle cy="2" r="5" fill="#fff"/></g>
-  `,'Ovelhas viajando com mala, avião e marcador de mapa'),
+    <rect y="150" width="320" height="50" fill="#D9E5F0"/>${[0,64,128,192,256].map(x=>`<path d="M${x} 150 L${x-20} 200" stroke="#C6D6E6" stroke-width="1.2"/>`).join('')}<path d="M0 150 H320" ${O(1.2)}/>
+    ${[218,246,274].map(x=>R(x,140,24,14,'#7EA8E6',4)+R(x,124,24,18,'#9DC3F2',4)+`<path d="M${x+4} 154 v10 M${x+20} 154 v10" ${O(1.2)}/>`).join('')}
+    ${R(28,124,48,56,'#F7A8C4',7)}${R(28,124,48,10,'#F28FB5',5,1.2)}<path d="M44 124 v-9 a3 3 0 0 1 3 -3 h10 a3 3 0 0 1 3 3 v9" fill="none" stroke="#C25B85" stroke-width="3"/><path d="M44 124 v-9 a3 3 0 0 1 3 -3 h10 a3 3 0 0 1 3 3 v9" fill="none" ${O(.8)}/>
+    <circle cx="42" cy="148" r="7" fill="#FFD27A" ${O(1)}/><rect x="54" y="142" width="16" height="11" rx="2" fill="#9DC3F2" ${O(1)}/>${heart(62,164,.7)}${[36,68].map(x=>`<circle cx="${x}" cy="183" r="3.5" fill="#4E5368"/>`).join('')}
+    ${sheep({who:'ela',pose:'sit',x:52,y:124,s:.48})}
+    ${R(84,152,26,30,'#8FD3B6',8)}<path d="M88 160 q9 -6 18 0" fill="none" ${O(1.1)}/>${R(90,168,14,8,'#6FC29E',3,1)}
+    ${R(120,170,18,12,'#6B4E9B',2,1.1)}<path d="M124 174 h10" stroke="#FFD27A" stroke-width="1"/>
+    ${sheep({who:'ele',pose:'side',x:180,y:188,s:.8})}
+  `,'Aeroporto: a ovelha bebê sentada na mala, painel de partidas e um avião decolando na janela', `${T(261,27,'PARTIDAS',6.5,'#FFD27A')}    <g font-family="DM Mono, monospace" font-size="5.6" fill="#EAF4FF">${[['TEL AVIV','09:40','#7DF0B4'],['PARIS','11:15','#EAF4FF'],['NOVA YORK','13:20','#EAF4FF'],['TÓQUIO','22:05','#FFD27A']].map(([c,h,s],i)=>`<text x="218" y="${40+i*11}">${c}</text><text x="292" y="${40+i*11}" text-anchor="end" fill="${s}">${h}</text>`).join('')}</g>`),
 
-  outros: () => SCN(['#F7F5FB','#E9E5F4','#DAD4EB'], `
-    ${sparkle(70,44,.8)}${sparkle(262,36,.9,'#C9B6F2')}
-    ${shadow(76,170,36)}${box(46,130,48,40,'#E8C49A','#DDB385')}${box(84,142,30,28,'#EED3B0','#E3C49D')}${box(56,98,34,32,'#EED3B0','#E3C49D')}
-    <text x="73" y="122" text-anchor="middle" font-family="Grandstander, sans-serif" font-size="18" font-weight="800" fill="#9B7FE0">?</text>
-    ${S('ela',152,.76,{flip:true})}
-    ${S('ele',260,.84,{mood:'o'})}
-    <g transform="translate(206 66) rotate(-35)"><circle r="11" fill="rgba(210,232,255,.7)" stroke="#6E6A88" stroke-width="3.5"/><path d="M11 0 h14" stroke="#6E6A88" stroke-width="5" stroke-linecap="round"/>${shine('M-6 -3 q2 -4 6 -4')}</g>
-  `,'Ovelhas investigando caixas misteriosas'),
+  outros: () => SCN('#F1E9DE', `
+    ${Array.from({length:12},(_,i)=>`<path d="M${i*28} 0 V150" stroke="#E2D4C2" stroke-width="1.2"/>`).join('')}
+    <path d="M0 40 L120 0 M200 0 L320 40" stroke="#C99A62" stroke-width="7"/><path d="M0 40 L120 0 M200 0 L320 40" ${O(1.2)}/>
+    <circle cx="160" cy="34" r="18" fill="#2D3570" ${O(1.6)}/><path d="M165 24 a9 9 0 1 0 6 14 a7 7 0 1 1 -6 -14z" fill="#FFE59A"/>${sparkle(152,30,.35,'#FFFFFF')}<path d="M142 34 h36 M160 16 v36" stroke="#C99A62" stroke-width="2"/>
+    ${R(12,58,84,5,'#C99A62',1.5)}${R(12,96,84,5,'#C99A62',1.5)}
+    <circle cx="28" cy="46" r="11" fill="#9DC3F2" ${O(1.2)}/><path d="M20 42 q8 4 16 0 M22 50 q6 -3 12 0" stroke="#8FD3B6" stroke-width="2" fill="none"/><path d="M28 57 v1" ${O(1)}/>
+    ${R(46,40,16,18,'#FFD27A',3,1.2)}<circle cx="54" cy="49" r="5" fill="#FFFFFF" ${O(1)}/><path d="M54 46 v3 l2 1.5" ${O(.9)}/>
+    ${R(68,44,22,14,'#E8C49A',2,1.2)}${R(18,78,30,18,'#EED3B0',2,1.2)}${R(52,82,38,14,'#F7A8C4',2,1.2)}
+    <rect y="150" width="320" height="50" fill="#E3CFB6"/>${[160,176,192].map(y=>`<path d="M0 ${y} H320" stroke="#D2B998" stroke-width="1.2"/>`).join('')}<path d="M0 150 H320" ${O(1.2)}/>
+    ${R(206,122,46,38,'#E8C49A',2)}${R(216,96,34,26,'#EED3B0',2)}${R(250,140,40,30,'#DDB385',2)}${T(233,116,'?',14,'#9B7FE0')}${T(270,162,'?',12,'#9B7FE0')}
+    <path d="M92 150 L98 120 H162 L168 150" fill="#C99A62" ${O(1.3)}/>
+    ${sheep({who:'ela',pose:'sit',x:130,y:150,s:.56})}
+    <path d="M90 150 H170 V184 H90Z" fill="#E8C49A" ${O(1.4)}/><path d="M90 150 L78 140 M170 150 L182 140" ${O(1.4)}/><path d="M118 150 v34 M142 150 v34" stroke="#F2DCC0" stroke-width="4"/>
+    ${T(76,124,'?',16,'#9B7FE0')}${T(186,112,'?',12,'#F59AB9')}
+    ${sheep({who:'ele',pose:'side',x:236,y:192,s:.74,mood:'o'})}
+    <g transform="translate(186 152) rotate(-25)"><circle r="10" fill="rgba(210,232,255,.55)" stroke="#6E6A88" stroke-width="3"/><path d="M10 0 h14" stroke="#6E6A88" stroke-width="4.5" stroke-linecap="round"/></g>
+  `,'Sótão cheio de caixas: a ovelha bebê espiando de dentro de uma caixa e a outra com lupa'),
 };
 
-const SCENE_EXTRA = {
-  laser: () => SCN(['#262B4E','#30376A','#394178'], `
-    <g font-family="DM Mono, monospace" font-size="8.5" fill="#9FB4FF" opacity=".55"><text x="20" y="22">E = hν</text><text x="226" y="22">λ = 1064 nm</text></g>
-    <rect x="22" y="104" width="276" height="10" rx="3" fill="#8D97BC"/><rect x="22" y="104" width="276" height="3" rx="1.5" fill="#B4BCDA"/>
-    ${[40,280].map(x=>`<rect x="${x-4}" y="114" width="8" height="56" fill="#5F6992"/>`).join('')}
-    <rect x="30" y="78" width="134" height="26" rx="12" fill="url(#ov-metal)"/>${[54,120,142].map(x=>`<rect x="${x}" y="78" width="5" height="26" fill="#9AA5C7"/>`).join('')}
-    <rect x="70" y="84" width="40" height="14" rx="3" fill="#FFD449"/>${trefoil(79,91,.38)}<text x="88" y="94" font-family="DM Mono, monospace" font-size="6.5" fill="#33304A">10 PW</text>
-    <rect x="164" y="84" width="10" height="14" rx="2" fill="#55597A"/>
-    <polyline points="174,91 214,91 252,64" fill="none" stroke="#FF4F7E" stroke-width="9" opacity=".25" class="blink"/><polyline points="174,91 214,91 252,64" fill="none" stroke="#FF8AA8" stroke-width="2.6"/>
-    <rect x="211" y="94" width="6" height="10" fill="#7C87AB"/><rect x="207" y="87" width="14" height="5" rx="2" fill="#C8ECFF" transform="rotate(-58 214 89.5)"/>
-    <circle cx="262" cy="58" r="26" fill="url(#ov-metal)"/>${[0,60,120,180,240,300].map(a=>`<rect x="-4" y="-30" width="8" height="7" rx="2" fill="#7C87AB" transform="translate(262 58) rotate(${a})"/>`).join('')}
-    <circle cx="262" cy="58" r="12" fill="url(#ov-glow)"/><circle cx="262" cy="58" r="7" fill="#FFF3C2" class="blink"/>
-    <rect x="252" y="84" width="20" height="20" fill="#5F6992"/>
-    ${trefoil(296,30,.85)}
-    <g transform="translate(24 128)"><rect width="56" height="40" rx="6" fill="#3E4770"/><rect x="5" y="5" width="28" height="17" rx="2" fill="#1C2442"/><path d="M8 14 q3 -7 6 0 t6 0 t6 0" stroke="#9ED9BE" stroke-width="1.5" fill="none"/><circle cx="44" cy="13" r="6" fill="#FF5C86"/>${[7,16,25].map(x=>`<rect x="${x}" y="28" width="6" height="4.5" rx="1.5" fill="#A9C8F5"/>`).join('')}</g>
-    ${S('ela',118,.74,{acc:['coat']})}
-    ${S('ele',214,.84,{mood:'o'})}
-  `,'As duas ovelhas operando um grande laser de física nuclear apontado para uma câmara de fusão'),
-};
-const TYPE_SCENE = {lab:'laser', aula:'faculdade', saude:'farmacia', viagem:'viagem', encontro:'presentes'};
-const sceneFor = k => (SCENES[k] || SCENE_EXTRA[k])();
+/** Shabat: aparece no painel do dia nas sextas e sábados */
+function shabatScene(){
+  return SCN('#EDE6FA', `
+    ${R(232,14,70,72,'#C8B8E8',4)}<rect x="237" y="19" width="60" height="62" fill="#2D3570"/><path d="M262 32 a12 12 0 1 0 10 18 a9 9 0 1 1 -10 -18z" fill="#FFE59A"/>${[[246,28],[286,36],[252,66],[284,70]].map(([x,y])=>sparkle(x,y,.35,'#FFFFFF')).join('')}<path d="M267 19 V81 M237 50 H297" stroke="#C8B8E8" stroke-width="2.4"/>
+    <circle cx="40" cy="40" r="26" fill="url(#ov-glow)"/>${R(34,26,12,10,'#FFE59A',4)}<path d="M40 14 V26" ${O(1)}/>
+    ${sheep({who:'ela',pose:'side',x:93,y:132,s:.66,acc:['match'],mood:'closed',flip:true})}
+    ${sheep({who:'ele',pose:'side',x:270,y:136,s:.74,acc:['kippah']})}
+    <rect x="0" y="156" width="320" height="44" fill="#D9CDEB"/><path d="M0 156 H320" ${O(1.2)}/>
+    <path d="M6 126 H314 V146 ${Array.from({length:14},()=>`a11 6 0 0 1 -22 0`).join(' ')} Z" fill="#FFFFFF" ${O(1.4)}/>${[60,120,180,240].map(x=>`<path d="M${x} 186 h30" stroke="#C8B8E8" stroke-width="1.2"/>`).join('')}<path d="M6 126 H314" ${O(1.4)}/>
+    <g transform="translate(22 92)"><path d="M-8 34 q8 -4 16 0 l-2 -20 h-12z" fill="#9DC3F2" fill-opacity=".7" ${O(1.2)}/>${[[-6,8,'#F59AB9'],[0,2,'#FFD27A'],[6,8,'#C7B2F0']].map(([x,y,c])=>`<path d="M0 16 L${x} ${y}" stroke="#5FA84A" stroke-width="1.4"/><circle cx="${x}" cy="${y}" r="4" fill="${c}" ${O(1)}/>`).join('')}</g>
+    ${[146,174].map(x=>`<g transform="translate(${x} 0)"><path d="M-9 126 q9 -6 18 0z" fill="#E1B54A" ${O(1.1)}/><rect x="-2" y="112" width="4" height="12" fill="#E1B54A" ${O(1)}/><path d="M-7 112 h14 l-2 3 h-10z" fill="#E1B54A" ${O(1)}/><rect x="-4.5" y="90" width="9" height="22" rx="2" fill="#FFFDF7" ${O(1.1)}/><path d="M0 90 v-4" stroke="#5A5168" stroke-width="1.3"/>${flame(0,86,1)}</g>`).join('')}
+    ${R(194,118,52,8,'#B98A61',3)}<g transform="translate(202 112)">${[0,1,2,3].map(i=>`<ellipse cx="${i*11}" cy="${i%2?-1:0}" rx="8.5" ry="6.5" fill="#D9933F" ${O(1.1)}/><path d="M${i*11-4} -2.5 q4 3 8 0" stroke="#F4CE8E" stroke-width="1.5" fill="none" stroke-linecap="round"/>`).join('')}</g>
+    <g transform="translate(298 106)"><path d="M-9 0 h18 a9 11 0 0 1 -18 0z" fill="#B23A5B" ${O(1.2)}/><path d="M-9 0 h18" stroke="#E1B54A" stroke-width="2.2"/><rect x="-1.5" y="10" width="3" height="10" fill="#E1B54A"/><path d="M-6 21 q6 -4 12 0z" fill="#E1B54A" ${O(1)}/></g>
+  `,'Mesa de Shabat: a ovelha bebê acende as velas com um fósforo e a outra, de kipá, observa');
+}
+const TYPE_SCENE = {lab:'pesquisa', saude:'farmacia', viagem:'viagem', encontro:'presentes'};
+const sceneFor = k => SCENES[k]();
 
 /* ---------- cena principal ---------- */
 function heroScene(){
   const n = state.settings;
-  return `<svg class="scene" viewBox="0 0 960 300" role="img" aria-label="As duas ovelhas no pasto, uma de frente para a outra">
-  <rect width="960" height="300" fill="url(#ov-sky)"/>
-  <circle cx="830" cy="72" r="60" fill="url(#ov-glow)"/><circle cx="830" cy="72" r="30" fill="#FFE59A"/>
-  ${cloud(170,70,1.3,'#FFFFFF',.95)}${cloud(410,44,.9,'#FFFFFF',.85)}${cloud(650,92,1.05,'#FFFFFF',.9)}
-  <path d="M0 214 C140 176 300 196 440 186 C600 174 760 204 960 178 V300 H0Z" fill="#CFEACB"/>
-  <path d="M0 246 C180 214 320 236 500 226 C680 216 800 240 960 222 V300 H0Z" fill="#B7DFB2"/>
-  <path d="M0 272 C220 254 420 266 600 262 C760 258 860 270 960 262 V300 H0Z" fill="#A3D59E"/>
-  <g transform="translate(96 150)"><rect x="-5" y="20" width="10" height="56" rx="4" fill="#B98A61"/><path d="${cloudPath(0,0,42,36,10,.6)}" fill="#9FD39B"/><path d="${cloudPath(-6,-6,30,24,8,.6)}" fill="#B7E2B0"/></g>
-  <g transform="translate(840 214)" stroke="#E9D6BE" stroke-width="5" stroke-linecap="round">${[0,26,52,78].map(x=>`<path d="M${x} 0 v34"/>`).join('')}<path d="M-8 10 h94 M-8 24 h94"/></g>
-  ${[[60,262,'#FFB8CF'],[160,276,'#FFD98A'],[250,258,'#FFFFFF'],[360,282,'#FFB8CF'],[630,280,'#FFD98A'],[720,262,'#FFFFFF'],[900,282,'#FFB8CF']].map(([x,y,c])=>`<g transform="translate(${x} ${y})">${[0,72,144,216,288].map(a=>`<ellipse cx="0" cy="-4" rx="2.6" ry="4" fill="${c}" transform="rotate(${a})"/>`).join('')}<circle r="2.2" fill="#F2B33D"/></g>`).join('')}
-  <g class="sheep-hit" data-who="ela" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEla)}: toque para ouvir">${sheep({who:'ela',x:404,y:252-BABY*1.3,s:1.3,flip:true})}</g>
-  <g class="sheep-hit" data-who="ele" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEle)}: toque para ouvir">${sheep({who:'ele',x:590,y:248-ADULT*1.38,s:1.38})}</g>
-  <g class="float">${heart(492,104,1.9)}${heart(516,80,1.15,'#FFB8CF')}</g>
-  ${sparkle(372,118,1)}${sparkle(632,104,.9,'#FFFFFF')}
-  </svg>
+  return `<svg class="scene" viewBox="0 0 960 300" role="img" aria-label="As duas ovelhas num piquenique no pasto">
+  <rect width="960" height="300" fill="#DCEFFF"/><rect y="120" width="960" height="180" fill="#E9F6FF"/>
+  <g filter="url(#ov-rough)">
+  <circle cx="830" cy="70" r="56" fill="url(#ov-glow)"/><circle cx="830" cy="70" r="28" fill="#FFE59A" ${O(1.6)}/>
+  ${cloud(170,66,1.4)}${cloud(420,40,.95)}${cloud(660,88,1.1)}
+  <path d="M0 214 C140 176 300 196 440 186 C600 174 760 204 960 178 V300 H0Z" fill="#CFEACB" ${O(1.6)}/>
+  <path d="M0 246 C180 214 320 236 500 226 C680 216 800 240 960 222 V300 H0Z" fill="#B7DFB2" ${O(1.6)}/>
+  <g transform="translate(96 150)"><path d="M-6 20 h12 v64 h-12z" fill="#B98A61" ${O(1.6)}/><path d="${cloudPath(0,0,44,38,10,.6)}" fill="#9FD39B" ${O(1.6)}/><path d="${cloudPath(-8,-8,26,20,8,.6)}" fill="#B7E2B0"/>${[[-14,4],[12,-14],[20,10]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="4" fill="#F5655F" ${O(1.1)}/>`).join('')}</g>
+  <g transform="translate(840 214)" stroke="#E9D6BE" stroke-width="6" stroke-linecap="round">${[0,26,52,78].map(x=>`<path d="M${x} 0 v34"/>`).join('')}<path d="M-8 10 h94 M-8 24 h94"/></g>
+  <path d="M360 262 L640 262 L680 290 L320 290Z" fill="#F7A8C4" ${O(1.6)}/>${[0,1,2,3,4,5,6].map(i=>`<path d="M${360+i*40} 262 L${330+i*50} 290" stroke="#FFFFFF" stroke-width="5" opacity=".6"/>`).join('')}
+  <g transform="translate(650 248)"><path d="M0 0 h44 l-5 28 h-34z" fill="#E7C08F" ${O(1.6)}/><path d="M4 0 a18 18 0 0 1 36 0" fill="none" stroke="${OL}" stroke-width="2"/>${[8,16].map(y=>`<path d="M2 ${y} h40" stroke="#C99A62" stroke-width="1.4"/>`).join('')}<circle cx="14" cy="-2" r="6" fill="#F5655F" ${O(1.1)}/></g>
+  ${[[60,262,'#FFB8CF'],[160,276,'#FFD98A'],[250,258,'#FFFFFF'],[740,276,'#FFB8CF'],[900,282,'#FFD98A']].map(([x,y,c])=>`<g transform="translate(${x} ${y})">${[0,72,144,216,288].map(a=>`<ellipse cx="0" cy="-4" rx="2.6" ry="4" fill="${c}" transform="rotate(${a})" ${O(.8)}/>`).join('')}<circle r="2.2" fill="#F2B33D"/></g>`).join('')}
+  <g transform="translate(300 120)"><path d="M0 0 q-8 -10 -2 -14 q6 2 2 14z M0 0 q8 -10 2 -14 q-6 2 -2 14z" fill="#C7B2F0" ${O(1)}/></g>
+  <g class="sheep-hit" data-who="ela" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEla)}: toque para ouvir">${sheep({who:'ela',pose:'sit',x:450,y:276,s:1.25})}</g>
+  <g class="sheep-hit" data-who="ele" tabindex="0" role="button" aria-label="Ovelha ${esc(n.nameEle)}: toque para ouvir">${sheep({who:'ele',pose:'turn',x:580,y:278,s:1.3})}</g>
+  <g class="float">${heart(512,96,1.9)}${heart(536,72,1.15,'#FFB8CF')}</g>
+  ${sparkle(388,118,1)}${sparkle(640,110,.9,'#FFFFFF')}
+  </g></svg>
   <div class="hint">Toque nas ovelhas</div>`;
 }
 
 function wishScene(){
-  return `<svg viewBox="0 0 900 230" role="img" aria-label="A ovelha bebê sonhando com presentes em cima de uma nuvem">
-    <rect width="900" height="230" fill="url(#ov-dream)"/>
+  return `<svg viewBox="0 0 900 230" role="img" aria-label="A ovelha bebê deitada numa nuvem, sonhando com presentes">
+    <rect width="900" height="230" fill="#FBE4EF"/><rect x="450" width="450" height="230" fill="#ECE3FB" opacity=".7"/>
+    <g filter="url(#ov-rough)">
     ${[[60,40],[150,96],[700,26],[860,64],[540,30],[860,190]].map(([x,y],i)=>sparkle(x,y,.7+(i%3)*.2,i%2?'#FFD98A':'#FFFFFF')).join('')}
-    <path d="${cloudPath(460,196,120,34,12,.6)}" fill="#FFFFFF"/>
-    ${sheep({who:'ela',x:452,y:188-BABY*1.05,s:1.05,mood:'closed',flip:true})}
-    ${[[540,96,7],[566,76,10],[598,58,13]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#FFFFFF"/>`).join('')}
-    <path d="${cloudPath(712,96,120,62,12,.6)}" fill="#FFFFFF"/>
-    ${box(640,92,42,36,'#F7A8C4','#F28FB5','#FFD98A')}
-    <g transform="translate(696 76)">${[['#A9C8F5',0],['#C9B6F2',10],['#9ED9BE',20]].map(([c,yy])=>`<rect x="0" y="${yy}" width="44" height="10" rx="2.5" fill="${c}"/>`).join('')}<rect x="6" y="2.6" width="16" height="2.4" fill="#fff" opacity=".7"/></g>
-    <g transform="translate(762 70)"><path d="M10 0 h10 M12 0 v14 l-9 18 a4 4 0 0 0 3.5 6 h17 a4 4 0 0 0 3.5 -6 l-9 -18 v-14" fill="#FFFFFF" stroke="#C9B6F2" stroke-width="2.2"/><path d="M4 28 h22 l3 6 a3 3 0 0 1 -3 4 h-22 a3 3 0 0 1 -3 -4z" fill="#FFA9C6"/></g>
-    ${heart(706,136,1.5)}${heart(752,130,1,'#C9A7F2')}
-  </svg>`;
+    <path d="${cloudPath(450,196,130,36,12,.6)}" fill="#FFFFFF" ${O(1.6)}/>
+    ${sheep({who:'ela',pose:'lie',x:440,y:182,s:1.2,mood:'closed',flip:true})}
+    ${[[548,104,7],[574,84,10],[606,64,13]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#FFFFFF" ${O(1.4)}/>`).join('')}
+    <path d="${cloudPath(720,100,120,62,12,.6)}" fill="#FFFFFF" ${O(1.6)}/>
+    ${R(648,94,42,36,'#F7A8C4',4)}<rect x="666" y="94" width="6" height="36" fill="#FFD27A"/><path d="M669 94 c-8 -11 -17 -5 -9 1z M669 94 c8 -11 17 -5 9 1z" fill="#FFD27A" ${O(1.1)}/>
+    <g transform="translate(704 78)">${[['#A9C8F5',0],['#C9B6F2',10],['#9ED9BE',20]].map(([c,yy])=>R(0,yy,44,10,c,2.5,1.3)).join('')}</g>
+    <g transform="translate(770 72)"><path d="M10 0 h10 M12 0 v14 l-9 18 a4 4 0 0 0 3.5 6 h17 a4 4 0 0 0 3.5 -6 l-9 -18 v-14" fill="#FFFFFF" ${O(1.6)}/><path d="M4 28 h22 l3 6 a3 3 0 0 1 -3 4 h-22 a3 3 0 0 1 -3 -4z" fill="#FFA9C6"/></g>
+    ${heart(714,140,1.5)}${heart(760,134,1,'#C9A7F2')}
+    </g></svg>`;
 }
 
 /* quando o compromisso é de trabalho, a ovelha bebê aparece de jaleco */
 const WORKING = ['lab','trabalho'];
 const miniSheep = (who, type=null) => { const acc = WORKING.includes(type) ? ['coat'] : [];
-  return `<svg class="mini-sheep" viewBox="-70 -54 140 106" aria-hidden="true">${who==='juntos'
-  ? sheep({x:22,y:-2,s:.62,who:'ele',cls:''})+sheep({x:-26,y:6,s:.6,who:'ela',acc,flip:true,cls:''})
-  : sheep({who,s:who==='ela'?.98:.9,y:who==='ela'?-2:-4,acc:who==='ela'?acc:[],flip:who==='ela',cls:''})}</svg>`; };
+  return `<svg class="mini-sheep" viewBox="-62 -92 124 98" aria-hidden="true">${who==='juntos'
+  ? sheep({x:22,y:2,s:.66,who:'ele',pose:'turn',cls:''})+sheep({x:-28,y:2,s:.66,who:'ela',pose:'turn',acc,flip:true,cls:''})
+  : sheep({who,pose:acc.length&&who==='ela'?'front':'turn',s:who==='ela'?1.08:.94,y:2,acc:who==='ela'?acc:[],flip:who==='ela',cls:''})}</svg>`; };
 
 
 const CATS = [
-  {k:'mercado',n:'Mercado'},{k:'banho',n:'Banho & cuidados'},
-  {k:'farmacia',n:'Farmácia'},{k:'limpeza',n:'Casa & limpeza'},{k:'faculdade',n:'Faculdade & papelaria'},{k:'tecnologia',n:'Tecnologia'},
-  {k:'presentes',n:'Presentes & mimos'},{k:'shabat',n:'Shabat & festas'},{k:'viagem',n:'Viagem & passeios'},{k:'outros',n:'Outros'},
+  {k:'mercado',n:'Mercado'},{k:'banho',n:'Banho & cuidados'},{k:'farmacia',n:'Farmácia'},{k:'limpeza',n:'Casa & limpeza'},
+  {k:'pesquisa',n:'Pesquisa & laboratório'},{k:'presentes',n:'Presentes & mimos'},{k:'viagem',n:'Viagem & passeios'},{k:'outros',n:'Outros'},
 ];
 
 /* =========================================================
@@ -868,7 +998,7 @@ const nameOf = w => w==='ela' ? state.settings.nameEla : w==='ele' ? state.setti
 const $ = s => document.querySelector(s);
 function renderHero(){
   $('#hero').innerHTML = heroScene();
-  $('#brandSheep').innerHTML = sheep({who:'ela',flip:true,cls:''});
+  $('#brandSheep').innerHTML = sheep({who:'ela',pose:'turn',flip:true,y:2,s:1.08,cls:''});
   $('#subtitle').textContent = `Calendário compartilhado de ${state.settings.nameEla} & ${state.settings.nameEle}`;
   document.querySelectorAll('.sheep-hit').forEach(g => {
     const say = () => speak(g);
@@ -894,7 +1024,6 @@ function renderShabat(){
   el.innerHTML = `<div class="shabat" role="status">
     <svg width="64" height="62" viewBox="-40 -34 80 76" aria-hidden="true">${[-14,14].map(x=>`<g transform="translate(${x} 0)"><rect x="-6" y="0" width="12" height="36" rx="3" fill="#fff" stroke="#D7D0F2" stroke-width="2"/><rect x="-10" y="34" width="20" height="7" rx="3" fill="#D4AF37"/><path class="flame" d="M0 -24 C7 -15 7 -6 0 -3 C-7 -6 -7 -15 0 -24Z" fill="#FFB020"/><path d="M0 -17 C3 -12 3 -7 0 -5 C-3 -7 -3 -12 0 -17Z" fill="#FFF0B3"/></g>`).join('')}</svg>
     <div><h2>Shabat Shalom!</h2><p>Que seja um Shabat de descanso, luz e lã quentinha para ${esc(state.settings.nameEla)} & ${esc(state.settings.nameEle)}.</p></div>
-    <div class="scene-mini">${SCENES.shabat()}</div>
   </div>`;
 }
 
@@ -924,7 +1053,7 @@ function renderCal(){
       ${shown.map(e=>{ const c=colorOf(e.who,e.type); return `<button class="ev" data-ev="${e.id}" data-occ="${k}" style="--c:${c};--t:${textOn(c)};--w:${WHO_COLOR[e.who]}" title="${esc(e.title)}"><i class="who"></i>${!e.allDay&&e.start?`<span class="tm">${e.start}</span>`:''}<span>${esc(e.title)}</span></button>`; }).join('')}
       ${evs.length>3?`<span class="more">+${evs.length-3} mais</span>`:''}
       <div class="dots">${hol.filter(h=>!h.minor).slice(0,1).map(h=>`<i style="--c:${h.kind==='jew'?'var(--jew)':h.kind==='love'?'var(--ela)':'var(--br)'}"></i>`).join('')}${evs.slice(0,4).map(e=>`<i style="--c:${colorOf(e.who,e.type)}"></i>`).join('')}</div>
-      ${k===tk?`<svg class="sticker" viewBox="-36 -38 80 80" aria-hidden="true">${sheep({who:state.me||'ela',body:false,cls:''})}</svg>`:''}
+      ${k===tk?`<svg class="sticker" viewBox="-36 -36 72 64" aria-hidden="true">${sheep({who:state.me||'ela',body:false,cls:''})}</svg>`:''}
     </div>`;
   }
   $('#grid').innerHTML = html;
@@ -942,8 +1071,8 @@ function renderDay(){
     <div class="day-title"><div><div class="eyebrow">${DOW_FULL[d.getDay()]}</div><h2>${d.getDate()} de ${MESES[d.getMonth()]}</h2><div class="heb">${esc(hebLabel(d))}</div></div>
       <button class="btn small primary" id="addHere">+ Adicionar</button></div>
     ${hol.length?`<div class="list">${hol.map(h=>`<div class="hol ${h.kind}${h.minor?' minor':''}" style="font-size:12.5px;padding:5px 9px;white-space:normal">${esc(h.name)}</div>`).join('')}</div>`:''}
-    ${d.getDay()===5||d.getDay()===6?`<div class="note">Shabat Shalom!</div>`:''}
-    <div class="list">${evs.length ? evs.map(e=>evRow(e)).join('') : `<div class="empty"><svg viewBox="-100 -60 200 110" aria-hidden="true">${shadow(0,44,80)}${sheep({x:-38,y:42-BABY*.62,s:.62,who:'ela',mood:'sleep',flip:true,cls:''})}${sheep({x:40,y:42-ADULT*.66,s:.66,who:'ele',mood:'sleep',cls:''})}<text x="62" y="-40" font-family="Caveat, cursive" font-size="20" fill="#8E6CD8">z z z</text></svg>Dia livre no pasto. Toque em “+ Adicionar” para marcar algo.</div>`}</div>`;
+    ${d.getDay()===5||d.getDay()===6?`<figure class="day-art">${shabatScene()}<figcaption>Shabat Shalom!</figcaption></figure>`:''}
+    <div class="list">${evs.length ? evs.map(e=>evRow(e)).join('') : `<div class="empty"><svg viewBox="-100 -56 200 64" aria-hidden="true">${sheep({x:-40,y:4,s:.72,who:'ela',pose:'lie',mood:'sleep',flip:true,cls:''})}${sheep({x:42,y:4,s:.74,who:'ele',pose:'lie',mood:'sleep',cls:''})}<text x="66" y="-36" font-family="Caveat, cursive" font-size="20" fill="#8E6CD8">z z z</text></svg>Dia livre no pasto. Toque em “+ Adicionar” para marcar algo.</div>`}</div>`;
 }
 function renderUpcoming(){
   const to = addDays(today, 21), occ = occurrences(today, to), rows = [];
@@ -1010,8 +1139,8 @@ function openEvent(id=null, occ=null){
 /* ---------- compras ---------- */
 let shopWho = null;
 function renderShop(){
-  const known = new Set(CATS.map(c=>c.k));
-  const items = Object.entries(state.shopping).map(([id,v])=>({id,...v, cat: known.has(v.cat) ? v.cat : 'mercado'}));
+  const known = new Set(CATS.map(c=>c.k)), OLD = {faculdade:'pesquisa', tecnologia:'outros'};
+  const items = Object.entries(state.shopping).map(([id,v])=>({id,...v, cat: known.has(v.cat) ? v.cat : (OLD[v.cat] || 'mercado')}));
   const pending = items.filter(i=>!i.done).length;
   $('#shopSummary').innerHTML = `<span class="mono">${pending}</span> ${pending===1?'item pendente':'itens pendentes'} · <span class="mono">${items.length-pending}</span> no carrinho`;
   $('#cats').innerHTML = CATS.map(c => { const n = items.filter(i=>i.cat===c.k && !i.done).length;
@@ -1067,7 +1196,7 @@ function renderWish(){
         ${isDov && !w.got ? `<button class="btn small" data-wres="${w.id}">${w.reserved?'Desmarcar':'Vou dar'}</button>` : ''}
         <button class="btn small danger" data-wdel="${w.id}" aria-label="Remover ${esc(w.name)}">Remover</button></div>
     </article>`; };
-  $('#wishList').innerHTML = (open.length ? open.map(card).join('') : `<div class="panel empty" style="grid-column:1/-1;padding:24px"><svg viewBox="-70 -60 140 110" aria-hidden="true">${sheep({who:'ela',flip:true,mood:'happy-closed',cls:''})}</svg>A wishlist está vazia. Escreva o primeiro desejo ao lado.</div>`)
+  $('#wishList').innerHTML = (open.length ? open.map(card).join('') : `<div class="panel empty" style="grid-column:1/-1;padding:24px"><svg viewBox="-50 -92 100 98" aria-hidden="true">${sheep({who:'ela',pose:'sit',y:2,mood:'happy-closed',cls:''})}</svg>A wishlist está vazia. Escreva o primeiro desejo ao lado.</div>`)
     + (got.length ? `<div style="grid-column:1/-1" class="eyebrow">Já ganhei</div>` + got.map(card).join('') : '');
   $('#wishForm').onsubmit = async e => { e.preventDefault(); const name = $('#w-name').value.trim(); if (!name) return;
     if (!state.canWrite) return toast('Você está só com acesso de leitura.');
@@ -1088,7 +1217,7 @@ function renderFlock(){
       <div><button class="btn primary" id="saveNames">Salvar nomes</button></div>
     </div>
     <div class="panel"><div class="eyebrow">Convite para o rebanho</div><h2>Chame o ${esc(s.nameEle)}</h2>
-      <svg viewBox="0 0 320 120" aria-hidden="true" style="width:100%;height:auto;border-radius:16px;background:var(--sky)"><path d="M0 100 C80 86 240 96 320 88 V120 H0Z" fill="var(--hill)"/>${sheep({x:100,y:104-BABY*.55,s:.55,who:'ela',flip:true})}<g transform="translate(150 40)"><rect width="56" height="38" rx="6" fill="#fff" stroke="#E0528A" stroke-width="2.5"/><path d="M0 4 L28 24 L56 4" fill="none" stroke="#E0528A" stroke-width="2.5"/>${heart(28,16,1.1)}</g>${sheep({x:250,y:106-ADULT*.6,s:.6,who:'ele',mood:'o'})}</svg>
+      <svg viewBox="0 0 320 120" aria-hidden="true" style="width:100%;height:auto;border-radius:16px;background:var(--sky)"><path d="M0 100 C80 86 240 96 320 88 V120 H0Z" fill="var(--hill)"/>${sheep({x:100,y:106,s:.55,who:'ela',pose:'sit'})}<g transform="translate(150 40)"><rect width="56" height="38" rx="6" fill="#fff" stroke="#E0528A" stroke-width="2.5"/><path d="M0 4 L28 24 L56 4" fill="none" stroke="#E0528A" stroke-width="2.5"/>${heart(28,16,1.1)}</g>${sheep({x:250,y:108,s:.6,who:'ele',pose:'turn',mood:'o'})}</svg>
       <ol class="steps"><li>Abra o menu <b>Compartilhar</b> deste artifact no Claude (canto superior).</li><li>Convide o e-mail do ${esc(s.nameEle)} com a permissão <b>Editor</b>, assim ele pode adicionar e editar compromissos, compras e a wishlist.</li><li>Não ative o link público: com link público aberto, convidados de fora deixam de poder editar.</li><li>Quando ele abrir, é só ir em <b>Nosso rebanho</b> e escolher a ovelha dele.</li></ol>
       <div class="note">${state.mode==='db' ? (state.canWrite ? 'Tudo que vocês anotam aqui é salvo e sincronizado ao vivo entre os dois.' : 'Você está com acesso de leitura. Peça para ser convidado como Editor para poder anotar.') : 'Modo local: os dados estão só neste navegador. Abra pelo link do Claude para sincronizar entre vocês dois.'}</div>
     </div>
@@ -1111,8 +1240,10 @@ function renderAll(){ renderHero(); renderShabat(); renderCal(); renderShop(); r
 
 document.body.insertAdjacentHTML('afterbegin', ART_DEFS);
 /* lousa: fórmulas e rabiscos de giz, discretos, num padrão que se repete pela página */
-{ const T = [['E = mc²',40,70,-6,26],['∫ f(x) dx',300,46,4,24],['eⁱᵖ + 1 = 0',520,96,-3,24],['F = m·a',150,170,5,22],['a² + b² = c²',400,214,-4,22],['∇·E = ρ/ε₀',610,248,3,22],
-    ['PV = nRT',60,300,-2,22],['Δx·Δp ≥ ħ/2',250,348,4,22],['sin²θ + cos²θ = 1',470,392,-5,21],['Σ 1/n² = π²/6',90,446,3,22],['dN/dt = −λN',330,500,-3,22],['H₂O',640,470,6,26],['ψ',700,150,0,34],['λ',210,262,0,30],['π ≈ 3,14159',560,536,-2,21],['C₆H₁₂O₆',30,540,2,21]];
+{ const T = [['∇·E = ρ/ε₀',40,60,-5,24],['∇×B = μ₀J + μ₀ε₀ ∂E/∂t',330,44,3,22],['iħ ∂ψ/∂t = −(ħ²/2m)∇²ψ + Vψ',560,110,-3,21],['∇×E = −∂B/∂t',120,170,4,22],
+    ['Gμν + Λgμν = (8πG/c⁴) Tμν',380,206,-4,20],['(iγᵘ∂ᵤ − m)ψ = 0',700,270,3,21],['d/dt (∂L/∂q̇) − ∂L/∂q = 0',30,300,-2,21],['ρ(∂v/∂t + v·∇v) = −∇p + μ∇²v',300,350,4,20],
+    ['f̂(ξ) = ∫ f(x) e^(−2πixξ) dx',560,400,-5,20],['S = k_B ln Ω',90,452,3,23],['E² = (pc)² + (mc²)²',360,500,-3,21],['γ = 1/√(1 − v²/c²)',690,470,5,21],
+    ['Δx·Δp ≥ ħ/2',640,560,-2,22],['Z = Σ e^(−βEᵢ)',30,560,2,21],['eⁱᵖ + 1 = 0',230,262,0,24],['∇·B = 0',820,150,0,24],['E = (RT/zF) ln(Cₒ/Cᵢ)',470,620,-3,20],['C dV/dt = −Σ gᵢ(V − Eᵢ)',60,640,3,20]];
   const D = [
     `<g transform="translate(250 110)"><circle r="3" fill="currentColor"/>${[0,60,-60].map(a=>`<ellipse rx="22" ry="8" transform="rotate(${a})"/>`).join('')}</g>`,
     `<path transform="translate(420 140)" d="M0 0 C10 10 10 20 0 30 C-10 40 -10 50 0 60 M14 0 C4 10 4 20 14 30 C24 40 24 50 14 60 M2 8 h10 M2 22 h10 M2 38 h10 M2 52 h10"/>`,
@@ -1123,7 +1254,7 @@ document.body.insertAdjacentHTML('afterbegin', ART_DEFS);
     `<path transform="translate(470 470)" d="M-6 -22 h12 M-4 -22 v14 l-10 18 a3 3 0 0 0 3 4 h22 a3 3 0 0 0 3 -4 l-10 -18 v-14"/>`,
     `<path transform="translate(360 300)" d="M0 -14 L12 -7 L12 7 L0 14 L-12 7 L-12 -7Z M0 -8 L7 -4 L7 4 L0 8 L-7 4 L-7 -4Z"/>`,
     `<path transform="translate(120 230)" d="M0 30 L40 30 L0 0Z M8 30 a8 8 0 0 0 -2 -6"/>`];
-  $('#chalk').innerHTML = `<defs><pattern id="chalkTile" width="720" height="580" patternUnits="userSpaceOnUse">
+  $('#chalk').innerHTML = `<defs><pattern id="chalkTile" width="900" height="680" patternUnits="userSpaceOnUse">
     <g fill="#FFFFFF" fill-opacity=".14" font-family="Caveat, 'Segoe Print', cursive">${T.map(([t,x,y,r,z])=>`<text x="${x}" y="${y}" font-size="${z}" transform="rotate(${r} ${x} ${y})">${t}</text>`).join('')}</g>
     <g fill="none" stroke="#FFFFFF" stroke-opacity=".12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="rgba(255,255,255,.14)">${D.join('')}</g>
   </pattern></defs><rect width="100%" height="100%" fill="url(#chalkTile)"/>`; }
