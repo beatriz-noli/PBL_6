@@ -1,0 +1,2190 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Expedição Gaybs &amp; Vivianne</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Caveat:wght@500;700&family=Courier+Prime:wght@400;700&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap">
+<style>
+/* Layout: atlas de bordo. Faixa de navegação, a carta grande no centro, fólios em grade que viram coluna única no celular. */
+:root {
+  --paper: #f2e5c4; --paper-2: #e8d6ab; --paper-3: #f8eed5; --rule: rgba(70, 50, 20, .22);
+  --ink: #1f2740; --ink-2: #4b4434; --muted: #7a6d52;
+  --gold: #a5771c; --gold-2: #d4a640; --seal: #8c2b2b;
+  --nav-bg: #1f2740; --nav-fg: #f2e5c4;
+  --sea: #cbd7c8; --sea-line: #7d9a92; --land: #eee0bc; --land-pt: #ebcda2; --land-es: #ecdba9; --land-fr: #dcd9b0; --land-it: #e9cfae; --coast: #6f5a3a; --halo: #f2e5c4;
+  --r1: #b0412e; --r2: #2b5f84; --r3: #9c7110; --r4: #3e7046; --r5: #7b3e78; --r6: #1f2740;
+  --c-car: #1f2740; --c-fuel: #c7952e; --c-toll: #8c2b2b; --c-bed: #3e7046; --c-food: #d8742e; --c-fun: #7b3e78; --c-trans: #2b5f84;
+  --shadow: 0 1px 0 rgba(255,255,255,.55) inset, 0 8px 22px rgba(80, 56, 18, .12);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38 0 0 0 0 .26 0 0 0 0 .1 .34 0 0 0 -.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --stain: rgba(150, 96, 30, .10);
+  --f-display: "IM Fell English SC", "IM Fell English", Georgia, serif;
+  --f-fell: "IM Fell English", Georgia, serif;
+  --f-body: "Alegreya", Georgia, "Times New Roman", serif;
+  --f-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --f-log: "Courier Prime", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0f1729; --paper-2: #16213a; --paper-3: #1b2844; --rule: rgba(232, 212, 160, .18);
+    --ink: #efe2c0; --ink-2: #cbbd98; --muted: #998e72;
+    --gold: #e0b552; --gold-2: #f0cd7c; --seal: #e48170;
+    --nav-bg: #0a1120; --nav-fg: #efe2c0;
+    --sea: #0f1c33; --sea-line: #3f6283; --land: #243048; --land-pt: #3d3348; --land-es: #36394c; --land-fr: #2c3a47; --land-it: #3b3449; --coast: #a08c66; --halo: #0f1729;
+    --r1: #ef8166; --r2: #74b5e2; --r3: #e5b84a; --r4: #8bc884; --r5: #d495cd; --r6: #efe2c0;
+    --c-car: #a9bde0; --c-fuel: #e5b84a; --c-toll: #e48170; --c-bed: #8bc884; --c-food: #f09a55; --c-fun: #d495cd; --c-trans: #74b5e2;
+    --shadow: none;
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .85 0 0 0 0 .7 .16 0 0 0 -.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    --stain: rgba(224, 181, 82, .05);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0f1729; --paper-2: #16213a; --paper-3: #1b2844; --rule: rgba(232, 212, 160, .18);
+  --ink: #efe2c0; --ink-2: #cbbd98; --muted: #998e72;
+  --gold: #e0b552; --gold-2: #f0cd7c; --seal: #e48170;
+  --nav-bg: #0a1120; --nav-fg: #efe2c0;
+  --sea: #0f1c33; --sea-line: #3f6283; --land: #243048; --land-pt: #3d3348; --land-es: #36394c; --land-fr: #2c3a47; --land-it: #3b3449; --coast: #a08c66; --halo: #0f1729;
+  --r1: #ef8166; --r2: #74b5e2; --r3: #e5b84a; --r4: #8bc884; --r5: #d495cd; --r6: #efe2c0;
+  --c-car: #a9bde0; --c-fuel: #e5b84a; --c-toll: #e48170; --c-bed: #8bc884; --c-food: #f09a55; --c-fun: #d495cd; --c-trans: #74b5e2;
+  --shadow: none;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .85 0 0 0 0 .7 .16 0 0 0 -.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --stain: rgba(224, 181, 82, .05);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image: var(--grain),
+    radial-gradient(circle at 8% 12%, var(--stain), transparent 28%),
+    radial-gradient(circle at 92% 40%, var(--stain), transparent 24%),
+    radial-gradient(circle at 30% 88%, var(--stain), transparent 30%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 18px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--nav-bg); }
+img, svg { max-width: 100%; }
+a { color: inherit; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+a:hover { color: var(--seal); }
+:focus-visible { outline: 3px solid var(--gold-2); outline-offset: 2px; border-radius: 3px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 400; }
+h1 { font-family: var(--f-display); font-size: clamp(46px, 7.6vw, 96px); line-height: .95; letter-spacing: .005em; }
+h2 { font-family: var(--f-display); font-size: clamp(32px, 4.6vw, 50px); line-height: 1.02; }
+h3 { font-family: var(--f-display); font-size: 23px; line-height: 1.15; }
+p { margin: 0; }
+.eyebrow { font-family: var(--f-log); font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--seal); display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ""; width: 14px; height: 14px; background: currentColor; clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); flex: none; }
+.lede { font-size: 20px; color: var(--ink-2); max-width: 62ch; }
+.hand { font-family: var(--f-hand); font-size: 24px; line-height: 1.15; }
+.log { font-family: var(--f-log); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.sec { padding-block: clamp(48px, 7vw, 88px); }
+.sec-head { display: grid; gap: 12px; margin-bottom: 28px; max-width: 760px; }
+.orn { display: flex; align-items: center; gap: 16px; color: var(--gold); margin: 0 auto; max-width: 1200px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.orn::before, .orn::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+.orn svg { width: 34px; height: 34px; flex: none; }
+
+/* --- navegação --- */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--nav-bg); color: var(--nav-fg); border-bottom: 2px solid var(--gold); }
+.nav .wrap { display: flex; align-items: center; gap: 18px; min-height: 54px; }
+.brand { display: flex; align-items: center; gap: 6px; text-decoration: none; font-family: var(--f-display); font-size: 20px; white-space: nowrap; }
+.brand svg { width: 30px; height: 30px; }
+.nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a { text-decoration: none; padding: 6px 10px; border-radius: 3px; font-family: var(--f-fell); font-size: 17px; white-space: nowrap; opacity: .86; }
+.nav-links a:hover { opacity: 1; color: var(--nav-fg); background: rgba(255,255,255,.08); }
+.theme-btn { background: none; border: 1px solid rgba(255,255,255,.3); color: var(--nav-fg); border-radius: 20px; padding: 4px 12px; font-family: var(--f-log); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.theme-btn:hover { border-color: var(--gold-2); }
+
+/* --- abertura --- */
+.hero { padding-block: clamp(36px, 6vw, 72px) 24px; }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
+.hero h1 .pre { display: block; font-family: var(--f-fell); font-style: italic; font-size: .38em; color: var(--ink-2); margin-bottom: .2em; letter-spacing: 0; }
+.hero h1 .amp { font-family: var(--f-fell); font-style: italic; color: var(--gold); }
+.hero-copy { display: grid; gap: 20px; min-width: 0; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); padding: 10px 18px; border-radius: 3px; font-family: var(--f-display); font-size: 18px; text-decoration: none; line-height: 1.1; }
+.btn:hover { background: var(--seal); border-color: var(--seal); color: var(--paper); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.sm { font-size: 15px; padding: 6px 12px; }
+.coords { display: flex; flex-wrap: wrap; gap: 6px 20px; font-family: var(--f-log); font-size: 13px; color: var(--muted); letter-spacing: .04em; }
+.coords b { color: var(--ink); font-weight: 700; }
+
+.portrait { position: relative; display: grid; justify-items: center; gap: 10px; }
+.medal { position: relative; width: min(100%, 470px); aspect-ratio: 1 / .86; }
+.medal > svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.crew { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: min(100%, 470px); }
+.crew-card { border-top: 2px solid var(--ink); padding-top: 8px; display: grid; gap: 2px; }
+.crew-card .who { font-family: var(--f-display); font-size: 22px; }
+.crew-card .what { font-size: 15px; color: var(--ink-2); line-height: 1.35; }
+.bob { animation: bob 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.bob.b2 { animation-delay: -1.7s; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-5px) rotate(-1.5deg); } }
+.blink { animation: blink 5s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes blink { 0%, 95%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+.waves-anim { animation: drift 7s linear infinite; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(-40px); } }
+
+.tally { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--rule); margin-top: 36px; }
+.tally div { padding: 14px 12px; border-left: 1px solid var(--rule); display: grid; gap: 2px; }
+.tally div:first-child { border-left: 0; padding-left: 0; }
+.tally b { font-family: var(--f-display); font-size: 34px; font-weight: 400; line-height: 1; }
+.tally span { font-size: 15px; color: var(--ink-2); }
+
+/* --- a carta --- */
+.route-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+.pennant { --rc: var(--ink); position: relative; display: grid; gap: 2px; text-align: left; border: 0; background: var(--paper-3); color: var(--ink); padding: 12px 12px 26px; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%); box-shadow: inset 0 4px 0 var(--rc); transition: transform .2s; min-width: 0; }
+.pennant:hover { transform: translateY(2px); }
+.pennant .num { font-family: var(--f-display); font-size: 28px; line-height: 1; color: var(--rc); }
+.pennant .song { font-family: var(--f-fell); font-style: italic; font-size: 16px; line-height: 1.15; }
+.pennant .sub { font-size: 13px; color: var(--muted); line-height: 1.2; }
+.pennant[aria-selected="true"] { background: var(--rc); color: var(--paper); }
+.pennant[aria-selected="true"] .num, .pennant[aria-selected="true"] .sub { color: var(--paper); }
+
+.route-strip { display: grid; grid-template-columns: 1.5fr repeat(5, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); background: var(--paper-3); margin-bottom: 16px; }
+.route-strip > div { padding: 10px 14px; border-left: 1px solid var(--rule); display: grid; align-content: start; gap: 2px; min-width: 0; }
+.route-strip > div:first-child { border-left: 0; }
+.route-strip dt { font-family: var(--f-log); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.route-strip dd { margin: 0; font-family: var(--f-display); font-size: 21px; line-height: 1.15; }
+.route-strip .rs-title dd { font-family: var(--f-fell); font-style: italic; font-size: 19px; }
+.route-strip .rs-title p { font-size: 15px; color: var(--ink-2); line-height: 1.35; margin-top: 4px; }
+
+.map-frame { position: relative; padding: 7px; outline: 1px solid var(--ink); outline-offset: 0;
+  background:
+    repeating-linear-gradient(90deg, var(--ink) 0 26px, var(--paper-3) 26px 52px) top / 100% 7px no-repeat,
+    repeating-linear-gradient(90deg, var(--ink) 0 26px, var(--paper-3) 26px 52px) bottom / 100% 7px no-repeat,
+    repeating-linear-gradient(180deg, var(--ink) 0 26px, var(--paper-3) 26px 52px) left / 7px 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--ink) 0 26px, var(--paper-3) 26px 52px) right / 7px 100% no-repeat;
+}
+#map { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 603.2; background: var(--sea); outline: 1px solid var(--ink); touch-action: manipulation; }
+#map .ns { vector-effect: non-scaling-stroke; }
+#map .sea { fill: var(--sea); }
+#map .country { stroke: var(--coast); stroke-width: .8; stroke-linejoin: round; }
+#map .c-pt { fill: var(--land-pt); } #map .c-es { fill: var(--land-es); } #map .c-fr { fill: var(--land-fr); } #map .c-it { fill: var(--land-it); } #map .c-ot { fill: var(--land); }
+#map .coastwash { fill: none; stroke: var(--sea-line); stroke-linejoin: round; }
+#map .grat { stroke: var(--rule); stroke-width: .7; fill: none; }
+#map .rhumb { stroke-width: .6; fill: none; opacity: .5; }
+#map .glabel { font-family: var(--f-log); font-size: 9px; fill: var(--muted); }
+#map .sealabel { font-family: var(--f-fell); font-style: italic; fill: var(--sea-line); letter-spacing: .18em; }
+#map .landlabel { font-family: var(--f-display); fill: var(--coast); opacity: .55; letter-spacing: .3em; }
+#map .fade { transition: opacity .6s; }
+#map .city { cursor: pointer; }
+#map .city .dot { fill: var(--paper-3); stroke: var(--ink); stroke-width: 1.6; }
+#map .city .core { fill: var(--rc, var(--ink)); }
+#map .city .hit { fill: transparent; }
+#map .city text { font-family: var(--f-fell); font-size: 14px; fill: var(--ink); paint-order: stroke; stroke: var(--halo); stroke-width: 3.4px; stroke-linejoin: round; }
+#map .city .nights { font-family: var(--f-log); font-size: 10px; fill: var(--muted); }
+#map .city.off .dot { fill: var(--paper-3); stroke: var(--muted); stroke-width: 1.2; }
+#map .city.off { opacity: .6; }
+#map .city.off:hover, #map.building .city.off { opacity: 1; }
+#map .city.off .core, #map .city.off text { display: none; }
+#map .city.off:hover text, #map.building .city.off text { display: block; fill: var(--muted); }
+#map.building .city.off .dot { stroke: var(--ink); stroke-dasharray: 2 2; }
+#map .city.current .dot { stroke: var(--seal); stroke-width: 2.4; }
+#map .city .ring { fill: none; stroke: var(--seal); stroke-width: 1.5; opacity: 0; }
+#map .city.current .ring { animation: ping 1.6s ease-out infinite; }
+@keyframes ping { 0% { r: 7; opacity: .9; } 100% { r: 20; opacity: 0; } }
+#map .leg-plan { fill: none; stroke: var(--rc); stroke-width: calc(2.2px * var(--u, 1)); stroke-dasharray: calc(1px * var(--u, 1)) calc(5.5px * var(--u, 1)); stroke-linecap: round; opacity: .9; }
+#map .leg-plan.air { stroke-dasharray: calc(7px * var(--u, 1)) calc(6px * var(--u, 1)); stroke-width: calc(1.6px * var(--u, 1)); }
+#map .leg-ink { fill: none; stroke: var(--rc); stroke-width: calc(3.6px * var(--u, 1)); stroke-linecap: round; }
+#map .leg-ink.air, #map .leg-ink.rail { stroke-width: calc(3px * var(--u, 1)); }
+#map .trav-shadow { fill: var(--ink); opacity: .16; }
+.map-help { position: absolute; left: 18px; bottom: 16px; max-width: min(330px, 60%); background: var(--paper-3); border: 1px solid var(--ink); padding: 8px 12px; font-size: 14px; line-height: 1.35; box-shadow: var(--shadow); }
+
+.helm { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 0 6px; }
+.helm-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.hbtn { border: 1.5px solid var(--ink); background: var(--paper-3); color: var(--ink); padding: 7px 12px; border-radius: 3px; font-family: var(--f-display); font-size: 16px; line-height: 1.1; display: inline-flex; gap: 6px; align-items: center; }
+.hbtn:hover { background: var(--paper-2); }
+.hbtn.go { background: var(--ink); color: var(--paper); min-width: 128px; justify-content: center; }
+.hbtn.go:hover { background: var(--seal); border-color: var(--seal); }
+.hbtn[aria-pressed="true"] { background: var(--gold-2); color: #1f2740; border-color: var(--gold); }
+.speed { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 3px; overflow: hidden; }
+.speed button { border: 0; background: var(--paper-3); padding: 7px 10px; font-family: var(--f-log); font-size: 13px; }
+.speed button + button { border-left: 1px solid var(--rule); }
+.speed button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.status { flex: 1 1 280px; min-width: 0; font-family: var(--f-log); font-size: 14px; color: var(--ink-2); }
+.status b { color: var(--ink); }
+
+.legs { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding: 8px 2px 14px; scrollbar-width: thin; }
+.stop-chip { flex: none; display: grid; gap: 0; justify-items: start; border: 1px solid var(--rule); background: var(--paper-3); padding: 6px 10px; border-radius: 3px; text-align: left; }
+.stop-chip .nm { font-family: var(--f-fell); font-size: 17px; line-height: 1.15; white-space: nowrap; }
+.stop-chip .nt { font-family: var(--f-log); font-size: 11px; color: var(--muted); white-space: nowrap; }
+.stop-chip.cur { border-color: var(--seal); box-shadow: inset 0 -3px 0 var(--seal); }
+.stop-chip.seen { background: var(--paper-2); }
+.leg-link { flex: none; display: grid; align-content: center; justify-items: center; padding: 0 8px; min-width: 92px; font-family: var(--f-log); font-size: 11px; color: var(--muted); line-height: 1.25; text-align: center; }
+.leg-link i { display: block; width: 100%; height: 0; border-top: 2px dotted var(--rc); margin: 3px 0; }
+.leg-link.on { color: var(--ink); }
+.leg-link.on i { border-top-style: solid; }
+
+.below { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 22px; margin-top: 10px; }
+.folio { background: var(--paper-3); border: 1px solid var(--rule); padding: 20px 22px; box-shadow: var(--shadow); position: relative; min-width: 0; }
+.folio-tag { font-family: var(--f-log); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+
+.city-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin: 4px 0 12px; }
+.city-head h3 { font-size: 34px; }
+.flag { font-family: var(--f-log); font-size: 12px; letter-spacing: .12em; border: 1px solid var(--ink); padding: 2px 6px; border-radius: 2px; white-space: nowrap; }
+.thermo { display: grid; gap: 4px; margin-bottom: 14px; }
+.thermo-bar { position: relative; height: 10px; border-radius: 5px; background: linear-gradient(90deg, #6f9fcf, #a9c7c0 35%, #e2c46d 65%, #d9793d); opacity: .9; }
+.thermo-range { position: absolute; top: -4px; height: 18px; border: 2px solid var(--ink); border-radius: 9px; }
+.thermo-scale { display: flex; justify-content: space-between; font-family: var(--f-log); font-size: 11px; color: var(--muted); }
+.thermo-txt { font-size: 15px; color: var(--ink-2); }
+.city-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.city-cols h4 { margin: 0 0 6px; font-family: var(--f-log); font-weight: 400; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--seal); }
+.city-cols ul, .plain { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+.city-cols li, .plain li { position: relative; padding-left: 18px; font-size: 16px; line-height: 1.4; }
+.city-cols li::before, .plain li::before { content: ""; position: absolute; left: 2px; top: .55em; width: 8px; height: 8px; background: var(--gold); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.tip { display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: center; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--rule); }
+.tip svg { width: 52px; height: 52px; }
+.tip p { font-family: var(--f-hand); font-size: 23px; line-height: 1.15; color: var(--ink); }
+
+.radio-head { display: grid; grid-template-columns: 76px 1fr; gap: 14px; align-items: center; margin-bottom: 10px; }
+.record { width: 76px; height: 76px; border-radius: 50%; background: repeating-radial-gradient(circle, #1a1a1f 0 2px, #2a2a31 2px 3px); position: relative; animation: spin 2.4s linear infinite; animation-play-state: paused; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+.record.on { animation-play-state: running; }
+.record::after { content: attr(data-label); position: absolute; inset: 26px; border-radius: 50%; background: var(--rc, var(--seal)); color: #fff6e6; display: grid; place-items: center; font-family: var(--f-display); font-size: 12px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.now { font-size: 15px; color: var(--ink-2); line-height: 1.35; }
+.now b { display: block; font-family: var(--f-fell); font-style: italic; font-size: 20px; color: var(--ink); font-weight: 400; }
+.tracks { max-height: 430px; overflow: auto; border-top: 1px solid var(--rule); padding-top: 6px; scrollbar-width: thin; }
+.tblock { padding: 8px 0 6px; border-bottom: 1px dotted var(--rule); transition: opacity .4s; }
+.tblock.later { opacity: .5; }
+.tblock.later .tlist { filter: blur(.2px); }
+.tblock.playing { background: linear-gradient(90deg, transparent, var(--paper-2), transparent); }
+.thead { display: flex; justify-content: space-between; gap: 8px; font-family: var(--f-log); font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+.thead b { color: var(--ink); font-weight: 700; }
+.tlist { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 2px; }
+.tlist li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: baseline; font-size: 16px; line-height: 1.3; }
+.tlist .n { font-family: var(--f-log); font-size: 12px; color: var(--muted); text-align: right; }
+.tlist .a { color: var(--muted); font-size: 14px; }
+.tlist a { font-family: var(--f-log); font-size: 11px; text-decoration: none; border: 1px solid var(--rule); padding: 1px 6px; border-radius: 10px; white-space: nowrap; }
+.tlist a:hover { border-color: var(--seal); }
+.tblock.fresh { animation: fresh 1.2s ease-out; }
+@keyframes fresh { from { background: var(--gold-2); } to { background: transparent; } }
+.radio-foot { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-top: 10px; font-size: 14px; color: var(--muted); }
+
+.builder { margin-top: 16px; border: 1.5px dashed var(--ink); padding: 14px 16px; display: grid; gap: 10px; background: var(--paper-3); }
+.builder ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.builder li { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--rule); padding: 3px 4px 3px 10px; border-radius: 14px; font-family: var(--f-fell); font-size: 16px; background: var(--paper); }
+.builder li button { border: 0; background: none; padding: 0 6px; font-size: 16px; line-height: 1; color: var(--muted); }
+.builder li button:hover { color: var(--seal); }
+.builder .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* --- diário e comparação --- */
+.two { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.diary { display: grid; gap: 0; border-left: 2px solid var(--ink); margin-left: 8px; }
+.day { position: relative; padding: 0 0 20px 26px; }
+.day::before { content: ""; position: absolute; left: -9px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); border: 2px solid var(--rc, var(--ink)); }
+.day.rest::before { background: var(--rc, var(--ink)); }
+.day-top { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.day-n { font-family: var(--f-log); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--seal); }
+.day h3 { font-size: 21px; }
+.day-meta { font-family: var(--f-log); font-size: 12px; color: var(--muted); }
+.day p { font-size: 16.5px; color: var(--ink-2); margin-top: 4px; max-width: 64ch; }
+.driver { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 14px; color: var(--ink-2); border: 1px solid var(--rule); border-radius: 16px; padding: 2px 10px 2px 3px; background: var(--paper-3); }
+.driver svg { width: 26px; height: 26px; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1.5px solid var(--ink); border-radius: 3px; overflow: hidden; }
+.seg button { border: 0; background: var(--paper-3); padding: 6px 11px; font-size: 15px; line-height: 1.2; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.side-stack { display: grid; gap: 22px; position: sticky; top: 72px; }
+.why { font-size: 16px; color: var(--ink-2); }
+.why strong { color: var(--ink); }
+.callout { border: 1.5px solid var(--seal); padding: 12px 14px; background: var(--paper-3); font-size: 16px; display: grid; gap: 4px; }
+.callout b { font-family: var(--f-display); font-weight: 400; font-size: 19px; color: var(--seal); }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--paper-3); }
+table.cmp { width: 100%; border-collapse: collapse; font-size: 16px; min-width: 760px; }
+.cmp th, .cmp td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.cmp thead th { font-family: var(--f-log); font-weight: 400; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.cmp td.num { font-family: var(--f-log); font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+.cmp th.num { text-align: right; }
+.cmp tbody tr { cursor: pointer; }
+.cmp tbody tr:hover { background: var(--paper-2); }
+.cmp tbody tr.sel { background: var(--paper-2); box-shadow: inset 4px 0 0 var(--rc); }
+.cmp .rname { font-family: var(--f-display); font-size: 18px; }
+.cmp .rname small { display: block; font-family: var(--f-fell); font-style: italic; font-size: 14px; color: var(--muted); }
+.stars { color: var(--gold); letter-spacing: 2px; white-space: nowrap; }
+
+.quiz { display: grid; gap: 16px; }
+.q { display: grid; gap: 6px; }
+.q-l { font-family: var(--f-fell); font-size: 18px; }
+.verdict { border-top: 2px solid var(--ink); padding-top: 12px; display: grid; gap: 6px; }
+.verdict .big { font-family: var(--f-display); font-size: 28px; line-height: 1.05; }
+
+/* --- calendário --- */
+.cal-wrap { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.cal-ctrl { display: grid; gap: 8px; margin-bottom: 14px; }
+.cal-ctrl label { font-family: var(--f-fell); font-size: 18px; }
+input[type="range"] { width: 100%; accent-color: var(--seal); }
+.cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.cal .dow { font-family: var(--f-log); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-align: center; padding-bottom: 4px; }
+.cell { min-height: 74px; border: 1px solid var(--rule); background: var(--paper-3); padding: 4px 6px; display: grid; align-content: start; gap: 2px; position: relative; min-width: 0; }
+.cell .d { font-family: var(--f-log); font-size: 13px; }
+.cell .w { font-size: 12px; line-height: 1.15; color: var(--ink-2); overflow-wrap: anywhere; }
+.cell.trip { background: var(--rc); border-color: var(--rc); }
+.cell.trip .d, .cell.trip .w { color: var(--paper); }
+.cell.ev::after { content: ""; position: absolute; top: 5px; right: 5px; width: 11px; height: 11px; background: var(--gold); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.cell.trip.ev::after { background: var(--paper); }
+.cell.blank { background: transparent; border-color: transparent; }
+.cal-sum { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 12px; font-size: 16px; }
+.cal-sum b { font-family: var(--f-display); font-weight: 400; font-size: 24px; }
+.events { display: grid; gap: 10px; }
+.ev-item { display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: start; font-size: 16px; line-height: 1.35; }
+.ev-item .dt { font-family: var(--f-display); font-size: 26px; line-height: 1; text-align: center; border: 1px solid var(--rule); padding: 4px 0 2px; background: var(--paper-3); }
+.ev-item .dt small { display: block; font-family: var(--f-log); font-size: 10px; letter-spacing: .12em; color: var(--muted); }
+.ev-item.hit .dt { border-color: var(--seal); color: var(--seal); }
+.sugg { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* --- carro --- */
+.commandments { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 2px solid var(--ink); }
+.cmd { display: grid; grid-template-columns: 112px 1fr; gap: 14px; padding: 18px 8px 18px 0; border-bottom: 1px solid var(--rule); }
+.commandments .cmd:nth-child(odd) { padding-right: 22px; border-right: 1px solid var(--rule); }
+.commandments .cmd:nth-child(even) { padding-left: 22px; }
+.cmd .k { font-family: var(--f-display); font-size: 30px; line-height: .9; color: var(--seal); }
+.cmd .k small { display: block; font-family: var(--f-log); font-size: 11px; color: var(--muted); letter-spacing: .12em; margin-top: 6px; }
+.cmd h3 { font-size: 20px; margin-bottom: 4px; }
+.cmd p { font-size: 16px; color: var(--ink-2); }
+.cars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+.carcard { text-align: left; border: 1.5px solid var(--rule); background: var(--paper-3); padding: 12px 14px; display: grid; gap: 4px; border-radius: 3px; }
+.carcard[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 -4px 0 var(--gold-2); }
+.carcard .cn { font-family: var(--f-display); font-size: 19px; line-height: 1.1; }
+.carcard .ce { font-size: 14px; color: var(--muted); }
+.carcard .cp { font-family: var(--f-log); font-size: 14px; }
+.carcard svg { width: 92px; height: 52px; }
+.borders { margin-top: 28px; }
+.borders table { min-width: 640px; }
+
+/* --- contas --- */
+.ledger { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 28px; align-items: start; }
+.field { display: grid; gap: 6px; margin-bottom: 14px; }
+.field > span { font-family: var(--f-fell); font-size: 18px; }
+.field small { color: var(--muted); font-size: 14px; }
+.inline-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+input[type="number"], select { font: inherit; font-family: var(--f-log); font-size: 16px; background: var(--paper); color: var(--ink); border: 1.5px solid var(--ink); border-radius: 3px; padding: 6px 8px; width: 100%; }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: 16px; line-height: 1.35; cursor: pointer; }
+.check input { margin-top: 4px; accent-color: var(--seal); width: 16px; height: 16px; flex: none; }
+.total { display: grid; gap: 4px; border-bottom: 2px solid var(--ink); padding-bottom: 12px; margin-bottom: 14px; }
+.total .big { font-family: var(--f-display); font-size: clamp(40px, 6vw, 64px); line-height: 1; font-variant-numeric: tabular-nums; }
+.total .brl { font-family: var(--f-log); font-size: 16px; color: var(--ink-2); }
+.stack { display: flex; height: 26px; border: 1px solid var(--ink); margin: 6px 0 10px; overflow: hidden; }
+.stack span { display: block; height: 100%; border-right: 1px solid var(--paper-3); transition: width .4s; }
+.legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 18px; margin: 0; padding: 0; list-style: none; }
+.legend li { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: center; font-size: 15px; }
+.legend i { width: 12px; height: 12px; display: block; }
+.legend .v { font-family: var(--f-log); font-variant-numeric: tabular-nums; font-size: 14px; }
+.cmpbars { display: grid; gap: 8px; margin-top: 22px; }
+.cmpbar { display: grid; grid-template-columns: 150px 1fr 86px; gap: 10px; align-items: center; font-size: 15px; }
+.cmpbar .track { height: 14px; background: var(--paper-2); position: relative; }
+.cmpbar .fill { position: absolute; inset: 0 auto 0 0; background: var(--rc); transition: width .4s; }
+.cmpbar .v { font-family: var(--f-log); font-size: 14px; text-align: right; font-variant-numeric: tabular-nums; }
+.cmpbar.sel .lbl { font-weight: 700; }
+.fine { font-size: 14px; color: var(--muted); margin-top: 14px; }
+
+/* --- bate-voltas --- */
+.trips { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 28px; align-items: start; }
+#rose { width: 100%; max-width: 520px; height: auto; display: block; margin: 0 auto; }
+#rose .ring { fill: none; stroke: var(--rule); }
+#rose .rl { font-family: var(--f-log); font-size: 9px; fill: var(--muted); }
+#rose .card { font-family: var(--f-display); font-size: 16px; fill: var(--seal); }
+#rose .pt { cursor: pointer; }
+#rose .pt circle { fill: var(--paper-3); stroke: var(--ink); stroke-width: 1.5; }
+#rose .pt text { font-family: var(--f-fell); font-size: 12.5px; fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 3px; }
+#rose .pt.on circle { fill: var(--seal); stroke: var(--seal); }
+#rose .spoke { stroke: var(--gold); stroke-width: 1; stroke-dasharray: 2 3; }
+#rose .spoke.on { stroke: var(--seal); stroke-dasharray: none; stroke-width: 1.6; }
+.trip-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.trip { text-align: left; border: 1px solid var(--rule); background: var(--paper-3); padding: 10px 12px; display: grid; gap: 3px; border-radius: 3px; }
+.trip.on { border-color: var(--seal); box-shadow: inset 3px 0 0 var(--seal); }
+.trip .tn { font-family: var(--f-display); font-size: 19px; line-height: 1.1; }
+.trip .tk { font-family: var(--f-log); font-size: 12px; color: var(--muted); }
+.trip-detail { margin-top: 14px; }
+.trip-detail p:not(.folio-tag) { font-size: 16px; color: var(--ink-2); }
+.trip-detail p + p { margin-top: 6px; }
+
+/* --- bagagem --- */
+.packing { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 32px; }
+.packing .check { padding: 8px 0; border-bottom: 1px dotted var(--rule); }
+.packing .check input:checked + span { text-decoration: line-through; text-decoration-color: var(--seal); color: var(--muted); }
+.progress { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-family: var(--f-log); font-size: 14px; }
+.progress .bar { flex: 1; height: 8px; background: var(--paper-2); }
+.progress .bar i { display: block; height: 100%; background: var(--seal); transition: width .3s; }
+
+footer { border-top: 2px solid var(--ink); padding-block: 28px 40px; font-size: 15px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 30px; justify-content: space-between; align-items: center; }
+footer .sig { display: flex; align-items: center; gap: 10px; font-family: var(--f-hand); font-size: 24px; color: var(--ink); }
+footer .sig svg { width: 40px; height: 40px; }
+
+@media (max-width: 1020px) {
+  .route-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .route-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .route-strip .rs-title { grid-column: 1 / -1; border-bottom: 1px solid var(--rule); }
+  .route-strip > div:nth-child(2), .route-strip > div:nth-child(5) { border-left: 0; }
+  .cars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .hero .wrap, .below, .two, .cal-wrap, .ledger, .trips { grid-template-columns: minmax(0, 1fr); }
+  .side-stack { position: static; }
+  .commandments { grid-template-columns: minmax(0, 1fr); }
+  .commandments .cmd:nth-child(odd), .commandments .cmd:nth-child(even) { padding: 16px 0; border-right: 0; }
+  .tally { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tally div:nth-child(3) { border-left: 0; padding-left: 0; }
+  .tally div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+  .map-help { position: static; max-width: none; margin-top: 8px; box-shadow: none; }
+}
+@media (max-width: 560px) {
+  body { font-size: 17px; }
+  .route-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .route-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .route-strip > div { border-left: 0; border-top: 1px solid var(--rule); }
+  .route-strip > div:nth-child(even) { border-left: 1px solid var(--rule); }
+  .city-cols, .trip-list, .packing, .legend, .inline-fields { grid-template-columns: minmax(0, 1fr); }
+  .cars { grid-template-columns: minmax(0, 1fr); }
+  .cell { min-height: 58px; padding: 3px; }
+  .cell .w { font-size: 10.5px; }
+  .cmpbar { grid-template-columns: 100px 1fr 74px; }
+  .brand span { display: none; }
+  .status { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bob, .blink, .waves-anim, .record, #map .city.current .ring { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Personagens e ícones reutilizáveis -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="foxHead">
+      <path d="M28 52 L20 12 L54 36 Z" fill="#e3772d"/>
+      <path d="M31 46 L25 20 L47 36 Z" fill="#fff0db"/>
+      <path d="M20 12 L23.5 26 L33 19 Z" fill="#4a2a1a"/>
+      <path d="M92 52 L100 12 L66 36 Z" fill="#e3772d"/>
+      <path d="M89 46 L95 20 L73 36 Z" fill="#fff0db"/>
+      <path d="M100 12 L96.5 26 L87 19 Z" fill="#4a2a1a"/>
+      <path d="M60 30 C84 30 100 44 102 60 C103 76 84 92 60 94 C36 92 17 76 18 60 C20 44 36 30 60 30 Z" fill="#e3772d"/>
+      <path d="M18 58 C12 64 11 70 17 74 C18 69 20 64 22 61 Z M102 58 C108 64 109 70 103 74 C102 69 100 64 98 61 Z" fill="#e3772d"/>
+      <path d="M20 64 C30 64 42 68 50 78 C54 84 57 88 60 89 C63 88 66 84 70 78 C78 68 90 64 100 64 C98 78 82 93 60 94 C38 93 22 78 20 64 Z" fill="#fff4e6"/>
+      <path d="M60 31 C56 40 56 50 60 58 C64 50 64 40 60 31 Z" fill="#ef9450" opacity=".7"/>
+      <g class="blink">
+        <ellipse cx="45" cy="60" rx="6.4" ry="7.6" fill="#3c9e57"/>
+        <ellipse cx="45" cy="61" rx="3.7" ry="4" fill="#15261a"/>
+        <circle cx="47.3" cy="57.4" r="2.1" fill="#fff"/>
+        <circle cx="43.2" cy="63.6" r=".9" fill="#fff"/>
+        <ellipse cx="75" cy="60" rx="6.4" ry="7.6" fill="#3c9e57"/>
+        <ellipse cx="75" cy="61" rx="3.7" ry="4" fill="#15261a"/>
+        <circle cx="77.3" cy="57.4" r="2.1" fill="#fff"/>
+        <circle cx="73.2" cy="63.6" r=".9" fill="#fff"/>
+      </g>
+      <path d="M38.6 54.5 L35 52 M81.4 54.5 L85 52" stroke="#4a2a1a" stroke-width="1.7" stroke-linecap="round"/>
+      <ellipse cx="34" cy="72" rx="5.6" ry="3.2" fill="#f3907c" opacity=".55"/>
+      <ellipse cx="86" cy="72" rx="5.6" ry="3.2" fill="#f3907c" opacity=".55"/>
+      <path d="M55.5 74 Q60 71.5 64.5 74 Q62 78.6 60 78.9 Q58 78.6 55.5 74 Z" fill="#2b1d16"/>
+      <path d="M60 79 Q57.6 83.6 53.6 82 M60 79 Q62.4 83.6 66.4 82" stroke="#2b1d16" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M24 40 C30 22 46 14 60 14 C74 14 90 22 96 40 C86 33 74 33 60 39 C46 33 34 33 24 40 Z" fill="#1d2640"/>
+      <path d="M24 40 C34 33 46 33 60 39 C74 33 86 33 96 40" stroke="#d4a640" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M44 20 C52 16 68 16 76 20" stroke="#2f3b5c" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="37" cy="31" r="4.6" fill="#8c2b2b"/>
+      <circle cx="37" cy="31" r="1.8" fill="#d4a640"/>
+    </g>
+    <g id="foxCoat">
+      <path d="M78 104 C96 100 108 108 112 118 C104 114 96 114 88 118 Z" fill="#e3772d"/>
+      <path d="M104 112 C108 113 111 116 112 118 C108 117 105 117 102 118 Z" fill="#fff4e6"/>
+      <path d="M24 124 C26 103 40 93 60 93 C80 93 94 103 96 124 Z" fill="#24304f"/>
+      <path d="M60 97 L47 124 M60 97 L73 124" stroke="#d4a640" stroke-width="2.6" fill="none"/>
+      <path d="M51 92 Q60 101 69 92 Q67 104 60 113 Q53 104 51 92 Z" fill="#fffaf0" stroke="#e2d6bf" stroke-width="1"/>
+      <path d="M55 99 Q60 103 65 99 M56 105 Q60 108 64 105" stroke="#e2d6bf" stroke-width="1" fill="none"/>
+      <circle cx="42" cy="110" r="2.3" fill="#d4a640"/><circle cx="78" cy="110" r="2.3" fill="#d4a640"/>
+      <circle cx="40" cy="118" r="2.3" fill="#d4a640"/><circle cx="80" cy="118" r="2.3" fill="#d4a640"/>
+    </g>
+    <g id="bunnyHead">
+      <path d="M47 44 C38 26 36 6 45 2 C54 0 57 22 55 42 Z" fill="#d9d7de"/>
+      <path d="M47.5 38 C42 26 41 10 45.5 7 C50 7 51.5 24 51 38 Z" fill="#f2b8c4"/>
+      <path d="M68 42 C70 26 84 14 98 16 C106 18 100 28 90 32 C82 35 76 40 72 46 Z" fill="#d9d7de"/>
+      <path d="M72 40 C76 28 86 21 96 20 C99 22 94 27 87 30 C81 33 77 37 74 42 Z" fill="#f2b8c4"/>
+      <path d="M44 40 C40 36 41 31 45 31 C46 33 48 35 49 38 C51 33 55 31 57 33 C56 37 53 40 50 41 Z" fill="#1f2740"/>
+      <circle cx="49" cy="37" r="2" fill="#d4a640"/>
+      <g fill="#dcdae1">
+        <circle cx="60" cy="66" r="30"/>
+        <circle cx="34" cy="54" r="7.5"/><circle cx="30.5" cy="66" r="7.5"/><circle cx="34" cy="79" r="7.5"/>
+        <circle cx="86" cy="54" r="7.5"/><circle cx="89.5" cy="66" r="7.5"/><circle cx="86" cy="79" r="7.5"/>
+        <circle cx="45" cy="40.5" r="7"/><circle cx="60" cy="37" r="7"/><circle cx="75" cy="40.5" r="7"/>
+        <circle cx="45" cy="91" r="7"/><circle cx="60" cy="95" r="7"/><circle cx="75" cy="91" r="7"/>
+      </g>
+      <path d="M54 39 C55 31 60 32 60 36 C61 30 67 31 66 39 C63 36 57 36 54 39 Z" fill="#ecebf0"/>
+      <ellipse cx="60" cy="71" rx="23" ry="19" fill="#e8e6ed"/>
+      <ellipse cx="47" cy="78" rx="10" ry="7.5" fill="#f7f6f9"/>
+      <ellipse cx="73" cy="78" rx="10" ry="7.5" fill="#f7f6f9"/>
+      <g class="blink">
+        <ellipse cx="48" cy="64" rx="4.9" ry="5.9" fill="#2a2430"/>
+        <circle cx="49.7" cy="61.7" r="1.9" fill="#fff"/>
+        <circle cx="46.6" cy="66.4" r=".8" fill="#fff"/>
+        <ellipse cx="72" cy="64" rx="4.9" ry="5.9" fill="#2a2430"/>
+        <circle cx="73.7" cy="61.7" r="1.9" fill="#fff"/>
+        <circle cx="70.6" cy="66.4" r=".8" fill="#fff"/>
+      </g>
+      <ellipse cx="39" cy="74" rx="5.2" ry="3" fill="#f3a0b0" opacity=".6"/>
+      <ellipse cx="81" cy="74" rx="5.2" ry="3" fill="#f3a0b0" opacity=".6"/>
+      <path d="M56.5 72 Q60 70 63.5 72 Q60 76.2 56.5 72 Z" fill="#e2879c"/>
+      <path d="M60 75.6 L60 77.6 M60 77.6 Q57.6 80.6 55 78.6 M60 77.6 Q62.4 80.6 65 78.6" stroke="#6b5a64" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M40 76 L30 74 M40 79 L31 80 M80 76 L90 74 M80 79 L89 80" stroke="#b9b6c2" stroke-width="1" stroke-linecap="round"/>
+    </g>
+    <g id="bunnyCoat">
+      <circle cx="96" cy="114" r="9" fill="#f1f0f4"/>
+      <circle cx="91" cy="109" r="5" fill="#f1f0f4"/>
+      <path d="M24 124 C26 103 40 94 60 94 C80 94 94 103 96 124 Z" fill="#8c2b2b"/>
+      <path d="M60 98 L47 124 M60 98 L73 124" stroke="#d4a640" stroke-width="2.6" fill="none"/>
+      <path d="M51 93 Q60 102 69 93 Q67 105 60 114 Q53 105 51 93 Z" fill="#fffaf0" stroke="#e2d6bf" stroke-width="1"/>
+      <path d="M55 100 Q60 104 65 100 M56 106 Q60 109 64 106" stroke="#e2d6bf" stroke-width="1" fill="none"/>
+      <circle cx="42" cy="111" r="2.3" fill="#d4a640"/><circle cx="78" cy="111" r="2.3" fill="#d4a640"/>
+      <circle cx="40" cy="119" r="2.3" fill="#d4a640"/><circle cx="80" cy="119" r="2.3" fill="#d4a640"/>
+    </g>
+    <symbol id="fox" viewBox="0 0 120 124"><use href="#foxCoat"/><use href="#foxHead"/></symbol>
+    <symbol id="bunny" viewBox="0 0 120 124"><use href="#bunnyCoat"/><use href="#bunnyHead"/></symbol>
+    <symbol id="foxH" viewBox="12 8 96 90"><use href="#foxHead"/></symbol>
+    <symbol id="bunnyH" viewBox="12 -2 96 104"><use href="#bunnyHead"/></symbol>
+    <symbol id="car" viewBox="0 0 124 80">
+      <use href="#foxHead" transform="translate(22 6) scale(.37)"/>
+      <use href="#bunnyHead" transform="translate(55 1) scale(.37)"/>
+      <path d="M41 39 C33 37 26 41 16 36 C22 43 31 44 41 43 Z" fill="#8c2b2b"/>
+      <rect x="7" y="34" width="17" height="11" rx="2" fill="#8c5a2b" stroke="#1f2740" stroke-width="1.8"/>
+      <path d="M15.5 34 V45" stroke="#d4a640" stroke-width="1.6"/>
+      <path d="M90 37 L95 23 L100 24 L96 39 Z" fill="#cfe6ee" opacity=".8" stroke="#1f2740" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M6 56 C6 48 12 44 24 43 L32 42 C35 38 40 36 46 36 L84 36 C90 36 94 39 97 42 L108 44 C116 46 118 51 118 56 L118 62 C118 64 116 65 114 65 L10 65 C8 65 6 64 6 62 Z" fill="#5f9c8a" stroke="#1f2740" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M9 53 L116 53" stroke="#f8eed5" stroke-width="3"/>
+      <path d="M62 39 L62 63" stroke="#1f2740" stroke-width="1.5"/>
+      <circle cx="113" cy="49" r="3.4" fill="#f3d27a" stroke="#1f2740" stroke-width="1.4"/>
+      <rect x="5" y="47" width="4" height="5" fill="#c0392b"/>
+      <circle cx="30" cy="65" r="10.5" fill="#1f2740"/><circle cx="30" cy="65" r="4.4" fill="#d4a640"/>
+      <circle cx="94" cy="65" r="10.5" fill="#1f2740"/><circle cx="94" cy="65" r="4.4" fill="#d4a640"/>
+    </symbol>
+    <symbol id="balloon" viewBox="0 0 100 136">
+      <path d="M50 4 C76 4 92 24 92 48 C92 70 70 84 60 94 L40 94 C30 84 8 70 8 48 C8 24 24 4 50 4 Z" fill="#d4a640" stroke="#1f2740" stroke-width="2.4"/>
+      <path d="M50 4 C40 22 36 60 42 94 L58 94 C64 60 60 22 50 4 Z" fill="#8c2b2b"/>
+      <path d="M50 4 C26 20 20 60 34 90 M50 4 C74 20 80 60 66 90" stroke="#1f2740" stroke-width="1.2" fill="none" opacity=".5"/>
+      <path d="M13 62 C38 70 62 70 87 62" stroke="#f8eed5" stroke-width="4" fill="none"/>
+      <path d="M41 94 L35 110 M59 94 L65 110" stroke="#1f2740" stroke-width="1.6"/>
+      <use href="#foxHead" transform="translate(23 86) scale(.25)"/>
+      <use href="#bunnyHead" transform="translate(47 83) scale(.25)"/>
+      <path d="M31 107 L69 107 L65 128 L35 128 Z" fill="#a8743a" stroke="#1f2740" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M33 114 L67 114 M34 121 L66 121" stroke="#7a4a24" stroke-width="1.4"/>
+    </symbol>
+    <symbol id="train" viewBox="0 0 140 80">
+      <use href="#foxHead" transform="translate(30 4) scale(.34)"/>
+      <use href="#bunnyHead" transform="translate(62 0) scale(.34)"/>
+      <path d="M8 34 L98 34 C116 34 130 46 133 60 L133 64 L8 64 Z" fill="#b8322a" stroke="#1f2740" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M8 52 L131 52" stroke="#e9e4da" stroke-width="4"/>
+      <path d="M104 38 C114 39 122 44 126 50 L104 50 Z" fill="#cfe6ee" stroke="#1f2740" stroke-width="1.5"/>
+      <circle cx="26" cy="66" r="6" fill="#1f2740"/><circle cx="48" cy="66" r="6" fill="#1f2740"/>
+      <circle cx="96" cy="66" r="6" fill="#1f2740"/><circle cx="118" cy="66" r="6" fill="#1f2740"/>
+      <path d="M2 74 L138 74" stroke="#1f2740" stroke-width="2"/>
+    </symbol>
+    <symbol id="caravel" viewBox="0 0 100 96">
+      <path d="M34 62 L34 16 M58 62 L58 8 M80 62 L80 26" stroke="#1f2740" stroke-width="2"/>
+      <path d="M58 9 L69 12 L58 15 Z" fill="#8c2b2b"/>
+      <path d="M34 18 C46 30 48 46 42 60 L18 60 C26 46 28 30 34 18 Z" fill="#fbf3dd" stroke="#1f2740" stroke-width="1.5"/>
+      <path d="M58 10 C74 26 76 44 70 60 L40 60 C50 44 52 26 58 10 Z" fill="#fbf3dd" stroke="#1f2740" stroke-width="1.5"/>
+      <path d="M80 28 C88 38 90 50 86 60 L70 60 C76 50 76 38 80 28 Z" fill="#fbf3dd" stroke="#1f2740" stroke-width="1.5"/>
+      <path d="M57 29 h6 v-4 h4 v4 h-0 M57 29 v10 M53 33 h12 M59 29 v12" stroke="#b0302a" stroke-width="3" fill="none" stroke-linecap="square"/>
+      <path d="M6 62 L94 62 C90 74 80 82 66 82 L34 82 C20 82 10 74 6 62 Z" fill="#7a4a24" stroke="#1f2740" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M10 69 L90 69" stroke="#5a3418" stroke-width="1.4"/>
+      <path d="M0 88 q8 -5 16 0 t16 0 t16 0 t16 0 t16 0 t16 0 t16 0" stroke="var(--sea-line)" stroke-width="2" fill="none"/>
+    </symbol>
+    <symbol id="monster" viewBox="0 0 160 66">
+      <path d="M6 50 C2 40 8 33 15 37 C11 40 11 45 17 50 Z" fill="#6c9c86" stroke="#1f2740" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M26 50 C30 30 48 30 52 50 Z" fill="#6c9c86" stroke="#1f2740" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M66 50 C70 24 92 24 96 50 Z" fill="#6c9c86" stroke="#1f2740" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M72 38 C78 34 84 34 90 38" stroke="#f0d9a8" stroke-width="2" fill="none"/>
+      <path d="M116 50 C114 30 122 16 138 16 C151 16 157 26 155 34 C153 41 145 43 137 41 C134 45 134 48 136 50 Z" fill="#6c9c86" stroke="#1f2740" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="141" cy="25" r="3" fill="#1f2740"/><circle cx="142" cy="24" r="1" fill="#fff"/>
+      <path d="M140 35 Q146 38 152 34" stroke="#1f2740" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <ellipse cx="133" cy="31" rx="3.2" ry="2" fill="#f3907c" opacity=".7"/>
+      <path d="M128 16 C126 8 132 4 134 10 M134 14 C134 4 142 2 140 12" stroke="#1f2740" stroke-width="1.6" fill="none"/>
+      <path d="M144 10 C146 2 150 0 152 4 M148 10 C150 4 156 4 156 8" stroke="var(--sea-line)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M0 52 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" stroke="var(--sea-line)" stroke-width="2" fill="none"/>
+    </symbol>
+    <symbol id="star" viewBox="0 0 20 20"><path d="M10 0 L12.2 7 L19.5 7 L13.6 11.3 L15.9 18.5 L10 14 L4.1 18.5 L6.4 11.3 L.5 7 L7.8 7 Z"/></symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Seções">
+  <div class="wrap">
+    <a class="brand" href="#topo"><svg viewBox="0 0 64 34" aria-hidden="true" style="width:56px"><use href="#foxH" x="0" y="0" width="32" height="30"/><use href="#bunnyH" x="28" y="0" width="32" height="34"/></svg><span>G &amp; V</span></a>
+    <div class="nav-links">
+      <a href="#carta">A carta</a>
+      <a href="#diario">Diário de bordo</a>
+      <a href="#bussola">Bússola</a>
+      <a href="#janeiro">Janeiro</a>
+      <a href="#carro">O carro</a>
+      <a href="#contas">Contas</a>
+      <a href="#porto">Bate-voltas</a>
+      <a href="#bagagem">Bagagem</a>
+    </div>
+    <button class="theme-btn" id="themeBtn" type="button">Carta noturna</button>
+  </div>
+</nav>
+
+<header class="hero" id="topo">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">Carta de marear · janeiro de 2027</p>
+      <h1><span class="pre">A expedição de</span>Gaybs <span class="amp">&amp;</span> Vivianne</h1>
+      <p class="lede">Um mês no Porto com a família da Gaybs e, no meio dele, uma fuga de carro alugado pela Península. Aqui estão cinco rotas desenhadas na carta, com tempo de estrada, o que comer em cada parada, quanto custa e a trilha sonora de cada trecho. Escolham uma, misturem duas ou tracem a de vocês.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#carta">Abrir a carta</a>
+        <a class="btn ghost" href="#bussola">Qual rota é a nossa?</a>
+      </div>
+      <div class="coords">
+        <span>Porto de partida <b>41°09′N 8°37′O</b></span>
+        <span>Chegada <b>o mesmo cais</b></span>
+        <span>Trilha <b>Hamilton, fado e flamenco</b></span>
+      </div>
+    </div>
+    <div class="portrait">
+      <div class="medal">
+        <svg viewBox="0 0 480 412" role="img" aria-label="Vivianne, uma raposa laranja de olhos verdes com chapéu tricórnio, e Gaybs, uma coelha cinza-clara e felpuda, lado a lado num medalhão de carta náutica">
+          <defs>
+            <clipPath id="medalClip"><ellipse cx="240" cy="196" rx="206" ry="178"/></clipPath>
+          </defs>
+          <ellipse cx="240" cy="196" rx="222" ry="194" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <ellipse cx="240" cy="196" rx="214" ry="186" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="10 5"/>
+          <g clip-path="url(#medalClip)">
+            <rect x="0" y="0" width="480" height="412" fill="var(--sea)"/>
+            <g stroke="var(--sea-line)" stroke-width="1" opacity=".55">
+              <path d="M240 196 L-40 40 M240 196 L520 40 M240 196 L-40 360 M240 196 L520 360 M240 196 L240 -20 M240 196 L-40 196 M240 196 L520 196 M240 196 L120 -20 M240 196 L360 -20 M240 196 L-40 110 M240 196 L520 110"/>
+            </g>
+            <path d="M-20 300 C40 270 90 262 150 276 C220 292 260 250 330 262 C390 272 430 290 500 280 L500 420 L-20 420 Z" fill="var(--land-pt)" stroke="var(--coast)" stroke-width="1.5"/>
+            <g class="waves-anim" stroke="var(--sea-line)" stroke-width="2" fill="none" opacity=".8">
+              <path d="M-10 120 q10 -6 20 0 t20 0 t20 0 M70 70 q10 -6 20 0 t20 0 M380 90 q10 -6 20 0 t20 0 t20 0 M420 150 q10 -6 20 0 t20 0 t20 0"/>
+            </g>
+            <use href="#caravel" x="356" y="168" width="96" height="92"/>
+            <g class="bob"><use href="#fox" x="66" y="134" width="190" height="196"/></g>
+            <g class="bob b2"><use href="#bunny" x="226" y="130" width="190" height="196"/></g>
+          </g>
+          <path d="M70 352 L410 352 L396 372 L410 392 L70 392 L84 372 Z" fill="var(--seal)"/>
+          <path d="M52 346 L96 352 L84 372 L96 392 L52 398 L66 372 Z" fill="var(--seal)" opacity=".8"/>
+          <path d="M428 346 L384 352 L396 372 L384 392 L428 398 L414 372 Z" fill="var(--seal)" opacity=".8"/>
+          <text x="240" y="379" text-anchor="middle" font-family="IM Fell English SC, Georgia, serif" font-size="22" letter-spacing="5" fill="#fff4e3">Vivianne · Gaybs</text>
+          <g fill="var(--gold)"><use href="#star" x="230" y="0" width="20" height="20"/></g>
+        </svg>
+      </div>
+      <div class="crew">
+        <div class="crew-card"><span class="who">Vivianne</span><span class="what">Raposa laranja de olhos verdes. Capitã da estrada, guardiã do volante e do tricórnio.</span></div>
+        <div class="crew-card"><span class="who">Gaybs</span><span class="what">Coelha cinza-clara e felpuda. Anfitriã do Porto, mestra dos mapas e dos petiscos.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="tally">
+      <div><b class="log">31</b><span>dias de janeiro, a maior parte no Porto</span></div>
+      <div><b class="log">5 + 1</b><span>rotas na carta, mais a que vocês desenharem</span></div>
+      <div><b class="log">4</b><span>países ao alcance: Portugal, Espanha, França e Itália</span></div>
+      <div><b class="log">1</b><span>carro alugado, duas raposas… quer dizer, uma raposa e uma coelha</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="orn" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#star" x="10" y="10" width="20" height="20" fill="currentColor"/></svg></div>
+
+<section class="sec" id="carta">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">A carta</p>
+      <h2>Escolham o rumo</h2>
+      <p class="lede">Cada bandeirola é uma rota, com o nome de uma música de Hamilton. Toquem em <b>Zarpar</b> e a dupla sai do Porto; a cada trecho a playlist ganha músicas novas. Toquem em qualquer cidade para ver o que fazer e o que comer por lá.</p>
+    </div>
+
+    <div class="route-tabs" role="tablist" id="tabs" aria-label="Rotas"></div>
+
+    <dl class="route-strip" id="strip"></dl>
+
+    <div class="map-frame">
+      <svg id="map" viewBox="0 0 1000 603.2" role="img" aria-label="Carta náutica de Portugal, Espanha, sul da França e norte da Itália com a rota escolhida"></svg>
+      <div class="map-help" id="mapHelp" hidden></div>
+    </div>
+
+    <div class="helm">
+      <div class="helm-btns">
+        <button class="hbtn go" id="playBtn" type="button">▶ Zarpar</button>
+        <button class="hbtn" id="prevBtn" type="button" aria-label="Parada anterior">◀ Parada</button>
+        <button class="hbtn" id="nextBtn" type="button" aria-label="Próxima parada">Parada ▶</button>
+        <button class="hbtn" id="resetBtn" type="button">↺ Recomeçar</button>
+      </div>
+      <div class="speed" role="group" aria-label="Velocidade">
+        <button type="button" data-speed="1" aria-pressed="true">1×</button>
+        <button type="button" data-speed="2" aria-pressed="false">2×</button>
+        <button type="button" data-speed="4" aria-pressed="false">4×</button>
+      </div>
+      <p class="status" id="status" aria-live="polite"></p>
+    </div>
+
+    <div class="legs" id="legs" aria-label="Paradas da rota"></div>
+
+    <div class="builder" id="builder" hidden>
+      <p><b>Modo cartógrafa.</b> Toquem nas cidades da carta na ordem em que querem passar. A saída e a volta ao Porto entram sozinhas, e cada parada conta uma noite.</p>
+      <ol id="builderList"></ol>
+      <div class="row">
+        <button class="hbtn" type="button" id="undoBtn">Desfazer a última</button>
+        <button class="hbtn" type="button" id="clearBtn">Limpar</button>
+        <span class="muted" id="builderHint"></span>
+      </div>
+    </div>
+
+    <div class="below">
+      <article class="folio" id="city" aria-live="polite"></article>
+      <aside class="folio" id="radio" aria-label="Rádio de bordo"></aside>
+    </div>
+  </div>
+</section>
+
+<div class="orn" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#star" x="10" y="10" width="20" height="20" fill="currentColor"/></svg></div>
+
+<section class="sec" id="diario">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Diário de bordo</p>
+      <h2 id="diaryTitle">Dia a dia da rota</h2>
+      <p class="lede" id="diaryLede"></p>
+    </div>
+    <div class="two">
+      <div>
+        <div class="row" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px">
+          <span class="q-l">Quem dirige?</span>
+          <div class="seg" id="driverSeg" role="group" aria-label="Quem dirige">
+            <button type="button" data-drv="alt" aria-pressed="true">As duas, revezando</button>
+            <button type="button" data-drv="v" aria-pressed="false">Só a Vivianne</button>
+            <button type="button" data-drv="g" aria-pressed="false">Só a Gaybs</button>
+          </div>
+          <button class="hbtn" type="button" id="swapDrv">Trocar quem começa</button>
+        </div>
+        <div class="diary" id="diary"></div>
+      </div>
+      <div class="side-stack">
+        <div class="folio" id="routeNotes"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="comparar" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">As cinco rotas lado a lado</p>
+      <h2>Comparem antes de escolher</h2>
+      <p class="lede">O custo usa as escolhas do Livro de contas, lá embaixo. Toquem numa linha para abrir a rota na carta.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="cmp" id="cmpTable"></table>
+    </div>
+  </div>
+</section>
+
+<div class="orn" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#star" x="10" y="10" width="20" height="20" fill="currentColor"/></svg></div>
+
+<section class="sec" id="bussola">
+  <div class="wrap two">
+    <div class="sec-head" style="margin:0">
+      <p class="eyebrow">Bússola de decisão</p>
+      <h2>Qual rota é a nossa?</h2>
+      <p class="lede">Quatro perguntas, respondidas juntas no sofá. A agulha aponta para a rota que melhor combina com o que vocês querem do mês.</p>
+      <div class="verdict" id="verdict"></div>
+    </div>
+    <div class="folio quiz" id="quiz"></div>
+  </div>
+</section>
+
+<div class="orn" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#star" x="10" y="10" width="20" height="20" fill="currentColor"/></svg></div>
+
+<section class="sec" id="janeiro">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Janeiro de 2027</p>
+      <h2>Onde a estrada cabe no mês</h2>
+      <p class="lede">A maior parte do mês é Porto, família e mesa farta. Arrastem o marcador para escolher o dia de zarpar e vejam onde vocês dormem em cada noite da rota.</p>
+    </div>
+    <div class="cal-wrap">
+      <div>
+        <div class="cal-ctrl">
+          <label for="startDay">Zarpamos no dia <b id="startLbl" class="log">11</b> de janeiro</label>
+          <input type="range" id="startDay" min="1" max="31" value="11">
+        </div>
+        <div class="cal" id="cal"></div>
+        <div class="cal-sum" id="calSum"></div>
+      </div>
+      <div class="folio">
+        <p class="folio-tag">Datas que mexem com a rota</p>
+        <div class="sugg" id="sugg" style="margin:10px 0 14px"></div>
+        <div class="events" id="events"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="orn" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#star" x="10" y="10" width="20" height="20" fill="currentColor"/></svg></div>
+
+<section class="sec" id="carro">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">O carro</p>
+      <h2>Os dez mandamentos da estrada</h2>
+      <p class="lede">Alugar carro em Portugal é fácil e barato em janeiro, que é baixa temporada. O que complica é a papelada da fronteira, o pedágio eletrônico e os centros históricos. Contem os passos.</p>
+    </div>
+    <div class="commandments" id="cmds"></div>
+
+    <h3 style="margin-top:36px">Qual carro?</h3>
+    <p class="muted" style="margin-top:4px">Preço médio por dia em janeiro, retirando no Porto. Escolher aqui também muda o Livro de contas.</p>
+    <div class="cars" id="cars"></div>
+
+    <div class="borders">
+      <h3>Regras de cada país</h3>
+      <p class="muted" style="margin:4px 0 12px">Valores aproximados. Confiram antes de sair, porque preço de combustível e regra de pedágio mudam.</p>
+      <div class="table-wrap">
+        <table class="cmp" id="countryTable"></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="orn" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#star" x="10" y="10" width="20" height="20" fill="currentColor"/></svg></div>
+
+<section class="sec" id="contas">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Livro de contas</p>
+      <h2>Quanto custa cada rota</h2>
+      <p class="lede">Uma estimativa honesta para duas pessoas dividindo carro e quarto. Os dias em que vocês ficam no Porto com a família não entram aqui.</p>
+    </div>
+    <div class="ledger">
+      <form class="folio" id="budget" onsubmit="return false">
+        <label class="field"><span>Rota</span><select id="bRoute"></select></label>
+        <div class="field"><span>Hospedagem</span><div class="seg" id="bBed" role="group" aria-label="Hospedagem"></div><small id="bBedNote"></small></div>
+        <div class="field"><span>Comida</span><div class="seg" id="bFood" role="group" aria-label="Comida"></div><small id="bFoodNote"></small></div>
+        <div class="inline-fields">
+          <label class="field"><span>Gasolina €/L</span><input type="number" id="bFuel" min="1" max="3" step="0.01" value="1.70"></label>
+          <label class="field"><span>Consumo L/100 km</span><input type="number" id="bCons" min="3" max="12" step="0.1" value="5.5"></label>
+          <label class="field"><span>Câmbio R$ por €</span><input type="number" id="bFx" min="3" max="10" step="0.01" value="6.30"></label>
+        </div>
+        <label class="check"><input type="checkbox" id="bIns" checked><span>Seguro sem franquia na locadora (≈ €14/dia)</span></label>
+        <label class="check" style="margin-top:8px"><input type="checkbox" id="bYoung"><span>Quem dirige tem menos de 25 anos (taxa de condutor jovem, ≈ €12/dia)</span></label>
+      </form>
+      <div class="folio" id="budgetOut"></div>
+    </div>
+  </div>
+</section>
+
+<div class="orn" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#star" x="10" y="10" width="20" height="20" fill="currentColor"/></svg></div>
+
+<section class="sec" id="porto">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Porto de casa</p>
+      <h2>Bate-voltas a partir do Porto</h2>
+      <p class="lede">Para os dias com a família: lugares que cabem numa manhã e voltam a tempo do jantar. A rosa dos ventos mostra a direção e a distância real a partir da Ribeira.</p>
+    </div>
+    <div class="trips">
+      <div><svg id="rose" viewBox="0 0 540 410" role="img" aria-label="Rosa dos ventos com os bate-voltas a partir do Porto"></svg></div>
+      <div>
+        <div class="trip-list" id="tripList"></div>
+        <div class="folio trip-detail" id="tripDetail"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="orn" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#star" x="10" y="10" width="20" height="20" fill="currentColor"/></svg></div>
+
+<section class="sec" id="bagagem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Antes de zarpar</p>
+      <h2>Lista da bagagem e da papelada</h2>
+      <p class="lede">As marcações ficam guardadas neste navegador.</p>
+    </div>
+    <div class="progress"><span id="packCount" class="log">0 de 0</span><div class="bar"><i id="packBar" style="width:0"></i></div></div>
+    <div class="packing" id="packing"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="sig"><svg viewBox="0 0 64 34" aria-hidden="true" style="width:64px"><use href="#foxH" x="0" y="0" width="32" height="30"/><use href="#bunnyH" x="28" y="0" width="32" height="34"/></svg> Boa viagem, Gaybs e Vivianne!</div>
+    <p>Distâncias e tempos são aproximados, e preços são estimativas de baixa temporada. Confiram horários, ingressos e regras antes de reservar.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+"use strict";
+
+/* ===================== DADOS ===================== */
+const LAND = {"Tunisia":"M900.1 633.2l-138 0 0.5 -8.2 1.4 -1.9 6.7 -5.4 3.1 -6.5 9.8 -6.5 4.2 -7.1 2.2 -14.7 2.9 -5 -2.6 -8.5 0 -10.6 -2.5 -6.3 3.6 -24.1 -1.6 -3.8 -3.3 -1.7 -0.1 -1 5.6 -4.9 2.6 -5.5 5.5 -3.1 -0.9 -4.5 8.5 -2.6 11 -8.5 18.9 -6.3 5.1 1.3 -1.9 4.2 1.6 3.3 2.2 -2 -0.6 -3.1 7.3 0.1 3.8 2 -0.3 7.5 5 7.2 -1.4 3.6 4.1 2.2 3.6 -2.6 1.9 -3.8 6.7 -2.2 6.4 -5.6 3.5 -0.6 0.8 4.6 1.7 4.1 -2.4 1.3 -3.1 4.3 -5.8 10.7 -5.3 3.1 -4.1 4.2 -1.3 2.9 -0.3 3.4 0.9 6.1 2.9 6.2 3.5 3.8 3.2 1.1 7.6 5.9 -0.1 3.4 1.4 9.2 2.7 4 -5.6 8.8 -3.1 6.2 -6.1 8.6 -5.4 5.6 -14.4 11.1 -1.8 2.9 -0.9 2.9 0.4 3.6 3.7 7.2 46.4 0zM892.3 596.8l-5.3 3 1.1 -2.6 3.5 -3.2 0.8 0.8 -0.1 2z","Switzerland":"M831.9 9l3.4 2.9 -0.5 3.8 -4.3 11.2 0.1 5.6 4.6 0.3 7.7 2.4 1.1 3.6 4.1 2.6 4.7 1.7 1.7 -0.5 5.8 -6.2 2.3 1 1.4 3.3 -2 11.8 1.4 2.3 -0.3 3.5 -2.3 0.2 -3.1 -1 -2.6 -2.8 -3.9 1.1 -1.6 5.8 0.3 1.8 1.2 1.3 1 3 1.2 5.4 -0.6 0.7 -1.6 0.5 -1.4 -0.4 -3.6 -6.2 -1.8 -0.3 -3.4 1.1 -5.1 2.5 -3.8 -0.5 -1.6 -2.1 -1.9 -6.7 -4.2 -0.7 -1.5 1 -0.4 9.5 -8.5 13.5 1.4 6.9 -0.7 1.5 -2.4 0.8 -1.7 -1.7 -0.6 -2.7 -3.7 -3.9 1.6 -3.2 -0.3 -0.8 -6.1 -1.7 -6.3 -6.7 -0.7 -1.8 0.2 -6 -0.7 -2.2 -1.8 0 -4.8 5.2 -4.7 3.6 -0.5 0.7 1.6 3.4 -0.1 1.3 -4.5 7.3 -7.1 4.6 -8.5 -2.8 -7.4 3.3 -6.8 1.6 -2.6 -1.2 -3.5 -5.6 -6.2 -7.4 1.5 -5.5 -1.1 -1.9 -0.6 -2.8 0.3 -1.9 -0.6 -0.4 -6.2 -1.1 -5.2 0.4 -3.6 1.8 -3.1 3.1 -0.4 0.6 1.8 3.3 -2.5 3.1 -4 2.2 -4 -0.2 0 -3.2 4.4 -3.2 0.8 -4.9 -2.1 -2.5 3.5 -9.2 8.6 -7.2 1.6 -9.8 7.2 -3.9 9.9 -12.2 1.6 -3.7 -2.7 -1.1 -0.7 -1.6 2.3 -3.1 3 -1.8 2.9 0 2.2 2.8 2.2 0.4 5.4 -1.5 2.4 -4.7 4.3 -2.3 2.8 1.1 7.8 0.4 5.9 -0.6 3.6 -1.6 7.9 0.8 4.5 -1.7 0.4 -0.7 -0.7 -1.1 -3.4 0.3 -1.4 -0.5 -0.2 -1.3 1.1 -2.2 2.5 -1.8 2.2 -0.5 1.5 0.5 3.8 3.4 0.9 0.1 1.4 -0.9 1.3 0.6 1.6 2.5 10.5 -0.8 11.8 7.5z","Spain":"M558.4 428.2l-0.8 0.5 -5.7 -0.5 -0.1 -1.8 1.1 -2.5 2.1 2.5 3.4 0.5 0 1.3zM611.9 378.4l3.3 1.5 3.5 -1.3 3.7 1.1 0.4 2.8 -5.8 9.9 -1.6 4 -6 3.8 -6 -2.9 -3.4 -0.8 -1 -1.1 -0.9 -4.5 -1.5 -1.4 -2.3 -0.6 -4.6 3.5 -1.5 -2.4 -2.1 -0.4 -0.9 -1.5 0 -1.7 18.4 -13.3 8.8 -2.8 1.3 0.4 -1.1 1.7 1.1 1.5 -0.2 1.3 -1.1 1.1 -0.5 2.1zM651.5 376.1l-0.6 0.5 -10.6 -5.2 -3.5 -0.5 -0.8 -0.8 0.3 -3.9 7.1 -0.6 5.7 1.9 3.4 6.1 -1 2.5zM553.3 417.3l-1.3 2.7 -5.2 -0.9 -1.2 -1.2 1.1 -3.1 1.6 -0.4 0 -2.1 1.6 -2.3 7.5 -1.7 1.7 1.5 0.4 2.2 -4.5 4.7 -1.7 0.6zM441.6 211.5l1.3 4 4.5 2 5.3 0.7 2.1 1.3 -0.4 4.3 -2 3.7 1.8 1.6 2 -0.1 2.4 -2.9 0.5 1.9 3.8 1.8 8.3 3.4 6 0.5 6.1 6.6 9.8 -1.3 8.9 6.4 8.3 -1.4 1.9 1.3 13 0.1 0.8 -5.2 0.6 -1.7 0.9 -0.4 10.8 3.1 6.8 3.1 3 0.2 1.8 0.9 2.8 4.4 0 6.3 0.7 1.1 3 -0.2 5.8 -2.9 7.7 3.6 2 3.2 1.6 0.2 5.9 -3.1 15.5 3.8 0.6 -2.5 7.7 -3 2.6 -0.5 8.4 1.7 0.9 3 1.7 1.1 0.7 2.5 -4.9 1.5 -0.5 4.4 3 3.7 0.4 6.5 -8.5 8.2 -23.9 13.8 -5.7 6.7 -2.1 1.5 -17.8 4.3 -18.5 6.1 -10.9 10.9 2.8 0.9 3.3 3.7 -1.1 1.7 -4.8 2.5 -4.3 0.7 -8 13.4 -7.2 9.6 -3.9 4.2 -4 6.1 -8.7 16.1 -0.1 4.5 4.3 15.8 2.4 4.2 3.5 3.4 6.5 2.9 1.5 3 -2.2 2.7 -6.5 4.9 -11.2 6.6 -4.9 5.2 -1 5 -3.3 2.3 -1.3 7 -4.6 9.7 -0.2 2.5 3.5 3.6 -1.8 1.5 -5.7 1 -13.4 0.5 -10.8 7.5 -5.5 6.7 -4.8 12.4 -6 7.3 -2.6 1.4 -4.1 -3.2 -5.1 -0.5 -4.9 1.1 -2.5 2.4 -4.1 1.5 -4 -1.2 -8.4 -0.7 -3.9 0.1 -5.9 2.1 -5.1 -1.4 -8.6 -0.7 -18.6 1.6 -2.2 0.8 -2.4 3.1 -5.9 5.2 -9 0.2 -8.2 3.4 -5.4 8 -1.2 4.3 -1.4 -1 -1.4 0.3 -0.6 3.4 -5.6 2 -6.4 -2.7 -5.2 -4 -2.7 -0.2 -4.5 -6.3 -2 -4 -1.3 -4.2 -0.1 -3.1 -4 -1.7 -1 -3.9 3 -5.1 3.8 -2.9 -3.6 0.3 -2.6 3.3 -3.3 -5.4 -13.6 -10.3 0.8 -3.7 -2.3 2.8 -1.6 0.7 -6.9 -0.4 -8 1.3 -3.3 -17.7 2.1 -6.2 5.2 -7.8 3.7 -4.4 5.6 -1.6 2.2 -6.3 -5 0.3 -8.2 -12.1 2.1 -11.4 5.3 -4.9 2.7 -3.6 1.8 -6.7 -1.6 -2.2 -4.5 -1.2 -4.6 -9.1 -1 -5.6 -3.8 -3.2 -3.1 -5.6 2.8 -0.9 11.6 -0.1 2.8 -1.4 2.1 -3.8 2.3 -6.2 0.5 -3.8 -4.6 -5.4 -0.2 -1.2 0.7 -1.8 7 -6.1 -1.5 -4.5 1.3 -9.6 -0.6 -5.6 -0.8 -4.6 -2.5 -6 1.7 -2.4 3.6 -2.1 2.9 -4.9 4.4 -4.1 5.6 -3.2 3.8 -3.7 2.7 -3.6 -0.3 -1.3 -0.8 -1.9 -2.2 -1.9 -2.9 -1 -5.2 -0.3 -0.5 -9.4 -0.6 -1.8 -1.5 -1.3 -3 0.4 -4.4 -1.4 -1.1 0.8 -5.6 -0.3 -4.1 -1.3 -1.6 1.2 -0.5 2.7 -2.2 1.5 -4.5 1.4 -3.8 -0.1 -6.2 -2.5 -7.1 0.8 -0.8 -0.5 -6 3.2 -2 0.1 -0.7 -0.3 -1.7 -3.6 3.2 -5.7 -0.3 -1 -2.6 -4.3 -1.8 -0.2 -11.1 3.9 -6.6 5.2 -2.4 0.7 -1 -1 -0.3 -7.3 6.7 -7.9 -4.2 -0.4 0.1 -2.4 1.5 -1 1.4 -2.6 -2.9 -2.7 0 -8 -6.1 2.6 -1.6 -0.4 0 -3.2 3.7 -6.4 -3.9 -0.7 -3 -2.5 -3.7 -5.2 0 -2.8 2 -6.5 5.3 -3.1 5.2 -4.5 7.1 0.8 4.5 -0.9 9.9 -4.9 -0.1 -2.7 -1.3 -2 1.1 -1.9 8.7 -5.5 5.2 -0.6 5.4 -2.8 3.6 1.8 3.1 -0.6 3.6 2.1 4.7 4.8 6.9 2 5.6 -1.6 9.7 -0.2 5 0.6 8.7 -1.2 4.9 0.4 8 -2.4 6.3 3 12.1 1.4 7.2 2.5 20.1 4 7.3 0.1 10.2 -2.3 4.3 -1.7 4 1 5.8 -2 2.9 0.4 3.6 2.9 12.9 3.8 3.3 -3.3 2.5 -0.7 9.2 2 9.3 4 4.9 0.3 7 -1.1 6.9 -3z","Slovenia":"M1030 60.8l0 51.3 -1 1.2 -4.5 -0.5 -5.3 -2.3 -2 0.3 -1.7 1.3 -1.9 -0.6 -5 -4.5 -2 -4 -0.8 -0.3 -1.1 0.6 -3.8 6.8 -2 1.2 -9.8 0.3 -3.2 -1.7 -2 3 -1.8 1.1 -9.2 -2.4 -1.3 -2 5 -3.5 1.9 0.3 2.3 -0.6 1.1 -1 -1.6 -3.2 -3.7 -4.1 -4.7 -2.5 -0.5 -1.1 1.5 -6.3 -0.5 -0.9 -3.1 0.3 -0.8 -0.6 0 -2.6 4.5 -4.7 0.5 -2.2 -6.2 -2.3 -1 0.5 -1.5 -2.4 0.8 -2.8 2.6 -2.6 6.9 -4.7 0.8 -2.8 27.6 5.1 1.7 0.9 1.6 -1.8 5.6 -3.2 2.8 -4.1 1.7 -1.2 11.2 -1.9 1.9 0.7 0 -11.8 0 18.3z","San Marino":"M934 188l-2.1 0.4 -1 -2 1.5 -2.3 2.2 -0.3 0.4 1.7 -1 2.5z","Portugal":"M200.7 280.3l6.6 -5.2 11.1 -3.9 1.8 0.2 2.6 4.3 0.3 1 -3.2 5.7 1.7 3.6 0.7 0.3 2 -0.1 6 -3.2 0.8 0.5 7.1 -0.8 6.2 2.5 3.8 0.1 4.5 -1.4 2.2 -1.5 0.5 -2.7 1.6 -1.2 4.1 1.3 5.6 0.3 1.1 -0.8 4.4 1.4 3 -0.4 1.5 1.3 0.6 1.8 0.5 9.4 5.2 0.3 2.9 1 2.2 1.9 1.1 3.2 -6.5 7.3 -5.6 3.2 -4.4 4.1 -2.9 4.9 -3.6 2.1 -1.7 2.4 2.5 6 0.8 4.6 0.6 5.6 -1.3 9.6 1.5 4.5 -7 6.1 -0.7 1.8 0.2 1.2 4.6 5.4 -0.5 3.8 -2.3 6.2 -2.1 3.8 -2.8 1.4 -11.6 0.1 -2.8 0.9 3.1 5.6 3.8 3.2 1 5.6 4.6 9.1 4.5 1.2 1.6 2.2 -1.8 6.7 -2.7 3.6 -5.3 4.9 -2.1 11.4 8.2 12.1 5 -0.3 -2.2 6.3 -5.6 1.6 -8.9 12.2 -2.1 6.2 3.3 17.7 -2.9 0.4 -11.8 7.1 -3.6 0 -6.9 -3.1 -15.9 -2 -4.8 2.1 -3.7 -0.1 -3.1 2.6 -2.1 -0.7 6.3 -17.3 -0.1 -7 0.8 -6.1 -1 -6.1 -1.9 -3.8 2.6 -9.8 -0.3 -5.1 -2.3 -6.5 7.3 1 -4.6 -4.1 -4 0.2 -9.3 3.3 -1 -0.4 0.4 -4 -1.6 -5.2 2.5 -1.4 2.9 -0.4 2.5 -2.2 1.5 -2.5 -0.9 -4.4 2.3 -4.3 4.9 -3.5 -2.6 0.5 -2.9 2.3 -4.8 8 -1.5 4 -7.7 2 -3.9 -1.4 0 -5.4 1.5 -4.8 0.5 -6.7 2.2 -6.1 -0.9 -4 4.4 -3.9 3.4 -5.2 10.8 -25.8 -1.7 -2.8 0.5 -3.6 3.5 -15.7 3 -6.7 0.8 -15.2 -2.7 -9.1 -2.5 -16.9 1.9 -2.1 -3.1 -0.3 -1.4 -2.9 0.3 -3 3.4 -5.1z","Morocco":"M426.9 582.1l1 3.1 2 2.5 11.7 9.2 0.1 1.2 -2 4.8 3.7 4.7 0.3 1.2 -2 4.1 2.8 8.1 0.5 7.7 -0.7 4.5 22.5 0 -496.8 0 287.1 0 8.4 -3.6 5 -6.8 13.9 -26.9 14.8 -42.7 10.4 -1.8 3.5 -1.4 4.2 -3 4.1 1.2 -2 2 0 4.7 2.9 5.6 5.1 6.2 9.3 7.9 7.2 3.1 10.3 1.9 11.9 -3.4 6.7 -0.1 3.3 -1.4 3.5 2.2 6.8 0.6 6.5 -1.2 5 -3.3 3.1 -3.7 0.6 3.9 4 7.8 3.7 -0.3 3.2 1 7.3 -0.5 7.1 0.9z","Malta":"M1005.8 550.4l-1.3 1.4 -3.2 -0.1 -3 -2.1 0 -4.6 3.4 0.9 4.1 4.5zM997 542.9l-2 0.7 -2.6 -2.1 2.8 -0.7 1.5 0.6 0.3 1.5z","Liechtenstein":"M833.8 32.8l-3.2 -0.3 -0.1 -5.6 1.5 -5 1 4.3 1.8 4 -1 2.6z","Italy":"M745.6 89.4l3.7 2.3 6.8 -1.6 7.4 -3.3 8.5 2.8 7.1 -4.6 4.5 -7.3 0.1 -1.3 -1.6 -3.4 0.5 -0.7 4.7 -3.6 4.8 -5.2 1.8 0 0.7 2.2 -0.2 6 0.7 1.8 6.3 6.7 6.1 1.7 0.3 0.8 -1.6 3.2 3.7 3.9 0.6 2.7 1.7 1.7 2.4 -0.8 0.7 -1.5 -1.4 -6.9 8.5 -13.5 0.4 -9.5 1.5 -1 4.2 0.7 1.9 6.7 1.6 2.1 3.8 0.5 5.1 -2.5 3.4 -1.1 1.8 0.3 3.6 6.2 1.4 0.4 2.2 -1.2 -1.2 -5.4 -1 -3 -1.2 -1.3 -0.3 -1.8 1.6 -5.8 3.9 -1.1 2.6 2.8 3.1 1 2.3 -0.2 0.3 -3.5 -1.4 -2.3 1.9 -10.1 8.2 1 2.3 2.7 2.4 0.9 5.7 -0.1 1.1 -1 3.7 -7.1 3.9 -1.9 9.8 -1.2 8.4 0.7 13.7 -5 1 0.4 0.1 0.8 -2.5 3.8 0.9 2.5 8.1 11.7 3.1 1.5 23.7 5.1 11.2 0.8 7.2 1.8 -0.8 2.8 -6.9 4.7 -2.6 2.6 -0.8 2.8 1.5 2.4 1 -0.5 6.2 2.3 -0.5 2.2 -4.5 4.7 0 2.6 0.8 0.6 3.1 -0.3 0.5 0.9 -1.5 6.3 0.5 1.1 4.7 2.5 3.7 4.1 1.6 3.2 -1.1 1 -2.3 0.6 -1.9 -0.3 2.1 -2 -5.3 -7 -2.4 0 -3.2 3 -8.9 -3.1 -6.1 6.7 -4.4 1.3 -4.9 3.2 -9.1 4.1 -2.2 -0.3 3.6 -3.8 -1.7 -0.1 -4.7 2.7 -2.7 2.3 -1.7 10.1 2.1 1.6 3.7 8.2 4.5 3.5 -2 6 -2.8 2.2 -2.3 -1.6 -1.4 0 -1 5.4 2 14.1 3.1 9.9 3.1 4.3 7.1 6.7 7.4 3.5 13.5 11.3 7.3 3.5 1.8 2 4.5 8.5 3.9 10 4.1 15.5 2.9 7.6 6 8.6 12.4 12.2 11.2 9 10.4 5.5 3.5 0.9 0 -1.2 0 180 0 -94.5 -11.1 -7.7 -0.7 -1.2 0 -2 2 -3.1 -2.8 -8 -2.2 -3.4 -2.6 -1.8 -7.2 1.9 -3.3 -0.3 -2.7 1.5 -1.4 0.1 4.1 -5.9 -5.3 -3.8 -7 -0.7 -1 1.6 -1 -0.9 0.1 -2.6 -6.6 -11.9 -4.3 -4.9 -2.1 -0.8 -4 1 -6.7 -2.2 -4 -0.4 -5.4 2 -1.7 -0.9 -0.6 -1.6 -5.9 -5 -7.6 -2.8 -14.7 -15.8 -4.4 -6 -9.3 -6.5 -5.9 -9.6 -4.8 -3.5 -7 -2.8 -5.3 1.5 -1.2 -1.2 2.7 -1.9 -0.5 -3.6 -8 -9.6 -4.7 -3 -3.2 -6.2 -2.2 -1.1 -4.5 -0.4 0.2 -11.2 -2.4 -7.9 -4.5 -6.8 -2.5 -16.1 -2.1 -4.6 -4.8 -3.5 -11 -3.8 -15.1 -10.6 -3.2 -0.1 -9.2 -4.1 -5.7 -0.7 -7.4 3.6 -8.9 10.1 -7.3 10.4 -2.6 2.1 -9.3 3.6 -8.4 1.6 -0.3 -4.6 3.7 -4.8 3 -5.7 -1.4 -3.9 -9.2 1.7 -1.8 -0.5 -12.1 -6.8 -2.3 -2.7 -0.9 -2.7 0.6 -1.7 -1.7 -4 4.1 -8.1 1.6 -0.5 0.7 -1.4 -1.2 -5.4 -1.9 -1.5 -4.7 -1.2 -2.2 -1.8 -1.6 -5 -2 -2.2 -0.1 -2.4 2.1 -1.3 5.2 0.4 4.8 -3.9 3.4 -1.2 1.2 -5.3 1.1 -1.6 0.3 -1 -4.9 -4.9 -4.6 -8.3 -2.6 -2 -0.5 -1.5 0.5 -3.6 4.6 -2.7 2.9 -2.9zM934 188l1 -2.5 -0.4 -1.7 -2.2 0.3 -1.5 2.3 1 2 2.1 -0.4zM861.9 237.5l1.1 1.8 -0.6 2.3 0.4 2.7 -3 -2.3 -4.4 1.2 -2.6 -0.3 -0.7 -1.9 0.6 -1.3 8 -0.5 1.2 -1.7zM984.1 337l-2.4 -0.1 -0.5 -0.7 0.6 -1.7 3.1 1 -0.8 1.5zM919 511.7l-1.6 0.4 -2.2 -1.4 0.2 -2.8 2.7 1 0.9 2.8zM1030 448.1l0 6.9 -1.3 12.1 -4.5 14.2 0.6 5.4 3.8 3.9 -2 1.6 3.4 4.8 0 3.6 -4.4 5.2 -1 2.4 -0.1 6.5 -3.7 -0.3 -4 -1.3 -3.8 0.6 -9.5 -3.8 -4.7 -7.5 -7.7 -5.7 -8.2 0.1 -3.6 -1.5 -7.3 -5.1 -7.8 -4.1 -6.6 -5.7 -4.5 -1.2 -4.1 -2.8 -7.7 0 -1.9 -0.9 -4 -3.4 -3.1 -6.5 3.8 -10.2 4 -2.4 2.5 -3.3 4 5.2 1.8 1.3 5 -2.1 0.2 -2.1 3.6 -2.6 6.6 0.4 1.1 2.4 3.8 1 6.5 4.5 3.8 0.9 8.9 -2.6 8.2 1 7.6 -1.2 4.4 -1.8 3.5 -2.9 1.9 -0.7 11.3 0.6 2 -0.7 1.6 -1.9 1.6 -0.8 0 0.6 0 -3.4 0 3.3zM835.6 329l1.7 3 4.2 14.4 -0.7 2.7 -4.8 7.7 2.2 11.4 -3.1 29.7 -1.9 8.4 -2.6 1.2 -7.7 -3.5 -4 1 -3.2 -2 -1.1 8.7 -2 3.6 -2.8 2.2 -8.1 -0.6 -1.9 -1.6 -6.1 -10.8 -0.6 -12.2 1.6 -3.7 0.2 -7.1 0.7 -1.2 1.4 1.2 1 -0.4 0.2 -4.9 -1.8 -2.6 -3 -0.9 0 -5.4 1.6 -1.8 0.5 -2.4 0.1 -7.4 -2.2 -2.6 -1.9 -6.7 -5.7 -6.9 -0.2 -5.4 0.7 -4.6 0.7 -1.9 3 2.5 5.5 1.1 3.6 -0.8 4.3 -2 4.3 -2.5 6 -7.3 3.8 -1.5 1.9 -2 0.7 -2.6 1.6 -0.6 1.8 2.5 2.4 0.3 3.6 2 2.9 4.5 2.6 1.6 0.2 0.6 -1.1 0.6 -1.2 2.7 2.7 2.3zM795.9 410.7l-2 4.4 -2.1 -3.1 -0.2 -2.7 0.4 -0.8 3.9 2.2zM789.2 321.8l-1.2 2.1 -1.6 -0.2 2.1 -4.6 1.9 -1 0.7 0.9 -1.9 2.8z","Germany":"M831.9 9l-11.8 -7.5 -10.5 0.8 -1.6 -2.5 -1.3 -0.6 -1.4 0.9 -0.9 -0.1 -3.8 -3.4 -1.5 -0.5 -2.2 0.5 -2.5 1.8 -1.1 2.2 0.2 1.3 1.4 0.5 3.4 -0.3 0.7 1.1 -0.4 0.7 -4.5 1.7 -7.9 -0.8 -3.6 1.6 -5.9 0.6 -7.8 -0.4 -4.6 -1.8 -1.2 -3.4 0.4 -5.2 1.8 -6.8 0.5 -5 -0.9 -3.1 1.2 -4.8 3.1 -6.4 15 -0.1 -78.7 0 315.8 0 -100.9 0 59.4 0 -25.3 0.4 -9.2 5.9 -1.8 2.8 0 1.6 6.7 9.5 0 4.2 -2 4.5 4.7 1.1 0.7 2.3 -1.3 9 -1.6 0.2 -5.5 -3.5 -1 -1 0.5 -2.2 -0.9 -1.7 -2.9 -1.5 -7 1.6 -4.1 -2.6 -5.3 -1.5 -0.9 5 -16.1 1.9 -11.2 4.9 -0.6 1.4 -2.6 1.8 -3 0.5 -0.8 -0.5 -5.1 1.6 -2.1 -0.3 -2.9 -3.6 -0.8 -2.6 -4.6 -0.2 -2.8 -1.2 -6.1 0.3 -1.5 -0.5 -2.4 9.5 -2 2.6 -2.4 1.5 -2 0.3 0.6 -4.3 -4.6 -1.5 -0.2 -2.9 -3.1 -2.8 -7.6 -3.6 -3.5 2.5 -3.5 -0.4 -0.8 0.5z","France":"M830.4 240l-0.9 6.8 2.5 5.1 1 18.2 -5.4 10.9 -0.2 9.1 -0.8 2.4 -1.4 2.4 -2.7 7.6 -2.3 3.5 -10.1 -6 -2.9 -3.4 2.4 -3.7 0.3 -1.5 -5.8 -2.8 0 -1.9 1.3 -3.1 -0.6 -2.5 -4.1 -0.3 -0.1 -1.4 3 -3.8 -0.2 -2.4 -3.8 -3.1 -0.8 -2.7 1.5 -1.8 2.3 -1.2 -1.7 -2.8 -2.1 -0.6 2.5 -3.3 2.6 -5.8 3.5 -2.6 7.9 -2.6 3.3 -3.3 2 0.2 3.1 1.6 1 -0.9 0.7 -2.5 -0.2 -8.4 1.1 -3.4 1.8 -0.2 1.6 1.9 0.7 8.3zM766.1 5.5l-4.3 2.3 -2.4 4.7 -2.8 1.1 -4.8 0 -2.2 -2.8 -2.9 0 -3 1.8 -2.3 3.1 0.7 1.6 2.2 0.5 0.5 1.5 -11.5 15 -7.2 3.9 -1.6 9.8 -8.6 7.2 -3.2 7.7 -0.3 1.5 2.1 2.5 -0.8 4.9 -4.4 3.2 0 3.2 1.3 0.5 2.7 -0.3 4 -2.2 2.5 -3.1 -1.8 -3.3 0.4 -0.6 3.1 -3.1 3.6 -1.8 5.2 -0.4 6.8 1.5 -0.3 1.9 1.7 4.7 -1.5 5.5 6.2 7.4 2.4 4.5 -2.9 2.9 -4.6 2.7 -0.5 3.6 0.5 1.5 2.6 2 4.6 8.3 4.9 4.9 -1.4 2.6 -1.2 5.3 -3.4 1.2 -4.8 3.9 -5.2 -0.4 -2.1 1.3 0.1 2.4 2 2.2 1.6 5 2.2 1.8 4.7 1.2 1.9 1.5 1.2 5.4 -0.7 1.4 -1.6 0.5 -4.1 8.1 1.7 4 -0.6 1.7 0.9 2.7 2.3 2.7 12.1 6.8 1.8 0.5 9.2 -1.7 1.4 3.9 -3 5.7 -3.7 4.8 0.3 4.6 -1.8 0.8 -0.9 -0.9 -0.6 0.2 -0.6 1.6 -6.9 3.5 -10.9 10.4 -5.1 3.2 -2 5.2 -2.9 3 -2.8 1.4 -6.4 1.5 -6.6 3.1 -2.9 -1.3 -7.7 0.1 -4.7 -3.8 -9.2 -2.4 -2.9 -5.5 -6.9 -0.2 -1.6 -0.8 -0.5 -3.7 -5.1 0.8 -2.3 1.6 -1.3 -0.6 -0.7 0.3 0.1 1 -2.7 0.3 -11.6 -4 -5.2 -1.1 -2.1 -1.1 -1.7 -2.9 -2.1 -1.4 -4.9 1.4 -4.3 4.9 -18.1 12.7 -7.2 13.1 -0.3 3.6 1.6 11.6 4.2 7.5 -8.4 -1.7 -2.6 0.5 -7.7 3 -0.6 2.5 -15.5 -3.8 -5.9 3.1 -1.6 -0.2 -2 -3.2 -7.7 -3.6 1.3 -2.5 -1.1 -2.2 -7.1 -1.8 -2.6 2.2 -2.8 -4.4 -1.8 -0.9 -3 -0.2 -15.3 -5.9 -3.2 0.1 -1.4 6.9 -13 -0.1 -1.9 -1.3 -8.3 1.4 -8.9 -6.4 -9.8 1.3 -6.1 -6.6 -6 -0.5 -8.3 -3.4 -3.8 -1.8 -0.5 -1.9 -3.3 3.2 -2.9 -1.8 2 -3.7 0.4 -4.3 -2.1 -1.3 -5.3 -0.7 -4.5 -2 -1.3 -4 5.6 -1.4 5 -6 4.9 -21.8 3.5 -26 2.4 -4.9 3.3 -1.4 -2.6 -3.6 -3.1 4.8 1.8 -24.1 3.7 -18.3 8.9 7.5 2.1 3.3 2.6 10.8 4.8 4.5 -1.1 -2.5 -2.1 -1.9 -3.1 -14.4 -2 -4.1 -3.1 -3.4 -9.9 -7.3 -1 -1.5 -0.5 -2.7 3.3 0.1 2.9 1.4 -2.5 -9.1 -1.5 -19.3 -5.7 -0.8 -2.7 -1.1 -13.7 -8.3 -4.6 -8.5 -4.8 -6.3 -1.1 -2.8 0.1 -2.8 2.5 -5.9 -2.3 -3.8 -2.1 -0.7 -1.8 -1.8 3.1 -5.1 2.7 -0.5 9.8 2.9 -7.9 -4.8 -13.1 1.6 -5.2 -1.7 -0.9 -3.5 1.9 -1.6 1.6 -3 -1.8 -2.1 -2.5 -0.8 -7.5 0.7 -0.8 -1.2 2.1 -3.3 -1.9 -1.2 -6.1 1.2 -3.5 -1 -3.2 -3.7 -3.6 0.5 -2.2 -1.5 -4 0.1 -2.2 -2.1 -13.6 -4.4 -5.8 -0.5 -5.3 1.9 -3 -0.6 -2.2 -2.8 -1.8 -4.7 -8.7 -3.6 1.8 -2.5 3.9 -0.5 4.6 -1.7 1.8 -2.1 -3.6 -2.5 -2.8 -0.6 -2.2 -2.7 11.6 0 -17.9 0 444.9 0 -15 0.1 -3.1 6.4 -1.2 4.8 0.9 3.1 -0.5 5 -1.8 6.8 -0.4 5.2 1.2 3.4 1.8 0.7zM462.8 90.5l-1.2 4.3 -2.3 -4 -3.1 -3.5 -0.6 -4.1 3.6 2.4 3.6 4.9z","Croatia":"M971.6 109.6l1.3 2 9.2 2.4 1.8 -1.1 2 -3 3.2 1.7 9.8 -0.3 2 -1.2 3.8 -6.8 1.1 -0.6 0.8 0.3 2 4 5 4.5 1.9 0.6 1.7 -1.3 2 -0.3 5.3 2.3 4.5 0.5 1 -1.2 0 -53 0 174.6 0 -46.1 -2.9 -12.6 -2.2 -4.1 5.1 -1.5 0 0.8 0 -5.4 -9.9 -10.6 -3 -5 -0.4 -5.5 0.7 -7.4 -1.7 -5.3 -7.7 -7 -2.8 -3.7 -5.6 -2.1 -2.6 0.2 -1.5 2.7 -1.1 6 -9.4 15.8 -3.6 -0.1 -8 -13.2 -3.9 -18.3 2.1 -1.7zM1003 151.5l-0.2 1.8 -2.1 -2.3 -3.7 -11.2 -0.4 -2 1.4 -1.9 0 -2 -1.9 -6.1 1.5 -0.9 1 -0.2 1.2 6.7 2.5 3 -0.5 4.9 1.2 10.2z","Austria":"M832 21.9l2.8 -6.2 0.5 -3.8 -3.4 -2.9 0.8 -0.5 3.5 0.4 3.5 -2.5 9.8 5.2 1.4 2.3 -0.3 1.8 1 0.7 3.6 0.8 -0.6 4.3 2 -0.3 2.4 -1.5 2 -2.6 2.4 -9.5 1.5 0.5 6.1 -0.3 2.8 1.2 4.6 0.2 0.8 2.6 2.9 3.6 2.1 0.3 5.1 -1.6 0.8 0.5 3 -0.5 2.6 -1.8 0.6 -1.4 11.2 -4.9 16.1 -1.9 0.9 -5 5.3 1.5 4.1 2.6 7 -1.6 2.9 1.5 0.9 1.7 -0.5 2.2 1 1 5.5 3.5 1.6 -0.2 1.3 -9 -0.7 -2.3 -4.7 -1.1 2 -4.5 0 -4.2 -6.7 -9.5 0 -1.6 1.8 -2.8 9.2 -5.9 75.5 -0.4 0 84.3 -1.9 -0.7 -11.2 1.9 -1.7 1.2 -2.8 4.1 -5.6 3.2 -1.6 1.8 -1.7 -0.9 -13.9 -2.2 -9.1 -2.5 -11.8 -2.2 -11.2 -0.8 -23.7 -5.1 -3.1 -1.5 -8.1 -11.7 -0.9 -2.5 2.5 -3.8 -0.1 -0.8 -1 -0.4 -13.7 5 -8.4 -0.7 -9.8 1.2 -3.9 1.9 -3.7 7.1 -1.1 1 -5.7 0.1 -2.4 -0.9 -2.3 -2.7 -7.3 -0.5 -0.9 -0.5 0.1 -1.7 -1.4 -3.3 -2.3 -1 -5.8 6.2 -1.7 0.5 -4.7 -1.7 -4.1 -2.6 -1.1 -3.6 -3.5 -1.5 -5.6 -0.9 1 -2.6 -1.8 -4 -1 -4.3z","Andorra":"M562.2 254.1l-5.8 2.9 -3 0.2 -0.7 -1.1 0 -6.3 2.6 -2.2 7.1 1.8 1.1 2.2 -1.3 2.5z","Algeria":"M799.2 503.9l0.9 4.5 -5.5 3.1 -2.6 5.5 -5.6 4.9 0.1 1 3.3 1.7 1.6 3.8 -3.6 24.1 2.5 6.3 0 10.6 2.6 8.5 -2.9 5 -2.2 14.7 -4.2 7.1 -9.8 6.5 -3.1 6.5 -6.7 5.4 -1.4 1.9 -0.5 8.2 154 0 -712.1 0 262.8 0 -22.5 0 0.7 -4.5 -0.5 -7.7 -2.8 -8.1 2 -4.1 -0.3 -1.2 -3.7 -4.7 2 -4.8 -0.1 -1.2 -11.7 -9.2 -2 -2.5 -1 -3.1 7 0.8 3.6 -0.4 8.3 -3.7 6.4 -5.1 5.1 -2.6 4.6 -5.6 4 -3.5 6 -3.8 16.8 -8.2 2.6 -0.1 5.6 1.9 4.9 -0.6 3.3 -2.9 3.6 -6.9 5.5 -4.2 7.1 -4.3 9.4 -4 6.2 -3.8 9.9 -3.2 24.7 -2.1 12.7 -1.8 8.7 0.4 8.7 -6 4.3 -1.9 18.9 -0.5 8.9 -4.3 33.8 0 4.1 1.4 4.1 2.4 6.9 5.6 3.4 1.3 4.5 -1.2 10.4 -5.4 11.7 -2.8 6.3 -3.1 2.7 -4.7 5.5 -1.7 3.1 3.5 12.2 3.6 7.4 -0.9 3.2 -1.2 -1.1 -5.3 7.8 1.4 6.1 2.6 6.3 5.2 4.1 1 7.5 -2.3 15.5 -1.2z"};
+const MAP = { W: 1000, H: 603.2, LON0: -14.6, LAT1: 47.7, k: 1975.7165 };
+const my = l => Math.log(Math.tan(Math.PI / 4 + l * Math.PI / 360));
+const yTop = my(MAP.LAT1);
+const proj = ([lat, lon]) => [(lon - MAP.LON0) * Math.PI / 180 * MAP.k, (yTop - my(lat)) * MAP.k];
+const COUNTRY_KEY = { Portugal: "pt", Spain: "es", France: "fr", Italy: "it" };
+const CNAME = { PT: "Portugal", ES: "Espanha", FR: "França", IT: "Itália" };
+
+const C = {
+  porto: { n: "Porto", c: "PT", ll: [41.1496, -8.611], t: [5, 14],
+    faz: ["Ribeira e a Ponte Luís I a pé, por cima e por baixo", "Livraria Lello (ingresso online) e os azulejos da estação de São Bento", "Pôr do sol no Jardim do Morro, de frente para as caves do vinho do Porto"],
+    come: ["Francesinha (Café Santiago ou Brasão)", "Sandes de pernil com queijo da Serra na Casa Guedes", "Tripas à moda do Porto, o prato que deu aos portuenses o apelido de tripeiros"],
+    dica: ["g", "O Porto é o porto de casa. Toda rota começa e termina aqui, com a família."] },
+  aveiro: { n: "Aveiro", c: "PT", ll: [40.6405, -8.6538], t: [5, 15],
+    faz: ["Passeio de moliceiro pelos canais", "As casinhas listradas da Costa Nova"],
+    come: ["Ovos moles em barquinhos de hóstia", "Tripas doces, um crepe recheado de rua"],
+    dica: ["v", "Parada para esticar as pernas: uma hora e meia resolve."] },
+  coimbra: { n: "Coimbra", c: "PT", ll: [40.2033, -8.4103], t: [5, 15],
+    faz: ["Universidade e a Biblioteca Joanina (horário marcado)", "Descer da Alta para a Baixa pelas escadinhas", "Fado de Coimbra, cantado por estudantes de capa preta"],
+    come: ["Leitão à Bairrada na Mealhada, que fica no caminho", "Pastéis de Santa Clara", "Chanfana, cabra no vinho tinto"],
+    dica: ["g", "Na Biblioteca Joanina moram morcegos que comem os insetos que estragariam os livros. É sério."] },
+  nazare: { n: "Nazaré", c: "PT", ll: [39.6012, -9.0709], t: [8, 15],
+    faz: ["Forte de São Miguel Arcanjo e o farol da Praia do Norte", "Janeiro é temporada de ondas gigantes: com mar grande, tem surfista em onda de prédio", "Subir ao Sítio pelo ascensor"],
+    come: ["Peixe seco ao sol, na própria praia", "Caldeirada de peixe"],
+    dica: ["v", "Olhem a previsão de ondulação na véspera. Dia de mar grande vira espetáculo."] },
+  obidos: { n: "Óbidos", c: "PT", ll: [39.3606, -9.1571], t: [7, 15],
+    faz: ["Andar por cima da muralha (sem corrimão, cuidado)", "Rua Direita e as livrarias da Vila Literária"],
+    come: ["Ginjinha servida em copinho de chocolate", "Chocolate quente com ginja"],
+    dica: ["g", "Dormir dentro das muralhas é como dormir num castelo de conto de fadas."] },
+  sintra: { n: "Sintra", c: "PT", ll: [38.8029, -9.3817], t: [7, 13],
+    faz: ["Palácio da Pena logo na abertura", "Quinta da Regaleira e o Poço Iniciático", "Cabo da Roca, o ponto mais a oeste da Europa continental"],
+    come: ["Travesseiros da Piriquita", "Queijadas de Sintra"],
+    dica: ["v", "No Cabo da Roca está o verso de Camões: “Onde a terra se acaba e o mar começa”. Navegantes, chegamos."] },
+  lisboa: { n: "Lisboa", c: "PT", ll: [38.7223, -9.1393], t: [8, 15],
+    faz: ["Belém: Jerónimos, Torre de Belém e o Padrão dos Descobrimentos", "Alfama e Mouraria a pé, com fado à noite", "Miradouro da Senhora do Monte ao pôr do sol"],
+    come: ["Pastéis de Belém ainda quentes", "Bacalhau à Brás", "Bifana e uma ginjinha no Rossio"],
+    dica: ["g", "Aos pés do Padrão dos Descobrimentos tem uma rosa dos ventos gigante no chão. Foto obrigatória das duas em cima dela."] },
+  evora: { n: "Évora", c: "PT", ll: [38.5714, -7.9135], t: [5, 14],
+    faz: ["Templo Romano e a Praça do Giraldo", "Capela dos Ossos (arrepia, mas vale)", "Cromeleque dos Almendres, um círculo de pedras mais antigo que Stonehenge"],
+    come: ["Porco preto com migas", "Açorda alentejana", "Vinho do Alentejo"] },
+  tomar: { n: "Tomar", c: "PT", ll: [39.6036, -8.4092], t: [4, 14],
+    faz: ["Convento de Cristo, sede da Ordem de Cristo", "A Charola, a rotunda dos Templários"],
+    come: ["Fatias de Tomar", "Queijadas de Tomar"],
+    dica: ["v", "A cruz vermelha nas velas das caravelas é a cruz da Ordem de Cristo, que ajudou a pagar as navegações. A casa dela é aqui."] },
+  lagos: { n: "Lagos", c: "PT", ll: [37.1028, -8.673], t: [9, 17],
+    faz: ["Ponta da Piedade", "Praia Dona Ana vazia no inverno"], come: ["Cataplana", "Polvo grelhado"] },
+  santiago: { n: "Santiago de Compostela", short: "Santiago", c: "ES", ll: [42.8782, -8.5448], t: [5, 12],
+    faz: ["Praça do Obradoiro e a Catedral no fim da tarde", "Visita guiada pelos telhados da catedral", "Mercado de Abastos de manhã"],
+    come: ["Polbo á feira", "Pimientos de Padrón", "Tarta de Santiago com vinho Albariño"],
+    dica: ["g", "Santiago é das cidades mais chuvosas da Espanha. Guarda-chuva na mão e nada de sapato de camurça."] },
+  leon: { n: "León", c: "ES", ll: [42.5987, -5.5671], t: [-1, 8],
+    faz: ["Catedral de León e os vitrais gigantes", "Casa Botines, de Gaudí", "Barrio Húmedo à noite"],
+    come: ["Tapa grátis com cada bebida", "Cecina e morcilla"],
+    dica: ["v", "Em León a tapa vem de graça com cada caña. Três bares e o jantar está resolvido."] },
+  burgos: { n: "Burgos", c: "ES", ll: [42.3439, -3.6969], t: [-1, 8],
+    faz: ["Catedral de Burgos, Patrimônio da UNESCO", "Mirador do Castelo"],
+    come: ["Morcilla de Burgos", "Lechazo, cordeiro assado em forno de lenha", "Queso de Burgos"],
+    dica: ["g", "É a parada mais fria da carta. Gorro, luva e meia grossa."] },
+  bilbao: { n: "Bilbao", c: "ES", ll: [43.263, -2.935], t: [5, 13],
+    faz: ["Museu Guggenheim e o Puppy, o cachorro gigante de flores", "Casco Viejo e as Siete Calles", "Funicular de Artxanda para ver a cidade de cima"],
+    come: ["Pintxos na Plaza Nueva", "Bacalao al pil-pil"] },
+  sansebastian: { n: "San Sebastián", c: "ES", ll: [43.3183, -1.9812], t: [5, 12],
+    faz: ["Playa de La Concha a pé", "Monte Igueldo pelo funicular de 1912", "Ronda de pintxos na Parte Vieja"],
+    come: ["Gilda: azeitona, anchova e pimenta no palito", "Tarta de queso de La Viña", "Txuleta para dividir"],
+    dica: ["v", "Regra dos pintxos: um pintxo e uma bebida por bar, depois o próximo."] },
+  biarritz: { n: "Biarritz", c: "FR", ll: [43.4832, -1.5586], t: [5, 13],
+    faz: ["Farol de Biarritz e o Rocher de la Vierge", "Saint-Jean-de-Luz, a vila de pescadores ao lado", "Bayonne, a capital do chocolate na França"],
+    come: ["Gâteau basque", "Chocolate quente espesso em Bayonne", "Jambon de Bayonne"],
+    dica: ["g", "Primeiro carimbo francês da viagem! Na França o pedágio é caro: cartão sempre à mão."] },
+  salamanca: { n: "Salamanca", c: "ES", ll: [40.9701, -5.6635], t: [-1, 9],
+    faz: ["Plaza Mayor iluminada à noite", "Achar a rã na fachada da Universidade (dá sorte)", "Casa de las Conchas"],
+    come: ["Hornazo, torta recheada de carnes", "Jamón ibérico de Guijuelo", "Chocolate con churros"] },
+  madrid: { n: "Madrid", c: "ES", ll: [40.4168, -3.7038], t: [3, 11],
+    faz: ["Museu do Prado ou Reina Sofía (Guernica)", "Retiro e o Palácio de Cristal", "Bate-volta a Toledo"],
+    come: ["Bocadillo de calamares na Plaza Mayor", "Chocolate con churros na San Ginés", "Cocido madrileño, prato de inverno"],
+    dica: ["v", "O centro de Madrid é ZBE, zona de baixa emissão. Carro no estacionamento da periferia e metrô."] },
+  zaragoza: { n: "Zaragoza", c: "ES", ll: [41.6488, -0.8891], t: [2, 10],
+    faz: ["Basílica del Pilar", "Aljafería, palácio mouro"],
+    come: ["Tapas na zona de El Tubo", "Ternasco de Aragón"],
+    dica: ["g", "Parada de almoço: a Basílica fica a cinco minutos do estacionamento à beira do Ebro."] },
+  barcelona: { n: "Barcelona", c: "ES", ll: [41.3874, 2.1686], t: [6, 14],
+    faz: ["Sagrada Família (ingresso com horário)", "Park Güell e os Bunkers del Carmel ao pôr do sol", "Bairro Gótico e El Born a pé"],
+    come: ["Calçots com romesco, a temporada começa em janeiro", "Pa amb tomàquet e bombas da Barceloneta", "Crema catalana"],
+    dica: ["v", "Garagem fechada e nada à vista dentro do carro. Barcelona tem ZBE e muito furto em carro na rua."] },
+  carcassonne: { n: "Carcassonne", c: "FR", ll: [43.213, 2.3491], t: [3, 11],
+    faz: ["La Cité, a cidade muralhada de conto de fadas", "Caminhar pelas muralhas no fim da tarde"],
+    come: ["Cassoulet", "Vinho do Languedoc"],
+    dica: ["g", "Visitem La Cité no fim da tarde, quando os grupos de excursão já foram embora."] },
+  toulouse: { n: "Toulouse", c: "FR", ll: [43.6047, 1.4442], t: [3, 10],
+    faz: ["Place du Capitole", "Basílica de Saint-Sernin", "Cité de l'Espace, se bater a curiosidade"],
+    come: ["Saucisse de Toulouse", "Violetas cristalizadas", "Mais um cassoulet, sem culpa"],
+    dica: ["v", "A cidade rosa é toda de tijolo. No fim da tarde fica laranja, cor de raposa."] },
+  sevilha: { n: "Sevilha", c: "ES", ll: [37.3891, -5.9845], t: [6, 16],
+    faz: ["Real Alcázar (reservar online)", "Catedral e a Giralda", "Plaza de España", "Flamenco em Triana à noite"],
+    come: ["Espinacas con garbanzos", "Pescaíto frito", "Tapas no Barrio Santa Cruz"],
+    dica: ["g", "Em janeiro as laranjeiras das ruas estão carregadas. São laranjas amargas: lindas, mas não comam do pé."] },
+  cordoba: { n: "Córdoba", c: "ES", ll: [37.8882, -4.7794], t: [4, 15],
+    faz: ["Mezquita-Catedral", "Judiaria e os pátios floridos", "Ponte Romana ao entardecer"],
+    come: ["Salmorejo cordobés", "Flamenquín", "Rabo de toro"] },
+  granada: { n: "Granada", c: "ES", ll: [37.1773, -3.5986], t: [1, 13],
+    faz: ["Alhambra e Palácios Nazaríes (ingresso semanas antes)", "Mirador de San Nicolás ao pôr do sol", "Neve na Sierra Nevada, a uma hora de carro"],
+    come: ["Tapa grátis com cada bebida", "Piononos de Santa Fe", "Chá e doces árabes na Calle Calderería"],
+    dica: ["v", "Ingresso da Alhambra esgota. Comprem no site oficial assim que fecharem as datas."] },
+  merida: { n: "Mérida", c: "ES", ll: [38.9161, -6.3437], t: [3, 13],
+    faz: ["Teatro Romano e o Anfiteatro", "Ponte Romana sobre o Guadiana"],
+    come: ["Migas extremeñas", "Presunto ibérico de bolota"] },
+  caceres: { n: "Cáceres", c: "ES", ll: [39.4753, -6.3724], t: [4, 12],
+    faz: ["Cidade velha medieval, cenário de Game of Thrones", "Torres e palácios iluminados à noite"],
+    come: ["Torta del Casar com pão", "Presunto e queijos da Extremadura"],
+    dica: ["g", "Voltando para Portugal vocês ganham uma hora: a Espanha está uma hora à frente."] },
+  roma: { n: "Roma", c: "IT", ll: [41.9028, 12.4964], t: [3, 13],
+    faz: ["Coliseu e Fórum Romano (horário marcado)", "Panteão, Fontana di Trevi e Piazza Navona", "Museus Vaticanos e Capela Sistina, bem cedo"],
+    come: ["Cacio e pepe e carbonara", "Supplì", "Maritozzo no café da manhã"],
+    dica: ["v", "Moeda na Fontana di Trevi de costas, com a mão direita por cima do ombro esquerdo. Garante a volta."] },
+  firenze: { n: "Florença", c: "IT", ll: [43.7696, 11.2558], t: [2, 11],
+    faz: ["Duomo e a cúpula de Brunelleschi", "Ponte Vecchio e Piazzale Michelangelo", "Galeria Uffizi"],
+    come: ["Schiacciata recheada", "Bistecca alla fiorentina para dividir", "Lampredotto, para as corajosas"],
+    dica: ["g", "O centro de Florença é ZTL, proibido para carro de fora. Aqui é trem e sola de sapato."] },
+  veneza: { n: "Veneza", c: "IT", ll: [45.4408, 12.3155], t: [1, 8],
+    faz: ["Perder-se de propósito", "Vaporetto linha 1 pelo Grande Canal", "Burano e as casas coloridas"],
+    come: ["Cicchetti e spritz nos bàcari", "Sarde in saor", "Frìtole, o bolinho do Carnaval"],
+    dica: ["v", "Janeiro tem neblina e pouca gente. Se vier acqua alta, aparecem as passarelas e segue o passeio."] },
+  milao: { n: "Milão", c: "IT", ll: [45.4642, 9.19], t: [0, 8],
+    faz: ["Terraços do Duomo", "Galleria Vittorio Emanuele II", "Aperitivo nos Navigli"],
+    come: ["Risotto alla milanese", "Cotoletta", "O panettone que sobrou do Natal"] },
+  nice: { n: "Nice", c: "FR", ll: [43.7102, 7.262], t: [6, 13],
+    faz: ["Promenade des Anglais", "Colline du Château", "Vieux Nice e o mercado de flores"], come: ["Socca", "Pissaladière"] },
+  genova: { n: "Gênova", c: "IT", ll: [44.4056, 8.9463], t: [6, 12],
+    faz: ["Centro histórico e os Palazzi dei Rolli", "Porto Antico"], come: ["Focaccia genovese", "Pesto de verdade", "Farinata"] },
+  toledo: { n: "Toledo", c: "ES", ll: [39.8628, -4.0273], t: [2, 12],
+    faz: ["Catedral e as ruelas medievais", "Mirador del Valle"], come: ["Mazapán", "Carcamusas"] },
+  valencia: { n: "Valência", c: "ES", ll: [39.4699, -0.3763], t: [7, 16],
+    faz: ["Cidade das Artes e das Ciências", "Mercado Central"], come: ["Paella valenciana de verdade", "Horchata com fartons"] },
+  bordeaux: { n: "Bordeaux", c: "FR", ll: [44.8378, -0.5792], t: [3, 11],
+    faz: ["Miroir d'eau e Place de la Bourse", "Cité du Vin"], come: ["Canelés", "Entrecôte à la bordelaise"] },
+  oviedo: { n: "Oviedo", c: "ES", ll: [43.3619, -5.8494], t: [5, 12],
+    faz: ["Catedral e o centro antigo", "Igrejas pré-românicas asturianas"], come: ["Fabada asturiana", "Sidra servida do alto"] },
+  segovia: { n: "Segóvia", c: "ES", ll: [40.9429, -4.1088], t: [-1, 9],
+    faz: ["Aqueduto romano", "O Alcázar que inspirou castelos de desenho animado"], come: ["Cochinillo asado", "Ponche segoviano"] },
+  vigo: { n: "Vigo", c: "ES", ll: [42.2406, -8.7207], t: [6, 13],
+    faz: ["Mercado da Pedra e o centro antigo"], come: ["Ostras da Rúa da Pedra", "Empanada galega"] }
+};
+
+const S = (t, a) => [t, a];
+const ROUTES = [
+  { id: "r1", num: "I", song: "Take a Break", name: "Portugal de ponta a ponta", color: "--r1", countries: ["PT"],
+    clima: "Ameno e chuvoso", ousadia: 1, tolls: 65, border: 0, bedMult: 1,
+    resumo: "A rota mais tranquila: Portugal inteiro sem cruzar fronteira, com o mar de um lado e mosteiros do outro.",
+    stops: ["porto", "aveiro", "coimbra", "nazare", "obidos", "sintra", "lisboa", "evora", "tomar", "porto"],
+    legs: [
+      { km: 75, min: 50, songs: [S("Porto Sentido", "Rui Veloso"), S("Como Uma Onda", "Lulu Santos")] },
+      { km: 60, min: 45, songs: [S("Amar Pelos Dois", "Salvador Sobral"), S("Velha Infância", "Tribalistas")] },
+      { km: 110, min: 75, songs: [S("Barco Negro", "Amália Rodrigues"), S("The Schuyler Sisters", "Hamilton")] },
+      { km: 40, min: 35, songs: [S("Chuva", "Mariza")] },
+      { km: 85, min: 60, songs: [S("Desfado", "Ana Moura"), S("Helpless", "Hamilton")] },
+      { km: 30, min: 35, songs: [S("Lisboa Menina e Moça", "Carlos do Carmo"), S("Canção de Engate", "António Variações")] },
+      { km: 135, min: 90, songs: [S("Grândola, Vila Morena", "Zeca Afonso"), S("Os Argonautas", "Caetano Veloso")] },
+      { km: 150, min: 100, songs: [S("Tanto Mar", "Chico Buarque"), S("Fado Tropical", "Chico Buarque")] },
+      { km: 200, min: 125, songs: [S("Canção da América", "Milton Nascimento"), S("Encontros e Despedidas", "Maria Rita")] }
+    ],
+    open: [S("Aquarela", "Toquinho"), S("Take a Break", "Hamilton")],
+    sleep: { coimbra: 1, obidos: 1, lisboa: 2, evora: 1 },
+    days: [
+      { legs: [0, 1], t: "Porto → Aveiro → Coimbra", txt: "Moliceiros e ovos moles em Aveiro, um pulo nas casinhas listradas da Costa Nova e leitão à Bairrada na Mealhada. Fim de tarde na Alta de Coimbra." },
+      { legs: [2, 3], t: "Coimbra → Nazaré → Óbidos", txt: "Biblioteca Joanina cedo, estrada até a Nazaré para ver as ondas de inverno do Forte, e noite dentro das muralhas de Óbidos com ginjinha no copo de chocolate." },
+      { legs: [4, 5], t: "Óbidos → Sintra → Lisboa", txt: "Pena e Regaleira pela manhã, travesseiros da Piriquita, Cabo da Roca no caminho e chegada a Lisboa para o pôr do sol num miradouro." },
+      { legs: [], t: "Lisboa a pé", txt: "O carro descansa. Belém e o Padrão dos Descobrimentos, pastéis quentes, Alfama à tarde e fado à noite." },
+      { legs: [6], t: "Lisboa → Évora", txt: "Estrada curta pelo Alentejo. Templo Romano, Capela dos Ossos, Cromeleque dos Almendres e jantar de porco preto." },
+      { legs: [7, 8], t: "Évora → Tomar → Porto", txt: "Convento de Cristo em Tomar, a casa da cruz das caravelas, e volta para o Porto a tempo do jantar com a família." }
+    ] },
+  { id: "r2", num: "II", song: "Wait for It", name: "Norte da Espanha e um pé na França", color: "--r2", countries: ["PT", "ES", "FR"],
+    clima: "Frio e úmido", ousadia: 3, tolls: 75, border: 120, bedMult: 1.05,
+    resumo: "Galícia, Castela e País Basco, com a melhor comida de bar da Espanha e um bate-volta até Biarritz, na França.",
+    stops: ["porto", "santiago", "leon", "burgos", "bilbao", "sansebastian", "biarritz", "sansebastian", "salamanca", "porto"],
+    legs: [
+      { km: 230, min: 140, songs: [S("Negra Sombra", "Luz Casal e Carlos Núñez"), S("Wait for It", "Hamilton"), S("Aquarela", "Toquinho")] },
+      { km: 330, min: 200, songs: [S("Un Velero Llamado Libertad", "José Luis Perales"), S("Hijo de la Luna", "Mecano")] },
+      { km: 180, min: 110, songs: [S("Lucha de Gigantes", "Nacha Pop"), S("Insurrección", "El Último de la Fila")] },
+      { km: 160, min: 100, songs: [S("Txoria Txori", "Mikel Laboa"), S("Right Hand Man", "Hamilton")] },
+      { km: 100, min: 70, songs: [S("Me Gustas Tú", "Manu Chao"), S("La Flaca", "Jarabe de Palo")] },
+      { km: 50, min: 45, songs: [S("La Mer", "Charles Trenet"), S("Je veux", "Zaz")] },
+      { km: 50, min: 45, songs: [S("Bonnie and Clyde", "Serge Gainsbourg e Brigitte Bardot"), S("Alors on danse", "Stromae")] },
+      { km: 470, min: 270, songs: [S("A Quién le Importa", "Alaska y Dinarama"), S("Tú Me Dejaste De Querer", "C. Tangana"), S("Despechá", "Rosalía")] },
+      { km: 370, min: 230, songs: [S("Porto Sentido", "Rui Veloso"), S("Encontros e Despedidas", "Maria Rita")] }
+    ],
+    open: [S("Alexander Hamilton", "Hamilton"), S("Os Argonautas", "Caetano Veloso")],
+    sleep: { santiago: 1, leon: 1, burgos: 1, bilbao: 1, sansebastian: 2, salamanca: 1 },
+    days: [
+      { legs: [0], t: "Porto → Santiago de Compostela", txt: "Cruzam a fronteira no rio Minho e chegam ao Obradoiro no fim da tarde. Polbo á feira, pimientos de Padrón e Albariño." },
+      { legs: [1], t: "Santiago → León", txt: "Dia de estrada pela Galícia e pelo Bierzo. À noite, Barrio Húmedo, onde cada bebida vem com tapa grátis." },
+      { legs: [2], t: "León → Burgos", txt: "Vitrais da catedral de León pela manhã e a catedral de Burgos à tarde. Lechazo no jantar e casaco sério." },
+      { legs: [3], t: "Burgos → Bilbao", txt: "Guggenheim, o cachorro de flores na porta e pintxos na Plaza Nueva." },
+      { legs: [4], t: "Bilbao → San Sebastián", txt: "La Concha a pé, funicular do Monte Igueldo e a primeira ronda de pintxos na Parte Vieja." },
+      { legs: [5, 6], t: "Bate-volta a Biarritz, na França", txt: "Farol de Biarritz, Saint-Jean-de-Luz e chocolate quente em Bayonne. Voltam para a tarta de queso de La Viña." },
+      { legs: [7], t: "San Sebastián → Salamanca", txt: "O dia mais longo de estrada, cruzando Castela. Prêmio: a Plaza Mayor iluminada à noite." },
+      { legs: [8], t: "Salamanca → Porto", txt: "Hornazo para a estrada e chegada ao Porto no meio da tarde. Lembrem do relógio: Portugal está uma hora atrás." }
+    ] },
+  { id: "r3", num: "III", song: "Satisfied", name: "Sol de inverno na Andaluzia", color: "--r3", countries: ["PT", "ES"],
+    clima: "O mais ensolarado", ousadia: 3, tolls: 55, border: 80, bedMult: 1,
+    resumo: "Atrás do sol: Lisboa, o Alentejo e as três joias mouras da Andaluzia, voltando pela Extremadura romana.",
+    stops: ["porto", "lisboa", "evora", "sevilha", "cordoba", "granada", "merida", "caceres", "porto"],
+    legs: [
+      { km: 315, min: 180, songs: [S("Os Argonautas", "Caetano Veloso"), S("Satisfied", "Hamilton"), S("Leva-me aos Fados", "Ana Moura")] },
+      { km: 135, min: 90, songs: [S("Grândola, Vila Morena", "Zeca Afonso")] },
+      { km: 250, min: 165, songs: [S("Sevilla Tiene un Color Especial", "Los del Río"), S("Volando Voy", "Camarón de la Isla")] },
+      { km: 140, min: 95, songs: [S("Malamente", "Rosalía"), S("Como el Agua", "Camarón de la Isla")] },
+      { km: 205, min: 135, songs: [S("Entre Dos Aguas", "Paco de Lucía"), S("Granada", "Agustín Lara")] },
+      { km: 440, min: 260, songs: [S("Bamboléo", "Gipsy Kings"), S("Pena, Penita, Pena", "Lola Flores"), S("Helpless", "Hamilton")] },
+      { km: 75, min: 50, songs: [S("Vivir Así Es Morir de Amor", "Camilo Sesto")] },
+      { km: 430, min: 270, songs: [S("Tanto Mar", "Chico Buarque"), S("Canção da América", "Milton Nascimento")] }
+    ],
+    open: [S("Aquarela", "Toquinho"), S("The Schuyler Sisters", "Hamilton")],
+    sleep: { lisboa: 1, sevilha: 2, cordoba: 1, granada: 2, merida: 1, caceres: 1 },
+    days: [
+      { legs: [0], t: "Porto → Lisboa", txt: "Autoestrada A1 inteira. Chegada à tarde, pastel de nata e pôr do sol na Senhora do Monte." },
+      { legs: [1, 2], t: "Lisboa → Évora → Sevilha", txt: "Almoço em Évora, fronteira no Guadiana e Sevilha à noite, com tapas no Barrio Santa Cruz. O relógio adianta uma hora." },
+      { legs: [], t: "Sevilha inteira", txt: "Real Alcázar cedo, Catedral e Giralda, Plaza de España à tarde e flamenco em Triana." },
+      { legs: [3], t: "Sevilha → Córdoba", txt: "Mezquita-Catedral e os pátios da Judiaria. Salmorejo de verdade." },
+      { legs: [4], t: "Córdoba → Granada", txt: "Chegada a tempo do pôr do sol no Mirador de San Nicolás, com a Alhambra na frente e a Sierra Nevada branca atrás." },
+      { legs: [], t: "Alhambra", txt: "Palácios Nazaríes no horário marcado, Albaicín à tarde e chá na Calderería. Quem quiser neve: Sierra Nevada a uma hora." },
+      { legs: [5], t: "Granada → Mérida", txt: "Dia longo de estrada pelo interior. Teatro Romano ao entardecer." },
+      { legs: [6], t: "Mérida → Cáceres", txt: "Manhã romana em Mérida, tarde medieval em Cáceres. Torta del Casar com pão no jantar." },
+      { legs: [7], t: "Cáceres → Porto", txt: "Volta pela Beira, ganhando uma hora no relógio. Chegam para o jantar de família." }
+    ] },
+  { id: "r4", num: "IV", song: "Non-Stop", name: "Ibéria e o sul da França", color: "--r4", countries: ["PT", "ES", "FR"],
+    clima: "Frio seco, sol em Barcelona", ousadia: 5, tolls: 140, border: 140, bedMult: 1.12,
+    resumo: "O grande circuito: Madrid, Barcelona, a Occitânia medieval e a costa basca. Muita estrada, muita recompensa.",
+    stops: ["porto", "salamanca", "madrid", "zaragoza", "barcelona", "carcassonne", "toulouse", "biarritz", "sansebastian", "burgos", "porto"],
+    legs: [
+      { km: 370, min: 230, songs: [S("Non-Stop", "Hamilton"), S("Aquarela", "Toquinho"), S("Velha Infância", "Tribalistas")] },
+      { km: 215, min: 135, songs: [S("Puerta de Alcalá", "Ana Belén e Víctor Manuel"), S("A Quién le Importa", "Alaska y Dinarama")] },
+      { km: 315, min: 180, songs: [S("Tú Me Dejaste De Querer", "C. Tangana"), S("Saoko", "Rosalía")] },
+      { km: 300, min: 180, songs: [S("Mediterráneo", "Joan Manuel Serrat"), S("Barcelona", "Freddie Mercury e Montserrat Caballé")] },
+      { km: 300, min: 180, songs: [S("Bamboléo", "Gipsy Kings"), S("La Mer", "Charles Trenet")] },
+      { km: 95, min: 60, songs: [S("Ô Toulouse", "Claude Nougaro"), S("Le Sud", "Nino Ferrer")] },
+      { km: 300, min: 180, songs: [S("Les Champs-Élysées", "Joe Dassin"), S("Papaoutai", "Stromae"), S("Dernière danse", "Indila")] },
+      { km: 50, min: 45, songs: [S("Me Gustas Tú", "Manu Chao")] },
+      { km: 240, min: 150, songs: [S("Txoria Txori", "Mikel Laboa"), S("Hijo de la Luna", "Mecano")] },
+      { km: 540, min: 320, songs: [S("The Room Where It Happens", "Hamilton"), S("Encontros e Despedidas", "Maria Rita"), S("Porto Sentido", "Rui Veloso")] }
+    ],
+    open: [S("My Shot", "Hamilton"), S("Os Argonautas", "Caetano Veloso")],
+    sleep: { salamanca: 1, madrid: 2, barcelona: 3, carcassonne: 1, toulouse: 1, sansebastian: 2, burgos: 1 },
+    days: [
+      { legs: [0], t: "Porto → Salamanca", txt: "Fronteira em Vilar Formoso e Plaza Mayor iluminada no fim do dia." },
+      { legs: [1], t: "Salamanca → Madrid", txt: "Chegada na hora do almoço. Carro no estacionamento e tarde no Retiro." },
+      { legs: [], t: "Madrid", txt: "Prado de manhã, bocadillo de calamares, churros na San Ginés. Quem preferir: bate-volta a Toledo." },
+      { legs: [2, 3], t: "Madrid → Zaragoza → Barcelona", txt: "Dia comprido: almoço com a Basílica del Pilar e chegada a Barcelona à noite." },
+      { legs: [], t: "Barcelona de Gaudí", txt: "Sagrada Família no horário marcado, Park Güell e Bunkers del Carmel ao pôr do sol." },
+      { legs: [], t: "Barcelona a pé", txt: "Gótico, Born, Barceloneta e uma calçotada, que é coisa de janeiro." },
+      { legs: [4], t: "Barcelona → Carcassonne", txt: "Entram na França pelo Mediterrâneo. La Cité no fim da tarde e cassoulet no jantar." },
+      { legs: [5], t: "Carcassonne → Toulouse", txt: "Estrada curta. Capitole, Saint-Sernin e a cidade rosa ficando laranja." },
+      { legs: [6, 7], t: "Toulouse → Biarritz → San Sebastián", txt: "Almoço com vista para o farol de Biarritz e chegada à Parte Vieja para os pintxos." },
+      { legs: [], t: "San Sebastián", txt: "La Concha, Monte Igueldo e a tarta de queso de La Viña. Se for dia 20, a cidade inteira toca tambor na Tamborrada." },
+      { legs: [8], t: "San Sebastián → Burgos", txt: "Catedral de Burgos e lechazo. Última noite fora." },
+      { legs: [9], t: "Burgos → Porto", txt: "O trecho final mais longo. Revezem o volante e cheguem para o jantar." }
+    ] },
+  { id: "r5", num: "V", song: "My Shot", name: "Itália por ar e trilho", color: "--r5", countries: ["IT"],
+    clima: "Frio, neblina em Veneza", ousadia: 4, tolls: 0, border: 0, bedMult: 1.25, noCar: true, transport: 245,
+    resumo: "Ir de carro até a Itália não compensa. A versão esperta: voo low cost do Porto para Roma, trens rápidos e voo de volta de Milão.",
+    stops: ["porto", "roma", "firenze", "veneza", "milao", "porto"],
+    legs: [
+      { km: 1700, min: 160, mode: "air", songs: [S("Nel blu, dipinto di blu (Volare)", "Domenico Modugno"), S("My Shot", "Hamilton")] },
+      { km: 275, min: 95, mode: "rail", songs: [S("Roma Capoccia", "Antonello Venditti"), S("Con te partirò", "Andrea Bocelli")] },
+      { km: 260, min: 125, mode: "rail", songs: [S("O Trem Azul", "Lô Borges"), S("Via con me", "Paolo Conte"), S("Caruso", "Lucio Dalla")] },
+      { km: 270, min: 145, mode: "rail", songs: [S("Azzurro", "Adriano Celentano"), S("Zitti e buoni", "Måneskin"), S("Trem das Onze", "Adoniran Barbosa")] },
+      { km: 1400, min: 140, mode: "air", songs: [S("Felicità", "Al Bano e Romina Power"), S("Porto Sentido", "Rui Veloso")] }
+    ],
+    open: [S("The Story of Tonight", "Hamilton"), S("Aquarela", "Toquinho")],
+    sleep: { roma: 3, firenze: 2, veneza: 1, milao: 1 },
+    days: [
+      { legs: [0], t: "Porto ✈ Roma", txt: "Voo direto low cost. Trastevere à noite e o primeiro cacio e pepe." },
+      { legs: [], t: "Roma antiga", txt: "Coliseu e Fórum no horário marcado, Panteão, Fontana di Trevi e gelato mesmo no frio." },
+      { legs: [], t: "Vaticano", txt: "Museus Vaticanos e Capela Sistina cedo, Castel Sant'Angelo e supplì. Se for dia 6, tem a festa da Befana na Piazza Navona." },
+      { legs: [1], t: "Roma → Florença de trem", txt: "Uma hora e meia de trem rápido. Duomo, Ponte Vecchio e pôr do sol no Piazzale Michelangelo." },
+      { legs: [], t: "Florença", txt: "Uffizi com hora marcada, mercado de San Lorenzo e bistecca para dividir. Pisa fica a uma hora de trem." },
+      { legs: [2], t: "Florença → Veneza de trem", txt: "Veneza de janeiro é enevoada e vazia. Vaporetto pelo Grande Canal e cicchetti nos bàcari." },
+      { legs: [3], t: "Veneza → Milão de trem", txt: "Terraços do Duomo e aperitivo nos Navigli." },
+      { legs: [4], t: "Milão ✈ Porto", txt: "Voo de volta para o Porto, com a mala cheia de panettone." }
+    ] }
+];
+
+const POOLS = {
+  PT: [S("Porto Sentido", "Rui Veloso"), S("Barco Negro", "Amália Rodrigues"), S("Chuva", "Mariza"), S("Desfado", "Ana Moura"), S("Amar Pelos Dois", "Salvador Sobral"), S("Canção de Engate", "António Variações"), S("Grândola, Vila Morena", "Zeca Afonso"), S("Lisboa Menina e Moça", "Carlos do Carmo")],
+  ES: [S("Malamente", "Rosalía"), S("Me Gustas Tú", "Manu Chao"), S("Entre Dos Aguas", "Paco de Lucía"), S("Mediterráneo", "Joan Manuel Serrat"), S("Hijo de la Luna", "Mecano"), S("Tú Me Dejaste De Querer", "C. Tangana"), S("A Quién le Importa", "Alaska y Dinarama"), S("Como el Agua", "Camarón de la Isla"), S("La Flaca", "Jarabe de Palo"), S("Un Velero Llamado Libertad", "José Luis Perales")],
+  FR: [S("La Mer", "Charles Trenet"), S("Le Sud", "Nino Ferrer"), S("Je veux", "Zaz"), S("Alors on danse", "Stromae"), S("Bamboléo", "Gipsy Kings"), S("Les Champs-Élysées", "Joe Dassin"), S("La Vie en rose", "Édith Piaf")],
+  IT: [S("Azzurro", "Adriano Celentano"), S("Via con me", "Paolo Conte"), S("Caruso", "Lucio Dalla"), S("Felicità", "Al Bano e Romina Power"), S("Zitti e buoni", "Måneskin"), S("Nel blu, dipinto di blu (Volare)", "Domenico Modugno")],
+  X: [S("Helpless", "Hamilton"), S("Wait for It", "Hamilton"), S("Non-Stop", "Hamilton"), S("Satisfied", "Hamilton"), S("Os Argonautas", "Caetano Veloso"), S("Tanto Mar", "Chico Buarque"), S("Velha Infância", "Tribalistas"), S("Como Uma Onda", "Lulu Santos")]
+};
+
+const CARS = [
+  { id: "eco", n: "Econômico manual", ex: "Fiat Panda, Toyota Aygo X", day: 16, cons: 5.3, bag: "2 malas médias, apertado" },
+  { id: "comp", n: "Compacto manual", ex: "Renault Clio, Peugeot 208", day: 22, cons: 5.6, bag: "2 malas grandes" },
+  { id: "auto", n: "Compacto automático", ex: "VW Polo DSG, Peugeot 208 auto", day: 34, cons: 5.9, bag: "2 malas grandes" },
+  { id: "suv", n: "SUV pequeno", ex: "Peugeot 2008, Seat Arona", day: 42, cons: 6.6, bag: "malas e compras da viagem" }
+];
+const BEDS = [{ id: "eco", n: "Pousada simples", v: 65 }, { id: "mid", n: "Hotel confortável", v: 95 }, { id: "top", n: "Com charme", v: 140 }];
+const FOODS = [{ id: "eco", n: "Mochileiras", v: 28 }, { id: "mid", n: "Equilibrado", v: 45 }, { id: "top", n: "Banquete", v: 70 }];
+
+const COMMANDMENTS = [
+  ["Um", "Tirem a PID antes de embarcar", "A Permissão Internacional para Dirigir sai no Detran, rápida e barata. Portugal aceita a CNH brasileira de turista, mas na Espanha, França e Itália a PID evita discussão no balcão da locadora e numa blitz."],
+  ["Dois", "Retirada e devolução no mesmo lugar", "Aeroporto ou centro do Porto, ida e volta. Devolver o carro em outro país custa centenas de euros de taxa."],
+  ["Três", "Avisem que vão cruzar a fronteira", "Espanha costuma sair com uma taxa fixa de travessia. França e Itália precisam de autorização escrita no contrato, e algumas locadoras baratas proíbem. Perguntem antes de pagar."],
+  ["Quatro", "Câmbio manual é o padrão", "Automático custa bem mais e acaba rápido. Se nenhuma das duas dirige carro manual com tranquilidade em ladeira, reservem o automático já."],
+  ["Cinco", "Cartão de crédito no nome de quem dirige", "A caução bloqueia de €300 a €1.500. Cartão de débito e cartão de outra pessoa costumam ser recusados, e a reserva vira problema na hora."],
+  ["Seis", "Seguro sem surpresa", "O seguro básico vem com franquia alta. Ou contratem a cobertura total na locadora, ou um seguro de franquia à parte, sabendo que nesse caso vocês pagam primeiro e pedem reembolso depois."],
+  ["Sete", "Pedágio eletrônico em Portugal", "Várias autoestradas portuguesas não têm cabine. Aluguem o aparelho Via Verde com o carro, por uns €2 ao dia. Na Espanha a maioria das autovías é grátis; na França e na Itália paga-se na cabine com cartão."],
+  ["Oito", "Centro histórico é armadilha", "ZTL na Itália, ZBE em Madrid e Barcelona, selo Crit'Air nas cidades francesas e ruelas de pedra em Lisboa. Estacionem na entrada e sigam a pé. Multa de ZTL chega meses depois, com taxa da locadora."],
+  ["Nove", "Inverno é inverno", "Em janeiro pode nevar nos planaltos de Castela, na Serra da Estrela e nos Pirineus. Olhem a previsão e o site da DGT na Espanha. Na França, áreas de montanha exigem correntes ou meias de neve no porta-malas."],
+  ["Dez", "Fotos na retirada e na devolução", "Vídeo do carro inteiro, tanque cheio na saída e cheio na volta, e recibos de combustível guardados. Quem dirige não bebe: em Portugal e na Espanha o limite para quem tirou carta há pouco é quase zero."]
+];
+
+const COUNTRY_RULES = [
+  ["Portugal", "CNH brasileira aceita para turista", "120 km/h", "Muito, e parte só eletrônico (Via Verde)", "≈ €1,75", "Fuso do Brasil +3 h"],
+  ["Espanha", "PID recomendada", "120 km/h", "Pouco: autovías grátis, algumas AP pagas", "≈ €1,55", "Portugal +1 h"],
+  ["França", "PID recomendada", "130 km/h (110 com chuva)", "Caro, cabine com cartão", "≈ €1,85", "Portugal +1 h"],
+  ["Itália", "PID exigida junto com a CNH", "130 km/h (110 com chuva)", "Caro, e ZTL nos centros", "≈ €1,85", "Portugal +1 h"]
+];
+
+const EVENTS = [
+  { d: 1, t: "Ano Novo", txt: "Feriado em todos os países. Muita coisa fechada: melhor dia para ficar com a família." },
+  { d: 5, t: "Cavalgada de Reis", txt: "Na Espanha, desfiles dos Reis Magos à noite em todas as cidades, com doces jogados para o público." },
+  { d: 6, t: "Dia de Reis e Befana", txt: "Feriado na Espanha e na Itália. Bolo-rei em Portugal, roscón na Espanha e a festa da Befana em Roma." },
+  { d: 7, t: "Liquidações", txt: "Começam as rebajas na Espanha. Na França, os soldes de inverno começam por volta do dia 13." },
+  { d: 20, t: "Tamborrada", txt: "Dia de São Sebastião: San Sebastián toca tambor por 24 horas seguidas, de meia-noite a meia-noite." },
+  { d: 30, t: "Carnaval de Veneza", txt: "O Carnaval de 2027 deve começar no último fim de semana de janeiro. Confiram a data oficial." }
+];
+const SUGGEST = [
+  { city: "sansebastian", d: 20, label: "Pegar a Tamborrada em San Sebastián" },
+  { city: "roma", d: 6, label: "Estar em Roma no dia da Befana" },
+  { city: "madrid", d: 5, label: "Cavalgada de Reis em Madrid" },
+  { city: "sevilha", d: 5, label: "Cavalgada de Reis em Sevilha" },
+  { city: "barcelona", d: 5, label: "Cavalgada de Reis em Barcelona" },
+  { city: "veneza", d: 30, label: "Abertura do Carnaval em Veneza" }
+];
+
+const TRIPS = [
+  { n: "Guimarães", ll: [41.4425, -8.2918], km: 55, min: 45, faz: "Castelo, Paço dos Duques e o centro histórico com a frase “Aqui nasceu Portugal” no muro.", come: "Toucinho do céu e torta de Guimarães." },
+  { n: "Braga", ll: [41.5454, -8.4265], km: 55, min: 45, faz: "Bom Jesus do Monte e o elevador movido a água, de 1882. A Sé de Braga é das mais antigas do país.", come: "Pudim Abade de Priscos e frigideiras." },
+  { n: "Viana do Castelo", ll: [41.6932, -8.8329], km: 75, min: 55, faz: "Santuário de Santa Luzia, com o rio Lima encontrando o mar lá embaixo.", come: "Peixe grelhado na zona ribeirinha e torta de Viana." },
+  { n: "Ponte de Lima", ll: [41.7672, -8.5836], km: 85, min: 60, faz: "Uma das vilas mais antigas de Portugal e a ponte medieval sobre o Lima.", come: "Arroz de sarrabulho, o prato da casa." },
+  { n: "Peneda-Gerês", ll: [41.728, -8.163], km: 110, min: 90, faz: "O único parque nacional de Portugal: cascatas, aldeias de pedra e cavalos garranos.", come: "Posta barrosã e cabrito nas aldeias." },
+  { n: "Amarante", ll: [41.2709, -8.0826], km: 65, min: 50, faz: "Ponte de São Gonçalo sobre o Tâmega e o centro de pedra.", come: "Doces conventuais: papos de anjo, lérias e foguetes." },
+  { n: "Vale do Douro", ll: [41.1903, -7.5458], km: 125, min: 100, faz: "Quintas de vinho do Porto em socalcos, no Pinhão. Também dá para ir de comboio desde São Bento, sem carro.", come: "Almoço numa quinta, com prova de vinho (quem dirige só cheira)." },
+  { n: "Aveiro e Costa Nova", ll: [40.6405, -8.6538], km: 75, min: 50, faz: "Moliceiros nos canais e as casinhas listradas da Costa Nova.", come: "Ovos moles e tripas doces." },
+  { n: "Serra da Estrela", ll: [40.3217, -7.6114], km: 200, min: 130, faz: "Neve em janeiro! A Torre, a 1.993 m, é o ponto mais alto de Portugal continental. Levem correntes.", come: "Queijo da Serra amanteigado e requeijão." },
+  { n: "Vigo, Espanha", ll: [42.2406, -8.7207], km: 150, min: 95, faz: "Primeiro pulo na Galícia: Mercado da Pedra e o centro antigo. O relógio adianta uma hora.", come: "Ostras na Rúa da Pedra e empanada galega." }
+];
+
+const PACK = [
+  "Passaporte válido por pelo menos 3 meses depois da volta",
+  "Conferir se o ETIAS, a autorização eletrônica para brasileiros no Espaço Schengen, já está valendo em janeiro de 2027",
+  "Seguro viagem com cobertura Schengen (mínimo de €30 mil)",
+  "PID tirada no Detran, junto com a CNH física",
+  "Cartão de crédito no nome de quem dirige, com limite para a caução",
+  "Carro reservado com retirada e devolução no Porto e autorização de fronteira",
+  "Ingressos com horário: Alhambra, Sagrada Família, Real Alcázar, Biblioteca Joanina, Coliseu ou Uffizi, conforme a rota",
+  "eSIM ou chip com roaming na União Europeia",
+  "Mapas offline baixados no celular",
+  "Playlist da rota baixada para tocar sem sinal na serra",
+  "Casaco impermeável e guarda-chuva: o Porto chove metade de janeiro",
+  "Gorro, luva e meia de lã para Castela e os Pirineus",
+  "Adaptador de tomada universal e carregador veicular USB",
+  "Lembrancinhas do Brasil para a família da Gaybs"
+];
+
+/* ===================== ESTADO ===================== */
+const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("gv-" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("gv-" + k, JSON.stringify(v)); } catch (e) { /* sem armazenamento */ } }
+};
+const st = {
+  rid: "r3", custom: [], building: false,
+  legIdx: 0, legT: 0, phase: "idle", pause: 0, playing: false, speed: 1, stopIdx: 0,
+  city: "porto", startDay: 11, drv: "alt", drvFirst: "v",
+  car: "comp", bed: "mid", food: "mid", trip: 0
+};
+const $ = s => document.querySelector(s);
+const NS = "http://www.w3.org/2000/svg";
+const svgEl = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const h = (tag, attrs, html) => { const e = document.createElement(tag); if (attrs) for (const k in attrs) { if (k === "class") e.className = attrs[k]; else e.setAttribute(k, attrs[k]); } if (html !== undefined) e.innerHTML = html; return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmtH = min => { const hh = Math.floor(min / 60), mm = Math.round(min % 60); return hh ? `${hh}h${mm ? String(mm).padStart(2, "0") : ""}` : `${mm} min`; };
+const fmtKm = km => km.toLocaleString("pt-BR") + " km";
+const eur = v => "€ " + Math.round(v).toLocaleString("pt-BR");
+const brl = v => "R$ " + Math.round(v).toLocaleString("pt-BR");
+const cityName = k => (C[k].short || C[k].n);
+const hav = (a, b) => { const R = 6371, r = Math.PI / 180; const dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r; const x = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(x)); };
+const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+/* ===================== ROTA PERSONALIZADA ===================== */
+function customRoute() {
+  const picks = st.custom.slice();
+  const stops = ["porto", ...picks, "porto"];
+  const legs = [], days = [], sleep = {};
+  let pi = 0;
+  for (let i = 0; i < stops.length - 1; i++) {
+    const a = C[stops[i]], b = C[stops[i + 1]];
+    const km = Math.round(hav(a.ll, b.ll) * 1.27 / 5) * 5;
+    const min = Math.round((km / 86) * 60 / 5) * 5 + 10;
+    const pool = POOLS[b.c] || POOLS.X;
+    const songs = [pool[(pi++) % pool.length], (i % 2 ? POOLS.X[(i >> 1) % POOLS.X.length] : pool[(pi++) % pool.length])];
+    legs.push({ km, min, songs });
+  }
+  picks.forEach(k => { sleep[k] = (sleep[k] || 0) + 1; });
+  for (let i = 0; i < legs.length; i++) days.push({ legs: [i], t: `${cityName(stops[i])} → ${cityName(stops[i + 1])}`, txt: i === legs.length - 1 ? "Volta para o Porto e para a família." : (C[stops[i + 1]].faz || [""])[0] + "." });
+  const countries = [...new Set(stops.map(k => C[k].c))];
+  const crossES = countries.some(c => c !== "PT"), crossFR = countries.includes("FR") || countries.includes("IT");
+  const km = legs.reduce((s, l) => s + l.km, 0);
+  return { id: "custom", num: "✎", song: "Sua rota", name: picks.length ? "A rota de vocês" : "Desenhem a de vocês", color: "--r6", countries,
+    clima: "Depende das paradas", ousadia: Math.min(5, Math.max(1, Math.round(km / 600))), tolls: Math.round(km * (crossFR ? .05 : .03)), border: crossES ? (crossFR ? 140 : 80) : 0, bedMult: 1,
+    resumo: picks.length ? "Rota traçada por vocês. Distâncias estimadas em linha reta com correção de estrada." : "Toquem nas cidades da carta para traçar a rota.",
+    stops, legs, open: [S("Aquarela", "Toquinho"), S("The Story of Tonight", "Hamilton")], sleep, days };
+}
+const routeById = id => id === "custom" ? customRoute() : ROUTES.find(r => r.id === id);
+let R = routeById(st.rid);
+const totals = r => {
+  const km = r.legs.reduce((s, l) => s + l.km, 0), min = r.legs.reduce((s, l) => s + l.min, 0);
+  const roadKm = r.legs.filter(l => !l.mode).reduce((s, l) => s + l.km, 0), roadMin = r.legs.filter(l => !l.mode).reduce((s, l) => s + l.min, 0);
+  const nights = Object.values(r.sleep).reduce((s, n) => s + n, 0);
+  return { km, min, roadKm, roadMin, nights, days: nights + 1 };
+};
+
+/* ===================== CUSTOS ===================== */
+function cost(r) {
+  const t = totals(r);
+  const car = CARS.find(c => c.id === st.car);
+  const fuelP = parseFloat($("#bFuel").value) || 1.7, cons = parseFloat($("#bCons").value) || car.cons;
+  const ins = $("#bIns").checked, young = $("#bYoung").checked;
+  const bed = BEDS.find(b => b.id === st.bed).v, food = FOODS.find(f => f.id === st.food).v;
+  const o = { car: 0, fuel: 0, toll: 0, bed: 0, food: 0, fun: 0, trans: 0 };
+  if (!r.noCar) {
+    o.car = t.days * (car.day + (ins ? 14 : 0) + (young ? 12 : 0)) + r.border + Math.min(20, 2 * t.days) + 12 * t.nights;
+    o.fuel = t.roadKm * cons / 100 * fuelP;
+    o.toll = r.tolls;
+  } else {
+    o.trans = (r.transport || 0) * 2;
+  }
+  o.bed = t.nights * bed * r.bedMult;
+  o.food = 2 * t.days * food;
+  o.fun = 2 * t.days * 12;
+  const total = Object.values(o).reduce((s, v) => s + v, 0);
+  return { parts: o, total, pp: total / 2, days: t.days, nights: t.nights };
+}
+
+/* ===================== CARTA ===================== */
+const svg = $("#map");
+const L = {};
+function buildMap() {
+  const defs = svgEl("defs", {}, svg);
+  const pat = svgEl("pattern", { id: "wavesPat", width: 46, height: 30, patternUnits: "userSpaceOnUse" }, defs);
+  svgEl("path", { d: "M4 16 q5 -4 10 0 t10 0", fill: "none", stroke: "var(--sea-line)", "stroke-width": .9, opacity: .45 }, pat);
+  svgEl("rect", { x: 0, y: 0, width: MAP.W, height: MAP.H, class: "sea" }, svg);
+  svgEl("rect", { x: 0, y: 0, width: MAP.W, height: MAP.H, fill: "url(#wavesPat)" }, svg);
+
+  L.rhumb = svgEl("g", {}, svg);
+  const centres = [proj([40.5, -12.5]), proj([39.8, 5.8])];
+  const rc = ["var(--ink)", "var(--r4)", "var(--seal)", "var(--r4)"];
+  centres.forEach(([cx, cy]) => {
+    for (let i = 0; i < 32; i++) {
+      const a = i * Math.PI / 16;
+      svgEl("line", { x1: cx, y1: cy, x2: cx + Math.cos(a) * 1400, y2: cy + Math.sin(a) * 1400, class: "rhumb ns", stroke: rc[i % 4] }, L.rhumb);
+    }
+  });
+
+  L.grat = svgEl("g", { class: "fade" }, svg);
+  for (let lon = -14; lon <= 14; lon += 2) {
+    const x = proj([40, lon])[0];
+    svgEl("line", { x1: x, y1: 0, x2: x, y2: MAP.H, class: "grat ns" }, L.grat);
+    const tx = svgEl("text", { x: x + 3, y: 11, class: "glabel" }, L.grat); tx.textContent = Math.abs(lon) + "°" + (lon < 0 ? "O" : lon > 0 ? "L" : "");
+  }
+  for (let lat = 36; lat <= 46; lat += 2) {
+    const y = proj([lat, 0])[1];
+    svgEl("line", { x1: 0, y1: y, x2: MAP.W, y2: y, class: "grat ns" }, L.grat);
+    const ty = svgEl("text", { x: MAP.W - 4, y: y - 3, class: "glabel", "text-anchor": "end" }, L.grat); ty.textContent = lat + "°N";
+  }
+
+  const all = Object.values(LAND).join("");
+  L.land = svgEl("g", {}, svg);
+  svgEl("path", { d: all, class: "coastwash ns", "stroke-width": 14, opacity: .14 }, L.land);
+  svgEl("path", { d: all, class: "coastwash ns", "stroke-width": 7, opacity: .22 }, L.land);
+  svgEl("path", { d: all, class: "coastwash ns", "stroke-width": 3, opacity: .35 }, L.land);
+  for (const name in LAND) svgEl("path", { d: LAND[name], class: "country ns c-" + (COUNTRY_KEY[name] || "ot") }, L.land);
+
+  L.labels = svgEl("g", { class: "fade" }, svg);
+  const lab = (txt, ll, size, cls, rot) => { const [x, y] = proj(ll); const t = svgEl("text", { x, y, "font-size": size, class: cls, "text-anchor": "middle", transform: rot ? `rotate(${rot} ${x} ${y})` : "" }, L.labels); t.textContent = txt; return t; };
+  lab("Oceano Atlântico", [43.2, -12.6], 17, "sealabel", -78);
+  lab("Golfo da Biscaia", [45.2, -5.6], 15, "sealabel", 0);
+  lab("Mar Mediterrâneo", [37.6, 5.2], 16, "sealabel", 0);
+  lab("Mar Tirreno", [40.4, 11.6], 12, "sealabel", 0);
+  lab("Lusitania", [40.0, -7.75], 14, "landlabel", -82);
+  lab("Hispania", [38.75, -2.6], 22, "landlabel", 0);
+  lab("Gallia", [46.4, 2.3], 22, "landlabel", 0);
+  lab("Italia", [43.15, 12.9], 15, "landlabel", 58);
+  lab("Mauretania", [34.95, -5.2], 13, "landlabel", 0);
+
+  L.decor = svgEl("g", {}, svg);
+  drawRose(L.decor, ...proj([40.5, -12.5]), 56, true);
+  drawRose(L.decor, ...proj([39.8, 5.8]), 26, false);
+  const [sx, sy] = proj([44.6, -11.6]);
+  const ship = svgEl("g", { class: reduced ? "" : "bob" }, L.decor);
+  svgEl("use", { href: "#caravel", x: sx - 34, y: sy - 32, width: 68, height: 66 }, ship);
+  const [mx, my2] = proj([36.1, -12.6]);
+  const mon = svgEl("g", { class: reduced ? "" : "bob b2" }, L.decor);
+  svgEl("use", { href: "#monster", x: mx - 50, y: my2 - 20, width: 100, height: 42 }, mon);
+
+  L.chrome = svgEl("g", { class: "fade" }, svg);
+  const cg = svgEl("g", { transform: "translate(18 18)" }, L.chrome);
+  svgEl("rect", { width: 262, height: 86, fill: "var(--paper-3)", stroke: "var(--ink)", "stroke-width": 1.5 }, cg);
+  svgEl("rect", { x: 5, y: 5, width: 252, height: 76, fill: "none", stroke: "var(--gold)", "stroke-width": 1 }, cg);
+  const t1 = svgEl("text", { x: 131, y: 30, "text-anchor": "middle", "font-family": "IM Fell English SC, Georgia, serif", "font-size": 19, fill: "var(--ink)" }, cg); t1.textContent = "Carta de Marear";
+  const t2 = svgEl("text", { x: 131, y: 52, "text-anchor": "middle", "font-family": "IM Fell English, Georgia, serif", "font-style": "italic", "font-size": 14, fill: "var(--ink-2)" }, cg); t2.textContent = "das senhoras Gaybs & Vivianne";
+  const t3 = svgEl("text", { x: 131, y: 71, "text-anchor": "middle", "font-family": "Courier Prime, monospace", "font-size": 10.5, "letter-spacing": 2, fill: "var(--muted)" }, cg); t3.textContent = "ANNO MMXXVII · PORTO";
+  svgEl("use", { href: "#foxH", x: 8, y: 30, width: 34, height: 32 }, cg);
+  svgEl("use", { href: "#bunnyH", x: 220, y: 26, width: 34, height: 37 }, cg);
+  const pxkm = MAP.k / (6371 * Math.cos(41.15 * Math.PI / 180));
+  const sbw = 500 * pxkm, sbx = 22, sby = MAP.H - 24;
+  const sb = svgEl("g", {}, L.chrome);
+  for (let i = 0; i < 5; i++) svgEl("rect", { x: sbx + i * sbw / 5, y: sby, width: sbw / 5, height: 6, fill: i % 2 ? "var(--paper-3)" : "var(--ink)", stroke: "var(--ink)", "stroke-width": 1 }, sb);
+  [0, 250, 500].forEach(v => { const t = svgEl("text", { x: sbx + v * pxkm, y: sby - 4, "text-anchor": "middle", class: "glabel" }, sb); t.textContent = v + (v === 500 ? " km" : ""); });
+  const sbl = svgEl("text", { x: sbx + sbw + 8, y: sby + 6, class: "glabel" }, sb); sbl.textContent = "≈ 90 léguas marítimas";
+
+  L.routes = svgEl("g", {}, svg);
+  L.cities = svgEl("g", {}, svg);
+  L.trav = svgEl("g", { id: "trav", "pointer-events": "none" }, svg);
+  L.travBob = svgEl("g", {}, L.trav);
+  svgEl("ellipse", { cx: 0, cy: 2, rx: 20, ry: 4, class: "trav-shadow" }, L.travBob);
+  L.travFlip = svgEl("g", {}, L.travBob);
+  L.travUse = svgEl("use", { href: "#car", x: -27, y: -36, width: 54, height: 35 }, L.travFlip);
+
+  for (const k in C) {
+    const [x, y] = proj(C[k].ll);
+    const g = svgEl("g", { class: "city off", "data-k": k, tabindex: 0, role: "button", "aria-label": C[k].n }, L.cities);
+    g._xy = [x, y];
+    const inner = svgEl("g", {}, g);
+    g._inner = inner;
+    svgEl("circle", { r: 14, class: "hit" }, inner);
+    svgEl("circle", { r: 7, class: "ring" }, inner);
+    svgEl("circle", { r: 5.6, class: "dot" }, inner);
+    svgEl("circle", { r: 2.4, class: "core" }, inner);
+    const right = x < 860;
+    const tx = svgEl("text", { x: right ? 9 : -9, y: 4.5, "text-anchor": right ? "start" : "end" }, inner); tx.textContent = cityName(k);
+    const nt = svgEl("text", { x: right ? 9 : -9, y: 16, "text-anchor": right ? "start" : "end", class: "nights" }, inner);
+    g._label = tx; g._nights = nt;
+    g.addEventListener("click", () => onCity(k));
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onCity(k); } });
+  }
+}
+function drawRose(parent, cx, cy, r, big) {
+  const g = svgEl("g", { transform: `translate(${cx} ${cy})` }, parent);
+  svgEl("circle", { r: r * 1.08, fill: "var(--paper-3)", stroke: "var(--ink)", "stroke-width": 1, opacity: .85 }, g);
+  svgEl("circle", { r: r * .98, fill: "none", stroke: "var(--ink)", "stroke-width": .6 }, g);
+  if (big) for (let i = 0; i < 64; i++) { const a = i * Math.PI / 32, r1 = r * (i % 4 ? .92 : .86); svgEl("line", { x1: Math.cos(a) * r1, y1: Math.sin(a) * r1, x2: Math.cos(a) * r * .98, y2: Math.sin(a) * r * .98, stroke: "var(--ink)", "stroke-width": .6 }, g); }
+  const pt = (len, w, a, fillA, fillB) => {
+    const ca = Math.cos(a), sa = Math.sin(a), cp = Math.cos(a + Math.PI / 2), sp = Math.sin(a + Math.PI / 2);
+    const tip = [ca * len, sa * len], l = [cp * w, sp * w], rr = [-cp * w, -sp * w];
+    svgEl("path", { d: `M0 0 L${tip} L${l} Z`, fill: fillA, stroke: "var(--ink)", "stroke-width": .5 }, g);
+    svgEl("path", { d: `M0 0 L${tip} L${rr} Z`, fill: fillB, stroke: "var(--ink)", "stroke-width": .5 }, g);
+  };
+  for (let i = 0; i < 8; i++) pt(r * .55, r * .06, i * Math.PI / 4 + Math.PI / 8, "var(--paper-3)", "var(--r4)");
+  for (let i = 0; i < 4; i++) pt(r * .7, r * .1, i * Math.PI / 2 + Math.PI / 4, "var(--paper-3)", "var(--seal)");
+  for (let i = 0; i < 4; i++) pt(r * .92, r * .13, i * Math.PI / 2 - Math.PI / 2, "var(--ink)", "var(--gold-2)");
+  svgEl("circle", { r: r * .06, fill: "var(--gold-2)", stroke: "var(--ink)", "stroke-width": .6 }, g);
+  if (big) {
+    svgEl("path", { d: `M0 ${-r * 1.08} c-6 -6 -10 -14 -4 -22 c1 6 3 8 4 10 c1 -2 3 -4 4 -10 c6 8 2 16 -4 22 Z M-9 ${-r * 1.08 - 10} q9 -4 18 0`, fill: "var(--seal)", stroke: "var(--ink)", "stroke-width": .8 }, g);
+    [["N", 0, -1], ["L", 1, 0], ["S", 0, 1], ["O", -1, 0]].forEach(([t, dx, dy]) => { if (t === "N") return; const tt = svgEl("text", { x: dx * r * 1.24, y: dy * r * 1.24 + 5, "text-anchor": "middle", "font-family": "IM Fell English SC, Georgia, serif", "font-size": 14, fill: "var(--ink)" }, g); tt.textContent = t; });
+  }
+}
+
+/* ----- montagem da rota na carta ----- */
+let legEls = [];
+function legPath(a, b, i, mode) {
+  const [x1, y1] = proj(C[a].ll), [x2, y2] = proj(C[b].ll);
+  const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+  const bend = mode === "air" ? .22 : .1;
+  const sgn = (mode === "air") ? (dx > 0 ? -1 : 1) : (i % 2 ? 1 : -1);
+  const cx = (x1 + x2) / 2 + (-dy / len) * len * bend * sgn, cy = (y1 + y2) / 2 + (dx / len) * len * bend * sgn;
+  return `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
+}
+function drawRoute() {
+  L.routes.innerHTML = "";
+  svg.style.setProperty("--rc", `var(${R.color})`);
+  document.documentElement.style.setProperty("--rc", `var(${R.color})`);
+  legEls = R.legs.map((leg, i) => {
+    const d = legPath(R.stops[i], R.stops[i + 1], i, leg.mode);
+    const plan = svgEl("path", { d, class: "leg-plan" + (leg.mode ? " " + leg.mode : "") }, L.routes);
+    const ink = svgEl("path", { d, class: "leg-ink" + (leg.mode ? " " + leg.mode : "") }, L.routes);
+    const len = ink.getTotalLength();
+    ink.style.strokeDasharray = `${len} ${len + 10}`;
+    ink.style.strokeDashoffset = len;
+    return { plan, ink, len, leg };
+  });
+  const onRoute = new Set(R.stops);
+  L.cities.querySelectorAll(".city").forEach(g => {
+    const k = g.dataset.k;
+    g.classList.toggle("off", !onRoute.has(k));
+    const n = R.sleep[k];
+    g._nights.textContent = n ? `${n} ${n > 1 ? "noites" : "noite"}` : "";
+  });
+  zoomTo(routeBox());
+}
+function routeBox() {
+  const pts = (R.stops.length > 1 ? R.stops : ["porto", "lisboa", "madrid"]).map(k => proj(C[k].ll));
+  let x0 = Math.min(...pts.map(p => p[0])), x1 = Math.max(...pts.map(p => p[0]));
+  let y0 = Math.min(...pts.map(p => p[1])), y1 = Math.max(...pts.map(p => p[1]));
+  const padX = Math.max(70, (x1 - x0) * .16), padY = Math.max(60, (y1 - y0) * .2);
+  x0 -= padX; x1 += padX * 1.3; y0 -= padY; y1 += padY;
+  let w = Math.max(x1 - x0, 330), hh = Math.max(y1 - y0, 200);
+  const ar = MAP.W / MAP.H;
+  if (w / hh > ar) hh = w / ar; else w = hh * ar;
+  if (w > MAP.W) { w = MAP.W; hh = MAP.H; }
+  let cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  let x = Math.min(Math.max(0, cx - w / 2), MAP.W - w), y = Math.min(Math.max(0, cy - hh / 2), MAP.H - hh);
+  return [x, y, w, hh];
+}
+let vb = [0, 0, MAP.W, MAP.H], vbAnim = null;
+function zoomTo(target) {
+  const from = vb.slice(), t0 = performance.now(), dur = reduced ? 1 : 900;
+  vbAnim = { from, target, t0, dur };
+}
+function applyVB() {
+  svg.setAttribute("viewBox", vb.map(v => v.toFixed(2)).join(" "));
+  const z = vb[2] / MAP.W;
+  L.grat.style.opacity = z < .75 ? 0 : 1;
+  L.chrome.style.opacity = z < .85 ? 0 : 1;
+  L.labels.style.opacity = z < .55 ? .35 : 1;
+  scaleOverlays();
+}
+function unit() {
+  const cw = svg.clientWidth || 900;
+  const k = cw < 600 ? .78 : 1;
+  return vb[2] / cw * k;
+}
+function scaleOverlays() {
+  const u = unit();
+  svg.style.setProperty("--u", u.toFixed(4));
+  L.cities.querySelectorAll(".city").forEach(g => { g.setAttribute("transform", `translate(${g._xy[0]} ${g._xy[1]}) scale(${u})`); });
+  placeTraveler();
+}
+
+/* ----- viajante ----- */
+function travelerPoint() {
+  if (!legEls.length) return { x: proj(C.porto.ll)[0], y: proj(C.porto.ll)[1], dir: 1 };
+  const i = Math.min(st.legIdx, legEls.length - 1);
+  const e = legEls[i];
+  const t = (st.phase === "idle" && st.legIdx === 0 && st.legT === 0) ? 0 : st.legT;
+  const p = e.ink.getPointAtLength(t * e.len);
+  const q = e.ink.getPointAtLength(Math.min(e.len, t * e.len + 2));
+  const p0 = e.ink.getPointAtLength(Math.max(0, t * e.len - 2));
+  return { x: p.x, y: p.y, dir: (q.x - p0.x) < -0.01 ? -1 : 1 };
+}
+let lastDir = 1;
+function placeTraveler(time) {
+  const pt = travelerPoint();
+  if (pt.dir !== 0) lastDir = pt.dir;
+  const u = unit();
+  const moving = st.playing && st.phase === "moving";
+  const bob = moving && !reduced ? Math.sin((time || performance.now()) / 90) * 1.4 : 0;
+  L.trav.setAttribute("transform", `translate(${pt.x} ${pt.y}) scale(${u * 1.25})`);
+  L.travBob.setAttribute("transform", `translate(0 ${bob - 4})`);
+  L.travFlip.setAttribute("transform", `scale(${lastDir} 1)`);
+  const mode = (legEls[Math.min(st.legIdx, legEls.length - 1)] || {}).leg?.mode;
+  const want = mode === "air" ? "#balloon" : mode === "rail" ? "#train" : "#car";
+  if (L.travUse.getAttribute("href") !== want) {
+    L.travUse.setAttribute("href", want);
+    if (want === "#balloon") { L.travUse.setAttribute("x", -24); L.travUse.setAttribute("y", -66); L.travUse.setAttribute("width", 48); L.travUse.setAttribute("height", 65); }
+    else if (want === "#train") { L.travUse.setAttribute("x", -32); L.travUse.setAttribute("y", -37); L.travUse.setAttribute("width", 64); L.travUse.setAttribute("height", 37); }
+    else { L.travUse.setAttribute("x", -27); L.travUse.setAttribute("y", -36); L.travUse.setAttribute("width", 54); L.travUse.setAttribute("height", 35); }
+  }
+}
+function paintInk() {
+  legEls.forEach((e, i) => {
+    let off = e.len;
+    if (i < st.legIdx) off = 0;
+    else if (i === st.legIdx) off = e.len * (1 - st.legT);
+    e.ink.style.strokeDashoffset = off;
+  });
+}
+function curStop() { return st.legT >= 1 ? st.legIdx + 1 : st.legIdx; }
+function markCities() {
+  const cs = curStop();
+  const here = R.stops[cs];
+  L.cities.querySelectorAll(".city").forEach(g => g.classList.toggle("current", g.dataset.k === here));
+}
+
+function legDur(leg) { if (reduced) return .05; const base = leg.mode === "air" ? 2.6 : Math.min(4.2, Math.max(1.3, .8 + leg.km / 160)); return base; }
+let lastT = 0;
+function frame(time) {
+  const dt = Math.min(.05, (time - (lastT || time)) / 1000); lastT = time;
+  if (vbAnim) {
+    const k = Math.min(1, (time - vbAnim.t0) / vbAnim.dur), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    vb = vbAnim.from.map((v, i) => v + (vbAnim.target[i] - v) * e);
+    applyVB();
+    if (k >= 1) vbAnim = null;
+  }
+  if (st.playing && legEls.length) {
+    if (st.phase === "moving") {
+      st.legT += dt * st.speed / legDur(legEls[st.legIdx].leg);
+      if (st.legT >= 1) { st.legT = 1; st.phase = "pause"; const k = R.stops[st.legIdx + 1]; st.pause = R.sleep[k] ? 1.3 : .7; arrive(st.legIdx + 1); }
+    } else if (st.phase === "pause") {
+      st.pause -= dt * st.speed;
+      if (st.pause <= 0) {
+        if (st.legIdx + 1 >= legEls.length) { st.phase = "done"; st.playing = false; finish(); }
+        else { st.legIdx++; st.legT = 0; st.phase = "moving"; startLeg(st.legIdx); }
+      }
+    }
+    paintInk();
+  }
+  placeTraveler(time);
+  requestAnimationFrame(frame);
+}
+
+function startLeg(i) {
+  st.phase = "moving";
+  const a = R.stops[i], b = R.stops[i + 1], leg = R.legs[i];
+  const drv = driverFor(dayOfLeg(i));
+  const how = leg.mode === "air" ? "de avião" : leg.mode === "rail" ? "de trem" : `ao volante: <b>${drv === "v" ? "Vivianne" : "Gaybs"}</b>`;
+  setStatus(`Trecho ${i + 1} de ${R.legs.length} · <b>${cityName(a)} → ${cityName(b)}</b> · ${fmtKm(leg.km)} · ${fmtH(leg.min)} · ${how}`);
+  renderRadio(true);
+  renderLegs();
+  markCities();
+}
+function arrive(si) {
+  const k = R.stops[si];
+  st.city = k;
+  renderCity();
+  renderLegs();
+  markCities();
+  const n = R.sleep[k];
+  if (si < R.stops.length - 1) setStatus(`Chegamos em <b>${C[k].n}</b>${n ? ` · ${n} ${n > 1 ? "noites" : "noite"} aqui` : " · parada rápida"}`);
+}
+function finish() {
+  const t = totals(R);
+  setStatus(`<b>De volta ao Porto!</b> ${t.days} dias, ${R.noCar ? "" : fmtKm(t.roadKm) + " de estrada, "}${R.legs.reduce((s, l) => s + l.songs.length, 0) + R.open.length} músicas na playlist.`);
+  setPlayLabel();
+  renderRadio(false);
+  renderLegs();
+  markCities();
+}
+function setStatus(html) { $("#status").innerHTML = html; }
+function setPlayLabel() {
+  const b = $("#playBtn");
+  b.textContent = st.playing ? "❚❚ Ancorar" : (st.phase === "done" ? "↺ De novo" : (st.legIdx || st.legT ? "▶ Seguir" : "▶ Zarpar"));
+}
+function play() {
+  if (!R.legs.length) { setStatus("Escolham pelo menos uma cidade para a rota."); return; }
+  if (st.phase === "done") resetTrip();
+  st.playing = !st.playing;
+  if (st.playing && st.phase === "idle") { st.legIdx = 0; st.legT = 0; startLeg(0); }
+  else if (st.playing && st.phase === "moving") startLeg(st.legIdx);
+  renderRadio(false);
+  setPlayLabel();
+}
+function resetTrip() {
+  st.playing = false; st.phase = "idle"; st.legIdx = 0; st.legT = 0;
+  st.city = "porto";
+  paintInk(); renderCity(); renderRadio(false); renderLegs(); markCities(); setPlayLabel();
+  const t = totals(R);
+  setStatus(R.legs.length ? `Pronto para zarpar: <b>${R.legs.length} trechos</b>, ${R.noCar ? "avião e trem" : fmtKm(t.roadKm) + " de estrada"}, ${fmtH(t.min)} em movimento.` : "Toquem nas cidades da carta para traçar a rota.");
+}
+function jumpToStop(si) {
+  st.playing = false;
+  si = Math.max(0, Math.min(R.stops.length - 1, si));
+  if (si === 0) { st.legIdx = 0; st.legT = 0; st.phase = "idle"; }
+  else { st.legIdx = si - 1; st.legT = 1; st.phase = si === R.stops.length - 1 ? "done" : "pause"; st.pause = 0; }
+  paintInk();
+  st.city = R.stops[si];
+  renderCity(); renderRadio(false); renderLegs(); markCities(); setPlayLabel();
+  if (si === 0) resetTrip();
+  else setStatus(`Parada ${si} de ${R.stops.length - 1} · <b>${C[R.stops[si]].n}</b>`);
+}
+
+function onCity(k) {
+  if (st.building) {
+    if (k === "porto") { setStatus("O Porto já é a saída e a chegada."); return; }
+    if (st.custom[st.custom.length - 1] === k) return;
+    if (st.custom.length >= 12) { setStatus("Doze paradas já é uma volta ao mundo. Tirem alguma para colocar outra."); return; }
+    st.custom.push(k);
+    store.set("custom", st.custom);
+    selectRoute("custom", true);
+    return;
+  }
+  st.city = k;
+  renderCity();
+  $("#city").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest" });
+}
+
+/* ----- seleção de rota ----- */
+function selectRoute(id, keepZoom) {
+  st.rid = id;
+  R = routeById(id);
+  st.building = id === "custom";
+  svg.classList.toggle("building", st.building);
+  $("#builder").hidden = !st.building;
+  const help = $("#mapHelp");
+  help.hidden = !st.building;
+  if (st.building) help.innerHTML = st.custom.length ? `Rota com <b>${st.custom.length}</b> ${st.custom.length > 1 ? "paradas" : "parada"}. Toquem em mais cidades ou em <b>Zarpar</b>.` : "Toquem nas cidades pontilhadas, na ordem da viagem.";
+  document.querySelectorAll(".pennant").forEach(b => b.setAttribute("aria-selected", b.dataset.r === id ? "true" : "false"));
+  st.playing = false; st.phase = "idle"; st.legIdx = 0; st.legT = 0; st.city = "porto";
+  drawRoute();
+  if (keepZoom && st.building) zoomTo([0, 0, MAP.W, MAP.H]);
+  if (st.building && !keepZoom) zoomTo([0, 0, MAP.W, MAP.H]);
+  resetTrip();
+  renderStrip(); renderBuilder(); renderDiary(); renderCmp(); renderCal(); renderBudget();
+  $("#bRoute").value = id;
+}
+
+/* ===================== RENDERIZAÇÃO ===================== */
+function renderTabs() {
+  const tabs = $("#tabs");
+  [...ROUTES, { id: "custom", num: "✎", song: "Sua rota", name: "Desenhem na carta", color: "--r6" }].forEach(r => {
+    const b = h("button", { class: "pennant", role: "tab", type: "button", "data-r": r.id, "aria-selected": "false", style: `--rc: var(${r.color})` },
+      `<span class="num">${r.num}</span><span class="song">${esc(r.song)}</span><span class="sub">${esc(r.name)}</span>`);
+    b.addEventListener("click", () => selectRoute(r.id));
+    tabs.appendChild(b);
+  });
+}
+function renderStrip() {
+  const t = totals(R), c = cost(R);
+  const road = R.noCar ? `<dd>sem carro</dd>` : `<dd class="log">${fmtKm(t.roadKm)}</dd>`;
+  $("#strip").innerHTML = `
+    <div class="rs-title"><dt>Rota ${R.num} · ${esc(R.song)}</dt><dd>${esc(R.name)}</dd><p>${esc(R.resumo)}</p></div>
+    <div><dt>Dias fora</dt><dd class="log">${t.days} dias</dd></div>
+    <div><dt>Estrada</dt>${road}</div>
+    <div><dt>Em movimento</dt><dd class="log">${fmtH(t.min)}</dd></div>
+    <div><dt>Janeiro</dt><dd>${esc(R.clima)}</dd></div>
+    <div><dt>Por pessoa</dt><dd class="log">≈ ${eur(c.pp)}</dd></div>`;
+}
+function renderLegs() {
+  const box = $("#legs");
+  box.innerHTML = "";
+  const cs = curStop();
+  R.stops.forEach((k, i) => {
+    const n = R.sleep[k];
+    const label = i === 0 ? "saída" : i === R.stops.length - 1 ? "chegada" : (n ? `${n} ${n > 1 ? "noites" : "noite"}` : "parada");
+    const chip = h("button", { class: "stop-chip" + (i === cs ? " cur" : i < cs ? " seen" : ""), type: "button", style: `--rc: var(${R.color})` }, `<span class="nm">${esc(cityName(k))}</span><span class="nt">${label}</span>`);
+    chip.addEventListener("click", () => jumpToStop(i));
+    box.appendChild(chip);
+    if (i < R.legs.length) {
+      const l = R.legs[i];
+      const how = l.mode === "air" ? "voo" : l.mode === "rail" ? "trem" : fmtKm(l.km);
+      box.appendChild(h("div", { class: "leg-link" + (i < st.legIdx || (i === st.legIdx && st.legT > 0) ? " on" : ""), style: `--rc: var(${R.color})` }, `${how}<i></i>${fmtH(l.min)}`));
+    }
+  });
+  const cur = box.querySelector(".cur");
+  if (cur && st.playing) { const bx = box.getBoundingClientRect(), cx = cur.getBoundingClientRect(); box.scrollLeft += (cx.left - bx.left) - bx.width / 2 + cx.width / 2; }
+}
+function avatar(who, size) { return `<svg viewBox="0 0 40 40" width="${size || 52}" height="${size || 52}" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--paper-2)" stroke="var(--ink)" stroke-width="1"/><use href="#${who === "v" ? "foxH" : "bunnyH"}" x="3" y="${who === "v" ? 5 : 1}" width="34" height="${who === "v" ? 32 : 37}"/></svg>`; }
+function renderCity() {
+  const k = st.city, c = C[k];
+  const lo = -6, hi = 20, l = (c.t[0] - lo) / (hi - lo) * 100, r = (c.t[1] - lo) / (hi - lo) * 100;
+  const onR = R.stops.includes(k);
+  const n = R.sleep[k];
+  $("#city").innerHTML = `
+    <p class="folio-tag">Ficha do porto${onR ? ` · Rota ${R.num}` : ""}</p>
+    <div class="city-head"><h3>${esc(c.n)}</h3><span class="flag">${CNAME[c.c]}</span></div>
+    <div class="thermo">
+      <div class="thermo-bar"><span class="thermo-range" style="left:calc(${l}% - 4px);width:calc(${r - l}% + 8px)"></span></div>
+      <div class="thermo-scale"><span>−6 °C</span><span>0</span><span>10</span><span>20 °C</span></div>
+      <p class="thermo-txt">Janeiro: mínima de <b class="log">${c.t[0]} °C</b> e máxima de <b class="log">${c.t[1]} °C</b>${n ? ` · ${n} ${n > 1 ? "noites" : "noite"} aqui nesta rota` : ""}</p>
+    </div>
+    <div class="city-cols">
+      <div><h4>O que fazer</h4><ul>${c.faz.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div><h4>O que comer</h4><ul>${c.come.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+    </div>
+    ${c.dica ? `<div class="tip">${avatar(c.dica[0])}<p>${esc(c.dica[1])}</p></div>` : ""}`;
+  const cs = curStop();
+  if (R.stops[cs] !== k) L.cities.querySelectorAll(".city").forEach(g => g.classList.toggle("current", g.dataset.k === k));
+}
+const spot = (t, a) => `https://open.spotify.com/search/${encodeURIComponent(t + " " + a)}`;
+function renderRadio(fresh) {
+  const box = $("#radio");
+  const started = st.phase !== "idle" || st.playing;
+  const done = st.phase === "done";
+  const unlocked = i => done || (started && (i < st.legIdx || (i === st.legIdx)));
+  let n = 0;
+  const tr = s => { n++; return `<li><span class="n">${n}</span><span>${esc(s[0])} <span class="a">· ${esc(s[1])}</span></span><a href="${spot(s[0], s[1])}" target="_blank" rel="noopener">ouvir ↗</a></li>`; };
+  let html = `<div class="tblock ${started ? "" : "playing"}"><div class="thead"><span><b>Abertura</b> · ainda na garagem</span><span>${R.open.length} faixas</span></div><ul class="tlist">${R.open.map(tr).join("")}</ul></div>`;
+  let freeCount = R.open.length, all = R.open.length;
+  R.legs.forEach((leg, i) => {
+    all += leg.songs.length;
+    const un = unlocked(i);
+    if (un) freeCount += leg.songs.length;
+    const playing = started && !done && i === st.legIdx;
+    const fits = Math.round(leg.min / 3.6);
+    html += `<div class="tblock ${un ? "" : "later"} ${playing ? "playing" : ""} ${playing && fresh ? "fresh" : ""}" data-leg="${i}"><div class="thead"><span><b>${esc(cityName(R.stops[i]))} → ${esc(cityName(R.stops[i + 1]))}</b> · ${fmtH(leg.min)}</span><span>cabem ≈ ${fits} músicas</span></div><ul class="tlist">${leg.songs.map(tr).join("")}</ul></div>`;
+  });
+  const cur = started && !done ? R.legs[st.legIdx].songs[0] : R.open[0];
+  box.innerHTML = `
+    <p class="folio-tag">Rádio de bordo · playlist da Rota ${R.num}</p>
+    <div class="radio-head">
+      <div class="record ${st.playing ? "on" : ""}" data-label="${R.num}" style="--rc: var(${R.color})"></div>
+      <p class="now">${st.playing ? "Tocando agora" : done ? "Fim da viagem, última faixa" : "Na agulha"}<b>${esc(cur[0])}</b>${esc(cur[1])}</p>
+    </div>
+    <div class="tracks">${html}</div>
+    <div class="radio-foot"><span class="log">${freeCount} de ${all} faixas liberadas</span><button class="hbtn" type="button" id="copyPl">Copiar a lista</button></div>`;
+  $("#copyPl").addEventListener("click", copyPlaylist);
+  const pb = box.querySelector(".tblock.playing");
+  const tracks = box.querySelector(".tracks");
+  if (pb && st.playing) tracks.scrollTop = pb.offsetTop - tracks.offsetTop - 8;
+}
+function copyPlaylist() {
+  const lines = [`Rota ${R.num} · ${R.song} · ${R.name}`, "", ...R.open.map(s => `${s[0]} – ${s[1]}`)];
+  R.legs.forEach((l, i) => { lines.push("", `${cityName(R.stops[i])} → ${cityName(R.stops[i + 1])}`); l.songs.forEach(s => lines.push(`${s[0]} – ${s[1]}`)); });
+  const text = lines.join("\n");
+  const btn = $("#copyPl");
+  const ok = () => { btn.textContent = "Copiada!"; setTimeout(() => { if (btn.isConnected) btn.textContent = "Copiar a lista"; }, 1800); };
+  const fallback = () => { const ta = h("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); ok(); } catch (e) { btn.textContent = "Selecionem e copiem"; } ta.remove(); };
+  try { navigator.clipboard.writeText(text).then(ok, fallback); } catch (e) { fallback(); }
+}
+function renderBuilder() {
+  if (!st.building) return;
+  const ol = $("#builderList");
+  ol.innerHTML = `<li style="padding-right:10px">Porto</li>`;
+  st.custom.forEach((k, i) => {
+    const li = h("li", {}, `${esc(cityName(k))} <button type="button" aria-label="Tirar ${esc(C[k].n)}">×</button>`);
+    li.querySelector("button").addEventListener("click", () => { st.custom.splice(i, 1); store.set("custom", st.custom); selectRoute("custom", true); });
+    ol.appendChild(li);
+  });
+  ol.appendChild(h("li", { style: "padding-right:10px" }, "Porto"));
+  const t = totals(R);
+  $("#builderHint").textContent = st.custom.length ? `${fmtKm(t.roadKm)} · ${fmtH(t.roadMin)} ao volante · ${t.days} dias` : "";
+}
+
+/* ----- diário ----- */
+function dayOfLeg(li) { return R.days.findIndex(d => d.legs.includes(li)); }
+function driverFor(dayIdx) {
+  if (st.drv !== "alt") return st.drv;
+  let n = 0;
+  for (let i = 0; i < dayIdx; i++) if (R.days[i].legs.length && !R.days[i].legs.every(l => R.legs[l].mode)) n++;
+  const other = st.drvFirst === "v" ? "g" : "v";
+  return n % 2 ? other : st.drvFirst;
+}
+function renderDiary() {
+  $("#diaryTitle").textContent = `Rota ${R.num} · ${R.song}`;
+  $("#diaryLede").textContent = R.resumo;
+  const box = $("#diary");
+  box.innerHTML = "";
+  box.style.setProperty("--rc", `var(${R.color})`);
+  R.days.forEach((d, i) => {
+    const km = d.legs.reduce((s, l) => s + R.legs[l].km, 0), min = d.legs.reduce((s, l) => s + R.legs[l].min, 0);
+    const road = d.legs.length && !d.legs.every(l => R.legs[l].mode);
+    const drv = road ? driverFor(i) : null;
+    const meta = !d.legs.length ? "carro descansando" : d.legs.every(l => R.legs[l].mode) ? `${fmtH(min)} em trânsito` : `${fmtKm(km)} · ${fmtH(min)} ao volante`;
+    const el = h("div", { class: "day" + (d.legs.length ? "" : " rest") }, `
+      <div class="day-top"><span class="day-n">Dia ${i + 1}</span><span class="day-meta">${meta}</span></div>
+      <h3>${esc(d.t)}</h3>
+      <p>${esc(d.txt)}</p>
+      ${drv ? `<span class="driver">${avatar(drv, 26)} Ao volante: <b>${drv === "v" ? "Vivianne" : "Gaybs"}</b> · DJ: ${drv === "v" ? "Gaybs" : "Vivianne"}</span>` : ""}`);
+    box.appendChild(el);
+  });
+  const t = totals(R);
+  const roadDays = R.days.filter(d => d.legs.length && !d.legs.every(l => R.legs[l].mode));
+  const vDays = roadDays.filter(d => driverFor(R.days.indexOf(d)) === "v").length;
+  const longest = R.days.reduce((m, d) => { const mm = d.legs.reduce((s, l) => s + (R.legs[l].mode ? 0 : R.legs[l].min), 0); return mm > m ? mm : m; }, 0);
+  let notes = `<p class="folio-tag">Resumo da rota</p>
+    <div class="why" style="display:grid;gap:10px;margin-top:8px">
+      <p><strong>${t.days} dias e ${t.nights} noites fora</strong>, ${R.noCar ? "sem carro" : `${fmtKm(t.roadKm)} de estrada`}. Países: ${R.countries.map(c => CNAME[c]).join(", ")}.</p>
+      ${R.noCar ? "" : `<p>Dia mais longo ao volante: <strong>${fmtH(longest)}</strong>. Divisão do volante: Vivianne ${vDays} ${vDays === 1 ? "dia" : "dias"}, Gaybs ${roadDays.length - vDays}.</p>`}
+      <p>Ousadia: <span class="stars" aria-label="${R.ousadia} de 5">${"★".repeat(R.ousadia)}${"☆".repeat(5 - R.ousadia)}</span></p>
+    </div>`;
+  if (R.id === "r5") notes += `<div class="callout" style="margin-top:14px"><b>Por que não de carro?</b><span>Do Porto a Roma são uns 2.300 km só de ida, mais de 22 horas ao volante, e devolver um carro português na Itália pode custar mais de €1.000. O voo direto faz em menos de três horas.</span></div>`;
+  if (R.id === "r2" || R.id === "r4") notes += `<div class="callout" style="margin-top:14px"><b>França no contrato</b><span>Esta rota entra na França. Peçam à locadora a autorização por escrito, porque nem todas deixam o carro sair da Península.</span></div>`;
+  if (R.id === "r3") notes += `<div class="callout" style="margin-top:14px"><b>Ingresso da Alhambra</b><span>É o único item desta rota que esgota com semanas de antecedência. Comprem no site oficial assim que fecharem a data.</span></div>`;
+  if (R.id === "r1") notes += `<div class="callout" style="margin-top:14px"><b>Dá para encaixar o Algarve</b><span>Somando Lagos depois de Évora são dois dias a mais e uns 500 km. Em janeiro o Algarve é o lugar mais quente da carta.</span></div>`;
+  if (R.id === "custom") notes += `<div class="callout" style="margin-top:14px"><b>Rota de cartógrafa</b><span>As distâncias aqui são estimadas a partir da linha reta. Antes de reservar, conferam cada trecho num app de mapas.</span></div>`;
+  $("#routeNotes").innerHTML = notes;
+}
+
+/* ----- comparação ----- */
+function renderCmp() {
+  const rows = ROUTES.map(r => {
+    const t = totals(r), c = cost(r);
+    return `<tr data-r="${r.id}" class="${r.id === st.rid ? "sel" : ""}" style="--rc: var(${r.color})" tabindex="0">
+      <td><span class="rname">${r.num} · ${esc(r.song)}<small>${esc(r.name)}</small></span></td>
+      <td class="num">${t.days}</td>
+      <td class="num">${r.noCar ? "—" : fmtKm(t.roadKm)}</td>
+      <td class="num">${r.noCar ? "—" : fmtH(t.roadMin)}</td>
+      <td>${r.countries.map(x => CNAME[x]).join(", ")}</td>
+      <td>${esc(r.clima)}</td>
+      <td><span class="stars">${"★".repeat(r.ousadia)}${"☆".repeat(5 - r.ousadia)}</span></td>
+      <td class="num">≈ ${eur(c.pp)}</td></tr>`;
+  }).join("");
+  $("#cmpTable").innerHTML = `<thead><tr><th>Rota</th><th class="num">Dias</th><th class="num">Estrada</th><th class="num">Ao volante</th><th>Países</th><th>Clima em janeiro</th><th>Ousadia</th><th class="num">Por pessoa</th></tr></thead><tbody>${rows}</tbody>`;
+  $("#cmpTable").querySelectorAll("tbody tr").forEach(tr => {
+    const go = () => { selectRoute(tr.dataset.r); $("#carta").scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); };
+    tr.addEventListener("click", go);
+    tr.addEventListener("keydown", e => { if (e.key === "Enter") go(); });
+  });
+}
+
+/* ----- bússola ----- */
+const QUIZ = [
+  { k: "dias", q: "Quantos dias longe do Porto?", o: [["curto", "Até 6"], ["medio", "7 a 9"], ["longo", "10 ou mais"]] },
+  { k: "clima", q: "Frio ou sol?", o: [["sol", "Quero sol"], ["frio", "Frio com cidade bonita"], ["tanto", "Tanto faz"]] },
+  { k: "estrada", q: "Quanto querem dirigir?", o: [["pouco", "Pouco"], ["medio", "O suficiente"], ["muito", "A estrada é a viagem"]] },
+  { k: "italia", q: "A Itália é obrigatória?", o: [["sim", "Sim!"], ["sonho", "Seria um sonho"], ["nao", "Fica para outra"]] }
+];
+const quizAns = { dias: "medio", clima: "sol", estrada: "medio", italia: "nao" };
+function scoreQuiz() {
+  const s = { r1: 0, r2: 0, r3: 0, r4: 0, r5: 0 };
+  const a = quizAns;
+  if (a.dias === "curto") { s.r1 += 3; s.r5 += 1; } if (a.dias === "medio") { s.r2 += 2; s.r3 += 2; s.r5 += 2; } if (a.dias === "longo") { s.r4 += 3; s.r3 += 1; }
+  if (a.clima === "sol") { s.r3 += 3; s.r1 += 1; } if (a.clima === "frio") { s.r2 += 2; s.r4 += 2; s.r5 += 1; }
+  if (a.estrada === "pouco") { s.r5 += 3; s.r1 += 2; } if (a.estrada === "medio") { s.r1 += 1; s.r2 += 2; s.r3 += 2; } if (a.estrada === "muito") { s.r4 += 3; s.r3 += 1; }
+  if (a.italia === "sim") s.r5 += 6; if (a.italia === "sonho") { s.r5 += 1; s.r4 += 1; }
+  return Object.entries(s).sort((x, y) => y[1] - x[1]);
+}
+function renderQuiz() {
+  const box = $("#quiz");
+  box.innerHTML = "";
+  QUIZ.forEach(q => {
+    const wrap = h("div", { class: "q" }, `<span class="q-l">${q.q}</span>`);
+    const seg = h("div", { class: "seg", role: "group", "aria-label": q.q });
+    q.o.forEach(([v, l]) => {
+      const b = h("button", { type: "button", "aria-pressed": quizAns[q.k] === v ? "true" : "false" }, l);
+      b.addEventListener("click", () => { quizAns[q.k] = v; renderQuiz(); });
+      seg.appendChild(b);
+    });
+    wrap.appendChild(seg);
+    box.appendChild(wrap);
+  });
+  const ranked = scoreQuiz();
+  const best = ROUTES.find(r => r.id === ranked[0][0]), second = ROUTES.find(r => r.id === ranked[1][0]);
+  const why = {
+    r1: "Pouca estrada, nenhuma fronteira e Lisboa no meio. Sobra tempo para a família.",
+    r2: "Frio bom de casaco, a melhor comida de bar da Península e um pé na França.",
+    r3: "É a rota do sol. Sevilha e Granada em janeiro chegam a 16 °C de dia.",
+    r4: "Para quem quer a estrada como protagonista: três países, Barcelona e castelos medievais.",
+    r5: "A Itália sem sofrimento: voo curto, trens rápidos e nenhum carro em ZTL."
+  };
+  $("#verdict").innerHTML = `<p class="folio-tag">A agulha aponta para</p>
+    <p class="big" style="color:var(${best.color})">Rota ${best.num} · ${esc(best.song)}</p>
+    <p class="why">${esc(best.name)}. ${why[best.id]}</p>
+    <p class="muted" style="font-size:15px">Em segundo lugar: Rota ${second.num} · ${esc(second.song)}.</p>
+    <div><button class="btn sm" type="button" id="goBest">Ver a Rota ${best.num} na carta</button></div>`;
+  $("#goBest").addEventListener("click", () => { selectRoute(best.id); $("#carta").scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); });
+}
+
+/* ----- calendário ----- */
+function sleepPlan() {
+  const out = [];
+  let loc = "porto";
+  R.days.forEach((d, i) => {
+    if (d.legs.length) loc = R.stops[d.legs[d.legs.length - 1] + 1];
+    out.push(i === R.days.length - 1 ? "porto" : loc);
+  });
+  return out;
+}
+function renderCal() {
+  const t = totals(R);
+  const maxStart = Math.max(1, 31 - t.days + 1);
+  const range = $("#startDay");
+  range.max = maxStart;
+  if (st.startDay > maxStart) st.startDay = maxStart;
+  range.value = st.startDay;
+  $("#startLbl").textContent = st.startDay;
+  const plan = sleepPlan();
+  const box = $("#cal");
+  box.innerHTML = "";
+  box.style.setProperty("--rc", `var(${R.color})`);
+  ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"].forEach(d => box.appendChild(h("div", { class: "dow" }, d)));
+  const offset = new Date(2027, 0, 1).getDay();
+  for (let i = 0; i < offset; i++) box.appendChild(h("div", { class: "cell blank", "aria-hidden": "true" }));
+  const evDays = new Set(EVENTS.map(e => e.d));
+  const hits = new Set();
+  for (let d = 1; d <= 31; d++) {
+    const idx = d - st.startDay;
+    const trip = idx >= 0 && idx < t.days;
+    let w = "Porto";
+    if (trip) { const city = plan[idx]; w = idx === t.days - 1 ? "volta ao Porto" : (idx === 0 ? "zarpar · " : "") + cityName(city); }
+    if (trip && evDays.has(d)) hits.add(d);
+    box.appendChild(h("div", { class: "cell" + (trip ? " trip" : "") + (evDays.has(d) ? " ev" : ""), title: trip ? `Noite em ${w}` : "Porto com a família" }, `<span class="d">${d}</span><span class="w">${esc(w)}</span>`));
+  }
+  const famDays = 31 - t.days;
+  const end = st.startDay + t.days - 1;
+  $("#calSum").innerHTML = `<span><b>${famDays}</b> dias no Porto com a família</span><span><b>${t.days}</b> dias na Rota ${R.num}</span><span>De <b class="log">${st.startDay}</b> a <b class="log">${end}</b> de janeiro</span>`;
+  $("#events").innerHTML = EVENTS.map(e => {
+    const idx = e.d - st.startDay, inTrip = idx >= 0 && idx < t.days;
+    return `<div class="ev-item ${inTrip ? "hit" : ""}"><span class="dt">${e.d}<small>JAN</small></span><span><b>${esc(e.t)}</b>${inTrip ? ` · vocês estarão em ${esc(cityName(plan[idx]))}` : ""}<br>${esc(e.txt)}</span></div>`;
+  }).join("");
+  const sugg = $("#sugg");
+  sugg.innerHTML = "";
+  SUGGEST.forEach(s => {
+    const di = plan.findIndex((c, i) => c === s.city && i < t.days - 1);
+    if (di < 0) return;
+    const start = s.d - di;
+    if (start < 1 || start > maxStart) return;
+    const b = h("button", { class: "hbtn", type: "button" }, `${esc(s.label)} · zarpar dia ${start}`);
+    b.addEventListener("click", () => { st.startDay = start; renderCal(); });
+    sugg.appendChild(b);
+  });
+  if (!sugg.children.length) sugg.innerHTML = `<span class="muted" style="font-size:15px">Nenhuma data especial cai no caminho desta rota. Escolham pelo clima e pela família.</span>`;
+}
+
+/* ----- carro ----- */
+function renderCar() {
+  $("#cmds").innerHTML = COMMANDMENTS.map((c, i) => `<div class="cmd"><span class="k">${c[0]}!<small>${String(i + 1).padStart(2, "0")} / 10</small></span><div><h3>${esc(c[1])}</h3><p>${esc(c[2])}</p></div></div>`).join("");
+  const cars = $("#cars");
+  cars.innerHTML = "";
+  CARS.forEach(c => {
+    const b = h("button", { class: "carcard", type: "button", "aria-pressed": st.car === c.id ? "true" : "false" },
+      `<svg viewBox="0 0 124 70" aria-hidden="true"><use href="#car" x="0" y="0" width="124" height="70"/></svg><span class="cn">${esc(c.n)}</span><span class="ce">${esc(c.ex)}</span><span class="cp">≈ €${c.day}/dia · ${String(c.cons).replace(".", ",")} L/100 km</span><span class="ce">Cabe: ${esc(c.bag)}</span>`);
+    b.addEventListener("click", () => { st.car = c.id; $("#bCons").value = c.cons; renderCar(); renderBudget(); renderStrip(); renderCmp(); });
+    cars.appendChild(b);
+  });
+  $("#countryTable").innerHTML = `<thead><tr><th>País</th><th>Habilitação</th><th>Autoestrada</th><th>Pedágio</th><th class="num">Gasolina/L</th><th>Relógio</th></tr></thead><tbody>${COUNTRY_RULES.map(r => `<tr style="cursor:default"><td class="rname">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="num">${r[4]}</td><td>${r[5]}</td></tr>`).join("")}</tbody>`;
+}
+
+/* ----- contas ----- */
+function segButtons(box, list, key, after) {
+  box.innerHTML = "";
+  list.forEach(o => {
+    const b = h("button", { type: "button", "aria-pressed": st[key] === o.id ? "true" : "false" }, o.n);
+    b.addEventListener("click", () => { st[key] = o.id; segButtons(box, list, key, after); after(); });
+    box.appendChild(b);
+  });
+}
+function renderBudget() {
+  const c = cost(R);
+  const fx = parseFloat($("#bFx").value) || 6.3;
+  $("#bBedNote").textContent = `≈ €${BEDS.find(b => b.id === st.bed).v} por noite, quarto para as duas`;
+  $("#bFoodNote").textContent = `≈ €${FOODS.find(f => f.id === st.food).v} por pessoa por dia`;
+  const parts = [
+    ["car", "Carro, seguro, travessia e estacionamento", "--c-car"], ["fuel", "Combustível", "--c-fuel"], ["toll", "Pedágios", "--c-toll"],
+    ["trans", "Voos e trens", "--c-trans"], ["bed", "Hospedagem", "--c-bed"], ["food", "Comida", "--c-food"], ["fun", "Ingressos e passeios", "--c-fun"]
+  ].filter(p => c.parts[p[0]] > 0);
+  const stack = parts.map(p => `<span style="width:${(c.parts[p[0]] / c.total * 100).toFixed(2)}%;background:var(${p[2]})" title="${p[1]}: ${eur(c.parts[p[0]])}"></span>`).join("");
+  const legend = parts.map(p => `<li><i style="background:var(${p[2]})"></i><span>${p[1]}</span><span class="v">${eur(c.parts[p[0]])}</span></li>`).join("");
+  const all = ROUTES.map(r => ({ r, pp: cost(r).pp }));
+  if (R.id === "custom" && R.legs.length) all.push({ r: R, pp: c.pp });
+  const max = Math.max(...all.map(x => x.pp));
+  const bars = all.map(x => `<div class="cmpbar ${x.r.id === R.id ? "sel" : ""}" style="--rc: var(${x.r.color})"><span class="lbl">${x.r.num} · ${esc(x.r.song)}</span><span class="track"><span class="fill" style="width:${(x.pp / max * 100).toFixed(1)}%"></span></span><span class="v">${eur(x.pp)}</span></div>`).join("");
+  $("#budgetOut").innerHTML = `
+    <p class="folio-tag">Rota ${R.num} · ${esc(R.song)} · ${c.days} dias, ${c.nights} noites</p>
+    <div class="total"><span class="big">${eur(c.pp)}</span><span class="brl">por pessoa · ≈ ${brl(c.pp * fx)} · total das duas ${eur(c.total)}</span></div>
+    <div class="stack" role="img" aria-label="Divisão dos custos">${stack}</div>
+    <ul class="legend">${legend}</ul>
+    <p class="folio-tag" style="margin-top:22px">Por pessoa, com as mesmas escolhas</p>
+    <div class="cmpbars">${bars}</div>
+    <p class="fine">Inclui diária do carro, ${$("#bIns").checked ? "seguro sem franquia, " : ""}Via Verde, taxa de fronteira quando há, estacionamento de €12 por noite, combustível, pedágio estimado, hospedagem, comida e €12 por pessoa por dia em ingressos. A Rota V troca o carro por voos e trens (≈ €${ROUTES[4].transport} por pessoa). Não inclui as passagens do Brasil.</p>`;
+}
+
+/* ----- bate-voltas ----- */
+function renderRose() {
+  const s = $("#rose");
+  s.innerHTML = "";
+  const cx = 270, cy = 205, R0 = 150, rad = km => R0 * Math.sqrt(km / 200);
+  [25, 50, 100, 200].forEach(km => {
+    svgEl("circle", { cx, cy, r: rad(km), class: "ring", "stroke-dasharray": km === 200 ? "" : "3 4" }, s);
+    const t = svgEl("text", { x: cx + 3, y: cy - rad(km) - 3, class: "rl" }, s); t.textContent = km + " km";
+  });
+  for (let i = 0; i < 16; i++) { const a = i * Math.PI / 8; svgEl("line", { x1: cx, y1: cy, x2: cx + Math.cos(a) * 160, y2: cy + Math.sin(a) * 160, stroke: "var(--rule)", "stroke-width": i % 2 ? .5 : 1 }, s); }
+  [["N", 0, -1], ["L", 1, 0], ["S", 0, 1], ["O", -1, 0]].forEach(([t, dx, dy]) => { const e = svgEl("text", { x: cx + dx * 160, y: cy + dy * 160 + 6, "text-anchor": "middle", class: "card", "paint-order": "stroke", stroke: "var(--paper)", "stroke-width": 4 }, s); e.textContent = t; });
+  const porto = C.porto.ll;
+  const pts = TRIPS.map((t, i) => {
+    const d = hav(porto, t.ll);
+    const y = (t.ll[0] - porto[0]) * 111, x = (t.ll[1] - porto[1]) * 111 * Math.cos(porto[0] * Math.PI / 180);
+    const ang = Math.atan2(-y, x);
+    return { i, t, ang, la: ang, px: cx + Math.cos(ang) * rad(d), py: cy + Math.sin(ang) * rad(d) };
+  });
+  const sorted = pts.slice().sort((a, b) => a.la - b.la), gap = .27;
+  for (let it = 0; it < 60; it++) for (let j = 1; j < sorted.length; j++) {
+    const a = sorted[j - 1], b = sorted[j], dd = b.la - a.la;
+    if (dd < gap) { const m = (gap - dd) / 2; a.la -= m; b.la += m; }
+  }
+  pts.forEach(p => {
+    const on = p.i === st.trip;
+    const lx = cx + Math.cos(p.la) * 186, ly = cy + Math.sin(p.la) * 186;
+    svgEl("line", { x1: cx, y1: cy, x2: p.px, y2: p.py, class: "spoke" + (on ? " on" : "") }, s);
+    const g = svgEl("g", { class: "pt" + (on ? " on" : ""), tabindex: 0, role: "button", "aria-label": p.t.n }, s);
+    svgEl("path", { d: `M${p.px} ${p.py} L${lx} ${ly}`, stroke: on ? "var(--seal)" : "var(--muted)", "stroke-width": .7, fill: "none", "stroke-dasharray": "1 2" }, g);
+    svgEl("circle", { cx: p.px, cy: p.py, r: 5.5 }, g);
+    const right = Math.cos(p.la) >= 0;
+    const lbl = svgEl("text", { x: lx + (right ? 4 : -4), y: ly + 4, "text-anchor": right ? "start" : "end" }, g); lbl.textContent = p.t.n;
+    const pick = () => { st.trip = p.i; renderRose(); renderTrips(); };
+    g.addEventListener("click", pick);
+    g.addEventListener("keydown", e => { if (e.key === "Enter") pick(); });
+  });
+  svgEl("circle", { cx, cy, r: 16, fill: "var(--paper-3)", stroke: "var(--ink)", "stroke-width": 1.5 }, s);
+  svgEl("use", { href: "#bunnyH", x: cx - 13, y: cy - 15, width: 26, height: 30 }, s);
+  const pl = svgEl("text", { x: cx, y: cy + 30, "text-anchor": "middle", "font-family": "IM Fell English SC, Georgia, serif", "font-size": 13, fill: "var(--ink)", "paint-order": "stroke", stroke: "var(--paper)", "stroke-width": 3 }, s); pl.textContent = "Porto";
+}
+function renderTrips() {
+  const list = $("#tripList");
+  list.innerHTML = "";
+  TRIPS.forEach((t, i) => {
+    const b = h("button", { class: "trip" + (i === st.trip ? " on" : ""), type: "button" }, `<span class="tn">${esc(t.n)}</span><span class="tk">${fmtKm(t.km)} · ${fmtH(t.min)} de carro</span>`);
+    b.addEventListener("click", () => { st.trip = i; renderRose(); renderTrips(); });
+    list.appendChild(b);
+  });
+  const t = TRIPS[st.trip];
+  $("#tripDetail").innerHTML = `<p class="folio-tag">Bate-volta · ${fmtKm(t.km)} · ${fmtH(t.min)} cada perna</p><h3 style="margin:4px 0 8px">${esc(t.n)}</h3><p>${esc(t.faz)}</p><p><b>Para comer:</b> ${esc(t.come)}</p><p style="margin-top:10px"><a href="https://www.google.com/maps/dir/${encodeURIComponent("Porto, Portugal")}/${encodeURIComponent(t.n.replace(", Espanha", "") + (t.n.includes("Espanha") ? ", Espanha" : ", Portugal"))}" target="_blank" rel="noopener">Abrir o caminho no Google Maps ↗</a></p>`;
+}
+
+/* ----- bagagem ----- */
+function renderPack() {
+  const saved = store.get("pack", []);
+  const box = $("#packing");
+  box.innerHTML = "";
+  PACK.forEach((p, i) => {
+    const lab = h("label", { class: "check" }, `<input type="checkbox" id="pk${i}" ${saved.includes(i) ? "checked" : ""}><span>${esc(p)}</span>`);
+    lab.querySelector("input").addEventListener("change", () => { const cur = PACK.map((_, j) => j).filter(j => $("#pk" + j).checked); store.set("pack", cur); packCount(); });
+    box.appendChild(lab);
+  });
+  packCount();
+}
+function packCount() {
+  const n = PACK.filter((_, j) => $("#pk" + j).checked).length;
+  $("#packCount").textContent = `${n} de ${PACK.length}`;
+  $("#packBar").style.width = (n / PACK.length * 100) + "%";
+}
+
+/* ===================== INICIALIZAÇÃO ===================== */
+function initTheme() {
+  const btn = $("#themeBtn");
+  const saved = store.get("theme", null);
+  if (saved) document.documentElement.setAttribute("data-theme", saved);
+  const isDark = () => { const a = document.documentElement.getAttribute("data-theme"); return a ? a === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+  const label = () => { btn.textContent = isDark() ? "Carta diurna" : "Carta noturna"; };
+  label();
+  btn.addEventListener("click", () => { const next = isDark() ? "light" : "dark"; document.documentElement.setAttribute("data-theme", next); store.set("theme", next); label(); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", label);
+}
+function init() {
+  st.custom = (store.get("custom", []) || []).filter(k => C[k] && k !== "porto");
+  initTheme();
+  buildMap();
+  renderTabs();
+  $("#bRoute").innerHTML = [...ROUTES.map(r => `<option value="${r.id}">Rota ${r.num} · ${r.song}</option>`), `<option value="custom">Sua rota</option>`].join("");
+  $("#bRoute").addEventListener("change", e => selectRoute(e.target.value));
+  segButtons($("#bBed"), BEDS, "bed", () => { renderBudget(); renderStrip(); renderCmp(); });
+  segButtons($("#bFood"), FOODS, "food", () => { renderBudget(); renderStrip(); renderCmp(); });
+  ["#bFuel", "#bCons", "#bFx", "#bIns", "#bYoung"].forEach(s => $(s).addEventListener("input", () => { renderBudget(); renderStrip(); renderCmp(); }));
+  $("#bCons").value = CARS.find(c => c.id === st.car).cons;
+  $("#playBtn").addEventListener("click", play);
+  $("#resetBtn").addEventListener("click", resetTrip);
+  $("#prevBtn").addEventListener("click", () => jumpToStop(curStop() - 1));
+  $("#nextBtn").addEventListener("click", () => jumpToStop(curStop() + 1));
+  document.querySelectorAll(".speed button").forEach(b => b.addEventListener("click", () => { st.speed = +b.dataset.speed; document.querySelectorAll(".speed button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false")); }));
+  $("#undoBtn").addEventListener("click", () => { st.custom.pop(); store.set("custom", st.custom); selectRoute("custom", true); });
+  $("#clearBtn").addEventListener("click", () => { st.custom = []; store.set("custom", st.custom); selectRoute("custom", true); });
+  document.querySelectorAll("#driverSeg button").forEach(b => b.addEventListener("click", () => { st.drv = b.dataset.drv; document.querySelectorAll("#driverSeg button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false")); $("#swapDrv").disabled = st.drv !== "alt"; renderDiary(); }));
+  $("#swapDrv").addEventListener("click", () => { st.drvFirst = st.drvFirst === "v" ? "g" : "v"; renderDiary(); });
+  $("#startDay").addEventListener("input", e => { st.startDay = +e.target.value; renderCal(); });
+  renderCar(); renderQuiz(); renderRose(); renderTrips(); renderPack();
+  selectRoute(st.rid);
+  vb = routeBox(); vbAnim = null; applyVB();
+  window.addEventListener("resize", scaleOverlays);
+  requestAnimationFrame(frame);
+}
+init();
+})();
+</script>
+</body>
+</html>
