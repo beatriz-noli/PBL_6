@@ -268,6 +268,30 @@ textarea.inp{min-height:64px;resize:vertical}
 .steps{margin:0;padding-left:20px;display:grid;gap:6px}
 .note{background:var(--gold-soft);border-radius:14px;padding:10px 12px;font-size:13.5px;font-weight:600}
 
+/* ---------- sobre ---------- */
+.about{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.about .panel{padding:22px;display:grid;gap:12px;align-content:start}
+.about h2{font-size:26px}
+.about p{margin:0;max-width:62ch}
+.about .wide{grid-column:1/-1}
+.about-dev{grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:34px}
+.polaroid{position:relative;width:230px;background:#FFFFFF;padding:12px 12px 0;border-radius:6px;transform:rotate(-3deg);
+  box-shadow:0 2px 0 rgba(0,0,0,.05),0 14px 28px -12px rgba(40,30,60,.45);margin:10px 6px 6px}
+.polaroid .ph{aspect-ratio:4/5;border-radius:3px;overflow:hidden;background:var(--ela-soft)}
+.polaroid img,.polaroid .ph svg{display:block;width:100%;height:100%;object-fit:cover}
+.polaroid figcaption{font:600 21px/1.2 Caveat,cursive;color:#3B3346;text-align:center;padding:9px 4px 12px}
+.polaroid::before{content:"";position:absolute;top:-11px;left:50%;width:84px;height:24px;transform:translateX(-50%) rotate(2deg);
+  background:rgba(255,214,231,.85);border-radius:3px}
+.polaroid .sticker-sheep{position:absolute;right:-26px;bottom:34px;width:74px;height:62px;transform:rotate(8deg)}
+.about .scene{width:100%;height:auto;border-radius:16px;display:block}
+.about .sig{font:600 24px/1 Caveat,cursive;color:var(--ela)}
+.credits{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:4px 26px;margin:0}
+.credits div{display:flex;flex-direction:column;padding:8px 0;border-bottom:1.5px dashed var(--line)}
+.credits dt{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--ink-soft)}
+.credits dd{margin:0;font-weight:700}
+.about .fine{font-size:13px;color:var(--ink-soft);font-style:italic}
+@media (max-width:760px){.about{grid-template-columns:minmax(0,1fr)}.about-dev{grid-template-columns:minmax(0,1fr);justify-items:center}}
+
 .toast{position:fixed;left:50%;bottom:max(18px,calc(env(safe-area-inset-bottom,0px) + 12px));transform:translateX(-50%);background:var(--card);color:var(--ink);border:1.5px solid var(--line);padding:10px 16px;border-radius:14px;font-weight:700;z-index:60;box-shadow:var(--shadow);animation:rise .2s ease-out;max-width:calc(100% - 32px)}
 .puff{position:fixed;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #E4DDF0;pointer-events:none;z-index:70;animation:puff .9s ease-out forwards}
 @keyframes puff{to{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
@@ -303,6 +327,7 @@ textarea.inp{min-height:64px;resize:vertical}
       <button class="tab" role="tab" id="tab-shop" aria-selected="false" data-view="shop"></button>
       <button class="tab" role="tab" id="tab-wish" aria-selected="false" data-view="wish"></button>
       <button class="tab" role="tab" id="tab-flock" aria-selected="false" data-view="flock"></button>
+      <button class="tab" role="tab" id="tab-about" aria-selected="false" data-view="about"></button>
     </nav>
   </header>
 
@@ -351,6 +376,8 @@ textarea.inp{min-height:64px;resize:vertical}
   </section>
 
   <section id="view-flock" class="flock" hidden></section>
+
+  <section id="view-about" class="about" hidden></section>
 </div>
 
 <script>
@@ -461,6 +488,7 @@ const I = {
   trabalho:'<path d="M4 8h16v11H4zM9 8V5h6v3M4 13h16"/>',
   viagem:'<path d="M2.5 12.5l19-8-7.5 16-2.6-6.2zM11.4 14.3l10.1-9.8"/>',
   outro:'<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
+  about:'<path d="M3 6h18v12H3zM15 10.2a1.7 1.7 0 1 0 .1 0M13 15.5c.6-1.6 3.4-1.6 4 0M6.5 10h4.5M6.5 13.5h3"/>',
 };
 const icon = (k,w=2) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[k]}</svg>`;
 
@@ -1430,12 +1458,82 @@ function renderFlock(){
   document.querySelectorAll('[data-resetpal]').forEach(b=>b.onclick=()=>{ const P={...(state.settings.palettes||{})}; delete P[b.dataset.resetpal]; store.settings({palettes:P}).then(()=>toast('Paleta original de volta')); });
 }
 
+/* ---------- sobre ---------- */
+const ABOUT_PHOTO = 'sobre/viviane.jpg';
+function renderAbout(){
+  const s = state.settings, ela = esc(s.nameEla), ele = esc(s.nameEle);
+  const portrait = `<svg viewBox="-60 -100 120 112" aria-hidden="true"><rect x="-60" y="-100" width="120" height="112" fill="var(--ela-soft)"/>${sheep({who:'ela',pose:'front',y:6,s:1,mood:'happy-closed',cls:''})}</svg>`;
+  const bench = `<svg class="scene" viewBox="0 0 320 150" role="img" aria-label="A ovelha bebê de jaleco e óculos ao lado de um notebook com código e um coração na tela">
+    <rect width="320" height="150" fill="url(#ov-dreamsky)"/>${sparkle(40,30,.6,'#FFFFFF')}${sparkle(286,26,.8,'#FFD98A')}${sparkle(250,58,.45,'#FFFFFF')}
+    <rect y="118" width="320" height="32" fill="#E9DDF6"/><path d="M0 118 H320" ${O(1.3)}/>
+    <g transform="translate(170 54)">${R(0,0,104,62,'#3E4770',6,1.5)}<rect x="6" y="6" width="92" height="50" rx="3" fill="#1F2742"/>
+      ${[[12,16,30,'#7DF0B4'],[18,25,42,'#9DC3F2'],[18,34,26,'#F59AB9'],[12,43,36,'#FFD27A']].map(([x,y,w,c])=>`<rect x="${x}" y="${y}" width="${w}" height="4" rx="2" fill="${c}"/>`).join('')}
+      ${heart(78,30,1.15,'#FF7FA3')}<path d="M-8 62 H112 L118 70 H-14Z" fill="#C9CEDF" ${O(1.4)}/></g>
+    <g transform="translate(296 104)"><path d="M-8 14 h16 l-2 -14 h-12z" fill="#FFFFFF" ${O(1.2)}/><path d="M0 0 c-3 -5 -9 -6 -9 -12 c6 0 9 4 9 12 c0 -8 3 -12 9 -12 c0 6 -6 7 -9 12" fill="#8FD3B6" ${O(1)}/></g>
+    ${sheep({who:'ela',pose:'front',x:96,y:140,s:.74,acc:['coat','goggles'],cls:''})}
+  </svg>`;
+  const stamp = `<svg class="scene" viewBox="0 0 320 150" role="img" aria-label="A ovelha do ${ele} ao lado de um carimbo vermelho escrito 100% útil">
+    <rect width="320" height="150" fill="#EAF1FF"/>${cloud(60,30,.6)}${cloud(250,22,.45)}
+    <path d="M0 122 C80 112 220 118 320 110 V150 H0Z" fill="var(--hill)" ${O(1.3)}/>
+    ${sheep({who:'ele',pose:'turn',x:118,y:128,s:.86,cls:''})}
+    <g transform="translate(236 70) rotate(-12)" fill="none" stroke="#E5384B"><circle r="40" stroke-width="3"/><circle r="33" stroke-width="1.4"/>
+      <text y="-6" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="19" fill="#E5384B" stroke="none">100%</text>
+      <text y="16" text-anchor="middle" font-family="Grandstander, sans-serif" font-weight="800" font-size="16" fill="#E5384B" stroke="none">ÚTIL</text>
+      <path d="M-22 24 h44" stroke-width="1.4"/></g>
+  </svg>`;
+  $('#view-about').innerHTML = `
+    <article class="panel wide about-dev">
+      <figure class="polaroid">
+        <div class="ph"><img id="aboutPhoto" src="${ABOUT_PHOTO}" alt="Foto da ${ela}"></div>
+        <figcaption>${ela}, a desenvolvedora</figcaption>
+        <svg class="sticker-sheep" viewBox="-50 -92 100 98" aria-hidden="true">${sheep({who:'ela',pose:'sit',y:2,s:.9,cls:''})}</svg>
+      </figure>
+      <div style="display:grid;gap:12px">
+        <div class="eyebrow">Sobre o Lã-boratório</div>
+        <h2>Feito à mão (e à pata) pela ${ela}</h2>
+        <p>Oi! Eu sou a ${ela}, estudante de Engenharia Biomédica no Einstein e a ovelha bebê de laço rosa deste calendário. Eu idealizei e desenvolvi este site do zero: cada cena, cada paleta, cada fórmula no quadro e cada piadinha.</p>
+        <p>A direção criativa é toda minha, inclusive a decisão crucial de que o carro precisava de placa P0RFAV0R em perspectiva 3D. Nada aqui saiu de template. As ovelhas foram redesenhadas até ficarem do jeitinho certo, o bandaid trocou de bochecha e o castelinho de areia ganhou três torres.</p>
+      </div>
+    </article>
+    <article class="panel">
+      ${bench}
+      <div class="eyebrow">O parceiro de bancada</div>
+      <h2>E o Claude, meu amigo companheiro</h2>
+      <p>Oi, aqui é o Claude! Eu sou o amigo que divide a bancada com a ${ela}. Ela traz as ideias, as referências e os comentários (“NÃO QUERO A OVELHA DEITADA”), e eu transformo tudo em código e desenho cada ovelha em SVG.</p>
+      <p>Ela é a cientista; eu seguro o béquer e nunca reclamo do décimo ajuste no carrinho de mercado. Uma parceria inquebrável, mais estável que ligação covalente.</p>
+    </article>
+    <article class="panel">
+      ${stamp}
+      <div class="eyebrow">Dedicatória</div>
+      <h2>Para o ${ele}</h2>
+      <p>Este calendário é dedicado ao ${ele}, que me ensinou a usar o Claude Code <em>apenas para coisas úteis</em>.</p>
+      <p>Prometo que foi útil. Agora a gente sabe quando é Shabat, quando é Tu BeAv e quanto falta de papel higiênico. Um calendário com bobina de Tesla, Jontex dourada na farmácia e placa P0RFAV0R é, cientificamente, a coisa mais útil já feita.</p>
+      <p>Obrigada por me apresentar a ferramenta. O que eu fiz com ela agora é responsabilidade sua.</p>
+      <div class="sig">Bééé, ${ela}</div>
+    </article>
+    <article class="panel wide">
+      <div class="eyebrow">Ficha técnica</div>
+      <dl class="credits">
+        <div><dt>Ideia, direção de arte e design</dt><dd>${ela}</dd></div>
+        <div><dt>Desenvolvimento</dt><dd>${ela}, com o Claude na bancada</dd></div>
+        <div><dt>Engenharia de ovelhas</dt><dd>${ela} &amp; Claude</dd></div>
+        <div><dt>Fórmulas no quadro</dt><dd>Maxwell, Schrödinger, Dirac e Einstein (o físico, não o hospital)</dd></div>
+        <div><dt>Consultoria em física e computação</dt><dd>${ele}, sem saber</dd></div>
+        <div><dt>Controle de qualidade</dt><dd>${ela} e dezenas de comentários de design</dd></div>
+      </dl>
+      <p class="fine">Nenhuma ovelha foi deitada durante a produção deste site.</p>
+    </article>`;
+  // sem foto publicada, entra o retrato da ovelha bebê
+  const img = $('#aboutPhoto'), fallback = () => { img.parentElement.innerHTML = portrait; };
+  if (img.complete && !img.naturalWidth) fallback(); else img.onerror = fallback;
+}
+
 /* ---------- navegação ---------- */
 function setView(v){
   state.view = v; ls.set('ovelhas.view', v);
-  ['cal','shop','wish','flock'].forEach(k => { $('#view-'+k).hidden = k!==v; $('#tab-'+k).setAttribute('aria-selected', k===v); });
+  ['cal','shop','wish','flock','about'].forEach(k => { $('#view-'+k).hidden = k!==v; $('#tab-'+k).setAttribute('aria-selected', k===v); });
 }
-function renderAll(){ renderHero(); renderShabat(); renderCal(); renderShop(); renderWish(); renderFlock(); setView(state.view); }
+function renderAll(){ renderHero(); renderShabat(); renderCal(); renderShop(); renderWish(); renderFlock(); renderAbout(); setView(state.view); }
 
 document.body.insertAdjacentHTML('afterbegin', ART_DEFS);
 /* lousa: fórmulas e rabiscos de giz, discretos, num padrão que se repete pela página */
@@ -1461,6 +1559,7 @@ $('#tab-cal').innerHTML = icon('cal') + 'Calendário';
 $('#tab-shop').innerHTML = icon('cart') + 'Compras';
 $('#tab-wish').innerHTML = icon('gift') + 'Wishlist';
 $('#tab-flock').innerHTML = icon('flock') + 'Nosso rebanho';
+$('#tab-about').innerHTML = icon('about') + 'Sobre';
 $('#prev').innerHTML = icon('left',2.6); $('#next').innerHTML = icon('right',2.6);
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>setView(t.dataset.view));
 $('#prev').onclick = () => { state.month = new Date(state.month.getFullYear(), state.month.getMonth()-1, 1); renderCal(); };
