@@ -1216,7 +1216,12 @@ function occurrences(from, to){
   const push = (k, id, ev) => (out[k] ||= []).push({id, ...ev, occ:k});
   for (const [id, ev] of Object.entries(state.events)){
     if (!ev?.date) continue;
-    if (!ev.repeat || ev.repeat==='none'){ if (ev.date>=F && ev.date<=T) push(ev.date,id,ev); continue; }
+    if (!ev.repeat || ev.repeat==='none'){
+      // compromissos de vários dias (viagens) aparecem em cada dia, do primeiro ao último
+      const last = ev.endDate && ev.endDate > ev.date ? ev.endDate : ev.date;
+      for (let d = parse(ev.date > F ? ev.date : F); iso(d) <= T && iso(d) <= last; d = addDays(d, 1)) push(iso(d), id, ev);
+      continue;
+    }
     const step = ev.repeat==='biweekly'?14:7, until = ev.until || T; let d = parse(ev.date);
     if (iso(d) < F){ const diff = Math.floor((from - d)/864e5); d = addDays(d, Math.floor(diff/step)*step); }
     for (; iso(d) <= T && iso(d) <= until; d = addDays(d, step)){ const k = iso(d); if (k>=F && !(ev.exdates||[]).includes(k)) push(k,id,ev); }
@@ -1298,7 +1303,8 @@ function renderCal(){
 
 function evRow(e, showDate=false){
   const c = colorOf(e.who,e.type), t = TYPES.find(x=>x.k===e.type)||TYPES.at(-1), d = parse(e.occ);
-  const when = (showDate ? `${DOW[d.getDay()]} ${d.getDate()}/${pad(d.getMonth()+1)} · ` : '') + (e.allDay||!e.start ? 'dia inteiro' : `${e.start}${e.end?'–'+e.end:''}`);
+  const span = e.endDate && e.endDate > e.date ? ` · ${parse(e.date).getDate()}/${pad(parse(e.date).getMonth()+1)} a ${parse(e.endDate).getDate()}/${pad(parse(e.endDate).getMonth()+1)}` : '';
+  const when = (showDate ? `${DOW[d.getDay()]} ${d.getDate()}/${pad(d.getMonth()+1)} · ` : '') + (e.allDay||!e.start ? 'dia inteiro' : `${e.start}${e.end?'–'+e.end:''}`) + span;
   return `<button class="item" data-ev="${e.id}" data-occ="${e.occ}">${miniSheep(e.who, e.type)}<span class="meta"><b>${esc(e.title)}</b><small><span class="mono">${when}</span>${e.location?' · '+esc(e.location):''}${e.repeat&&e.repeat!=='none'?' · repete':''}</small></span><span class="tag ticon" style="--c:${c};--t:${textOn(c)}" title="${t.n}">${icon(t.k,2.4)}</span></button>`;
 }
 function renderDay(){
@@ -1322,7 +1328,7 @@ function renderUpcoming(){
 /* ---------- modal de compromisso ---------- */
 function openEvent(id=null, occ=null){
   if (!state.canWrite && !id) return toast('Você está só com acesso de leitura.');
-  const ev = id ? {...state.events[id]} : {title:'', who: state.me||'juntos', type: 'aula', date: state.sel, allDay:false, start:'09:00', end:'10:00', repeat:'none', until:'', location:'', notes:''};
+  const ev = id ? {...state.events[id]} : {title:'', who: state.me||'juntos', type: 'aula', date: state.sel, endDate:'', allDay:false, start:'09:00', end:'10:00', repeat:'none', until:'', location:'', notes:''};
   let who = ev.who, type = ev.type;
   const ov = document.createElement('div'); ov.className='overlay';
   const draw = () => {
@@ -1335,7 +1341,8 @@ function openEvent(id=null, occ=null){
       <div class="row"><div class="field"><label for="f-date">Data</label><input class="inp" type="date" id="f-date" required value="${ev.date}"></div>
         <div class="field"><label for="f-start">Início</label><input class="inp" type="time" id="f-start" value="${ev.start||''}" ${ev.allDay?'disabled':''}></div>
         <div class="field"><label for="f-end">Fim</label><input class="inp" type="time" id="f-end" value="${ev.end||''}" ${ev.allDay?'disabled':''}></div></div>
-      <label class="check"><input type="checkbox" id="f-allday" ${ev.allDay?'checked':''}> Dia inteiro</label>
+      <div class="row"><label class="check"><input type="checkbox" id="f-allday" ${ev.allDay?'checked':''}> Dia inteiro</label>
+        <div class="field"><label for="f-enddate">Último dia (viagens e eventos de vários dias)</label><input class="inp" type="date" id="f-enddate" value="${ev.endDate||''}"></div></div>
       <div class="row"><div class="field"><label for="f-repeat">Repetir</label><select class="inp" id="f-repeat">
           <option value="none" ${ev.repeat==='none'||!ev.repeat?'selected':''}>Não repete</option><option value="weekly" ${ev.repeat==='weekly'?'selected':''}>Toda semana</option><option value="biweekly" ${ev.repeat==='biweekly'?'selected':''}>A cada 2 semanas</option></select></div>
         <div class="field"><label for="f-until">Até (fim do semestre)</label><input class="inp" type="date" id="f-until" value="${ev.until||''}"></div></div>
@@ -1345,7 +1352,7 @@ function openEvent(id=null, occ=null){
       <div class="modal-foot">${id?`<button type="button" class="btn danger" id="f-del">Excluir</button>`:''}<span class="grow"></span><button type="button" class="btn" id="f-cancel">Cancelar</button><button type="submit" class="btn primary">${id?'Salvar':'Adicionar'}</button></div>
     </form>`;
     const f = ov.querySelector('form');
-    const keep = () => { ev.title=f.querySelector('#f-title').value; ev.date=f.querySelector('#f-date').value; ev.start=f.querySelector('#f-start').value; ev.end=f.querySelector('#f-end').value;
+    const keep = () => { ev.title=f.querySelector('#f-title').value; ev.date=f.querySelector('#f-date').value; ev.start=f.querySelector('#f-start').value; ev.end=f.querySelector('#f-end').value; ev.endDate=f.querySelector('#f-enddate').value;
       ev.allDay=f.querySelector('#f-allday').checked; ev.repeat=f.querySelector('#f-repeat').value; ev.until=f.querySelector('#f-until').value; ev.location=f.querySelector('#f-loc').value; ev.notes=f.querySelector('#f-notes').value; };
     f.querySelectorAll('.who-opt').forEach(b=>b.onclick=()=>{ keep(); who=b.dataset.w; draw(); ov.querySelector(`[data-w="${who}"]`).focus(); });
     f.querySelectorAll('.type-opt').forEach(b=>b.onclick=()=>{ keep(); type=b.dataset.t; draw(); ov.querySelector(`[data-t="${type}"]`).focus(); });
@@ -1354,6 +1361,7 @@ function openEvent(id=null, occ=null){
     f.onsubmit = async e => { e.preventDefault(); keep(); if (!ev.title.trim()) return;
       const data = {...ev, title:ev.title.trim(), who, type, updatedAt:Date.now(), by: state.uid||null}; if (!id) data.createdAt = Date.now();
       if (data.allDay){ data.start=''; data.end=''; }
+      if (!data.endDate || data.endDate <= data.date || (data.repeat && data.repeat!=='none')) data.endDate = '';
       close(); await store.put('events', id||newId(), data); state.sel = data.date; toast(id?'Compromisso atualizado':'Anotado no caderno do rebanho!'); renderCal(); };
     const del = f.querySelector('#f-del');
     if (del) del.onclick = () => {
@@ -1542,7 +1550,7 @@ function renderAbout(){
     </article>`;
   // pilha de polaroids: cada toque traz a próxima foto; sem as fotos, entra o retrato da ovelha bebê
   const btn = $('#photoBtn'), first = btn.querySelector('img');
-  const fallback = () => { btn.outerHTML = `<div class="ph">${portrait}</div>`; $('#photoCap').textContent = `${s.nameEla}, a desenvolvedora`; $('#photoHint').remove(); };
+  const fallback = () => { if (!btn.isConnected) return; btn.outerHTML = `<div class="ph">${portrait}</div>`; $('#photoCap').textContent = `${s.nameEla}, a desenvolvedora`; $('#photoHint')?.remove(); };
   if (first.complete && !first.naturalWidth) return fallback();
   first.onerror = fallback;
   btn.onclick = () => {

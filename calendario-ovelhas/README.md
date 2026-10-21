@@ -9,7 +9,7 @@ Tudo fica num único arquivo, `index.html` (HTML + CSS + JS puros, desenhos em S
 
 ## O que tem
 
-- Calendário mensal com compromissos de cada um ou dos dois juntos, repetição semanal/quinzenal (aulas do semestre) e exclusão de um dia só.
+- Calendário mensal com compromissos de cada um ou dos dois juntos, repetição semanal/quinzenal (aulas do semestre), exclusão de um dia só e compromissos de vários dias (viagens), com primeiro e último dia.
 - Cores por tipo (aula, prova, lab/pesquisa, evento social, encontro, saúde, estágio, viagem, outro). Cada ovelha tem a sua paleta e existe uma paleta do casal; dá para editar as cores na aba "Nosso rebanho".
 - Feriados nacionais, datas de São Paulo e pontos facultativos (Carnaval, Corpus Christi), Dia dos Namorados.
 - Feriados judaicos calculados pelo calendário hebraico do navegador (`Intl`, `ca-hebrew`), com as vésperas (Erev) e a data hebraica de cada dia.
