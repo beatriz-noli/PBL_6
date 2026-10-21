@@ -18,7 +18,7 @@ Tudo fica num único arquivo, `index.html` (HTML + CSS + JS puros, desenhos em S
 - Lista de compras com 10 categorias ilustradas: mercado, banho & cuidados, farmácia, casa & limpeza, pesquisa & laboratório, dates, presentes, viagens, Guarujá e outros.
 - Wishlist da Viviane, com prioridade, preço, link da loja e "Ganhei!". No modo Dov aparece um "Vou dar" para reservar presentes sem ela ver.
 - Fundo de lousa verde com fórmulas e rabiscos de giz discretos.
-- Aba "Sobre" com a foto da desenvolvedora (publicada em `sobre/viviane.jpg`, ao lado da página), o parceiro de bancada, uma dedicatória ao Dov e a ficha técnica.
+- Aba "Sobre" com uma pilha de fotos da desenvolvedora (pasta `sobre/`, publicada ao lado da página), o parceiro de bancada, uma dedicatória ao Dov e a ficha técnica.
 - Ovelhas e cenas desenhadas em SVG no próprio código, em traço vetorial limpo com cores chapadas e várias poses: perfil, 3/4, de frente, sentada e deitada.
 
 ## Sincronização

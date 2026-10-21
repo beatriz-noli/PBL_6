@@ -275,11 +275,20 @@ textarea.inp{min-height:64px;resize:vertical}
 .about p{margin:0;max-width:62ch}
 .about .wide{grid-column:1/-1}
 .about-dev{grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:34px}
-.polaroid{position:relative;width:230px;background:#FFFFFF;padding:12px 12px 0;border-radius:6px;transform:rotate(-3deg);
-  box-shadow:0 2px 0 rgba(0,0,0,.05),0 14px 28px -12px rgba(40,30,60,.45);margin:10px 6px 6px}
-.polaroid .ph{aspect-ratio:4/5;border-radius:3px;overflow:hidden;background:var(--ela-soft)}
+.photo-pile{position:relative;display:grid;justify-items:center;gap:10px;padding:10px 14px 0}
+.photo-pile::before,.photo-pile::after{content:"";position:absolute;top:18px;left:50%;width:230px;height:322px;margin-left:-115px;background:#FFFFFF;border-radius:6px;
+  box-shadow:0 10px 22px -12px rgba(40,30,60,.4)}
+.photo-pile::before{transform:rotate(5deg)}
+.photo-pile::after{transform:rotate(-9deg);background:#FFF4F8}
+.polaroid{position:relative;z-index:1;width:230px;background:#FFFFFF;padding:12px 12px 0;border-radius:6px;transform:rotate(-3deg);
+  box-shadow:0 2px 0 rgba(0,0,0,.05),0 14px 28px -12px rgba(40,30,60,.45);margin:0}
+.polaroid.shuffle{animation:shuffle .45s ease-out}
+@keyframes shuffle{0%{transform:rotate(-3deg)}35%{transform:translateX(26px) rotate(7deg)}100%{transform:rotate(-3deg)}}
+.polaroid .ph{display:block;width:100%;aspect-ratio:4/5;border-radius:3px;overflow:hidden;background:var(--ela-soft);border:0;padding:0;cursor:pointer}
+.polaroid .ph img[hidden]{display:none}
+.pile-hint{position:relative;z-index:1;font-size:12.5px;font-weight:700;color:var(--ink-soft)}
 .polaroid img,.polaroid .ph svg{display:block;width:100%;height:100%;object-fit:cover}
-.polaroid figcaption{font:600 21px/1.2 Caveat,cursive;color:#3B3346;text-align:center;padding:9px 4px 12px}
+.polaroid figcaption{font:600 21px/1.2 Caveat,cursive;color:#3B3346;text-align:center;padding:9px 4px 12px;min-height:46px}
 .polaroid::before{content:"";position:absolute;top:-11px;left:50%;width:84px;height:24px;transform:translateX(-50%) rotate(2deg);
   background:rgba(255,214,231,.85);border-radius:3px}
 .polaroid .sticker-sheep{position:absolute;right:-26px;bottom:34px;width:74px;height:62px;transform:rotate(8deg)}
@@ -1459,7 +1468,13 @@ function renderFlock(){
 }
 
 /* ---------- sobre ---------- */
-const ABOUT_PHOTO = 'sobre/viviane.jpg';
+const PHOTOS = [
+  {src:'sobre/viviane-plantao.jpg', cap:'De plantão no Einstein'},
+  {src:'sobre/viviane-torcedora.jpg', cap:'Modo torcedora'},
+  {src:'sobre/viviane-pesquisa.jpg', cap:'Pesquisa de campo'},
+  {src:'sobre/viviane-festa.jpg', cap:'Modo festa, de óculos escuros'},
+];
+let photoIdx = 0;
 function renderAbout(){
   const s = state.settings, ela = esc(s.nameEla), ele = esc(s.nameEle);
   const portrait = `<svg viewBox="-60 -100 120 112" aria-hidden="true"><rect x="-60" y="-100" width="120" height="112" fill="var(--ela-soft)"/>${sheep({who:'ela',pose:'front',y:6,s:1,mood:'happy-closed',cls:''})}</svg>`;
@@ -1483,11 +1498,14 @@ function renderAbout(){
   </svg>`;
   $('#view-about').innerHTML = `
     <article class="panel wide about-dev">
-      <figure class="polaroid">
-        <div class="ph"><img id="aboutPhoto" src="${ABOUT_PHOTO}" alt="Foto da ${ela}"></div>
-        <figcaption>${ela}, a desenvolvedora</figcaption>
-        <svg class="sticker-sheep" viewBox="-50 -92 100 98" aria-hidden="true">${sheep({who:'ela',pose:'sit',y:2,s:.9,cls:''})}</svg>
-      </figure>
+      <div class="photo-pile">
+        <figure class="polaroid">
+          <button class="ph" id="photoBtn" type="button" aria-label="Mostrar a próxima foto da ${ela}">${PHOTOS.map((p,i)=>`<img src="${p.src}" alt="Foto da ${ela}: ${esc(p.cap.toLowerCase())}"${i===photoIdx?'':' hidden'}>`).join('')}</button>
+          <figcaption id="photoCap">${PHOTOS[photoIdx].cap}</figcaption>
+          <svg class="sticker-sheep" viewBox="-50 -92 100 98" aria-hidden="true">${sheep({who:'ela',pose:'sit',y:2,s:.9,cls:''})}</svg>
+        </figure>
+        <div class="pile-hint" id="photoHint">Toque na foto para trocar · <span id="photoNum">${photoIdx+1}</span>/${PHOTOS.length}</div>
+      </div>
       <div style="display:grid;gap:12px">
         <div class="eyebrow">Sobre o Lã-boratório</div>
         <h2>Feito à mão (e à pata) pela ${ela}</h2>
@@ -1507,7 +1525,7 @@ function renderAbout(){
       <div class="eyebrow">Dedicatória</div>
       <h2>Para o ${ele}</h2>
       <p>Este calendário é dedicado ao ${ele}, que me ensinou a usar o Claude Code <em>apenas para coisas úteis</em>.</p>
-      <p>Prometo que foi útil. Agora a gente sabe quando é Shabat, quando é Tu BeAv e quanto falta de papel higiênico. Um calendário com bobina de Tesla, Jontex dourada na farmácia e placa P0RFAV0R é, cientificamente, a coisa mais útil já feita.</p>
+      <p>Segui o conselho à risca. Só fiz alguns pequenos ajustes no que eu considero útil.</p>
       <p>Obrigada por me apresentar a ferramenta. O que eu fiz com ela agora é responsabilidade sua.</p>
       <div class="sig">Bééé, ${ela}</div>
     </article>
@@ -1523,9 +1541,17 @@ function renderAbout(){
       </dl>
       <p class="fine">Nenhuma ovelha foi deitada durante a produção deste site.</p>
     </article>`;
-  // sem foto publicada, entra o retrato da ovelha bebê
-  const img = $('#aboutPhoto'), fallback = () => { img.parentElement.innerHTML = portrait; };
-  if (img.complete && !img.naturalWidth) fallback(); else img.onerror = fallback;
+  // pilha de polaroids: cada toque traz a próxima foto; sem as fotos, entra o retrato da ovelha bebê
+  const btn = $('#photoBtn'), first = btn.querySelector('img');
+  const fallback = () => { btn.outerHTML = `<div class="ph">${portrait}</div>`; $('#photoCap').textContent = `${s.nameEla}, a desenvolvedora`; $('#photoHint').remove(); };
+  if (first.complete && !first.naturalWidth) return fallback();
+  first.onerror = fallback;
+  btn.onclick = () => {
+    photoIdx = (photoIdx + 1) % PHOTOS.length;
+    btn.querySelectorAll('img').forEach((im,i) => im.hidden = i !== photoIdx);
+    $('#photoCap').textContent = PHOTOS[photoIdx].cap; $('#photoNum').textContent = photoIdx + 1;
+    const fig = btn.closest('.polaroid'); fig.classList.remove('shuffle'); void fig.offsetWidth; fig.classList.add('shuffle');
+  };
 }
 
 /* ---------- navegação ---------- */
