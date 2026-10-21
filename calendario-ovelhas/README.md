@@ -27,3 +27,13 @@ os dois veem as mudanças ao vivo. Para convidar o namorado: menu **Compartilhar
 convite pelo e-mail do Dov como **Editor**, sem link público.
 
 Aberto direto como arquivo local, o app funciona em "modo local" e guarda os dados só no navegador.
+
+## Extensão para o computador
+
+A pasta [`extensao/`](extensao/) tem uma extensão para Chrome e Edge com:
+- o dia de hoje no ícone;
+- um mini-calendário com os feriados;
+- Shabat Shalom na sexta e no sábado;
+- um botão que abre o calendário compartilhado.
+
+Veja como instalar em [`extensao/LEIAME.md`](extensao/LEIAME.md).

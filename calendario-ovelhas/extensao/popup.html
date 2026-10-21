@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Lã-boratório das Ovelhas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Nunito:wght@500;700;800&family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<svg class="chalk" aria-hidden="true" focusable="false">
+  <g fill="#F5F2E8" fill-opacity=".2" font-family="Caveat, cursive" font-size="15">
+    <text x="12" y="40">iħ ∂ψ/∂t = Ĥψ</text><text x="236" y="70">∇·E = ρ/ε₀</text>
+    <text x="196" y="300" transform="rotate(-6 196 300)">E = mc²</text><text x="10" y="420">∮B·dl = μ₀I</text>
+    <text x="232" y="520">e^{iπ} + 1 = 0</text><text x="20" y="610">F = ma</text>
+  </g>
+</svg>
+<main>
+  <header class="top">
+    <svg id="flock" viewBox="-66 -64 132 70" aria-hidden="true"></svg>
+    <div><h1>Lã-boratório</h1><small>Viviane &amp; Dov</small></div>
+  </header>
+
+  <section class="card today" aria-live="polite">
+    <div id="dayScene"></div>
+    <div class="day-head">
+      <div class="big" id="dayNum"></div>
+      <div><strong id="dayName"></strong><small id="dayHeb"></small></div>
+    </div>
+    <div id="dayHol" class="chips"></div>
+  </section>
+
+  <section class="card month">
+    <div class="month-head">
+      <button class="nav" id="prev" aria-label="Mês anterior">‹</button>
+      <h2 id="monthTitle"></h2>
+      <button class="nav" id="next" aria-label="Próximo mês">›</button>
+    </div>
+    <div class="grid" id="grid" role="grid"></div>
+    <div class="legend"><span><i class="br"></i>Brasil</span><span><i class="jew"></i>Judaico</span><span><i class="love"></i>Amor</span></div>
+  </section>
+
+  <section class="card soon">
+    <h3>Próximos feriados</h3>
+    <ul id="soon"></ul>
+  </section>
+
+  <div class="actions">
+    <button class="primary" id="open">Abrir nosso calendário</button>
+    <button class="ghost" id="openWin">Abrir em janela</button>
+  </div>
+</main>
+<script src="core.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
